@@ -1,0 +1,32 @@
+@use '../mixins/responsive.scss' as *;
+.header{
+    padding: 20px;
+}
+.menu{
+    width: 100%;
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .menu__item{
+    padding: 10px;
+    color: white;
+    font-size: 0.8rem;
+    @include responsive (tablet){
+        font-size: 1.1rem;
+    }
+    @include responsive (desktop){
+        font-size: 1.2rem;
+    }
+  }
+  
+  .menu__logo{
+    width: 35%;
+  }
+  
+  
