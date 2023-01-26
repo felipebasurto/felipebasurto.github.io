@@ -4,7 +4,7 @@
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
-html {
+ html {
   line-height: 1.15;
   /* 1 */
   -webkit-text-size-adjust: 100%;
@@ -456,13 +456,13 @@ body {
 }
 
 .skills-cloud {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 0fr));
-  grid-gap: 20px;
-  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
   align-items: center;
-  width: 70%;
+  width: 85%;
   margin: 0 auto;
+  gap: 15px;
 }
 @media screen and (min-width: 1140px) {
   .skills-cloud {
@@ -473,6 +473,8 @@ body {
 }
 
 .skill-card {
+  width: 150px;
+  height: 100px;
   background-color: rgba(56, 56, 56, 0.8);
   border-radius: 5px;
   padding: 10px;
@@ -499,7 +501,7 @@ body {
 
 .skill-card--big {
   font-size: 0.8rem;
-  display: none;
+  align-items: center;
 }
 @media screen and (min-width: 1140px) {
   .skill-card--big {
@@ -589,13 +591,14 @@ body {
 
 .menu {
   width: 100%;
-  list-style: none;
-  padding-left: 0;
-  margin-top: 0;
-  margin-bottom: 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+}
+@media screen and (min-width: 1140px) {
+  .menu {
+    gap: 50px;
+  }
 }
 
 .menu__item {
