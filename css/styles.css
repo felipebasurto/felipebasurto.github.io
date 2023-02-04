@@ -573,7 +573,7 @@ body {
   }
 }
 
-.project-1, .project-2, .project-3, .project-4 {
+.project-1, .project-2, .project-3, .project-4, .project-5, .project-6 {
   width: 60%;
   background-color: rgba(56, 56, 56, 0.8);
   border-radius: 10px;
@@ -581,7 +581,7 @@ body {
   transition: background-color 0.2s ease-in-out;
 }
 
-.project-1:hover, .project-2:hover, .project-3:hover, .project-4:hover {
+.project-1:hover, .project-2:hover, .project-3:hover, .project-4:hover, .project-5:hover, .project-6:hover {
   background-color: rgba(72, 63, 236, 0.8);
 }
 
