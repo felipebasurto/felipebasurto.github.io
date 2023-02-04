@@ -557,24 +557,26 @@ body {
 }
 
 .projects-container {
-  width: 80%;
+  width: 70%;
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
   display: flex;
   flex-direction: column;
   gap: 30px;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
 @media screen and (min-width: 1140px) {
   .projects-container {
     flex-direction: row;
+    width: 62%;
   }
 }
 
 .project-1, .project-2, .project-3, .project-4, .project-5, .project-6 {
-  width: 60%;
+  width: 30%;
   background-color: rgba(56, 56, 56, 0.8);
   border-radius: 10px;
   padding: 10px;
