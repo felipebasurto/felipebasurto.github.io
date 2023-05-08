@@ -580,23 +580,23 @@ body {
   }}
 
 
-.project-1, .project-2, .project-3, .project-4, .project-5, .project-6 {
+.project-1, .project-2, .project-3, .project-4, .project-5, .project-6, .project-7, .project-8, .project-9, .project-10 {
   width: 80%;
   background-color: rgba(56, 56, 56, 0.8);
   border-radius: 10px;
   padding: 10px;
   transition: background-color 0.2s ease-in-out;}
   @media screen and (min-width: 640px) {
-  .project-1, .project-2, .project-3, .project-4, .project-5, .project-6 {
+  .project-1, .project-2, .project-3, .project-4, .project-5, .project-6, .project-7, .project-8, .project-9, .project-10 {
    width: 30%;
   }}
 @media screen and (min-width:1440px) {
-  .project-1, .project-2, .project-3, .project-4, .project-5, .project-6 {
+  .project-1, .project-2, .project-3, .project-4, .project-5, .project-6, .project-7, .project-8, .project-9, .project-10 {
     width: 30%;
   }}
 
 
-.project-1:hover, .project-2:hover, .project-3:hover, .project-4:hover, .project-5:hover, .project-6:hover {
+.project-1:hover, .project-2:hover, .project-3:hover, .project-4:hover, .project-5:hover, .project-6:hover, .project-7:hover,.project-8:hover, .project-9:hover, .project-10:hover {
   background-color: rgba(72, 63, 236, 0.8);
 }
 
