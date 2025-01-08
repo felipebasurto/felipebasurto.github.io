@@ -1,174 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
+      <!-- Security -->
+      <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline'">
+      <meta http-equiv="X-Content-Type-Options" content="nosniff">
+      <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+      
+      <!-- Basic -->
       <link rel="icon" type="image/x-icon" href="/assets/icon.png">
       <meta charset="UTF-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      
+      <!-- Cache Control -->
+      <meta http-equiv="Cache-Control" content="max-age=31536000">
+      
+      <!-- Primary Meta Tags -->
+      <meta name="title" content="Felipe Basurto - Data Scientist & ML Engineer">
+      <meta name="description" content="Junior Data Scientist II at Aily Labs, specializing in NLP and Machine Learning. Master's in Business Analytics and Big Data from IE. Experienced in AI solutions and Computer Vision.">
+      <meta name="keywords" content="Data Scientist, Machine Learning Engineer, NLP, AI, Deep Learning, Computer Vision, Python, Madrid, Aily Labs, Natural Language Processing, Business Intelligence">
+      <meta name="author" content="Felipe Basurto">
+      <meta name="robots" content="index, follow">
+      <meta name="language" content="English">
+      <meta name="revisit-after" content="7 days">
+      <meta name="theme-color" content="#483FEC">
+      
+      <!-- Open Graph / Facebook -->
+      <meta property="og:type" content="website">
+      <meta property="og:url" content="https://felipebasurto.github.io/">
+      <meta property="og:title" content="Felipe Basurto - Data Scientist & ML Engineer">
+      <meta property="og:description" content="Junior Data Scientist II at Aily Labs, specializing in NLP and Machine Learning. Creating AI-powered solutions for business intelligence.">
+      <meta property="og:image" content="/assets/fotofelipe3.jpg">
+      
+      <!-- Twitter -->
+      <meta property="twitter:card" content="summary_large_image">
+      <meta property="twitter:url" content="https://felipebasurto.github.io/">
+      <meta property="twitter:title" content="Felipe Basurto - Data Scientist & ML Engineer">
+      <meta property="twitter:description" content="Junior Data Scientist II at Aily Labs, specializing in NLP and Machine Learning. Creating AI-powered solutions for business intelligence.">
+      <meta property="twitter:image" content="/assets/fotofelipe3.jpg">
+      
+      <!-- Preload critical assets -->
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link rel="preconnect" href="https://kit.fontawesome.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-      <!-- CAMBIAR POR styles.min.css al finalizar el proyecto -->
       <link rel="stylesheet" href="css/styles.css" />
-      <title>Hi! Im Felipe</title>
+      
+      <!-- DNS Prefetch -->
+      <link rel="dns-prefetch" href="https://github.com">
+      <link rel="dns-prefetch" href="https://linkedin.com">
+      <link rel="dns-prefetch" href="https://twitter.com">
+      
+      <title>Felipe Basurto - Data Scientist & ML Engineer</title>
    </head>
    <body>
-      <header class="header">
-         <nav>
+      <!-- Skip to main content link for accessibility -->
+      <a href="#main" class="skip-link">Skip to main content</a>
+      
+      <header class="header" role="banner">
+         <nav role="navigation" aria-label="Main navigation">
             <ul class="menu">
-               <li class="menu__item"><a class="menu__link" href="#home">home</a></li>
-               <li class="menu__item"><a class="menu__link" href="#projects">projects</a></li>
-               <img src="assets/logo.png" alt="Logo" id="logo" class="menu__logo">
-               <li class="menu__item"><a clas="menu__link" href="#experience">experience</a></li>
-               <li class="menu__item"><a class="menu__link" href="#contact">contact</a></li>
+               <li class="menu__item"><a class="menu__link" href="#home">Home</a></li>
+               <li class="menu__item"><a class="menu__link" href="#projects">Projects</a></li>
+               <img src="assets/logo.png" alt="Felipe Basurto Logo" id="logo" class="menu__logo">
+               <li class="menu__item"><a class="menu__link" href="#experience">Experience</a></li>
+               <li class="menu__item"><a class="menu__link" href="#contact">Contact</a></li>
             </ul>
          </nav>
       </header>
       <br><br>
-      <main class="main">
+      <main class="main" id="main" role="main">
          <section id="home">
             <div class="home-box">
                <div class="home_text_container">
                   <img src="assets/fotofelipe3.jpg" alt="Felipe's profile picture" class="home__photo">
                   <h2 class="my_name">Felipe Basurto</h2>
                   <div class="icon-containers">
-                     <a href="https://github.com/felipebasurto" target="_blank">
+                     <a href="https://github.com/felipebasurto" target="_blank" rel="noopener noreferrer" aria-label="Visit my GitHub profile">
                      <i class="fa-brands fa-square-github icon__links"></i>
                      </a>
-                     <a href="https://www.linkedin.com/in/felipe-basurto-barrio/" target="_blank">
+                     <a href="https://www.linkedin.com/in/felipe-basurto-barrio/" target="_blank" rel="noopener noreferrer" aria-label="Connect with me on LinkedIn">
                      <i class="fa-brands fa-linkedin  icon__links" ></i>
                      </a>
-                     <a href="https://twitter.com/BasurtoBarrio" target="_blank">
+                     <a href="https://twitter.com/BasurtoBarrio" target="_blank" rel="noopener noreferrer" aria-label="Follow me on Twitter">
                      <i class="fa-brands fa-square-twitter  icon__links"></i>
                      </a>
                   </div>
                </div>
                <br><br>
-               <p class="home__text">My name is Felipe and I am a <b>Computer science engineer</b> and <b>Data Scientist</b> from Burgos, Spain.<br>
-                  I am currently pursuing a masters degree in <b>Big Data and AI</b>, which i am really passionate about.<br>
-                  When i'm not making music with my band, playing sports or meeting my friends, i love to create some personal projects about things that i find interesting.
+               <p class="home__text">Currently a <b>Junior Data Scientist II</b> at <b>Aily Labs</b>, where I develop AI-powered solutions for business decision intelligence using NLP and machine learning. I recently completed my <b>Master's in Business Analytics and Big Data</b> from IE School of Science and Technology, where I won first place in both the IE Sustainability Datathon and Impact Project.<br>
+                  Previously, I worked on Computer Vision at FITIZENS and hold a Computer Science Engineering degree from Universidad de Burgos.<br>
+                  Outside of tech, I enjoy making music with my band and playing sports.
                </p>
                <br><br>
             </div>
          </section>
          <br><br>
-         <article>
-            <h2 class="home__title">My skills</h2>
-            <div class="skills-cloud">
-               <div class="skill-card">
-                  <img src="assets/python.png" alt="Python">
-                  <p>Python</p>
-               </div>
-               <div class="skill-card">
-                  <img src="assets/sql.png" alt="SQL">
-                  <p>SQL</p>
-               </div>
-               <div class="skill-card">
-                  <img src="assets/hadoop.png" alt="Hadoop">
-                  <p>Hadoop</p>
-               </div>
-               <div class="skill-card">
-                  <img src="assets/spark.png" alt="Spark">
-                  <p>Spark</p>
-               </div>
-               <div class="skill-card">
-                  <img src="assets/kafka.png" alt="Kafka">
-                  <p>Kafka</p>
-               </div>
-               <div class="skill-card">
-                  <img src="assets/nifi.png" alt="Nifi">
-                  <p>Nifi</p>
-               </div>
-               <div class="skill-card">
-                  <img src="assets/ml.png" alt="Machine Learning">
-                  <p>ML</p>
-               </div>
-               <div class="skill-card">
-                  <img src="assets/aws.png" alt="Amazon Web Services">
-                  <p>AWS</p>
-               </div>
-               <div class="skill-card">
-                  <img src="assets/looker.png" alt="Looker">
-                  <p>Looker</p>
-               </div>
-               <div class="skill-card">
-                  <img src="assets/powerbi.png" alt="PowerBI">
-                  <p>PowerBI</p>
-               </div>
-               <div class="skill-card">
-                  <img src="assets/c.png" alt="C">
-                  <p>C</p>
-               </div>
-               <div class="skill-card">
-                  <img src="assets/java.png" alt="Java">
-                  <p>Java</p>
-               </div>
-               <div class="skill-card">
-                  <img src="assets/html.png" alt="HTML">
-                  <p>HTML</p>
-               </div>
-               <div class="skill-card">
-                  <img src="assets/css.png" alt="CSS">
-                  <p>CSS</p>
-               </div>
-               <div class="skill-card skill-card--big">
-                  <img src="assets/js.png" alt="Javascript">
-                  <p>Javascript</p>
-               </div>
-            </div>
-         </article>
-         <br><br><br>
          <article id="projects">
             <h2 class="home__title">Personal projects</h2>
             <div class="projects-container">
                <div class="project-3">
-                  <a href="https://github.com/felipebasurto/data-pipeline-tfl-api" target="_blank">
-                  <img src="assets/project3.jpg">
+                  <a href="https://github.com/felipebasurto/data-pipeline-tfl-api" target="_blank" rel="noopener noreferrer" aria-label="TfL Data Pipeline Project">
+                     <img src="assets/project3.jpg" alt="TfL Data Pipeline - Real-time transport data processing project">
                   </a>
                </div>
                <div class="project-4">
-                  <a href="https://github.com/felipebasurto/titanic-dataset-analysis" target="_blank">
-                  <img src="assets/project4.jpg">
+                  <a href="https://github.com/felipebasurto/titanic-dataset-analysis" target="_blank" rel="noopener noreferrer" aria-label="Titanic Dataset Analysis Project">
+                     <img src="assets/project4.jpg" alt="Titanic Dataset Analysis - Machine learning classification project">
                   </a>
                </div>
                <div class="project-6">
-                  <a href="https://github.com/felipebasurto/perceptron-with-svms" target="_blank">
-                  <img src="assets/project6.jpg">
+                  <a href="https://github.com/felipebasurto/perceptron-with-svms" target="_blank" rel="noopener noreferrer" aria-label="Perceptron and SVM Project">
+                     <img src="assets/project6.jpg" alt="Advanced Machine Learning Models - Perceptron and SVM implementation">
                   </a>
                </div>
                <div class="project-7">
-                  <a href="https://github.com/felipebasurto/employee-attrition-predictor" target="_blank">
-                  <img src="assets/project7.jpg">
+                  <a href="https://github.com/felipebasurto/employee-attrition-predictor" target="_blank" rel="noopener noreferrer" aria-label="Employee Attrition Predictor Project">
+                     <img src="assets/project7.jpg" alt="Employee Attrition Predictor - HR analytics machine learning project">
                   </a>
                </div>
                <div class="project-2">
-                  <a href="https://github.com/felipebasurto/Machine-Learning-in-FIFA-Ultimate-Team-22" target="_blank">
-                  <img src="assets/project2.jpg">
+                  <a href="https://github.com/felipebasurto/Machine-Learning-in-FIFA-Ultimate-Team-22" target="_blank" rel="noopener noreferrer" aria-label="FIFA Ultimate Team ML Project">
+                     <img src="assets/project2.jpg" alt="FIFA Ultimate Team Machine Learning Analysis">
                   </a>
                </div>
                <div class="project-8">
-                  <a href="https://github.com/felipebasurto/rental-bikes-interactive-machine-learning-dashboard" target="_blank">
-                  <img src="assets/project8.jpg">
+                  <a href="https://github.com/felipebasurto/rental-bikes-interactive-machine-learning-dashboard" target="_blank" rel="noopener noreferrer" aria-label="Rental Bikes ML Dashboard Project">
+                     <img src="assets/project8.jpg" alt="Interactive ML Dashboard for Bike Rental Prediction">
                   </a>
                </div>
                <div class="project-5">
-                  <a href="https://github.com/felipebasurto/tokio2021-exploratory-data-analysis" target="_blank">
-                  <img src="assets/project5.jpg">
+                  <a href="https://github.com/felipebasurto/tokio2021-exploratory-data-analysis" target="_blank" rel="noopener noreferrer" aria-label="Tokyo 2021 Data Analysis Project">
+                     <img src="assets/project5.jpg" alt="Tokyo 2021 Olympics Exploratory Data Analysis">
                   </a>
                </div>
                <div class="project-9">
-                  <a href="https://github.com/felipebasurto/uber-interactive-data-dashboard" target="_blank">
-                  <img src="assets/project9.jpg">
+                  <a href="https://github.com/felipebasurto/uber-interactive-data-dashboard" target="_blank" rel="noopener noreferrer" aria-label="Uber Data Dashboard Project">
+                     <img src="assets/project9.jpg" alt="Uber Interactive Data Dashboard - Ride patterns analysis">
                   </a>
                </div>
                <div class="project-10">
-                  <a href="https://github.com/felipebasurto/video-and-image-processing-with-MATLAB" target="_blank">
-                  <img src="assets/project10.jpg">
+                  <a href="https://github.com/felipebasurto/video-and-image-processing-with-MATLAB" target="_blank" rel="noopener noreferrer" aria-label="MATLAB Image Processing Project">
+                     <img src="assets/project10.jpg" alt="Video and Image Processing with MATLAB">
                   </a>
                </div>
                <div class="project-1">
-                  <a href="https://github.com/felipebasurto/image-processing-with-scikit-image" target="_blank">
-                  <img src="assets/project1.jpg">
+                  <a href="https://github.com/felipebasurto/image-processing-with-scikit-image" target="_blank" rel="noopener noreferrer" aria-label="Scikit-image Processing Project">
+                     <img src="assets/project1.jpg" alt="Image Processing with scikit-image library">
                   </a>
                </div>
             </div>
@@ -184,41 +162,8 @@
                         <div class="timeline-blank"></div>
                         <div class="timeline-text d-flex-2">
                            <span>
-                              <h6>2017</h6>
-                              — I join <b>Universidad de Burgos</b> as a <b>Computer Science Engineering</b> student.
-                           </span>
-                           <div class="t-square"></div>
-                        </div>
-                     </div>
-                     <!--SINGLE TIMELINE-->
-                     <div class="single-timeline d-flex-2">
-                        <div class="timeline-blank"></div>
-                        <div class="timeline-text d-flex-2">
-                           <span>
-                              <h6>2019-2020</h6>
-                              — My <b>Erasmus+</b> international program starts, had an amazing time in Wrocław, Poland.
-                           </span>
-                           <div class="t-square"></div>
-                        </div>
-                     </div>
-                     <!--SINGLE TIMELINE-->
-                     <div class="single-timeline d-flex-2">
-                        <div class="timeline-blank"></div>
-                        <div class="timeline-text d-flex-2">
-                           <span>
-                              <h6>2021</h6>
-                              — I decide to conclude my period as a university student in Madrid, thanks to the <b>SICUE</b> program. Simultaneously, I start my internship at <b>Accenture</b> as a salesforce developer.
-                           </span>
-                           <div class="t-square"></div>
-                        </div>
-                     </div>
-                     <!--SINGLE TIMELINE-->
-                     <div class="single-timeline d-flex-2">
-                        <div class="timeline-blank"></div>
-                        <div class="timeline-text d-flex-2">
-                           <span>
-                              <h6>2022</h6>
-                              — My time working at <b>Accenture</b> comes to an end. I decide to start a master's degree in <b>Big data and Business Analytics</b> at <b>IE University</b>, one of the best schools in Spain.
+                              <h6>2024</h6>
+                              Promoted to <b>Junior Data Scientist II</b> at <b>Aily Labs</b>, continuing to develop state-of-the-art AI solutions.
                            </span>
                            <div class="t-square"></div>
                         </div>
@@ -229,7 +174,40 @@
                         <div class="timeline-text d-flex-2">
                            <span>
                               <h6>2023</h6>
-                              — While pursuing my Master's degree, I won the <b>IE Sustainability Datathon</b>, sponsored by NTT Data and o9 Solutions, and began interning at FITIZENS, a cutting-edge AI startup in the fitness industry.
+                              Joined <b>Aily Labs</b> as Junior Data Scientist I, focusing on NLP and machine learning solutions. Previously completed an internship at <b>FITIZENS</b> working on Computer Vision and Human Pose Estimation.
+                           </span>
+                           <div class="t-square"></div>
+                        </div>
+                     </div>
+                     <!--SINGLE TIMELINE-->
+                     <div class="single-timeline d-flex-2">
+                        <div class="timeline-blank"></div>
+                        <div class="timeline-text d-flex-2">
+                           <span>
+                              <h6>2022-2023</h6>
+                              Completed my <b>Master's in Business Analytics and Big Data</b> at <b>IE School of Science and Technology</b>. Won first place in both the IE Sustainability Datathon and Impact Project.
+                           </span>
+                           <div class="t-square"></div>
+                        </div>
+                     </div>
+                     <!--SINGLE TIMELINE-->
+                     <div class="single-timeline d-flex-2">
+                        <div class="timeline-blank"></div>
+                        <div class="timeline-text d-flex-2">
+                           <span>
+                              <h6>2021-2022</h6>
+                              Worked at <b>Accenture</b> as a Salesforce developer, focusing on the energy sector and developing proficiency in Java, SQL, HTML, Javascript, and CSS.
+                           </span>
+                           <div class="t-square"></div>
+                        </div>
+                     </div>
+                     <!--SINGLE TIMELINE-->
+                     <div class="single-timeline d-flex-2">
+                        <div class="timeline-blank"></div>
+                        <div class="timeline-text d-flex-2">
+                           <span>
+                              <h6>2017-2022</h6>
+                              Completed my <b>Computer Science Engineering</b> degree at <b>Universidad de Burgos</b>, including international experiences through Erasmus+ in Wrocław, Poland.
                            </span>
                            <div class="t-square"></div>
                         </div>
@@ -260,6 +238,61 @@
          <br><br><br><br><br><br>
       </main>
       <footer class="footer"></footer>
+      <script src="https://kit.fontawesome.com/a87daaf01d.js" crossorigin="anonymous"></script>
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Felipe Basurto",
+        "jobTitle": "Junior Data Scientist II",
+        "description": "Data Scientist specializing in Natural Language Processing (NLP) and Machine Learning",
+        "image": "/assets/fotofelipe3.jpg",
+        "url": "https://felipebasurto.github.io",
+        "sameAs": [
+          "https://github.com/felipebasurto",
+          "https://www.linkedin.com/in/felipe-basurto-barrio/",
+          "https://twitter.com/BasurtoBarrio"
+        ],
+        "alumniOf": [
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "IE School of Science and Technology",
+            "degree": "Master in Business Analytics and Big Data"
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "Universidad de Burgos",
+            "degree": "Computer Science Engineering"
+          }
+        ],
+        "knowsAbout": [
+          "Natural Language Processing (NLP)",
+          "Machine Learning",
+          "Deep Learning",
+          "Computer Vision",
+          "Python Programming",
+          "Data Science",
+          "Artificial Intelligence",
+          "Business Intelligence",
+          "Big Data Analytics"
+        ],
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Aily Labs",
+          "location": {
+            "@type": "Place",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Madrid",
+              "addressCountry": "Spain"
+            }
+          }
+        },
+        "award": [
+          "First Place - IE Sustainability Datathon",
+          "First Place - IE Impact Project"
+        ]
+      }
+      </script>
    </body>
-   <script src="https://kit.fontawesome.com/a87daaf01d.js" crossorigin="anonymous"></script>
 </html>

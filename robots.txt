@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://felipebasurto.github.io/sitemap.xml 

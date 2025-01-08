@@ -1,3 +1,88 @@
+:root {
+  /* Colors */
+  --primary-color: rgb(99, 102, 241);  /* Lighter indigo blue */
+  --primary-color-transparent: rgba(99, 102, 241, 0.8);
+  --primary-color-light: rgba(99, 102, 241, 0.2);
+  --secondary-color: #6c757d;
+  --background-color: rgb(43, 42, 42);
+  --text-color: white;
+  --link-color: var(--primary-color);
+  --hover-color: var(--primary-color);
+  
+  /* Typography */
+  --font-family: 'Montserrat', sans-serif;
+  --font-size-base: 16px;
+  --font-size-h1: 2.5rem;
+  --font-size-h2: 2rem;
+  --font-size-h3: 1.75rem;
+  
+  /* Spacing */
+  --spacing-small: 0.5rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 2rem;
+  
+  /* Transitions */
+  --transition-speed: 0.3s;
+}
+
+/* Accessibility: Skip Link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary-color);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top var(--transition-speed);
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Focus styles for better accessibility */
+a:focus,
+button:focus {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Ensure sufficient color contrast */
+.menu__link {
+  color: white;
+  transition: color var(--transition-speed);
+}
+
+.menu__link:hover,
+.menu__link:focus {
+  color: var(--primary-color);
+}
+
+/* Add smooth scrolling for better UX */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Improve touch targets for mobile */
+@media (max-width: 768px) {
+  .menu__link,
+  .icon__links,
+  .icon__links_2 {
+    padding: var(--spacing-medium);
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Add loading="lazy" to images via CSS */
+img {
+  loading: lazy;
+}
+
 /* Document
    ========================================================================== */
 /**
@@ -432,7 +517,22 @@ body {
   margin-left: auto;
   margin-right: auto;
   border-radius: 15px;
+  padding: 4px;
+  background: linear-gradient(45deg, 
+    rgba(99, 102, 241, 0.9),    /* Vibrant blue */
+    rgb(147, 149, 255),   /* Lighter blue */
+    rgba(199, 200, 255, 0.94),   /* Very light blue */
+    rgba(255, 255, 255, 0.855)    /* Pure white with slight opacity */
+  );
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
+
+.home__photo:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
 @media screen and (min-width: 1140px) {
   .home__photo {
     width: 270px;
@@ -455,58 +555,14 @@ body {
   }
 }
 
-.skills-cloud {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-  width: 85%;
-  margin: 0 auto;
-  gap: 15px;
-}
-@media screen and (min-width: 1140px) {
-  .skills-cloud {
-    width: 60%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  }
-}
-
-.skill-card {
-  width: 150px;
-  height: 100px;
-  background-color: rgba(56, 56, 56, 0.8);
-  border-radius: 5px;
-  padding: 10px;
-  text-align: center;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  color: rgb(255, 255, 255);
-  transition: background-color 0.2s ease-in-out;
-}
-
-.skill-card img {
-  width: 50px;
-  height: 50px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-right: 10px;
-}
-
-.skill-card:hover {
-  background-color: rgba(72, 63, 236, 0.8);
-}
-
+/* Remove skills-related styles */
+.skills-cloud,
+.skill-card,
+.skill-card img,
+.skill-card:hover,
 .skill-card--big {
-  font-size: 0.8rem;
-  align-items: center;
-}
-@media screen and (min-width: 1140px) {
-  .skill-card--big {
-    display: flex;
-  }
+  /* These styles will be removed */
+  display: none;
 }
 
 .icon-containers {
@@ -568,36 +624,43 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 @media screen and (min-width: 640px) {
   .projects-container {
     flex-direction: row;
     width: 80%;
-  }}
+  }
+}
+
 @media screen and (min-width: 1140px) {
   .projects-container {
     flex-direction: row;
     width: 70%;
-  }}
-
+  }
+}
 
 .project-1, .project-2, .project-3, .project-4, .project-5, .project-6, .project-7, .project-8, .project-9, .project-10 {
   width: 80%;
   background-color: rgba(56, 56, 56, 0.8);
   border-radius: 10px;
   padding: 10px;
-  transition: background-color 0.2s ease-in-out;}
-  @media screen and (min-width: 640px) {
+  transition: background-color 0.2s ease-in-out;
+}
+
+@media screen and (min-width: 640px) {
   .project-1, .project-2, .project-3, .project-4, .project-5, .project-6, .project-7, .project-8, .project-9, .project-10 {
-   width: 30%;
-  }}
+    width: 30%;
+  }
+}
+
 @media screen and (min-width:1440px) {
   .project-1, .project-2, .project-3, .project-4, .project-5, .project-6, .project-7, .project-8, .project-9, .project-10 {
     width: 30%;
-  }}
-
+  }
+}
 
 .project-1:hover, .project-2:hover, .project-3:hover, .project-4:hover, .project-5:hover, .project-6:hover, .project-7:hover,.project-8:hover, .project-9:hover, .project-10:hover {
-  background-color: rgba(72, 63, 236, 0.8);
+  background-color: var(--primary-color-transparent);
 }
 
 .header {
@@ -698,34 +761,30 @@ p {
 }
 
 .timeline-area {
-  padding: 80px 0;
+  padding: 40px 0;
+  position: relative;
 }
 
 .all-timelines {
   position: relative;
-}
-
-.timelines h2 {
-  text-align: center;
-  color: #fff;
-  font-weight: 600;
-  margin-bottom: 40px;
+  padding: 0 20px;
 }
 
 .all-timelines::before {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  margin: auto;
+  left: 50%;
+  transform: translateX(-50%);
   height: 100%;
   width: 2px;
-  background: rgb(72, 63, 236);
-  top: 20px;
+  background: var(--primary-color);
 }
 
 .single-timeline {
-  margin-bottom: 22px;
+  margin-bottom: 40px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
 }
 
 .timeline-blank {
@@ -734,82 +793,81 @@ p {
 
 .timeline-text {
   width: 50%;
-  padding-left: 30px;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+  padding: 20px;
+  background: rgba(56, 56, 56, 0.8);
+  border-radius: 10px;
   position: relative;
+  transition: all 0.3s ease;
+}
+
+.timeline-text:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 .timeline-text h6 {
-  color: #f0f1f2;
-  font-weight: 900;
-  display: inline-block;
-  font-size: 1rem;
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  margin-bottom: 10px;
 }
 
 .timeline-text span {
-  color: #f0f1f2;
-  display: block;
-  width: 100%;
-}
-
-.single-timeline:nth-child(even) .timeline-text span {
-  text-align: right;
+  color: white;
+  line-height: 1.6;
 }
 
 .t-square {
-  content: "";
+  width: 16px;
+  height: 16px;
+  background: var(--primary-color);
   position: absolute;
-  width: 12px;
-  height: 12px;
-  left: -6px;
-  background: rgb(72, 63, 236);
+  left: -48px;
+  top: 30px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px var(--primary-color-light);
 }
 
 .single-timeline:nth-child(even) {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: reverse;
-  -ms-flex-direction: row-reverse;
   flex-direction: row-reverse;
 }
 
 .single-timeline:nth-child(even) .t-square {
-  right: -6px;
-  left: unset;
+  right: -48px;
+  left: auto;
 }
 
 .single-timeline:nth-child(even) .timeline-text {
-  padding-left: 0;
-  padding-right: 30px;
   text-align: right;
 }
 
-@media all and (max-width: 768px) {
+@media (max-width: 768px) {
   .all-timelines::before {
-    right: unset;
-    top: 0;
+    left: 20px;
   }
-  .single-timeline:nth-child(2n) .timeline-text {
-    padding-left: 30px;
-    padding-right: 0;
-    text-align: left;
-  }
-  .single-timeline:nth-child(2n) .t-square {
-    left: -6px;
-    right: unset;
-  }
+  
   .timeline-blank {
     display: none;
   }
+  
   .timeline-text {
-    width: 100%;
+    width: calc(100% - 50px);
+    margin-left: 50px;
   }
-  .single-timeline:nth-child(even) .timeline-text span {
-    text-align: left !important;
+  
+  .t-square {
+    left: -30px;
   }
-}
-@media all and (max-width: 360px) {
-  .all-timelines::before {
-    top: 32px;
+  
+  .single-timeline:nth-child(even) {
+    flex-direction: row;
+  }
+  
+  .single-timeline:nth-child(even) .timeline-text {
+    text-align: left;
+  }
+  
+  .single-timeline:nth-child(even) .t-square {
+    left: -30px;
+    right: auto;
   }
 }
