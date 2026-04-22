@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+
+  <link rel="icon" type="image/png" href="{{REL_PREFIX}}assets/icon.png" />
+  <link rel="canonical" href="{{CANONICAL}}" />
+
+  <meta name="title" content="{{TITLE}}" />
+  <meta name="description" content="{{DESCRIPTION}}" />
+  <meta name="author" content="Felipe Basurto" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0a0c" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{OG_URL}}" />
+  <meta property="og:title" content="{{TITLE}}" />
+  <meta property="og:description" content="{{DESCRIPTION}}" />
+  <meta property="og:image" content="{{OG_IMAGE}}" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="{{OG_URL}}" />
+  <meta name="twitter:title" content="{{TITLE}}" />
+  <meta name="twitter:description" content="{{DESCRIPTION}}" />
+  <meta name="twitter:image" content="{{OG_IMAGE}}" />
+
+  <title>{{TITLE}}</title>
+  <link rel="stylesheet" href="{{REL_PREFIX}}css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="doc{{DOC_CLASS}}">
+    <header class="doc__hint" aria-hidden="true">{{HEADER_HINT}}</header>
+    <main id="main" class="doc__main" role="main">
+      <article class="md-doc{{ARTICLE_CLASS}}">
+{{BODY}}
+      </article>
+    </main>
+  </div>
+  <script type="application/ld+json">{{JSON_LD}}</script>
+</body>
+</html>

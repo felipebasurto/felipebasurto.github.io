@@ -7,49 +7,59 @@ Welcome to my personal portfolio website repository! This site showcases my prof
 
 ## 🌐 Live Website
 
-Visit my portfolio at: [felipebasurto.github.io](https://felipebasurto.github.io)
+Visit the site at [felipebasurto.com](https://felipebasurto.com) (GitHub Pages).
 
 ## 🛠️ Built With
 
-- HTML5
-- CSS3
-- JavaScript
-- FontAwesome Icons
-- Google Fonts (Montserrat)
+- Markdown source (`content/cv.md`)
+- Node + [marked](https://marked.js.org/) build step
+- Static HTML + CSS (terminal / raw-markdown look)
 
 ## ✨ Features
 
-- Responsive design for all device sizes
-- Semantic HTML for better accessibility
-- Modern CSS with Flexbox layouts
-- Project showcase with GitHub links
-- Professional timeline
-- Social media integration
-- Contact information
-- SEO optimized with meta tags
-- Performance optimized with resource preloading
+- Single source of truth: edit `content/cv.md`, run `npm run build`
+- Raw-markdown-style links and visible `##` headings in the UI
+- Dark terminal layout with a very subtle navy tint
+- GitHub Actions workflow publishes the `_site/` output to Pages
 
 ## 🏗️ Project Structure
 
 ```
-felipebasurto.github.io/
-├── index.html          # Main HTML file
-├── css/
-│   └── styles.css      # Stylesheet
-├── js/
-│   └── scripts.js      # JavaScript functionality
-└── assets/            # Images and other media
+├── content/cv.md       # Portfolio copy (edit this)
+├── scripts/
+│   ├── build.mjs       # Markdown → HTML
+│   └── template.html   # HTML shell
+├── css/styles.css
+├── assets/
+├── index.html          # Generated (also written for branch deploys)
+└── _site/              # Generated publish folder (gitignored)
 ```
 
 ## 🚀 Getting Started
 
-To run this project locally:
+1. Clone the repository and install dependencies:
 
-1. Clone the repository:
    ```bash
    git clone https://github.com/felipebasurto/felipebasurto.github.io.git
+   cd felipebasurto.github.io
+   npm install
    ```
-2. Open `index.html` in your preferred browser
+
+2. Edit `content/cv.md`, then build:
+
+   ```bash
+   npm run build
+   ```
+
+3. Preview locally (paths are root-absolute, so use a static server):
+
+   ```bash
+   python3 -m http.server 8080
+   ```
+
+   Open `http://localhost:8080`.
+
+**GitHub Pages:** either commit the generated `index.html` and deploy from the `main` branch root, or enable **Actions** as the Pages source and use `.github/workflows/pages.yml` (build runs on every push to `main`).
 
 ## 📝 Custom Domain Setup
 

@@ -1,0 +1,23 @@
+{
+  "name": "felipebasurto.com",
+  "version": "1.0.0",
+  "description": "[![Website](https://img.shields.io/website?url=https%3A%2F%2Ffelipebasurto.github.io)](https://felipebasurto.github.io) [![GitHub last commit](https://img.shields.io/github/last-commit/felipebasurto/felipebasurto.github.io)](https://github.com/felipebasurto/felipebasurto.github.io/commits/main)",
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felipebasurto/felipebasurto.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/felipebasurto/felipebasurto.github.io/issues"
+  },
+  "homepage": "https://github.com/felipebasurto/felipebasurto.github.io#readme",
+  "devDependencies": {
+    "marked": "^12.0.2"
+  }
+}
