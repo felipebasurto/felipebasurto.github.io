@@ -1,6 +1,6 @@
 ---
 title: "HabitDex — Felipe Basurto"
-description: "iOS habit tracker with Miguel on design — creatures, XP, streaks, local-first privacy, optional iCloud, and HabitDex PRO."
+description: "HabitDex — hobby iOS habit tracker with Miguel Ferrer on design. Personal side project, App Store."
 og_image: "/assets/experience/habitdex/habitdex-icon.webp"
 ---
 
@@ -12,13 +12,15 @@ og_image: "/assets/experience/habitdex/habitdex-icon.webp"
 
 > Habits that feel like a game — not another guilt checklist.
 
+**Context:** A **hobby** build in my free time — a place to **play with product** and **AI tooling** alongside a friend; not my profession.
+
 **HabitDex** is an iPhone habit tracker built around a light **creature-collection** loop: you log days, earn **XP**, protect **streaks**, and **unlock / evolve** companions so consistency feels tangible. Your history lives **on the device** first; **iCloud** via **CloudKit** is optional when you want the same data across devices.
 
-We built it together with **Miguel** ([LinkedIn](https://www.linkedin.com/in/mffdr/?locale=en)) — he owned **product design**, **UI**, **UX**, and **branding** end to end; I focused on **iOS engineering**, data, and shipping to the **App Store**.
+We built it together with **Miguel Ferrer** ([LinkedIn](https://www.linkedin.com/in/mffdr/?locale=en)) — he owned **product design**, **UI**, **UX**, and **branding** end to end; I focused on **iOS engineering**, data, and shipping to the **App Store**.
 
 ## Links
 
-- **Miguel (design):** [LinkedIn](https://www.linkedin.com/in/mffdr/?locale=en)
+- **Miguel Ferrer (design):** [LinkedIn](https://www.linkedin.com/in/mffdr/?locale=en)
 - **App Store:** [HabitDex](https://apps.apple.com/us/app/habitdex/id6755887620) (iPhone)
 - **Product site:** [v0-habitdex.vercel.app](https://v0-habitdex.vercel.app/)
 - **Policies:** [Privacy](https://v0-habitdex.vercel.app/privacy) · [Terms](https://v0-habitdex.vercel.app/tos)
@@ -33,7 +35,7 @@ We built it together with **Miguel** ([LinkedIn](https://www.linkedin.com/in/mff
 
 ## How it was built
 
-On my side I treated it as an **end-to-end iOS product** in **SwiftUI**: flows wired to Miguel’s design, persistence aligned with **Apple’s on-device model** and **CloudKit** when sync is enabled — so there is no unrelated server holding your habits by default. Monetization uses **StoreKit** with **RevenueCat** so entitlements, experiments, and paywalls do not turn into bespoke plumbing.
+I built it as an **end-to-end iOS product** in **SwiftUI**: flows wired to his design, persistence aligned with **Apple’s on-device model** and **CloudKit** when sync is enabled — so there is no unrelated server holding your habits by default. Monetization uses **StoreKit** with **RevenueCat** so entitlements, experiments, and paywalls do not turn into bespoke plumbing.
 
 Shipping meant real **App Store** work — metadata, privacy nutrition labels, review feedback, device testing — then **iteration from usage**: tightening first-run clarity, balancing the reward loop so creatures stay motivating without obscuring the actual habit, and keeping performance snappy on older phones.
 

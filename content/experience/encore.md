@@ -1,6 +1,6 @@
 ---
 title: "Encore: Concert Diary — Felipe Basurto"
-description: "Encore — iOS concert diary in Swift/SwiftUI, App Store revenue, and organic distribution on short-form video."
+description: "Encore — hobby iOS concert diary (Swift/SwiftUI). Personal side project, App Store."
 og_image: "/assets/companies/encore.png"
 ---
 
@@ -10,17 +10,19 @@ og_image: "/assets/companies/encore.png"
 
 ![Encore](../../assets/companies/encore.png)
 
+**Context:** A **hobby / side project**—not my profession. I built it to **ship a real app** in my own time and **experiment** (including **AI-assisted** build and product loops).
+
 **Encore** is an **iPhone concert diary**: log shows with **photo & video**, track **stats** over time, add **friends**, see **upcoming** dates, keep a **passport**-style history of venues and tours, and get a **year-end wrapped** built around the gigs you actually went to.
 
 ## What I shipped (product + iOS)
 
-I built it **end-to-end in Swift / SwiftUI**: product shape, navigation, persistence, polish, **App Store** cadence (metadata, review cycles, crash triage), and iteration from **user feedback**. Feature-wise that means a **feed** you want to scroll, **stats** that reward consistency, lightweight **social** features (follows / friends without building a full feed product), and flows that stay usable in loud venues and late nights after a show.
+As a **side** project I built it **end-to-end in Swift / SwiftUI**: product shape, navigation, persistence, polish, **App Store** cadence (metadata, review cycles, crash triage), and iteration from **user feedback**. Feature-wise that means a **feed** you want to scroll, **stats** that reward consistency, lightweight **social** features (follows / friends without building a full feed product), and flows that stay usable in loud venues and late nights after a show.
 
-Revenue is past **$2k** from paying users; the interesting part is what came **after** launch—tightening onboarding, fixing edge cases, and shipping again when usage shows something is confusing.
+Revenue is past **$2k** from paying users. Post-launch work: tightening onboarding, fixing edge cases, and shipping again when usage shows something is confusing.
 
 ## Sustained iteration
 
-This is the work I put in **outside the day job**: **release → listen → fix → ship** on a loop—same cadence I’d use on a product team, except I also handle support DMs, analytics, and crash triage.
+**release → listen → fix → ship** on a loop—same cadence as a product team, except I also handle support DMs, analytics, and crash triage.
 
 ## Distribution (no paid acquisition)
 

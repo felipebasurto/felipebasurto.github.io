@@ -1,6 +1,6 @@
 ---
 title: "Projects — Felipe Basurto"
-description: "Shipped iOS apps (Encore, HabitDex), Triple Check (music), GitHub repositories, and coursework."
+description: "Side projects: music (Triple Check), hobby iOS and AI experiments (Encore, HabitDex), plus GitHub and coursework. Professional work is in Experience."
 og_image: "/assets/profile.png"
 ---
 
@@ -8,13 +8,16 @@ og_image: "/assets/profile.png"
 
 # Projects
 
-## Shipped work
+Side work: **music**, **hobby iOS** apps, and **GitHub**. Professional experience is under [Experience](../).
 
-**iOS** I build, ship, and maintain — plus **Triple Check**, Spanish **pop rock** I write and release with two friends from **Burgos**:
+## Music (Triple Check)
 
-- **[Encore: Concert Diary](https://encorearchives.com)** — iOS (Swift/SwiftUI): concert feed, stats, friends, passport, upcoming shows, wrapped. **$2k+** App Store revenue; updates driven by real usage (onboarding, retention, polish). **Distribution:** short-form video on TikTok, Instagram, YouTube, and Facebook (no paid ads), tuned for in-feed discovery. [App Store (US)](https://apps.apple.com/us/app/encore-concert-diary/id6748657647) · [Site (ES)](https://encorearchives.com/es) · [Details](../experience/encore/)
-- **[HabitDex](https://apps.apple.com/us/app/habitdex/id6755887620)** — Habit tracker with streaks, XP, and collectible creatures (Pokémon-style motivation loop); privacy-first on-device storage and optional iCloud. **Miguel** led product design, UI, and UX — [Miguel on LinkedIn](https://www.linkedin.com/in/mffdr/?locale=en). [App Store](https://apps.apple.com/us/app/habitdex/id6755887620) · [Product site](https://v0-habitdex.vercel.app/) · [Details](../experience/habitdex/)
-- **[Triple Check](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR)** — **Spanish pop rock** (trio, since 2020). **1.7M+** all-time streams on Spotify; top track *Ese Bar*; EP *Atentamente, Triple Check* (2023). [Spotify](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR) · [Details](../triplecheck/)
+- ![Triple Check](../assets/companies/triple-check.png)**[Triple Check](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR)** — **Spanish pop rock** in **Burgos** with **Miguel Ferrer** and **Diego Garrido**; we met at school, home recordings from **2020**. **1.7M+** all-time streams on Spotify. EP *Atentamente, Triple Check* (2023). **Gigs around Spain.** [Spotify](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR) · [Details](../triplecheck/)
+
+## iOS (hobby — AI experiments)
+
+- **[Encore: Concert Diary](https://encorearchives.com)** — Concert diary: feed, stats, friends, passport, upcoming, wrapped. **$2k+** on the App Store; short-form video for discovery. [App Store (US)](https://apps.apple.com/us/app/encore-concert-diary/id6748657647) · [Site (ES)](https://encorearchives.com/es) · [Details](../experience/encore/)
+- **[HabitDex](https://apps.apple.com/us/app/habitdex/id6755887620)** — Habit + creatures loop; on-device + optional iCloud. **Miguel Ferrer** ([LinkedIn](https://www.linkedin.com/in/mffdr/?locale=en)) on design. [App Store](https://apps.apple.com/us/app/habitdex/id6755887620) · [Product site](https://v0-habitdex.vercel.app/) · [Details](../experience/habitdex/)
 
 ## Repositories & coursework
 

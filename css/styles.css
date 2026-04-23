@@ -120,8 +120,8 @@ body {
     font-size: 1.75rem;
   }
 
-  /* Profile / lead figure under the name — scales with larger type */
-  .md-doc > .md-heading + figure.md-figure .md-img {
+  /* Profile / lead figure under the name — scales with larger type (not full-width photo pages) */
+  .md-doc > .md-heading + figure.md-figure:not(.md-figure--triplecheck) .md-img {
     width: 132px;
     height: 132px;
   }
@@ -389,6 +389,18 @@ h3.md-heading {
   height: 112px;
   object-fit: cover;
   border-radius: 6px;
+}
+
+.md-doc--triplecheck .md-figure--triplecheck {
+  margin: 1rem 0 1.75rem;
+}
+
+.md-doc--triplecheck .md-img--triplecheck {
+  width: 100%;
+  height: auto;
+  max-height: min(78vh, 960px);
+  object-fit: contain;
+  border-radius: 8px;
 }
 
 

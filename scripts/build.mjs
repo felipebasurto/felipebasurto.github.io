@@ -149,6 +149,10 @@ marked.use({
         const caption = `![${text}](${href})`;
         return `<figure class="md-figure md-figure--appshot"><img class="md-img md-img--appshot" src="${safe}" alt="${alt}"${t} loading="lazy" decoding="async" width="300" height="650" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
       }
+      if (/\/assets\/triplecheck\//.test(href)) {
+        const caption = `![${text}](${href})`;
+        return `<figure class="md-figure md-figure--triplecheck"><img class="md-img md-img--triplecheck" src="${safe}" alt="${alt}"${t} loading="lazy" decoding="async" width="1200" height="800" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
+      }
       const caption = `![${text}](${href})`;
       return `<figure class="md-figure"><img class="md-img" src="${safe}" alt="${alt}"${t} loading="lazy" width="112" height="112" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
     },
@@ -164,6 +168,7 @@ function unwrapFigures(html) {
   const openPatterns = [
     /<p class="md-p">\s*<figure class="md-figure md-figure--appshot">/g,
     /<p class="md-p">\s*<figure class="md-figure md-figure--appicon">/g,
+    /<p class="md-p">\s*<figure class="md-figure md-figure--triplecheck">/g,
     /<p class="md-p">\s*<figure class="md-figure">/g,
   ];
   for (const re of openPatterns) {
@@ -394,6 +399,8 @@ function buildJsonLd(description) {
     knowsAbout: [
       "LLM compression",
       "CompactifAI",
+      "solutions engineering",
+      "applied AI",
       "Graph RAG",
       "Neo4j",
       "LangChain",
@@ -401,13 +408,13 @@ function buildJsonLd(description) {
       "MLOps",
       "AWS",
       "Apache Airflow",
-      "Swift",
-      "SwiftUI",
-      "iOS",
       "Python",
       "machine learning",
       "computer vision",
       "pre-sales engineering",
+      "Swift",
+      "SwiftUI",
+      "hobby iOS",
       "Triple Check",
       "Spanish pop rock",
     ],
@@ -502,11 +509,17 @@ function buildTriplecheckPage() {
   const mdPath = join(root, "content", "triplecheck.md");
   if (!existsSync(mdPath)) return;
   const raw = readFileSync(mdPath, "utf8");
-  const { meta, body } = parseFrontmatter(raw);
+  let { meta, body } = parseFrontmatter(raw);
+  const yt = meta.youtube != null ? String(meta.youtube).trim() : "";
+  if (yt) {
+    body = body.replaceAll("__YOUTUBE__", yt);
+  } else {
+    body = body.replace(/\r?\n- \*\*YouTube:\*\* \[[^\]]+\]\(__YOUTUBE__\)/g, "");
+  }
   const title = meta.title || "Triple Check — Felipe Basurto";
   const description =
     meta.description || "Triple Check — Spanish pop rock from Burgos: discography, streaming milestones, and story.";
-  const ogImage = meta.og_image || "/assets/profile.png";
+  const ogImage = meta.og_image || "/assets/triplecheck/atentamente-ep.png";
   const ogImageAbs = absOgImage(ogImage);
   const canonicalUrl = `${SITE}/triplecheck/`;
   const bodyHtml = renderMarkdownBody(body);
@@ -522,8 +535,8 @@ function buildTriplecheckPage() {
     headerHint: "~/triplecheck.md",
     bodyHtml,
     jsonLd: buildWebPageJsonLd({ name: title, url: canonicalUrl, description }),
-    docClass: "",
-    articleClass: "",
+    docClass: " doc--wide",
+    articleClass: " md-doc--triplecheck",
   });
   writeFileSync(join(outDir, "index.html"), html, "utf8");
 }

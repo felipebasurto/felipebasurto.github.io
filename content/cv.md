@@ -1,6 +1,6 @@
 ---
 title: "Felipe Basurto — Solutions Architect @ Multiverse Computing"
-description: "Solutions Architect at Multiverse Computing (CompactifAI). Cursor Madrid Ambassador. Based in Madrid."
+description: "Solutions Architect (CompactifAI, LLM compression) — pre-sales engineering and applied AI. Hobby iOS builds as AI experiments; Cursor Madrid Ambassador. Madrid."
 og_image: "/assets/profile.png"
 ---
 
@@ -8,7 +8,9 @@ og_image: "/assets/profile.png"
 
 ![Profile photo](./assets/profile.png)
 
-Solutions Architect at [**Multiverse Computing**](https://multiversecomputing.com/), working on LLM compression (CompactifAI). [**Cursor**](https://cursor.com) Madrid Ambassador. Based in Madrid.
+**Solutions Architect** at [**Multiverse Computing**](https://multiversecomputing.com/) (Madrid), working on **LLM compression** and **CompactifAI**: demos, PoCs, and customer-facing work where **model efficiency** meets **cost**, **latency**, and **deployment** in the real world. That—**solutions engineering** and **applying AI** in production—is what I focus on.
+
+[**Cursor**](https://cursor.com) **Madrid Ambassador** (community, meetups, workshops). On the side I keep **hobby iOS projects** and **music**; they’re outlets to **experiment with AI** and build small things, not a second career.
 
 ## Experience
 
@@ -16,10 +18,10 @@ Solutions Architect at [**Multiverse Computing**](https://multiversecomputing.co
 
 ![Multiverse Computing](./assets/companies/multiverse.png)**Solutions Architect** at [**Multiverse Computing**](https://multiversecomputing.com/) (Madrid). Pre-sales around **CompactifAI** (LLM compression): technical demos, prototypes, and PoCs across finance, manufacturing, retail, and healthcare. Connecting model-efficiency choices to **cost**, **latency**, and **deployment** tradeoffs for engineering teams and leadership. Working with infrastructure partners on cloud and on-prem architecture. [Details](./experience/multiverse/)
 
-In parallel:
+In parallel (not the day job):
 
 - ![Cursor](./assets/companies/cursor.png)[**Cursor**](https://cursor.com) Madrid Ambassador (since May 2025). Meetups, workshops, and collaborations with coworkings, startups, and universities. [Details](./experience/cursor/)
-- ![Encore Concert Diary](./assets/companies/encore.png)Founder of [**Encore: Concert Diary**](https://encorearchives.com) (since May 2025). iOS app built end-to-end in **Swift** / **SwiftUI**: concert feed (photo & video), stats, friends, passport, upcoming shows, and a year-end **wrapped**—shipped on the App Store with ongoing iteration. **$2k+** App Store revenue from paying users; releases driven by user feedback, focused on first-run clarity and retention. Discovery through **short-form video** (no paid ads) on TikTok, Instagram, YouTube, and Facebook—several creator-style accounts so Encore surfaces in-feed where concert fans already spend time. [App Store (US)](https://apps.apple.com/us/app/encore-concert-diary/id6748657647) · [Site (ES)](https://encorearchives.com/es) · [Details](./experience/encore/)
+- ![Encore Concert Diary](./assets/companies/encore.png)Hobby / side project — [**Encore: Concert Diary**](https://encorearchives.com) (since May 2025). **iOS** in **Swift** / **SwiftUI** (concert feed, stats, friends, passport, upcoming, **wrapped**); I use it to **try ideas** and **AI-assisted** workflows, not as a primary business. Shipped on the App Store; **$2k+** revenue; short-form video for discovery. [App Store (US)](https://apps.apple.com/us/app/encore-concert-diary/id6748657647) · [Site (ES)](https://encorearchives.com/es) · [Details](./experience/encore/)
 
 ### Jul 2023 — Nov 2025
 
@@ -43,11 +45,18 @@ In parallel:
 
 ## Projects
 
-- ![Encore Concert Diary](./assets/companies/encore.png)**[Encore: Concert Diary](https://encorearchives.com)** — iOS concert diary (Swift/SwiftUI): feed, stats, friends, passport, upcoming, wrapped. **$2k+** App Store revenue; iterating from usage (onboarding, retention, crash fixes). In-feed discovery via short-form video on TikTok, Instagram, YouTube, and Facebook (no paid ads). [App Store (US)](https://apps.apple.com/us/app/encore-concert-diary/id6748657647) · [Site (ES)](https://encorearchives.com/es) · [Details](./experience/encore/)
-- ![HabitDex](./assets/companies/habitdex.png)**[HabitDex](https://apps.apple.com/us/app/habitdex/id6755887620)** — iOS habit tracker with streaks, XP, and Pokémon-style creatures you collect and evolve; privacy-first (on-device + optional iCloud). Design partnership with **Miguel** ([LinkedIn](https://www.linkedin.com/in/mffdr/?locale=en)) on UI, UX, and branding. [App Store](https://apps.apple.com/us/app/habitdex/id6755887620) · [Product site](https://v0-habitdex.vercel.app/) · [Details](./experience/habitdex/)
-- **[Triple Check](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR)** — **Spanish pop rock** trio from **Burgos** (since 2020). **1.7M+** all-time streams on Spotify; top track *Ese Bar*; EP *Atentamente, Triple Check* (2023). [Spotify](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR) · [Details](./triplecheck/)
+My **main professional work** is under **Experience** (Multiverse, **solutions engineering**, **applied AI** / **LLM efficiency**). What follows is **side** output: **music**, **hobby iOS** builds (where I **play with AI** in the dev loop), and **GitHub**.
 
-Smaller GitHub work and coursework live on a dedicated page: **[Projects →](./projects/)**.
+### Music (Triple Check)
+
+- ![Triple Check](./assets/companies/triple-check.png)**[Triple Check](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR)** — **Spanish pop rock** in **Burgos** with **Miguel Ferrer** and **Diego Garrido**; we met at school, home recordings from **2020**. **1.7M+** all-time streams on Spotify. EP *Atentamente, Triple Check* (2023). **Gigs around Spain.** [Spotify](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR) · [Details](./triplecheck/)
+
+### iOS (hobby — AI experiments)
+
+- ![Encore Concert Diary](./assets/companies/encore.png)**[Encore: Concert Diary](https://encorearchives.com)** — see entry above. [Details](./experience/encore/)
+- ![HabitDex](./assets/companies/habitdex.png)**[HabitDex](https://apps.apple.com/us/app/habitdex/id6755887620)** — **Hobby build** with **Miguel Ferrer** ([LinkedIn](https://www.linkedin.com/in/mffdr/?locale=en)) on design. Habit loop + creatures; on-device + optional iCloud. [App Store](https://apps.apple.com/us/app/habitdex/id6755887620) · [Details](./experience/habitdex/)
+
+**GitHub** and coursework: **[Projects →](./projects/)**.
 
 ## Links
 
