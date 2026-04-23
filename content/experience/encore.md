@@ -1,6 +1,6 @@
 ---
 title: "Encore: Concert Diary — Felipe Basurto"
-description: "Encore — iOS concert diary, stats, friends, and year-end wrapped for live music."
+description: "Encore — iOS concert diary in Swift/SwiftUI, App Store revenue, and organic distribution on short-form video."
 og_image: "/assets/companies/encore.png"
 ---
 
@@ -8,4 +8,43 @@ og_image: "/assets/companies/encore.png"
 
 # Encore: Concert Diary
 
-![Encore](../../assets/companies/encore.png)Longer write-up for this chapter is coming soon. Product: [encorearchives.com](https://encorearchives.com) · [App Store](https://apps.apple.com/app/id6748657647). Summary on the [home page](../../).
+![Encore](../../assets/companies/encore.png)
+
+**Encore** is an **iPhone concert diary**: log shows with **photo & video**, track **stats** over time, add **friends**, see **upcoming** dates, keep a **passport**-style history of venues and tours, and get a **year-end wrapped** built around the gigs you actually went to.
+
+## What I shipped (product + iOS)
+
+I built it **end-to-end in Swift / SwiftUI**: product shape, navigation, persistence, polish, **App Store** cadence (metadata, review cycles, crash triage), and iteration from **user feedback**. Feature-wise that means a **feed** you want to scroll, **stats** that reward consistency, lightweight **social** features (follows / friends without building a full feed product), and flows that stay usable in loud venues and late nights after a show.
+
+Revenue is past **$2k** from paying users; the interesting part is what came **after** launch—tightening onboarding, fixing edge cases, and shipping again when usage shows something is confusing.
+
+## Sustained iteration
+
+This is the work I put in **outside the day job**: **release → listen → fix → ship** on a loop—same cadence I’d use on a product team, except I also handle support DMs, analytics, and crash triage.
+
+## Distribution (no paid acquisition)
+
+There’s no paid acquisition budget, so growth is **organic short-form content** on the platforms where concert culture already lives—**TikTok**, **Instagram**, **YouTube**, and **Facebook**—with a **network of accounts** so Encore shows up in the **same feeds** people use for tickets, openers, and crowd videos. It’s deliberate and repetitive work; it’s how the app gets reach without ad spend.
+
+## Links
+
+- **Product (EN):** [encorearchives.com](https://encorearchives.com)
+- **Product (ES):** [encorearchives.com/es](https://encorearchives.com/es)
+- **App Store (US):** [Encore: Concert Diary](https://apps.apple.com/us/app/encore-concert-diary/id6748657647)
+- **Summary on the home page:** [CV / home](../../)
+
+## App Store gallery
+
+Screens from the live App Store listing: feed, stats, wrapped, friends, passport, and upcoming shows.
+
+![Encore — concerts](../../assets/experience/encore/encore-01.webp)
+
+![Encore — gallery](../../assets/experience/encore/encore-02.webp)
+
+![Encore — wrapped](../../assets/experience/encore/encore-03.webp)
+
+![Encore — social](../../assets/experience/encore/encore-04.webp)
+
+![Encore — passport](../../assets/experience/encore/encore-05.webp)
+
+![Encore — upcoming](../../assets/experience/encore/encore-06.webp)

@@ -1,7 +1,7 @@
 {
   "name": "felipebasurto.com",
   "version": "1.0.0",
-  "description": "[![Website](https://img.shields.io/website?url=https%3A%2F%2Ffelipebasurto.github.io)](https://felipebasurto.github.io) [![GitHub last commit](https://img.shields.io/github/last-commit/felipebasurto/felipebasurto.github.io)](https://github.com/felipebasurto/felipebasurto.github.io/commits/main)",
+  "description": "Static personal portfolio built from Markdown (felipebasurto.com).",
   "scripts": {
     "build": "node scripts/build.mjs"
   },
@@ -11,7 +11,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "type": "module",
   "bugs": {
     "url": "https://github.com/felipebasurto/felipebasurto.github.io/issues"

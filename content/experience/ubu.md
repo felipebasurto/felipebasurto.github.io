@@ -8,4 +8,8 @@ og_image: "/assets/companies/ubu.png"
 
 # Universidad de Burgos
 
-![Universidad de Burgos](../../assets/companies/ubu.png)Longer write-up for this chapter is coming soon. For now, see the summary on the [home page](../../).
+![Universidad de Burgos](../../assets/companies/ubu.png)
+
+**Computer Science Engineering**. **Erasmus+** at **Wrocław University of Science and Technology** (2019–2020); **SICUE** exchange at **Universidad Autónoma de Madrid** (2021–2022).
+
+More on the [home page](../../).

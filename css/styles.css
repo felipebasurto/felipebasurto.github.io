@@ -15,12 +15,25 @@
   --accent-hover: #c7d2fe;
   --selection: rgba(155, 180, 255, 0.22);
 
+  /* Markdown syntax palette — inspired by Cursor Dark Modern / One Dark.
+     Applied only to the structural markers that are visible in the rendered
+     output (hashes, backticks, list dashes, blockquote bar, ---). The body
+     text stays white; only "code-shaped" tokens get color so the page reads
+     like a polished markdown render, not a rainbow. */
+  --syn-heading: #d4a574;   /* # ## ### */
+  --syn-code: #e88a8a;      /* ` … ` */
+  --syn-list: #7fb8c4;      /* - and 1. bullets */
+  --syn-quote: #a3c293;     /* > */
+  --syn-rule: #8a8a93;      /* --- horizontal rule line */
+  --syn-link: #9ec1ff;      /* [link text] */
+
   --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas,
     "Liberation Mono", monospace;
 
-  --maxw: 640px;
   --pad-x: 2rem;
   --pad-y: 3.5rem;
+  /* Default column: wide enough on laptop/desktop without feeling like a narrow strip */
+  --maxw: min(900px, calc(100vw - 2 * var(--pad-x)));
 }
 
 *,
@@ -43,7 +56,7 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: var(--font-mono);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.7;
   font-variant-numeric: tabular-nums;
   color: var(--text);
@@ -81,10 +94,57 @@ body {
   outline: none;
 }
 
+.skip-link:focus-visible {
+  outline: 2px solid var(--bg);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
 .doc {
   max-width: var(--maxw);
   margin: 0 auto;
   padding: var(--pad-y) var(--pad-x);
+}
+
+@media (min-width: 900px) {
+  .doc:not(.doc--wide) {
+    max-width: min(1020px, calc(100vw - 2.5rem));
+  }
+
+  body {
+    font-size: 17px;
+    line-height: 1.68;
+  }
+
+  h1.md-heading {
+    font-size: 1.75rem;
+  }
+
+  /* Profile / lead figure under the name — scales with larger type */
+  .md-doc > .md-heading + figure.md-figure .md-img {
+    width: 132px;
+    height: 132px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .doc:not(.doc--wide) {
+    max-width: min(1160px, calc(100vw - 4rem));
+  }
+}
+
+@media (min-width: 1600px) {
+  .doc:not(.doc--wide) {
+    max-width: min(1280px, calc(100vw - 5rem));
+  }
+
+  body {
+    font-size: 18px;
+  }
+
+  h1.md-heading {
+    font-size: 1.85rem;
+  }
 }
 
 .doc__hint {
@@ -123,6 +183,22 @@ h2.md-heading {
   margin: 3rem 0 0.75rem;
 }
 
+/* (b) More breathing room around section headings + a hairline divider above
+       so scanning between Experience / Projects / Links is easier. */
+h2.md-heading {
+  margin-top: 3.75rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--hairline);
+}
+
+.md-doc > h2.md-heading:first-of-type,
+.md-doc > .md-heading:first-child + h2.md-heading {
+  /* The very first H2 right after the lead block doesn't need a hairline above. */
+  border-top: none;
+  padding-top: 0;
+  margin-top: 3rem;
+}
+
 h3.md-heading {
   font-size: 1rem;
   color: var(--text);
@@ -134,10 +210,11 @@ h3.md-heading {
 }
 
 .md-hashes {
-  color: var(--syntax);
+  color: var(--syn-heading);
   font-weight: 400;
   user-select: none;
   margin-right: 0.4rem;
+  opacity: 0.9;
 }
 
 .md-p {
@@ -161,29 +238,41 @@ h3.md-heading {
 
 /* ---------- links (label only; href in tooltip / status bar) ---------- */
 
+/* (c) Links: rendered like an editor's [link text] token — soft blue at rest.
+       On hover, color brightens AND a 1px underline reveals left→right via a
+       background-image gradient (cheaper than animating text-decoration). */
 .md-link {
-  color: var(--muted);
+  color: var(--syn-link);
   text-decoration: none;
   overflow-wrap: anywhere;
-  transition: color 0.15s ease, text-decoration-color 0.15s ease;
-  text-decoration: underline;
-  text-decoration-color: transparent;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
   font-weight: 500;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  padding-bottom: 2px;
+  transition: color 0.18s ease, background-size 0.28s ease;
+  opacity: 0.92;
 }
 
-.md-link:hover {
+.md-link:hover,
+.md-link:focus-visible {
   color: var(--accent-hover);
-  text-decoration-color: var(--accent-hover);
+  background-size: 100% 1px;
 }
 
 .md-link:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 2px;
-  color: var(--accent);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .md-link {
+    transition: color 0.15s ease;
+  }
+}
+
 
 /* ---------- lists ---------- */
 
@@ -202,7 +291,7 @@ h3.md-heading {
   content: "-";
   position: absolute;
   left: 0;
-  color: var(--syntax);
+  color: var(--syn-list);
 }
 
 .md-list--ordered {
@@ -219,7 +308,7 @@ h3.md-heading {
   content: counter(mditem) ".";
   position: absolute;
   left: 0;
-  color: var(--syntax);
+  color: var(--syn-list);
 }
 
 .md-li {
@@ -230,7 +319,12 @@ h3.md-heading {
 
 .md-codespan {
   font-size: 0.92em;
-  color: var(--text);
+  color: var(--syn-code);
+}
+
+.md-codespan > .md-muted {
+  color: var(--syn-code);
+  opacity: 0.7;
 }
 
 .md-pre {
@@ -264,7 +358,7 @@ h3.md-heading {
 .md-bq {
   margin: 1rem 0;
   padding: 0.5rem 0 0.5rem 0.85rem;
-  border-left: 1px solid var(--hairline);
+  border-left: 2px solid var(--syn-quote);
   color: var(--muted);
 }
 
@@ -273,7 +367,7 @@ h3.md-heading {
 .md-hr-line {
   margin: 1.5rem 0 0;
   font-size: 0.78rem;
-  color: var(--syntax);
+  color: var(--syn-rule);
   user-select: none;
 }
 
@@ -297,6 +391,7 @@ h3.md-heading {
   border-radius: 6px;
 }
 
+
 .md-figcap {
   margin-top: 0.5rem;
   font-size: 0.78rem;
@@ -304,15 +399,38 @@ h3.md-heading {
   overflow-wrap: anywhere;
 }
 
+/* Decorative “source” captions (markdown echo); keep out of the visual layout */
+.md-figcap[aria-hidden="true"] {
+  display: none;
+}
+
+/* Strong/em already render as HTML — hide echoed ** / _ for normal reading */
+.md-strong > .md-muted,
+.md-em > .md-muted {
+  display: none;
+}
+
 .md-logo {
   display: inline-block;
-  width: 1.05em;
-  height: 1.05em;
-  vertical-align: -0.18em;
-  margin-right: 0.45em;
-  border-radius: 3px;
+  width: 1.35em;
+  height: 1.35em;
+  vertical-align: -0.32em;
+  margin-right: 0.5em;
+  border-radius: 4px;
   object-fit: cover;
   background: rgba(255, 255, 255, 0.04);
+}
+
+/* Projects section: bump app icons so the section feels like a small showcase
+   rather than a leftover bullet list. iOS-style rounded squares. */
+#projects + .md-list .md-logo {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: -0.4em;
+  margin-right: 0.55em;
+  border-radius: 22%;
+  border: 1px solid var(--hairline);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .md-task {
@@ -344,7 +462,88 @@ h3.md-heading {
 /* ---------- Cursor events gallery (experience/cursor) ---------- */
 
 .doc.doc--wide {
-  max-width: 920px;
+  max-width: min(1180px, calc(100vw - 3rem));
+}
+
+@media (min-width: 1400px) {
+  .doc.doc--wide {
+    max-width: min(1280px, calc(100vw - 4rem));
+  }
+}
+
+.md-appshot-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.15rem;
+  margin: 1.35rem 0 2rem;
+  align-items: start;
+}
+
+@media (min-width: 720px) {
+  .md-appshot-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.15rem 1.25rem;
+  }
+}
+
+.md-doc--encore .md-appshot-grid .md-figure--appshot,
+.md-doc--habitdex .md-appshot-grid .md-figure--appshot {
+  margin: 0;
+  max-width: none;
+}
+
+.md-doc--encore .md-figure--appshot,
+.md-doc--habitdex .md-figure--appshot {
+  margin: 1.25rem auto;
+  max-width: min(380px, 100%);
+}
+
+.md-doc--encore .md-img--appshot,
+.md-doc--habitdex .md-img--appshot {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 1px solid var(--hairline);
+  box-sizing: border-box;
+}
+
+.md-doc--encore .md-figure--appshot .md-figcap,
+.md-doc--habitdex .md-figure--appshot .md-figcap {
+  margin-top: 0.4rem;
+  text-align: center;
+}
+
+.md-doc--encore .md-appshot-grid .md-figure--appshot .md-figcap,
+.md-doc--habitdex .md-appshot-grid .md-figure--appshot .md-figcap {
+  font-size: 0.82rem;
+  line-height: 1.35;
+  opacity: 0.85;
+}
+
+.md-doc--habitdex h1 + .md-figure--appicon {
+  margin-top: 0.35rem;
+}
+
+.md-doc--habitdex .md-figure--appicon {
+  margin: 0.75rem 0 1.25rem;
+  max-width: 96px;
+}
+
+.md-doc--habitdex .md-img--appicon {
+  display: block;
+  width: 96px;
+  height: auto;
+  border-radius: 22%;
+  border: 1px solid var(--hairline);
+  box-sizing: border-box;
+}
+
+.md-doc--habitdex .md-figure--appicon .md-figcap {
+  margin-top: 0.35rem;
+  text-align: left;
 }
 
 .md-doc--cursor .md-p:first-of-type {
@@ -353,36 +552,6 @@ h3.md-heading {
 
 .ev-wrap {
   margin-top: 1.5rem;
-}
-
-.ev-jump {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.35rem 0.65rem;
-  margin: 0 0 1.75rem;
-  padding: 0.65rem 0.75rem;
-  border: 1px solid var(--hairline);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.02);
-  font-size: 0.8rem;
-}
-
-.ev-jump__label {
-  color: var(--syntax);
-  margin-right: 0.25rem;
-  user-select: none;
-}
-
-a.ev-jump__a {
-  color: var(--accent);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-}
-
-a.ev-jump__a:hover {
-  color: var(--accent-hover);
-  border-bottom-color: var(--accent-hover);
 }
 
 .ev-timeline {
@@ -491,5 +660,139 @@ a.ev-shot:focus-visible {
 
   .ev-shot img {
     height: 156px;
+  }
+}
+
+/* ---------- (e) Footer (EOF) ---------- */
+
+.doc__footer {
+  margin-top: 4rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed var(--hairline);
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  color: var(--syntax);
+  letter-spacing: 0.01em;
+}
+
+.doc__footer-eof {
+  user-select: none;
+}
+
+/* ---------- (f) App Store screenshots: lock aspect ratio so a missing
+              image doesn't collapse / break the row. ---------- */
+
+.md-doc--encore .md-img--appshot,
+.md-doc--habitdex .md-img--appshot {
+  aspect-ratio: 9 / 19.5;
+  width: 100%;
+  height: auto;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+/* ---------- (h) Lightbox for Cursor timeline photos ---------- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(8, 8, 11, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox__img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 1px solid var(--hairline);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-strong);
+  font: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.lightbox__close:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.lightbox__close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- (g) Optional light palette via prefers-color-scheme ---------- */
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #fafaf9;
+    --tint: rgba(155, 180, 255, 0.18);
+    --text: #27272a;
+    --text-strong: #0a0a0c;
+    --muted: #52525b;
+    --syntax: #a1a1aa;
+    --hairline: rgba(0, 0, 0, 0.08);
+    --accent: #4f6bff;
+    --accent-hover: #2d4bff;
+    --selection: rgba(79, 107, 255, 0.18);
+
+    --syn-heading: #b07a3a;
+    --syn-code: #c0394a;
+    --syn-list: #2c7a8a;
+    --syn-quote: #5f8a4a;
+    --syn-rule: #71717a;
+    --syn-link: #2d4bff;
+  }
+
+  body {
+    background-image: radial-gradient(
+      ellipse 80% 60% at 50% -10%,
+      var(--tint),
+      transparent 65%
+    );
+  }
+
+  .md-pre,
+  .ev-card {
+    background: rgba(0, 0, 0, 0.025);
+  }
+
+  .lightbox {
+    background: rgba(250, 250, 249, 0.94);
+  }
+
+  .lightbox__close {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-strong);
+  }
+
+  .lightbox__close:hover {
+    background: rgba(0, 0, 0, 0.1);
   }
 }

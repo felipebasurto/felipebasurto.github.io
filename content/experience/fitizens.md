@@ -8,4 +8,8 @@ og_image: "/assets/companies/fitizens.png"
 
 # FITIZENS
 
-![FITIZENS](../../assets/companies/fitizens.png)Longer write-up for this chapter is coming soon. For now, see the summary on the [home page](../../).
+![FITIZENS](../../assets/companies/fitizens.png)
+
+Computer Vision intern (Madrid): **Human Pose Estimation** with **OpenCV** and **MediaPipe**; packaged demos in **Streamlit**.
+
+More on the [home page](../../).

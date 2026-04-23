@@ -22,6 +22,19 @@ function escapeAttr(s) {
   return escapeHtml(s).replace(/`/g, "&#96;");
 }
 
+/** Prevent `</script>` in JSON strings from closing the script tag. */
+function toSafeJsonLdString(obj) {
+  return JSON.stringify(obj).replace(/</g, "\\u003c");
+}
+
+function escapeXml(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 function stripTags(html) {
   return String(html).replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
 }
@@ -57,13 +70,16 @@ function parseFrontmatter(raw) {
 }
 
 function isExternalHref(href) {
-  return /^https?:\/\//i.test(href);
+  return /^https?:\/\//i.test(href) || href.startsWith("//");
 }
 
 marked.use({
   gfm: true,
   breaks: false,
   renderer: {
+    html(html) {
+      return escapeHtml(html ?? "");
+    },
     heading(text, level, _raw) {
       const hashes = "#".repeat(level);
       const id = slugify(text);
@@ -111,10 +127,10 @@ marked.use({
       return `<p class="md-hr-line" aria-hidden="true">---</p>\n<hr class="md-hr" />\n`;
     },
     strong(text) {
-      return `<strong class="md-strong"><span class="md-muted">**</span>${text}<span class="md-muted">**</span></strong>`;
+      return `<strong class="md-strong">${text}</strong>`;
     },
     em(text) {
-      return `<em class="md-em"><span class="md-muted">_</span>${text}<span class="md-muted">_</span></em>`;
+      return `<em class="md-em">${text}</em>`;
     },
     image(href, title, text) {
       const safe = escapeAttr(href);
@@ -124,8 +140,17 @@ marked.use({
       if (isLogo) {
         return `<img class="md-logo" src="${safe}" alt="${alt}"${t} loading="lazy" width="20" height="20" />`;
       }
+      if (/\/assets\/experience\/habitdex\/habitdex-icon\./i.test(href)) {
+        const caption = `![${text}](${href})`;
+        return `<figure class="md-figure md-figure--appicon"><img class="md-img md-img--appicon" src="${safe}" alt="${alt}"${t} loading="lazy" decoding="async" width="96" height="96" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
+      }
+      const isAppStoreShot = /\/assets\/experience\/(encore|habitdex)\//.test(href);
+      if (isAppStoreShot) {
+        const caption = `![${text}](${href})`;
+        return `<figure class="md-figure md-figure--appshot"><img class="md-img md-img--appshot" src="${safe}" alt="${alt}"${t} loading="lazy" decoding="async" width="300" height="650" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
+      }
       const caption = `![${text}](${href})`;
-      return `<figure class="md-figure"><img class="md-img" src="${safe}" alt="${alt}"${t} loading="lazy" width="112" height="112" /><figcaption class="md-figcap">${escapeHtml(caption)}</figcaption></figure>\n`;
+      return `<figure class="md-figure"><img class="md-img" src="${safe}" alt="${alt}"${t} loading="lazy" width="112" height="112" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
     },
   },
 });
@@ -135,16 +160,29 @@ function loadTemplate() {
 }
 
 function unwrapFigures(html) {
-  let out = html.replace(
+  let out = html;
+  const openPatterns = [
+    /<p class="md-p">\s*<figure class="md-figure md-figure--appshot">/g,
+    /<p class="md-p">\s*<figure class="md-figure md-figure--appicon">/g,
     /<p class="md-p">\s*<figure class="md-figure">/g,
-    '<figure class="md-figure">'
-  );
+  ];
+  for (const re of openPatterns) {
+    out = out.replace(re, (m) => m.replace(/<p class="md-p">\s*/, ""));
+  }
   out = out.replace(/<\/figure>\s*<\/p>/g, "</figure>");
   return out;
 }
 
+/** Wrap consecutive App Store figures in a responsive grid (Encore, HabitDex, etc.). */
+function wrapAppShotGrids(html) {
+  return html.replace(
+    /(?:<figure class="md-figure md-figure--appshot">[\s\S]*?<\/figure>(?:\s*\n*)?)+/g,
+    (block) => `<div class="md-appshot-grid">\n${block.trim()}\n</div>\n`
+  );
+}
+
 function renderMarkdownBody(body) {
-  return unwrapFigures(marked.parse(body));
+  return wrapAppShotGrids(unwrapFigures(marked.parse(body)));
 }
 
 function absOgImage(ogImage) {
@@ -176,6 +214,7 @@ function fillTemplate({
   html = html.replaceAll("{{JSON_LD}}", jsonLd);
   html = html.replaceAll("{{DOC_CLASS}}", docClass);
   html = html.replaceAll("{{ARTICLE_CLASS}}", articleClass);
+  html = html.replaceAll("{{YEAR}}", String(new Date().getFullYear()));
   return html;
 }
 
@@ -203,27 +242,39 @@ async function hydrateCursorImages(events, assetDir) {
   for (const ev of events) {
     ev._imageFiles = [];
     for (const im of ev.images || []) {
+      if (im.static) {
+        const fn = String(im.static).replace(/[/\\]/g, "");
+        const full = join(assetDir, fn);
+        if (!existsSync(full)) {
+          console.warn(`cursor.json: static image missing (${fn}) for event "${ev.id}"`);
+        } else {
+          const idx = ev._imageFiles.length + 1;
+          const altRaw =
+            im.alt != null && String(im.alt).trim() !== ""
+              ? String(im.alt)
+              : `${ev.title} — photo ${idx}`;
+          ev._imageFiles.push({ fn, alt: altRaw });
+        }
+        await new Promise((r) => setTimeout(r, 120));
+        continue;
+      }
       const fn = await downloadImageTo(im.url, assetDir, im.name);
-      if (fn) ev._imageFiles.push(fn);
+      if (fn) {
+        const idx = ev._imageFiles.length + 1;
+        const altRaw =
+          im.alt != null && String(im.alt).trim() !== ""
+            ? String(im.alt)
+            : `${ev.title} — photo ${idx}`;
+        ev._imageFiles.push({ fn, alt: altRaw });
+      }
       await new Promise((r) => setTimeout(r, 120));
     }
   }
 }
 
-function renderCursorJumpNav(events) {
-  let html = '<nav class="ev-jump" aria-label="On this page"><span class="ev-jump__label">On this page</span>';
-  for (const ev of events) {
-    const short = String(ev.title).replace(/\s*\([^)]*\)\s*$/, "");
-    html += `<a class="ev-jump__a" href="#${escapeAttr(ev.id)}">${escapeHtml(short)}</a>`;
-  }
-  html += "</nav>\n";
-  return html;
-}
-
 function renderCursorTimeline(events, imgRelBase) {
   let html =
     '<section class="ev-wrap" aria-label="Events timeline">\n' +
-    renderCursorJumpNav(events) +
     '<ol class="ev-timeline">\n';
   for (const ev of events) {
     html += `<li class="ev-item" id="${escapeAttr(ev.id)}">\n`;
@@ -236,10 +287,10 @@ function renderCursorTimeline(events, imgRelBase) {
     const files = ev._imageFiles || [];
     if (files.length) {
       html += '<div class="ev-grid">\n';
-      for (const fn of files) {
-        const href = `${imgRelBase}${fn}`;
+      for (const shot of files) {
+        const href = `${imgRelBase}${shot.fn}`;
         html += `<a class="ev-shot" href="${escapeAttr(href)}">\n`;
-        html += `<img src="${escapeAttr(href)}" alt="" loading="lazy" decoding="async" width="640" height="400" />\n`;
+        html += `<img src="${escapeAttr(href)}" alt="${escapeAttr(shot.alt)}" loading="lazy" decoding="async" width="640" height="400" />\n`;
         html += "</a>\n";
       }
       html += "</div>\n";
@@ -250,8 +301,26 @@ function renderCursorTimeline(events, imgRelBase) {
   return html;
 }
 
+function warnDuplicateCursorImageUrls(data) {
+  const seen = new Map();
+  for (const ev of data.events || []) {
+    for (const im of ev.images || []) {
+      const u = im.url;
+      if (!u) continue;
+      if (seen.has(u)) {
+        console.warn(
+          `cursor.json: same image URL used in "${seen.get(u)}" and "${ev.id}" — photos will duplicate across events.`
+        );
+      } else {
+        seen.set(u, ev.id);
+      }
+    }
+  }
+}
+
 async function buildCursorExperiencePage(data) {
   const assetDir = join(root, "assets", "experience", "cursor");
+  warnDuplicateCursorImageUrls(data);
   await hydrateCursorImages(data.events, assetDir);
   const imgRel = "../../assets/experience/cursor/";
   const introHtml = renderMarkdownBody(data.intro_md);
@@ -282,32 +351,89 @@ async function buildCursorExperiencePage(data) {
   writeFileSync(join(outDir, "index.html"), html, "utf8");
 }
 
-function buildJsonLd() {
+function buildJsonLd(description) {
+  const personId = `${SITE}/#person`;
+  const websiteId = `${SITE}/#website`;
   const person = {
-    "@context": "https://schema.org",
     "@type": "Person",
+    "@id": personId,
     name: "Felipe Basurto",
     jobTitle: "Solutions Architect",
-    description:
-      "Solutions Architect at Multiverse Computing working on LLM compression (CompactifAI). Cursor Madrid Ambassador. Based in Madrid.",
+    description,
     image: `${SITE}/assets/profile.png`,
     url: SITE,
     sameAs: [
       "https://github.com/felipebasurto",
       "https://www.linkedin.com/in/felipe-basurto-barrio/",
-      "https://twitter.com/BasurtoBarrio",
+      "https://x.com/fildotai",
     ],
     alumniOf: [
       { "@type": "CollegeOrUniversity", name: "IE School of Science and Technology" },
       { "@type": "CollegeOrUniversity", name: "Universidad de Burgos" },
     ],
-    worksFor: { "@type": "Organization", name: "Multiverse Computing" },
+    worksFor: {
+      "@type": "Organization",
+      name: "Multiverse Computing",
+      url: "https://multiversecomputing.com/",
+    },
+    memberOf: {
+      "@type": "MusicGroup",
+      name: "Triple Check",
+      url: "https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR",
+      genre: "Spanish pop rock",
+    },
+    homeLocation: {
+      "@type": "Place",
+      name: "Madrid, Spain",
+    },
+    nationality: {
+      "@type": "Country",
+      name: "Spain",
+    },
+    knowsLanguage: ["en", "es"],
+    knowsAbout: [
+      "LLM compression",
+      "CompactifAI",
+      "Graph RAG",
+      "Neo4j",
+      "LangChain",
+      "Langfuse",
+      "MLOps",
+      "AWS",
+      "Apache Airflow",
+      "Swift",
+      "SwiftUI",
+      "iOS",
+      "Python",
+      "machine learning",
+      "computer vision",
+      "pre-sales engineering",
+      "Triple Check",
+      "Spanish pop rock",
+    ],
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${SITE}/`,
+      url: SITE,
+    },
   };
-  return JSON.stringify(person);
+  const website = {
+    "@type": "WebSite",
+    "@id": websiteId,
+    url: SITE,
+    name: "Felipe Basurto",
+    description,
+    inLanguage: "en",
+    publisher: { "@id": personId },
+  };
+  return toSafeJsonLdString({
+    "@context": "https://schema.org",
+    "@graph": [person, website],
+  });
 }
 
 function buildWebPageJsonLd({ name, url, description }) {
-  return JSON.stringify({
+  return toSafeJsonLdString({
     "@context": "https://schema.org",
     "@type": "WebPage",
     name,
@@ -336,11 +462,70 @@ function buildIndex() {
     relPrefix: "./",
     headerHint: "~/cv.md",
     bodyHtml,
-    jsonLd: buildJsonLd(),
+    jsonLd: buildJsonLd(description),
     docClass: "",
     articleClass: "",
   });
   writeFileSync(join(root, "index.html"), html, "utf8");
+}
+
+function buildProjectsPage() {
+  const mdPath = join(root, "content", "projects.md");
+  if (!existsSync(mdPath)) return;
+  const raw = readFileSync(mdPath, "utf8");
+  const { meta, body } = parseFrontmatter(raw);
+  const title = meta.title || "Projects — Felipe Basurto";
+  const description = meta.description || "Shipped apps and GitHub projects.";
+  const ogImage = meta.og_image || "/assets/profile.png";
+  const ogImageAbs = absOgImage(ogImage);
+  const canonicalUrl = `${SITE}/projects/`;
+  const bodyHtml = renderMarkdownBody(body);
+  const outDir = join(root, "projects");
+  mkdirSync(outDir, { recursive: true });
+  const html = fillTemplate({
+    title,
+    description,
+    ogImageAbs,
+    canonicalUrl,
+    ogUrl: canonicalUrl,
+    relPrefix: "../",
+    headerHint: "~/projects.md",
+    bodyHtml,
+    jsonLd: buildWebPageJsonLd({ name: title, url: canonicalUrl, description }),
+    docClass: "",
+    articleClass: "",
+  });
+  writeFileSync(join(outDir, "index.html"), html, "utf8");
+}
+
+function buildTriplecheckPage() {
+  const mdPath = join(root, "content", "triplecheck.md");
+  if (!existsSync(mdPath)) return;
+  const raw = readFileSync(mdPath, "utf8");
+  const { meta, body } = parseFrontmatter(raw);
+  const title = meta.title || "Triple Check — Felipe Basurto";
+  const description =
+    meta.description || "Triple Check — Spanish pop rock from Burgos: discography, streaming milestones, and story.";
+  const ogImage = meta.og_image || "/assets/profile.png";
+  const ogImageAbs = absOgImage(ogImage);
+  const canonicalUrl = `${SITE}/triplecheck/`;
+  const bodyHtml = renderMarkdownBody(body);
+  const outDir = join(root, "triplecheck");
+  mkdirSync(outDir, { recursive: true });
+  const html = fillTemplate({
+    title,
+    description,
+    ogImageAbs,
+    canonicalUrl,
+    ogUrl: canonicalUrl,
+    relPrefix: "../",
+    headerHint: "~/triplecheck.md",
+    bodyHtml,
+    jsonLd: buildWebPageJsonLd({ name: title, url: canonicalUrl, description }),
+    docClass: "",
+    articleClass: "",
+  });
+  writeFileSync(join(outDir, "index.html"), html, "utf8");
 }
 
 async function buildExperiencePages() {
@@ -353,7 +538,13 @@ async function buildExperiencePages() {
   }
   const cursorJsonPath = join(expDir, "cursor.json");
   if (existsSync(cursorJsonPath)) {
-    const data = JSON.parse(readFileSync(cursorJsonPath, "utf8"));
+    let data;
+    try {
+      data = JSON.parse(readFileSync(cursorJsonPath, "utf8"));
+    } catch (err) {
+      console.error(`Failed to parse JSON: ${cursorJsonPath}`);
+      throw err;
+    }
     await buildCursorExperiencePage(data);
   }
   for (const file of files) {
@@ -381,17 +572,64 @@ async function buildExperiencePages() {
       headerHint: `~/experience/${slug}.md`,
       bodyHtml,
       jsonLd: buildWebPageJsonLd({ name: title, url: canonicalUrl, description }),
-      docClass: "",
-      articleClass: "",
+      docClass: slug === "encore" || slug === "habitdex" ? " doc--wide" : "",
+      articleClass: slug === "encore" || slug === "habitdex" ? ` md-doc--${slug}` : "",
     });
     writeFileSync(join(outDir, "index.html"), html, "utf8");
   }
 }
 
+function getExperienceSlugsForSitemap() {
+  const expDir = join(root, "content", "experience");
+  const slugs = [];
+  if (!existsSync(expDir)) return slugs;
+  const files = readdirSync(expDir);
+  const hasCursorJson = existsSync(join(expDir, "cursor.json"));
+  if (hasCursorJson) slugs.push("cursor");
+  for (const file of files) {
+    if (!file.endsWith(".md")) continue;
+    const slug = file.replace(/\.md$/i, "");
+    if (slug === "cursor" && hasCursorJson) continue;
+    slugs.push(slug);
+  }
+  slugs.sort((a, b) => a.localeCompare(b));
+  return slugs;
+}
+
+function writeSitemap() {
+  const lastmod = new Date().toISOString().slice(0, 10);
+  const slugs = getExperienceSlugsForSitemap();
+  const lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'];
+  const pushUrl = (loc, priority) => {
+    lines.push("  <url>");
+    lines.push(`    <loc>${escapeXml(loc)}</loc>`);
+    lines.push(`    <lastmod>${escapeXml(lastmod)}</lastmod>`);
+    lines.push("    <changefreq>monthly</changefreq>");
+    lines.push(`    <priority>${priority}</priority>`);
+    lines.push("  </url>");
+  };
+  pushUrl(`${SITE}/`, "1.0");
+  if (existsSync(join(root, "content", "projects.md"))) {
+    pushUrl(`${SITE}/projects/`, "0.75");
+  }
+  if (existsSync(join(root, "content", "triplecheck.md"))) {
+    pushUrl(`${SITE}/triplecheck/`, "0.7");
+  }
+  for (const slug of slugs) {
+    pushUrl(`${SITE}/experience/${slug}/`, "0.7");
+  }
+  lines.push("</urlset>");
+  lines.push("");
+  writeFileSync(join(root, "sitemap.xml"), lines.join("\n"), "utf8");
+}
+
 async function main() {
   buildIndex();
+  buildProjectsPage();
+  buildTriplecheckPage();
   await buildExperiencePages();
-  console.log("Build OK: index.html + experience/*");
+  writeSitemap();
+  console.log("Build OK: index.html + projects/* + triplecheck/* + experience/* + sitemap.xml");
 }
 
 main().catch((err) => {
