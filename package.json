@@ -1,0 +1,23 @@
+{
+  "name": "felipebasurto.com",
+  "version": "1.0.0",
+  "description": "Static personal portfolio built from Markdown (felipebasurto.com).",
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felipebasurto/felipebasurto.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/felipebasurto/felipebasurto.github.io/issues"
+  },
+  "homepage": "https://github.com/felipebasurto/felipebasurto.github.io#readme",
+  "devDependencies": {
+    "marked": "^12.0.2"
+  }
+}

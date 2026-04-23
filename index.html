@@ -1,295 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <!-- Security -->
-      <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline'">
-      <meta http-equiv="X-Content-Type-Options" content="nosniff">
-      <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-      
-      <!-- Basic -->
-      <link rel="icon" type="image/x-icon" href="/assets/icon.png">
-      <meta charset="UTF-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      
-      <!-- Cache Control -->
-      <meta http-equiv="Cache-Control" content="max-age=31536000">
-      
-      <!-- Primary Meta Tags -->
-      <meta name="title" content="Felipe Basurto - Data Scientist & ML Engineer">
-      <meta name="description" content="Junior Data Scientist II at Aily Labs, specializing in NLP and Machine Learning. Master's in Business Analytics and Big Data from IE. Experienced in AI solutions and Computer Vision.">
-      <meta name="keywords" content="Data Scientist, Machine Learning Engineer, NLP, AI, Deep Learning, Computer Vision, Python, Madrid, Aily Labs, Natural Language Processing, Business Intelligence">
-      <meta name="author" content="Felipe Basurto">
-      <meta name="robots" content="index, follow">
-      <meta name="language" content="English">
-      <meta name="revisit-after" content="7 days">
-      <meta name="theme-color" content="#483FEC">
-      
-      <!-- Open Graph / Facebook -->
-      <meta property="og:type" content="website">
-      <meta property="og:url" content="https://felipebasurto.github.io/">
-      <meta property="og:title" content="Felipe Basurto - Data Scientist & ML Engineer">
-      <meta property="og:description" content="Junior Data Scientist II at Aily Labs, specializing in NLP and Machine Learning. Creating AI-powered solutions for business intelligence.">
-      <meta property="og:image" content="/assets/fotofelipe3.jpg">
-      
-      <!-- Twitter -->
-      <meta property="twitter:card" content="summary_large_image">
-      <meta property="twitter:url" content="https://felipebasurto.github.io/">
-      <meta property="twitter:title" content="Felipe Basurto - Data Scientist & ML Engineer">
-      <meta property="twitter:description" content="Junior Data Scientist II at Aily Labs, specializing in NLP and Machine Learning. Creating AI-powered solutions for business intelligence.">
-      <meta property="twitter:image" content="/assets/fotofelipe3.jpg">
-      
-      <!-- Preload critical assets -->
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link rel="preconnect" href="https://kit.fontawesome.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="css/styles.css" />
-      
-      <!-- DNS Prefetch -->
-      <link rel="dns-prefetch" href="https://github.com">
-      <link rel="dns-prefetch" href="https://linkedin.com">
-      <link rel="dns-prefetch" href="https://twitter.com">
-      
-      <title>Felipe Basurto - Data Scientist & ML Engineer</title>
-   </head>
-   <body>      
-      <header class="header" role="banner">
-         <nav role="navigation" aria-label="Main navigation">
-            <ul class="menu">
-               <li class="menu__item"><a class="menu__link" href="#home">Home</a></li>
-               <li class="menu__item"><a class="menu__link" href="#projects">Projects</a></li>
-               <img src="assets/logo.png" alt="Felipe Basurto Logo" id="logo" class="menu__logo">
-               <li class="menu__item"><a class="menu__link" href="#experience">Experience</a></li>
-               <li class="menu__item"><a class="menu__link" href="#contact">Contact</a></li>
-            </ul>
-         </nav>
-      </header>
-      <br><br>
-      <main class="main" id="main" role="main">
-         <section id="home">
-            <div class="home-box">
-               <div class="home_text_container">
-                  <img src="assets/fotofelipe3.jpg" alt="Felipe's profile picture" class="home__photo">
-                  <h2 class="my_name">Felipe Basurto</h2>
-                  <div class="icon-containers">
-                     <a href="https://github.com/felipebasurto" target="_blank" rel="noopener noreferrer" aria-label="Visit my GitHub profile">
-                     <i class="fa-brands fa-square-github icon__links"></i>
-                     </a>
-                     <a href="https://www.linkedin.com/in/felipe-basurto-barrio/" target="_blank" rel="noopener noreferrer" aria-label="Connect with me on LinkedIn">
-                     <i class="fa-brands fa-linkedin  icon__links" ></i>
-                     </a>
-                     <a href="https://twitter.com/BasurtoBarrio" target="_blank" rel="noopener noreferrer" aria-label="Follow me on Twitter">
-                     <i class="fa-brands fa-square-twitter  icon__links"></i>
-                     </a>
-                  </div>
-               </div>
-               <br><br>
-               <p class="home__text">Currently a <b>Junior Data Scientist II</b> at <b>Aily Labs</b>, where I develop AI-powered solutions for business decision intelligence using NLP and machine learning. I recently completed my <b>Master's in Business Analytics and Big Data</b> from IE School of Science and Technology, where I won first place in both the IE Sustainability Datathon and Impact Project.<br>
-                  Previously, I worked on Computer Vision at FITIZENS and hold a Computer Science Engineering degree from Universidad de Burgos.<br>
-                  Outside of tech, I enjoy making music with my band and playing sports.
-               </p>
-               <br><br>
-            </div>
-         </section>
-         <br><br>
-         <article id="projects">
-            <h2 class="home__title">Personal projects</h2>
-            <div class="projects-container">
-               <div class="project-3">
-                  <a href="https://github.com/felipebasurto/data-pipeline-tfl-api" target="_blank" rel="noopener noreferrer" aria-label="TfL Data Pipeline Project">
-                     <img src="assets/project3.jpg" alt="TfL Data Pipeline - Real-time transport data processing project">
-                  </a>
-               </div>
-               <div class="project-4">
-                  <a href="https://github.com/felipebasurto/titanic-dataset-analysis" target="_blank" rel="noopener noreferrer" aria-label="Titanic Dataset Analysis Project">
-                     <img src="assets/project4.jpg" alt="Titanic Dataset Analysis - Machine learning classification project">
-                  </a>
-               </div>
-               <div class="project-6">
-                  <a href="https://github.com/felipebasurto/perceptron-with-svms" target="_blank" rel="noopener noreferrer" aria-label="Perceptron and SVM Project">
-                     <img src="assets/project6.jpg" alt="Advanced Machine Learning Models - Perceptron and SVM implementation">
-                  </a>
-               </div>
-               <div class="project-7">
-                  <a href="https://github.com/felipebasurto/employee-attrition-predictor" target="_blank" rel="noopener noreferrer" aria-label="Employee Attrition Predictor Project">
-                     <img src="assets/project7.jpg" alt="Employee Attrition Predictor - HR analytics machine learning project">
-                  </a>
-               </div>
-               <div class="project-2">
-                  <a href="https://github.com/felipebasurto/Machine-Learning-in-FIFA-Ultimate-Team-22" target="_blank" rel="noopener noreferrer" aria-label="FIFA Ultimate Team ML Project">
-                     <img src="assets/project2.jpg" alt="FIFA Ultimate Team Machine Learning Analysis">
-                  </a>
-               </div>
-               <div class="project-8">
-                  <a href="https://github.com/felipebasurto/rental-bikes-interactive-machine-learning-dashboard" target="_blank" rel="noopener noreferrer" aria-label="Rental Bikes ML Dashboard Project">
-                     <img src="assets/project8.jpg" alt="Interactive ML Dashboard for Bike Rental Prediction">
-                  </a>
-               </div>
-               <div class="project-5">
-                  <a href="https://github.com/felipebasurto/tokio2021-exploratory-data-analysis" target="_blank" rel="noopener noreferrer" aria-label="Tokyo 2021 Data Analysis Project">
-                     <img src="assets/project5.jpg" alt="Tokyo 2021 Olympics Exploratory Data Analysis">
-                  </a>
-               </div>
-               <div class="project-9">
-                  <a href="https://github.com/felipebasurto/uber-interactive-data-dashboard" target="_blank" rel="noopener noreferrer" aria-label="Uber Data Dashboard Project">
-                     <img src="assets/project9.jpg" alt="Uber Interactive Data Dashboard - Ride patterns analysis">
-                  </a>
-               </div>
-               <div class="project-10">
-                  <a href="https://github.com/felipebasurto/video-and-image-processing-with-MATLAB" target="_blank" rel="noopener noreferrer" aria-label="MATLAB Image Processing Project">
-                     <img src="assets/project10.jpg" alt="Video and Image Processing with MATLAB">
-                  </a>
-               </div>
-               <div class="project-1">
-                  <a href="https://github.com/felipebasurto/image-processing-with-scikit-image" target="_blank" rel="noopener noreferrer" aria-label="Scikit-image Processing Project">
-                     <img src="assets/project1.jpg" alt="Image Processing with scikit-image library">
-                  </a>
-               </div>
-            </div>
-         </article>
-         <br><br><br><br>
-         <article id="experience">
-            <h2 class="home__title">My professional experience</h2>
-            <div class="timeline-area">
-               <div class="container">
-                  <div class="all-timelines">
-                     <!--SINGLE TIMELINE-->
-                     <div class="single-timeline d-flex-2">
-                        <div class="timeline-blank"></div>
-                        <div class="timeline-text d-flex-2">
-                           <span>
-                              <h6>2024</h6>
-                              Promoted to <b>Junior Data Scientist II</b> at <b>Aily Labs</b>, continuing to develop state-of-the-art AI solutions.
-                           </span>
-                           <div class="t-square"></div>
-                        </div>
-                     </div>
-                     <!--SINGLE TIMELINE-->
-                     <div class="single-timeline d-flex-2">
-                        <div class="timeline-blank"></div>
-                        <div class="timeline-text d-flex-2">
-                           <span>
-                              <h6>2023</h6>
-                              Joined <b>Aily Labs</b> as Junior Data Scientist I, focusing on NLP and machine learning solutions. Previously completed an internship at <b>FITIZENS</b> working on Computer Vision and Human Pose Estimation.
-                           </span>
-                           <div class="t-square"></div>
-                        </div>
-                     </div>
-                     <!--SINGLE TIMELINE-->
-                     <div class="single-timeline d-flex-2">
-                        <div class="timeline-blank"></div>
-                        <div class="timeline-text d-flex-2">
-                           <span>
-                              <h6>2022-2023</h6>
-                              Completed my <b>Master's in Business Analytics and Big Data</b> at <b>IE School of Science and Technology</b>. Won first place in both the IE Sustainability Datathon and Impact Project.
-                           </span>
-                           <div class="t-square"></div>
-                        </div>
-                     </div>
-                     <!--SINGLE TIMELINE-->
-                     <div class="single-timeline d-flex-2">
-                        <div class="timeline-blank"></div>
-                        <div class="timeline-text d-flex-2">
-                           <span>
-                              <h6>2021-2022</h6>
-                              Worked at <b>Accenture</b> as a Salesforce developer, focusing on the energy sector and developing proficiency in Java, SQL, HTML, Javascript, and CSS.
-                           </span>
-                           <div class="t-square"></div>
-                        </div>
-                     </div>
-                     <!--SINGLE TIMELINE-->
-                     <div class="single-timeline d-flex-2">
-                        <div class="timeline-blank"></div>
-                        <div class="timeline-text d-flex-2">
-                           <span>
-                              <h6>2017-2022</h6>
-                              Completed my <b>Computer Science Engineering</b> degree at <b>Universidad de Burgos</b>, including international experiences through Erasmus+ in Wrocław, Poland.
-                           </span>
-                           <div class="t-square"></div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>   
-         </article>
-         <br><br><br>
-         <article id="contact">
-         <h2 class="contact_me">Contact me!</h2>
-         <div class="icons">
-         <a href="https://github.com/felipebasurto" target="_blank">
-         <i class="fa-brands fa-square-github icon__links_2"></i>
-         </a>
-         <a href="https://www.linkedin.com/in/felipe-basurto-barrio/" target="_blank">
-         <i class="fa-brands fa-linkedin  icon__links_2" ></i>
-         </a>
-         <a href="https://twitter.com/BasurtoBarrio" target="_blank">
-         <i class="fa-brands fa-square-twitter  icon__links_2"></i>
-         </a>
-         <a href="mailto:felipeasurtobarrio@gmail.com" target="_blank">
-         <i class="fa-solid fa-square-envelope icon__links_2"></i>
-         </a>
-         </div>
-         </div>
-         </article>
-         <br><br><br><br><br><br>
-      </main>
-      <footer class="footer"></footer>
-      <script src="https://kit.fontawesome.com/a87daaf01d.js" crossorigin="anonymous"></script>
-      <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Felipe Basurto",
-        "jobTitle": "Junior Data Scientist II",
-        "description": "Data Scientist specializing in Natural Language Processing (NLP) and Machine Learning",
-        "image": "/assets/fotofelipe3.jpg",
-        "url": "https://felipebasurto.github.io",
-        "sameAs": [
-          "https://github.com/felipebasurto",
-          "https://www.linkedin.com/in/felipe-basurto-barrio/",
-          "https://twitter.com/BasurtoBarrio"
-        ],
-        "alumniOf": [
-          {
-            "@type": "CollegeOrUniversity",
-            "name": "IE School of Science and Technology",
-            "degree": "Master in Business Analytics and Big Data"
-          },
-          {
-            "@type": "CollegeOrUniversity",
-            "name": "Universidad de Burgos",
-            "degree": "Computer Science Engineering"
-          }
-        ],
-        "knowsAbout": [
-          "Natural Language Processing (NLP)",
-          "Machine Learning",
-          "Deep Learning",
-          "Computer Vision",
-          "Python Programming",
-          "Data Science",
-          "Artificial Intelligence",
-          "Business Intelligence",
-          "Big Data Analytics"
-        ],
-        "worksFor": {
-          "@type": "Organization",
-          "name": "Aily Labs",
-          "location": {
-            "@type": "Place",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Madrid",
-              "addressCountry": "Spain"
-            }
-          }
-        },
-        "award": [
-          "First Place - IE Sustainability Datathon",
-          "First Place - IE Impact Project"
-        ]
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+
+  <link rel="icon" type="image/png" href="./assets/icon.png" />
+  <link rel="apple-touch-icon" href="./assets/icon.png" />
+  <link rel="canonical" href="https://felipebasurto.com/" />
+  <link rel="alternate" type="text/plain" href="./llms.txt" title="llms.txt" />
+
+  <meta name="title" content="Felipe Basurto — Solutions Architect @ Multiverse Computing" />
+  <meta name="description" content="Solutions Architect (CompactifAI, LLM compression) — pre-sales engineering and applied AI. Hobby iOS builds as AI experiments; Cursor Madrid Ambassador. Madrid." />
+  <meta name="author" content="Felipe Basurto" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0a0c" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://felipebasurto.com/" />
+  <meta property="og:title" content="Felipe Basurto — Solutions Architect @ Multiverse Computing" />
+  <meta property="og:description" content="Solutions Architect (CompactifAI, LLM compression) — pre-sales engineering and applied AI. Hobby iOS builds as AI experiments; Cursor Madrid Ambassador. Madrid." />
+  <meta property="og:image" content="https://felipebasurto.com/assets/profile.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://felipebasurto.com/" />
+  <meta name="twitter:title" content="Felipe Basurto — Solutions Architect @ Multiverse Computing" />
+  <meta name="twitter:description" content="Solutions Architect (CompactifAI, LLM compression) — pre-sales engineering and applied AI. Hobby iOS builds as AI experiments; Cursor Madrid Ambassador. Madrid." />
+  <meta name="twitter:image" content="https://felipebasurto.com/assets/profile.png" />
+
+  <title>Felipe Basurto — Solutions Architect @ Multiverse Computing</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="doc">
+    <header class="doc__hint">~/cv.md</header>
+    <main id="main" class="doc__main">
+      <article class="md-doc">
+<h1 class="md-heading" id="felipe-basurto"><span class="md-hashes" aria-hidden="true">#</span> Felipe Basurto</h1>
+<figure class="md-figure"><img class="md-img" src="./assets/profile.png" alt="Profile photo" loading="lazy" width="112" height="112" /><figcaption class="md-figcap" aria-hidden="true">![Profile photo](./assets/profile.png)</figcaption></figure>
+<p class="md-p"><strong class="md-strong">Solutions Architect</strong> at <a class="md-link" href="https://multiversecomputing.com/" title="https://multiversecomputing.com/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">Multiverse Computing</strong></a> (Madrid), working on <strong class="md-strong">LLM compression</strong> and <strong class="md-strong">CompactifAI</strong>: demos, PoCs, and customer-facing work where <strong class="md-strong">model efficiency</strong> meets <strong class="md-strong">cost</strong>, <strong class="md-strong">latency</strong>, and <strong class="md-strong">deployment</strong> in the real world. That—<strong class="md-strong">solutions engineering</strong> and <strong class="md-strong">applying AI</strong> in production—is what I focus on.</p>
+<p class="md-p"><a class="md-link" href="https://cursor.com" title="https://cursor.com" rel="noopener noreferrer" target="_blank"><strong class="md-strong">Cursor</strong></a> <strong class="md-strong">Madrid Ambassador</strong> (community, meetups, workshops). On the side I keep <strong class="md-strong">hobby iOS projects</strong> and <strong class="md-strong">music</strong>; they’re outlets to <strong class="md-strong">experiment with AI</strong> and build small things, not a second career.</p>
+<h2 class="md-heading" id="experience"><span class="md-hashes" aria-hidden="true">##</span> Experience</h2>
+<h3 class="md-heading" id="nov-2025-present"><span class="md-hashes" aria-hidden="true">###</span> Nov 2025 — present</h3>
+<p class="md-p"><img class="md-logo" src="./assets/companies/multiverse.png" alt="Multiverse Computing" loading="lazy" width="20" height="20" /><strong class="md-strong">Solutions Architect</strong> at <a class="md-link" href="https://multiversecomputing.com/" title="https://multiversecomputing.com/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">Multiverse Computing</strong></a> (Madrid). Pre-sales around <strong class="md-strong">CompactifAI</strong> (LLM compression): technical demos, prototypes, and PoCs across finance, manufacturing, retail, and healthcare. Connecting model-efficiency choices to <strong class="md-strong">cost</strong>, <strong class="md-strong">latency</strong>, and <strong class="md-strong">deployment</strong> tradeoffs for engineering teams and leadership. Working with infrastructure partners on cloud and on-prem architecture. <a class="md-link" href="./experience/multiverse/" title="./experience/multiverse/">Details</a></p>
+<p class="md-p">In parallel (not the day job):</p>
+<ul class="md-list md-list--unordered">
+<li class="md-li"><img class="md-logo" src="./assets/companies/cursor.png" alt="Cursor" loading="lazy" width="20" height="20" /><a class="md-link" href="https://cursor.com" title="https://cursor.com" rel="noopener noreferrer" target="_blank"><strong class="md-strong">Cursor</strong></a> Madrid Ambassador (since May 2025). Meetups, workshops, and collaborations with coworkings, startups, and universities. <a class="md-link" href="./experience/cursor/" title="./experience/cursor/">Details</a></li>
+<li class="md-li"><img class="md-logo" src="./assets/companies/encore.png" alt="Encore Concert Diary" loading="lazy" width="20" height="20" />Hobby / side project — <a class="md-link" href="https://encorearchives.com" title="https://encorearchives.com" rel="noopener noreferrer" target="_blank"><strong class="md-strong">Encore: Concert Diary</strong></a> (since May 2025). <strong class="md-strong">iOS</strong> in <strong class="md-strong">Swift</strong> / <strong class="md-strong">SwiftUI</strong> (concert feed, stats, friends, passport, upcoming, <strong class="md-strong">wrapped</strong>); I use it to <strong class="md-strong">try ideas</strong> and <strong class="md-strong">AI-assisted</strong> workflows, not as a primary business. Shipped on the App Store; <strong class="md-strong">$2k+</strong> revenue; short-form video for discovery. <a class="md-link" href="https://apps.apple.com/us/app/encore-concert-diary/id6748657647" title="https://apps.apple.com/us/app/encore-concert-diary/id6748657647" rel="noopener noreferrer" target="_blank">App Store (US)</a> · <a class="md-link" href="https://encorearchives.com/es" title="https://encorearchives.com/es" rel="noopener noreferrer" target="_blank">Site (ES)</a> · <a class="md-link" href="./experience/encore/" title="./experience/encore/">Details</a></li>
+</ul>
+<h3 class="md-heading" id="jul-2023-nov-2025"><span class="md-hashes" aria-hidden="true">###</span> Jul 2023 — Nov 2025</h3>
+<p class="md-p"><img class="md-logo" src="./assets/companies/aily.png" alt="AILY LABS" loading="lazy" width="20" height="20" /><strong class="md-strong">Data Scientist</strong> at <a class="md-link" href="https://www.ailylabs.com/" title="https://www.ailylabs.com/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">AILY LABS</strong></a> (Madrid). Production agents on <a class="md-link" href="https://www.langchain.com/" title="https://www.langchain.com/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">LangChain</strong></a> and <a class="md-link" href="https://langfuse.com/" title="https://langfuse.com/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">Langfuse</strong></a> (retrieval, tools, guardrails). Built a <strong class="md-strong">Graph RAG</strong> pipeline (<a class="md-link" href="https://unstructured.io/" title="https://unstructured.io/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">unstructured.io</strong></a> + <a class="md-link" href="https://neo4j.com/" title="https://neo4j.com/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">Neo4j</strong></a> + <a class="md-link" href="https://www.langchain.com/" title="https://www.langchain.com/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">LangChain</strong></a>) that turns legacy manuals into cited chunks exposed over an API for downstream models. NLP and time-series pipelines in SQL/Python for operational forecasting. <strong class="md-strong">MLOps on AWS</strong> (<a class="md-link" href="https://airflow.apache.org/" title="https://airflow.apache.org/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">Apache Airflow</strong></a>, <a class="md-link" href="https://www.docker.com/" title="https://www.docker.com/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">Docker</strong></a>, CI/CD, monitoring); cut an internal ETL from ~1.5h to ~15s. <a class="md-link" href="./experience/aily/" title="./experience/aily/">Details</a></p>
+<h3 class="md-heading" id="2023"><span class="md-hashes" aria-hidden="true">###</span> 2023</h3>
+<p class="md-p"><img class="md-logo" src="./assets/companies/fitizens.png" alt="FITIZENS" loading="lazy" width="20" height="20" />Computer Vision intern at <a class="md-link" href="https://fitizens.io/" title="https://fitizens.io/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">FITIZENS</strong></a> (Madrid). Human Pose Estimation with <a class="md-link" href="https://opencv.org/" title="https://opencv.org/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">OpenCV</strong></a> and <a class="md-link" href="https://ai.google.dev/edge/mediapipe/solutions/guide" title="https://ai.google.dev/edge/mediapipe/solutions/guide" rel="noopener noreferrer" target="_blank"><strong class="md-strong">MediaPipe</strong></a>; demos in <a class="md-link" href="https://streamlit.io/" title="https://streamlit.io/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">Streamlit</strong></a>. <a class="md-link" href="./experience/fitizens/" title="./experience/fitizens/">Details</a></p>
+<h3 class="md-heading" id="2022-2023"><span class="md-hashes" aria-hidden="true">###</span> 2022 — 2023</h3>
+<p class="md-p"><img class="md-logo" src="./assets/companies/ie.png" alt="IE School of Science and Technology" loading="lazy" width="20" height="20" /><strong class="md-strong">Master&#39;s in Business Analytics and Big Data</strong> at <a class="md-link" href="https://www.ie.edu/school-science-technology" title="https://www.ie.edu/school-science-technology" rel="noopener noreferrer" target="_blank"><strong class="md-strong">IE School of Science and Technology</strong></a>. 1st place at the IE × <a class="md-link" href="https://www.nttdata.com/" title="https://www.nttdata.com/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">NTT DATA</strong></a> &amp; <a class="md-link" href="https://o9solutions.com/" title="https://o9solutions.com/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">o9</strong></a> Sustainability Datathon and at the IE Impact Project (a news recommender built with <a class="md-link" href="https://www.microsoft.com/" title="https://www.microsoft.com/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">Microsoft</strong></a>). <a class="md-link" href="./experience/ie/" title="./experience/ie/">Details</a></p>
+<h3 class="md-heading" id="2021-2022"><span class="md-hashes" aria-hidden="true">###</span> 2021 — 2022</h3>
+<p class="md-p"><img class="md-logo" src="./assets/companies/accenture.png" alt="Accenture" loading="lazy" width="20" height="20" /><strong class="md-strong">Salesforce developer</strong> at <a class="md-link" href="https://www.accenture.com/es-es" title="https://www.accenture.com/es-es" rel="noopener noreferrer" target="_blank"><strong class="md-strong">Accenture</strong></a> (Spain, energy sector). Java, SQL, HTML, JavaScript, CSS.</p>
+<h3 class="md-heading" id="2017-2022"><span class="md-hashes" aria-hidden="true">###</span> 2017 — 2022</h3>
+<p class="md-p"><img class="md-logo" src="./assets/companies/ubu.png" alt="Universidad de Burgos" loading="lazy" width="20" height="20" /><strong class="md-strong">Computer Science Engineering</strong> at <a class="md-link" href="https://www.ubu.es/" title="https://www.ubu.es/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">Universidad de Burgos</strong></a>. <a class="md-link" href="https://erasmus-plus.ec.europa.eu/" title="https://erasmus-plus.ec.europa.eu/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">Erasmus+</strong></a> at <a class="md-link" href="https://pwr.edu.pl/en/" title="https://pwr.edu.pl/en/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">Wrocław University of Science and Technology</strong></a> (2019–2020) and <a class="md-link" href="https://www.crue.org/sicue/" title="https://www.crue.org/sicue/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">SICUE</strong></a> at <a class="md-link" href="https://www.uam.es/" title="https://www.uam.es/" rel="noopener noreferrer" target="_blank"><strong class="md-strong">Universidad Autónoma de Madrid</strong></a> (2021–2022). <a class="md-link" href="./experience/ubu/" title="./experience/ubu/">Details</a></p>
+<h2 class="md-heading" id="projects"><span class="md-hashes" aria-hidden="true">##</span> Projects</h2>
+<p class="md-p">My <strong class="md-strong">main professional work</strong> is under <strong class="md-strong">Experience</strong> (Multiverse, <strong class="md-strong">solutions engineering</strong>, <strong class="md-strong">applied AI</strong> / <strong class="md-strong">LLM efficiency</strong>). What follows is <strong class="md-strong">side</strong> output: <strong class="md-strong">music</strong>, <strong class="md-strong">hobby iOS</strong> builds (where I <strong class="md-strong">play with AI</strong> in the dev loop), and <strong class="md-strong">GitHub</strong>.</p>
+<h3 class="md-heading" id="music-triple-check"><span class="md-hashes" aria-hidden="true">###</span> Music (Triple Check)</h3>
+<ul class="md-list md-list--unordered">
+<li class="md-li"><img class="md-logo" src="./assets/companies/triple-check.png" alt="Triple Check" loading="lazy" width="20" height="20" /><strong class="md-strong"><a class="md-link" href="https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR" title="https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR" rel="noopener noreferrer" target="_blank">Triple Check</a></strong> — <strong class="md-strong">Spanish pop rock</strong> in <strong class="md-strong">Burgos</strong> with <strong class="md-strong">Miguel Ferrer</strong> and <strong class="md-strong">Diego Garrido</strong>; we met at school, home recordings from <strong class="md-strong">2020</strong>. <strong class="md-strong">1.7M+</strong> all-time streams on Spotify. EP <em class="md-em">Atentamente, Triple Check</em> (2023). <strong class="md-strong">Gigs around Spain.</strong> <a class="md-link" href="https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR" title="https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR" rel="noopener noreferrer" target="_blank">Spotify</a> · <a class="md-link" href="./triplecheck/" title="./triplecheck/">Details</a></li>
+</ul>
+<h3 class="md-heading" id="ios-hobby-ai-experiments"><span class="md-hashes" aria-hidden="true">###</span> iOS (hobby — AI experiments)</h3>
+<ul class="md-list md-list--unordered">
+<li class="md-li"><img class="md-logo" src="./assets/companies/encore.png" alt="Encore Concert Diary" loading="lazy" width="20" height="20" /><strong class="md-strong"><a class="md-link" href="https://encorearchives.com" title="https://encorearchives.com" rel="noopener noreferrer" target="_blank">Encore: Concert Diary</a></strong> — see entry above. <a class="md-link" href="./experience/encore/" title="./experience/encore/">Details</a></li>
+<li class="md-li"><img class="md-logo" src="./assets/companies/habitdex.png" alt="HabitDex" loading="lazy" width="20" height="20" /><strong class="md-strong"><a class="md-link" href="https://apps.apple.com/us/app/habitdex/id6755887620" title="https://apps.apple.com/us/app/habitdex/id6755887620" rel="noopener noreferrer" target="_blank">HabitDex</a></strong> — <strong class="md-strong">Hobby build</strong> with <strong class="md-strong">Miguel Ferrer</strong> (<a class="md-link" href="https://www.linkedin.com/in/mffdr/?locale=en" title="https://www.linkedin.com/in/mffdr/?locale=en" rel="noopener noreferrer" target="_blank">LinkedIn</a>) on design. Habit loop + creatures; on-device + optional iCloud. <a class="md-link" href="https://apps.apple.com/us/app/habitdex/id6755887620" title="https://apps.apple.com/us/app/habitdex/id6755887620" rel="noopener noreferrer" target="_blank">App Store</a> · <a class="md-link" href="./experience/habitdex/" title="./experience/habitdex/">Details</a></li>
+</ul>
+<p class="md-p"><strong class="md-strong">GitHub</strong> and coursework: <strong class="md-strong"><a class="md-link" href="./projects/" title="./projects/">Projects →</a></strong>.</p>
+<h2 class="md-heading" id="links"><span class="md-hashes" aria-hidden="true">##</span> Links</h2>
+<ul class="md-list md-list--unordered">
+<li class="md-li"><a class="md-link" href="https://github.com/felipebasurto" title="https://github.com/felipebasurto" rel="noopener noreferrer" target="_blank">GitHub</a></li>
+<li class="md-li"><a class="md-link" href="https://www.linkedin.com/in/felipe-basurto-barrio/" title="https://www.linkedin.com/in/felipe-basurto-barrio/" rel="noopener noreferrer" target="_blank">LinkedIn</a></li>
+<li class="md-li"><a class="md-link" href="https://x.com/fildotai" title="https://x.com/fildotai" rel="noopener noreferrer" target="_blank">Twitter / X @fildotai</a></li>
+<li class="md-li"><a class="md-link" href="mailto:felipeasurtobarrio@gmail.com" title="mailto:felipeasurtobarrio@gmail.com">Email</a></li>
+</ul>
+
+      </article>
+    </main>
+    <footer class="doc__footer" aria-label="End of document">
+      <span class="doc__footer-eof" aria-hidden="true">---</span>
+      <span class="doc__footer-text">EOF · 2026 · built from markdown</span>
+    </footer>
+  </div>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://felipebasurto.com/#person","name":"Felipe Basurto","jobTitle":"Solutions Architect","description":"Solutions Architect (CompactifAI, LLM compression) — pre-sales engineering and applied AI. Hobby iOS builds as AI experiments; Cursor Madrid Ambassador. Madrid.","image":"https://felipebasurto.com/assets/profile.png","url":"https://felipebasurto.com","sameAs":["https://github.com/felipebasurto","https://www.linkedin.com/in/felipe-basurto-barrio/","https://x.com/fildotai"],"alumniOf":[{"@type":"CollegeOrUniversity","name":"IE School of Science and Technology"},{"@type":"CollegeOrUniversity","name":"Universidad de Burgos"}],"worksFor":{"@type":"Organization","name":"Multiverse Computing","url":"https://multiversecomputing.com/"},"memberOf":{"@type":"MusicGroup","name":"Triple Check","url":"https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR","genre":"Spanish pop rock"},"homeLocation":{"@type":"Place","name":"Madrid, Spain"},"nationality":{"@type":"Country","name":"Spain"},"knowsLanguage":["en","es"],"knowsAbout":["LLM compression","CompactifAI","solutions engineering","applied AI","Graph RAG","Neo4j","LangChain","Langfuse","MLOps","AWS","Apache Airflow","Python","machine learning","computer vision","pre-sales engineering","Swift","SwiftUI","hobby iOS","Triple Check","Spanish pop rock"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://felipebasurto.com/","url":"https://felipebasurto.com"}},{"@type":"WebSite","@id":"https://felipebasurto.com/#website","url":"https://felipebasurto.com","name":"Felipe Basurto","description":"Solutions Architect (CompactifAI, LLM compression) — pre-sales engineering and applied AI. Hobby iOS builds as AI experiments; Cursor Madrid Ambassador. Madrid.","inLanguage":"en","publisher":{"@id":"https://felipebasurto.com/#person"}}]}</script>
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button class="lightbox__close" type="button" aria-label="Close (Esc)">×</button>
+    <img class="lightbox__img" alt="" />
+  </div>
+  <script>
+    (function () {
+      var shots = document.querySelectorAll("a.ev-shot");
+      if (!shots.length) return;
+      var box = document.getElementById("lightbox");
+      var img = box.querySelector(".lightbox__img");
+      var closeBtn = box.querySelector(".lightbox__close");
+      var lastFocus = null;
+      function open(href, alt) {
+        lastFocus = document.activeElement;
+        img.src = href;
+        img.alt = alt || "";
+        box.hidden = false;
+        document.body.style.overflow = "hidden";
+        closeBtn.focus();
       }
-      </script>
-   </body>
+      function close() {
+        box.hidden = true;
+        img.src = "";
+        document.body.style.overflow = "";
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+      shots.forEach(function (a) {
+        a.addEventListener("click", function (e) {
+          e.preventDefault();
+          var im = a.querySelector("img");
+          open(a.getAttribute("href"), im ? im.alt : "");
+        });
+      });
+      box.addEventListener("click", function (e) {
+        if (e.target === box || e.target === img) close();
+      });
+      closeBtn.addEventListener("click", close);
+      document.addEventListener("keydown", function (e) {
+        if (!box.hidden && e.key === "Escape") close();
+      });
+    })();
+  </script>
+</body>
 </html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+
+  <link rel="icon" type="image/png" href="{{REL_PREFIX}}assets/icon.png" />
+  <link rel="apple-touch-icon" href="{{REL_PREFIX}}assets/icon.png" />
+  <link rel="canonical" href="{{CANONICAL}}" />
+  <link rel="alternate" type="text/plain" href="{{REL_PREFIX}}llms.txt" title="llms.txt" />
+
+  <meta name="title" content="{{TITLE}}" />
+  <meta name="description" content="{{DESCRIPTION}}" />
+  <meta name="author" content="Felipe Basurto" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0a0c" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{OG_URL}}" />
+  <meta property="og:title" content="{{TITLE}}" />
+  <meta property="og:description" content="{{DESCRIPTION}}" />
+  <meta property="og:image" content="{{OG_IMAGE}}" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="{{OG_URL}}" />
+  <meta name="twitter:title" content="{{TITLE}}" />
+  <meta name="twitter:description" content="{{DESCRIPTION}}" />
+  <meta name="twitter:image" content="{{OG_IMAGE}}" />
+
+  <title>{{TITLE}}</title>
+  <link rel="stylesheet" href="{{REL_PREFIX}}css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="doc{{DOC_CLASS}}">
+    <header class="doc__hint">{{HEADER_HINT}}</header>
+    <main id="main" class="doc__main">
+      <article class="md-doc{{ARTICLE_CLASS}}">
+{{BODY}}
+      </article>
+    </main>
+    <footer class="doc__footer" aria-label="End of document">
+      <span class="doc__footer-eof" aria-hidden="true">---</span>
+      <span class="doc__footer-text">EOF · {{YEAR}} · built from markdown</span>
+    </footer>
+  </div>
+  <script type="application/ld+json">{{JSON_LD}}</script>
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button class="lightbox__close" type="button" aria-label="Close (Esc)">×</button>
+    <img class="lightbox__img" alt="" />
+  </div>
+  <script>
+    (function () {
+      var shots = document.querySelectorAll("a.ev-shot");
+      if (!shots.length) return;
+      var box = document.getElementById("lightbox");
+      var img = box.querySelector(".lightbox__img");
+      var closeBtn = box.querySelector(".lightbox__close");
+      var lastFocus = null;
+      function open(href, alt) {
+        lastFocus = document.activeElement;
+        img.src = href;
+        img.alt = alt || "";
+        box.hidden = false;
+        document.body.style.overflow = "hidden";
+        closeBtn.focus();
+      }
+      function close() {
+        box.hidden = true;
+        img.src = "";
+        document.body.style.overflow = "";
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+      shots.forEach(function (a) {
+        a.addEventListener("click", function (e) {
+          e.preventDefault();
+          var im = a.querySelector("img");
+          open(a.getAttribute("href"), im ? im.alt : "");
+        });
+      });
+      box.addEventListener("click", function (e) {
+        if (e.target === box || e.target === img) close();
+      });
+      closeBtn.addEventListener("click", close);
+      document.addEventListener("keydown", function (e) {
+        if (!box.hidden && e.key === "Escape") close();
+      });
+    })();
+  </script>
+</body>
+</html>
