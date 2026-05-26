@@ -140,9 +140,13 @@ marked.use({
       if (isLogo) {
         return `<img class="md-logo" src="${safe}" alt="${alt}"${t} loading="lazy" width="20" height="20" />`;
       }
-      if (/\/assets\/experience\/habitdex\/habitdex-icon\./i.test(href)) {
+      if (/\/assets\/experience\/(habitdex\/habitdex-icon|audio-silence-remover\/icon)\./i.test(href)) {
         const caption = `![${text}](${href})`;
         return `<figure class="md-figure md-figure--appicon"><img class="md-img md-img--appicon" src="${safe}" alt="${alt}"${t} loading="lazy" decoding="async" width="96" height="96" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
+      }
+      if (/\/assets\/experience\/audio-silence-remover\/screenshot\./i.test(href)) {
+        const caption = `![${text}](${href})`;
+        return `<figure class="md-figure md-figure--macshot"><img class="md-img md-img--macshot" src="${safe}" alt="${alt}"${t} loading="lazy" decoding="async" width="1200" height="750" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
       }
       const isAppStoreShot = /\/assets\/experience\/(encore|habitdex)\//.test(href);
       if (isAppStoreShot) {
@@ -168,6 +172,7 @@ function unwrapFigures(html) {
   const openPatterns = [
     /<p class="md-p">\s*<figure class="md-figure md-figure--appshot">/g,
     /<p class="md-p">\s*<figure class="md-figure md-figure--appicon">/g,
+    /<p class="md-p">\s*<figure class="md-figure md-figure--macshot">/g,
     /<p class="md-p">\s*<figure class="md-figure md-figure--triplecheck">/g,
     /<p class="md-p">\s*<figure class="md-figure">/g,
   ];
@@ -585,8 +590,9 @@ async function buildExperiencePages() {
       headerHint: `~/experience/${slug}.md`,
       bodyHtml,
       jsonLd: buildWebPageJsonLd({ name: title, url: canonicalUrl, description }),
-      docClass: slug === "encore" || slug === "habitdex" ? " doc--wide" : "",
-      articleClass: slug === "encore" || slug === "habitdex" ? ` md-doc--${slug}` : "",
+      docClass: slug === "encore" || slug === "habitdex" || slug === "audio-silence-remover" ? " doc--wide" : "",
+      articleClass:
+        slug === "encore" || slug === "habitdex" || slug === "audio-silence-remover" ? ` md-doc--${slug}` : "",
     });
     writeFileSync(join(outDir, "index.html"), html, "utf8");
   }

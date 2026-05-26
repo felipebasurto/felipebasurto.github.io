@@ -1,6 +1,6 @@
 ---
 title: "Projects — Felipe Basurto"
-description: "Side projects: music (Triple Check), hobby iOS and AI experiments (Encore, HabitDex), plus GitHub and coursework. Professional work is in Experience."
+description: "Side projects: Triple Check (music), Encore and HabitDex (iOS), Audio Silence Remover (macOS, open source), plus GitHub coursework. Day job on the CV."
 og_image: "/assets/profile.png"
 ---
 
@@ -8,20 +8,21 @@ og_image: "/assets/profile.png"
 
 # Projects
 
-Side work: **music**, **hobby iOS** apps, and **GitHub**. Professional experience is under [Experience](../).
+Side work: **music**, **iOS and Mac** apps, and **GitHub**. For Multiverse and AILY, see the [CV](../).
 
 ## Music (Triple Check)
 
-- ![Triple Check](../assets/companies/triple-check.png)**[Triple Check](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR)** — **Spanish pop rock** in **Burgos** with **Miguel Ferrer** and **Diego Garrido**; we met at school, home recordings from **2020**. **1.7M+** all-time streams on Spotify. EP *Atentamente, Triple Check* (2023). **Gigs around Spain.** [Spotify](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR) · [Details](../triplecheck/)
+- ![Triple Check](../assets/companies/triple-check.png)**[Triple Check](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR)** — Pop-rock from Burgos; three friends, home recordings since 2020. Full story, venues, and live photos on the band page. [Spotify](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR) · [Details](../triplecheck/)
 
-## iOS (hobby — AI experiments)
+## Apps (side projects)
 
-- **[Encore: Concert Diary](https://encorearchives.com)** — Concert diary: feed, stats, friends, passport, upcoming, wrapped. **$2k+** on the App Store; short-form video for discovery. [App Store (US)](https://apps.apple.com/us/app/encore-concert-diary/id6748657647) · [Site (ES)](https://encorearchives.com/es) · [Details](../experience/encore/)
-- **[HabitDex](https://apps.apple.com/us/app/habitdex/id6755887620)** — Habit + creatures loop; on-device + optional iCloud. **Miguel Ferrer** ([LinkedIn](https://www.linkedin.com/in/mffdr/?locale=en)) on design. [App Store](https://apps.apple.com/us/app/habitdex/id6755887620) · [Product site](https://v0-habitdex.vercel.app/) · [Details](../experience/habitdex/)
+- **[Encore: Concert Diary](https://encorearchives.com)**: Concert diary in Swift/SwiftUI. Features, revenue, and distribution: [Details](../experience/encore/)
+- **[HabitDex](https://apps.apple.com/us/app/habitdex/id6755887620)**: Pokémon-style habit tracker; on-device + optional iCloud. **Miguel Ferrer** ([LinkedIn](https://www.linkedin.com/in/mffdr/?locale=en)) on design. [App Store](https://apps.apple.com/us/app/habitdex/id6755887620) · [Product site](https://v0-habitdex.vercel.app/) · [Details](../experience/habitdex/)
+- **[Audio Silence Remover](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12)**: macOS app for short-form voiceovers (TikTok/YouTube): threshold-based silence trim, no ML; open source on GitHub. [App Store](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12) · [GitHub](https://github.com/felipebasurto/silence-remover) · [Details](../experience/audio-silence-remover/)
 
 ## Repositories & coursework
 
-Smaller or teaching-oriented work on GitHub:
+University and weekend repos on GitHub:
 
 - [TfL Data Pipeline](https://github.com/felipebasurto/data-pipeline-tfl-api)
 - [Titanic Dataset Analysis](https://github.com/felipebasurto/titanic-dataset-analysis)

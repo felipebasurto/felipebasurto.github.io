@@ -535,16 +535,19 @@ h3.md-heading {
   opacity: 0.85;
 }
 
-.md-doc--habitdex h1 + .md-figure--appicon {
+.md-doc--habitdex h1 + .md-figure--appicon,
+.md-doc--audio-silence-remover h1 + .md-figure--appicon {
   margin-top: 0.35rem;
 }
 
-.md-doc--habitdex .md-figure--appicon {
+.md-doc--habitdex .md-figure--appicon,
+.md-doc--audio-silence-remover .md-figure--appicon {
   margin: 0.75rem 0 1.25rem;
   max-width: 96px;
 }
 
-.md-doc--habitdex .md-img--appicon {
+.md-doc--habitdex .md-img--appicon,
+.md-doc--audio-silence-remover .md-img--appicon {
   display: block;
   width: 96px;
   height: auto;
@@ -553,9 +556,31 @@ h3.md-heading {
   box-sizing: border-box;
 }
 
-.md-doc--habitdex .md-figure--appicon .md-figcap {
+.md-doc--habitdex .md-figure--appicon .md-figcap,
+.md-doc--audio-silence-remover .md-figure--appicon .md-figcap {
   margin-top: 0.35rem;
   text-align: left;
+}
+
+.md-doc--audio-silence-remover .md-figure--macshot {
+  margin: 1rem 0 1.5rem;
+  max-width: 100%;
+}
+
+.md-doc--audio-silence-remover .md-img--macshot {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--hairline);
+  box-sizing: border-box;
+}
+
+.md-doc--audio-silence-remover .md-figure--macshot .md-figcap {
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  opacity: 0.85;
 }
 
 .md-doc--cursor .md-p:first-of-type {

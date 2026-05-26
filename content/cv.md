@@ -1,6 +1,6 @@
 ---
 title: "Felipe Basurto | Solutions Architect @ Multiverse Computing"
-description: "Solutions Architect at Multiverse (CompactifAI, LLM compression). Cursor Community Regional Lead for Europe. Side iOS apps and music. Madrid."
+description: "Solutions Architect at Multiverse (CompactifAI, LLM compression). Cursor Community Regional Lead for Europe. Side iOS and Mac apps and music. Madrid."
 og_image: "/assets/profile.png"
 ---
 
@@ -10,7 +10,7 @@ og_image: "/assets/profile.png"
 
 **Solutions Architect** at [**Multiverse Computing**](https://multiversecomputing.com/) (Madrid). Most of my week is technical pre-sales on **CompactifAI**: LLM compression demos and PoCs for finance, manufacturing, retail, and healthcare. A lot of the work is helping teams run useful models without burning absurd amounts of compute.
 
-[**Cursor**](https://cursor.com) **Community Regional Lead for Europe**. What started as meetups in Madrid turned into hackathons, workshops, and founder circles. On the side I ship small **iOS** apps and play in a band.
+[**Cursor**](https://cursor.com) **Community Regional Lead for Europe**. What started as meetups in Madrid turned into hackathons, workshops, and founder circles. On the side I ship small **iOS and Mac** apps and play in a band.
 
 ## Experience
 
@@ -18,7 +18,7 @@ og_image: "/assets/profile.png"
 
 ![Multiverse Computing](./assets/companies/multiverse.png)**Solutions Architect** at [**Multiverse Computing**](https://multiversecomputing.com/) (Madrid). Demos and PoCs across finance, manufacturing, retail, and healthcare. Most meetings are translating between engineers, infra teams, and executives until everyone is talking about the same problem. I work with cloud and on-prem partners on reference architectures. Built a **Claude skills plugin** for sales & presales: call prep, consortium work-package fit, and Multiverse-branded decks, one-pagers, and docs. [Details](./experience/multiverse/)
 
-In parallel (not the day job):
+Side projects:
 
 - ![Cursor](./assets/companies/cursor.png)[**Cursor**](https://cursor.com) **Community Regional Lead for Europe** (Madrid since May 2025, now Europe-wide). Meetups, hackathons, workshops, founder circles: coworkings, startups, universities. [Details](./experience/cursor/)
 - ![Encore Concert Diary](./assets/companies/encore.png)Side project: [**Encore: Concert Diary**](https://encorearchives.com) (since May 2025). **iOS** in **Swift** / **SwiftUI**: concert feed, stats, friends, passport, upcoming, **wrapped**. Built in spare time with Cursor in the loop. On the App Store; **$2k+** revenue; TikTok/Reels for installs. [App Store (US)](https://apps.apple.com/us/app/encore-concert-diary/id6748657647) · [Site (ES)](https://encorearchives.com/es) · [Details](./experience/encore/)
@@ -45,10 +45,11 @@ In parallel (not the day job):
 
 - ![Triple Check](./assets/companies/triple-check.png)**[Triple Check](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR)**: **Spanish pop rock** in **Burgos** with **Miguel Ferrer** and **Diego Garrido**; we met at school, home recordings from **2020**. **1.7M+** all-time streams on Spotify. EP *Atentamente, Triple Check* (2023). Played bars and small venues across Spain. [Spotify](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR) · [Details](./triplecheck/)
 
-### iOS (side projects)
+### Apps (side projects)
 
 - ![Encore Concert Diary](./assets/companies/encore.png)**[Encore: Concert Diary](https://encorearchives.com)**: see entry above. [Details](./experience/encore/)
-- ![HabitDex](./assets/companies/habitdex.png)**[HabitDex](https://apps.apple.com/us/app/habitdex/id6755887620)**: Side project with **Miguel Ferrer** ([LinkedIn](https://www.linkedin.com/in/mffdr/?locale=en)) on design. Pokémon-style habit loop; on-device + optional iCloud. [App Store](https://apps.apple.com/us/app/habitdex/id6755887620) · [Details](./experience/habitdex/)
+- ![HabitDex](./assets/companies/habitdex.png)**[HabitDex](https://apps.apple.com/us/app/habitdex/id6755887620)**: **Miguel Ferrer** ([LinkedIn](https://www.linkedin.com/in/mffdr/?locale=en)) on design. Pokémon-style habit loop; on-device + optional iCloud. [App Store](https://apps.apple.com/us/app/habitdex/id6755887620) · [Details](./experience/habitdex/)
+- ![Audio Silence Remover](./assets/companies/audio-silence-remover.png)**[Audio Silence Remover](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12)**: macOS utility I use for **TikTok/YouTube** voiceovers: threshold-based silence trim, no ML; **open source** on GitHub. [App Store](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12) · [GitHub](https://github.com/felipebasurto/silence-remover) · [Details](./experience/audio-silence-remover/)
 
 **GitHub** and coursework: **[Projects →](./projects/)**.
 
