@@ -1,14 +1,21 @@
 {
-  "title": "Cursor Madrid — Felipe Basurto",
-  "description": "Cursor Community Madrid — meetups, cafés, hackathons, and photos.",
+  "title": "Cursor Community — Felipe Basurto",
+  "description": "Cursor Community Regional Lead for Europe — meetups, hackathons, workshops, and photos from Madrid onward.",
   "og_image": "/assets/companies/cursor.png",
-  "intro_md": "[← Back to CV](../../)\n\n# Cursor Community (Madrid)\n\n![Cursor](../../assets/companies/cursor.png)As **Cursor Madrid Ambassador** since ~May 2025, I run meetups, cafés, and hackathons in Madrid. This page is a visual log of those events. More context and photos: [LinkedIn](https://www.linkedin.com/in/felipe-basurto-barrio/).\n\n---\n",
-  "events": [
+  "intro_md": "[← Back to CV](../../)\n\n# Cursor Community\n\n![Cursor](../../assets/companies/cursor.png)**Cursor Community Regional Lead for Europe.** I started as Madrid Ambassador in May 2025—meetups, cafés, hackathons with coworkings, startups, and universities. Now the work is connecting builders across Europe: workshops, founder circles, and the same shipping-heavy community, at a larger scale.\n\nVisual log below: events I've organized, and Cursor community events I've supported across Europe. More photos: [LinkedIn](https://www.linkedin.com/in/felipe-basurto-barrio/).\n",
+  "organized_events": [
+    {
+      "id": "regional-lead-europe",
+      "date": "May 2026",
+      "title": "Cursor Community Regional Lead (Europe)",
+      "body_md": "Promoted to **Cursor Community Regional Lead for Europe**. What started hosting meetups in Madrid—hackathons, workshops, founder circles—now includes connecting builders across the continent.",
+      "images": []
+    },
     {
       "id": "meetup-v2",
       "date": "~Mar 2026",
       "title": "2nd Cursor Meetup",
-      "body_md": "Partners **Tinybird** and **Kfund**. Talks, hallway conversations, and hands-on learning.\n\n- **getshell.ai** — shell-based agent workflows (OpenClaw) demoed for builders.\n- **Cursor** — **Cloud Agents**, long-running workflows, and the product direction ([cursor.com/onboard](https://cursor.com/onboard)).",
+      "body_md": "Partners **Tinybird** and **Kfund**. Talks from both, then demos and hallway chats.\n\n- **getshell.ai** — shell-based agent workflows (OpenClaw) demoed for builders.\n- **Cursor** — **Cloud Agents** and the onboarding flow ([cursor.com/onboard](https://cursor.com/onboard)).",
       "images": [
         {
           "url": "https://media.licdn.com/dms/image/v2/D4E22AQHESGzAi70HDg/feedshare-shrink_800/B4EZzCSThCGYAg-/0/1772786104670?e=1778716800&v=beta&t=kmxZMi40_TRUBWcnT98tn61Hg5nvTra0fBEWC6k8RV4",
@@ -98,9 +105,52 @@
     },
     {
       "id": "ambassador",
-      "date": "~Jun 2025",
-      "title": "Cursor Ambassador",
-      "body_md": "I joined as **Cursor Madrid Ambassador** in ~June 2025, with a focus on **meetups, workshops, and community** in Madrid.",
+      "date": "May 2025",
+      "title": "Cursor Madrid Ambassador",
+      "body_md": "Joined as **Cursor Madrid Ambassador**—meetups, workshops, and ties with local coworkings and universities. This is where the community work started.",
+      "images": []
+    }
+  ],
+  "sponsored_events": [
+    {
+      "id": "techie-hackathon-ie-2026",
+      "date": "Mar 25, 2026",
+      "title": "Cursor × TechIE Hackathon — IE University",
+      "body_md": "The biggest Cursor hackathon IE has run — auditorium, full house. TechIE × Cursor: students building ambitious projects with an AI-native workflow, not quick demos.",
+      "partner": "TechIE · IE University",
+      "url": "https://www.linkedin.com/posts/techie-cursor-hackathon-share-7439223427707658240-_bso/",
+      "images": [
+        {
+          "static": "techie-hackathon-ie-01.png",
+          "alt": "Cursor × IE University hackathon — partner reveal banner"
+        },
+        {
+          "static": "techie-hackathon-ie-02.png",
+          "alt": "Cursor × IE University hackathon — stage at the auditorium"
+        }
+      ]
+    },
+    {
+      "id": "refugio-madrid-2026",
+      "date": "Jun 27, 2026",
+      "title": "Refugio Madrid 2026",
+      "body_md": "Upcoming — Saturday at Matadero Madrid. Morning talks + hackathon (~15 teams, AI-native build); afternoon ecosystem session and networking. Cursor sponsoring.",
+      "partners": [
+        { "name": "Mihura", "url": "https://x.com/XMihura" }
+      ],
+      "url": "https://refugiomadrid.com/",
+      "images": []
+    },
+    {
+      "id": "hackspain-2026",
+      "date": "Sep 2026",
+      "title": "HackSpain 2026",
+      "body_md": "Upcoming — 24-hour hackathon in Madrid. 300+ builders; ML track with free compute and a non-technical track for first-time builders. Cursor sponsoring; pre-registration open.",
+      "partners": [
+        { "name": "HackSpain", "url": "https://hackspain.com/" },
+        { "name": "Exponential", "url": "https://www.goexponential.org/" }
+      ],
+      "url": "https://hackspain.com/",
       "images": []
     }
   ]

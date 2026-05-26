@@ -195,6 +195,37 @@ function renderMarkdownBody(body) {
   return wrapAppShotGrids(unwrapFigures(marked.parse(body)));
 }
 
+const EXPERIENCE_DIAGRAMS = {
+  "{{AILY_GRAPH_RAG_DIAGRAM}}": "aily-graph-rag.html",
+};
+
+function loadExperienceDiagram(filename) {
+  const path = join(__dirname, "diagrams", filename);
+  if (!existsSync(path)) {
+    console.warn(`Missing diagram: ${path}`);
+    return "";
+  }
+  return readFileSync(path, "utf8");
+}
+
+function renderExperienceBody(body) {
+  for (const [token, file] of Object.entries(EXPERIENCE_DIAGRAMS)) {
+    if (!body.includes(token)) continue;
+    const diagram = loadExperienceDiagram(file);
+    const parts = body.split(token);
+    body = parts.map((part) => renderMarkdownBody(part)).join(diagram);
+    return body;
+  }
+  return renderMarkdownBody(body);
+}
+
+function experienceArticleClass(slug) {
+  if (slug === "cursor") return " md-doc--cursor";
+  if (slug === "encore" || slug === "habitdex" || slug === "audio-silence-remover") return ` md-doc--${slug}`;
+  if (slug === "aily") return " md-doc--aily";
+  return "";
+}
+
 function absOgImage(ogImage) {
   return ogImage.startsWith("http") ? ogImage : `${SITE}${ogImage.startsWith("/") ? "" : "/"}${ogImage}`;
 }
@@ -211,6 +242,7 @@ function fillTemplate({
   jsonLd,
   docClass = "",
   articleClass = "",
+  extraScripts = "",
 }) {
   let html = loadTemplate();
   html = html.replaceAll("{{TITLE}}", escapeHtml(title));
@@ -225,7 +257,16 @@ function fillTemplate({
   html = html.replaceAll("{{DOC_CLASS}}", docClass);
   html = html.replaceAll("{{ARTICLE_CLASS}}", articleClass);
   html = html.replaceAll("{{YEAR}}", String(new Date().getFullYear()));
+  html = html.replaceAll("{{EXTRA_SCRIPTS}}", extraScripts);
   return html;
+}
+
+function findLocalImageByBaseName(dir, baseName) {
+  for (const ext of [".jpg", ".jpeg", ".png", ".webp"]) {
+    const filename = `${baseName}${ext}`;
+    if (existsSync(join(dir, filename))) return filename;
+  }
+  return null;
 }
 
 async function downloadImageTo(url, dir, baseName) {
@@ -268,7 +309,12 @@ async function hydrateCursorImages(events, assetDir) {
         await new Promise((r) => setTimeout(r, 120));
         continue;
       }
-      const fn = await downloadImageTo(im.url, assetDir, im.name);
+      const baseName = String(im.name || "").trim();
+      if (!baseName) continue;
+      let fn = findLocalImageByBaseName(assetDir, baseName);
+      if (!fn && im.url) {
+        fn = await downloadImageTo(im.url, assetDir, baseName);
+      }
       if (fn) {
         const idx = ev._imageFiles.length + 1;
         const altRaw =
@@ -276,27 +322,40 @@ async function hydrateCursorImages(events, assetDir) {
             ? String(im.alt)
             : `${ev.title} — photo ${idx}`;
         ev._imageFiles.push({ fn, alt: altRaw });
+      } else {
+        console.warn(`cursor.json: no image for "${baseName}" in event "${ev.id}"`);
       }
       await new Promise((r) => setTimeout(r, 120));
     }
   }
 }
 
-function renderCursorTimeline(events, imgRelBase) {
+function renderCursorEventList(events, imgRelBase, { emptyMessage, ariaLabel } = {}) {
+  if (!events.length) {
+    return `<p class="ev-list-empty md-p">${escapeHtml(emptyMessage || "No events listed yet.")}</p>`;
+  }
   let html =
-    '<section class="ev-wrap" aria-label="Events timeline">\n' +
-    '<ol class="ev-timeline">\n';
+    `<section class="ev-wrap" aria-label="${escapeAttr(ariaLabel || "Events")}">\n` +
+    '<ul class="ev-list">\n';
   for (const ev of events) {
-    html += `<li class="ev-item" id="${escapeAttr(ev.id)}">\n`;
-    html += '<article class="ev-card">\n';
-    html += '<header class="ev-head">\n';
-    html += `<span class="ev-date">${escapeHtml(ev.date)}</span>\n`;
-    html += `<h2 class="ev-title">${escapeHtml(ev.title)}</h2>\n`;
-    html += "</header>\n";
-    html += `<div class="ev-copy">${unwrapFigures(marked.parse(ev.body_md))}</div>\n`;
+    html += `<li class="ev-list-item" id="${escapeAttr(ev.id)}">\n`;
+    html += `<span class="ev-list-date">${escapeHtml(ev.date)}</span>\n`;
+    html += '<div class="ev-list-main">\n';
+    if (ev.url) {
+      html += `<a class="ev-list-title md-link" href="${escapeAttr(ev.url)}" rel="noopener noreferrer" target="_blank">${escapeHtml(ev.title)}</a>\n`;
+    } else {
+      html += `<span class="ev-list-title">${escapeHtml(ev.title)}</span>\n`;
+    }
+    if (ev.body_md && String(ev.body_md).trim()) {
+      html += `<div class="ev-list-copy">${unwrapFigures(marked.parse(ev.body_md))}</div>\n`;
+    }
+    const partnerHtml = renderSponsorPartners(ev);
+    if (partnerHtml) {
+      html += `<span class="ev-list-meta">with ${partnerHtml}</span>\n`;
+    }
     const files = ev._imageFiles || [];
     if (files.length) {
-      html += '<div class="ev-grid">\n';
+      html += '<div class="ev-list-photos">\n';
       for (const shot of files) {
         const href = `${imgRelBase}${shot.fn}`;
         html += `<a class="ev-shot" href="${escapeAttr(href)}">\n`;
@@ -305,15 +364,107 @@ function renderCursorTimeline(events, imgRelBase) {
       }
       html += "</div>\n";
     }
-    html += "</article>\n</li>\n";
+    html += "</div>\n</li>\n";
   }
-  html += "</ol></section>\n";
+  html += "</ul></section>\n";
   return html;
 }
 
+function renderSponsorPartners(ev) {
+  if (Array.isArray(ev.partners) && ev.partners.length) {
+    return ev.partners
+      .map((p) => {
+        const name = escapeHtml(String(p.name || "").trim());
+        if (!name) return "";
+        if (p.url) {
+          return `<a class="md-link" href="${escapeAttr(p.url)}" rel="noopener noreferrer" target="_blank">${name}</a>`;
+        }
+        return name;
+      })
+      .filter(Boolean)
+      .join(" and ");
+  }
+  if (ev.partner) return escapeHtml(ev.partner);
+  return "";
+}
+
+function renderCursorTabs(organizedHtml, sponsoredHtml, orgCount, sponCount) {
+  return (
+    '<section class="cursor-tabs">\n' +
+    '<div class="cursor-tabs__list" role="tablist" aria-label="Event categories">\n' +
+    `<button type="button" class="cursor-tabs__tab" role="tab" id="cursor-tab-organized" aria-controls="cursor-panel-organized" aria-selected="true" data-tab="organized">Organized <span class="cursor-tabs__count">(${orgCount})</span></button>\n` +
+    `<button type="button" class="cursor-tabs__tab" role="tab" id="cursor-tab-sponsored" aria-controls="cursor-panel-sponsored" aria-selected="false" tabindex="-1" data-tab="sponsored">Sponsored <span class="cursor-tabs__count">(${sponCount})</span></button>\n` +
+    "</div>\n" +
+    '<div class="cursor-tabs__panel" role="tabpanel" id="cursor-panel-organized" aria-labelledby="cursor-tab-organized" tabindex="0">\n' +
+    organizedHtml +
+    "</div>\n" +
+    '<div class="cursor-tabs__panel" role="tabpanel" id="cursor-panel-sponsored" aria-labelledby="cursor-tab-sponsored" tabindex="0" hidden>\n' +
+    sponsoredHtml +
+    "</div>\n" +
+    "</section>\n"
+  );
+}
+
+const CURSOR_TABS_SCRIPT = `<script>
+(function () {
+  var root = document.querySelector(".cursor-tabs");
+  if (!root) return;
+  var tabs = root.querySelectorAll('[role="tab"]');
+  var panels = root.querySelectorAll('[role="tabpanel"]');
+  var tabIds = { organized: 0, sponsored: 1 };
+
+  function selectTab(name) {
+    var idx = tabIds[name];
+    if (idx === undefined) idx = 0;
+    tabs.forEach(function (tab, i) {
+      var selected = i === idx;
+      tab.setAttribute("aria-selected", selected ? "true" : "false");
+      tab.tabIndex = selected ? 0 : -1;
+    });
+    panels.forEach(function (panel, i) {
+      if (i === idx) panel.removeAttribute("hidden");
+      else panel.hidden = true;
+    });
+    var hash = idx === 0 ? "organized" : "sponsored";
+    if (history.replaceState) history.replaceState(null, "", "#" + hash);
+    else location.hash = hash;
+  }
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      selectTab(tab.getAttribute("data-tab"));
+    });
+    tab.addEventListener("keydown", function (e) {
+      var idx = Array.prototype.indexOf.call(tabs, tab);
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        e.preventDefault();
+        var next = e.key === "ArrowRight" ? idx + 1 : idx - 1;
+        if (next < 0) next = tabs.length - 1;
+        if (next >= tabs.length) next = 0;
+        tabs[next].focus();
+        selectTab(tabs[next].getAttribute("data-tab"));
+      }
+    });
+  });
+
+  var hash = (location.hash || "").replace(/^#/, "");
+  if (hash === "sponsored") selectTab("sponsored");
+  else selectTab("organized");
+
+  window.addEventListener("hashchange", function () {
+    var h = (location.hash || "").replace(/^#/, "");
+    if (h === "sponsored" || h === "organized") selectTab(h);
+  });
+})();
+</script>`;
+
 function warnDuplicateCursorImageUrls(data) {
   const seen = new Map();
-  for (const ev of data.events || []) {
+  const allEvents = [
+    ...(data.organized_events || data.events || []),
+    ...(data.sponsored_events || []),
+  ];
+  for (const ev of allEvents) {
     for (const im of ev.images || []) {
       const u = im.url;
       if (!u) continue;
@@ -330,13 +481,24 @@ function warnDuplicateCursorImageUrls(data) {
 
 async function buildCursorExperiencePage(data) {
   const assetDir = join(root, "assets", "experience", "cursor");
-  warnDuplicateCursorImageUrls(data);
-  await hydrateCursorImages(data.events, assetDir);
+  const organized = data.organized_events ?? data.events ?? [];
+  const sponsored = data.sponsored_events ?? [];
+  warnDuplicateCursorImageUrls({ organized_events: organized, sponsored_events: sponsored });
+  await hydrateCursorImages(organized, assetDir);
+  await hydrateCursorImages(sponsored, assetDir);
   const imgRel = "../../assets/experience/cursor/";
   const introHtml = renderMarkdownBody(data.intro_md);
-  const timelineHtml = renderCursorTimeline(data.events, imgRel);
-  const bodyHtml = `${introHtml}\n${timelineHtml}`;
-  const title = data.title || "Cursor Madrid";
+  const organizedHtml = renderCursorEventList(organized, imgRel, {
+    emptyMessage: "No organized events listed yet.",
+    ariaLabel: "Organized events",
+  });
+  const sponsoredHtml = renderCursorEventList(sponsored, imgRel, {
+    emptyMessage: "No sponsored events listed yet.",
+    ariaLabel: "Sponsored events",
+  });
+  const tabsHtml = renderCursorTabs(organizedHtml, sponsoredHtml, organized.length, sponsored.length);
+  const bodyHtml = `${introHtml}\n${tabsHtml}`;
+  const title = data.title || "Cursor Community";
   const description = data.description || "";
   const ogImage = data.og_image || "/assets/companies/cursor.png";
   const ogImageAbs = absOgImage(ogImage);
@@ -357,6 +519,7 @@ async function buildCursorExperiencePage(data) {
     jsonLd: buildWebPageJsonLd({ name: title, url: canonicalUrl, description }),
     docClass: " doc--wide",
     articleClass: " md-doc--cursor",
+    extraScripts: CURSOR_TABS_SCRIPT,
   });
   writeFileSync(join(outDir, "index.html"), html, "utf8");
 }
@@ -404,8 +567,6 @@ function buildJsonLd(description) {
     knowsAbout: [
       "LLM compression",
       "CompactifAI",
-      "solutions engineering",
-      "applied AI",
       "Graph RAG",
       "Neo4j",
       "LangChain",
@@ -416,10 +577,8 @@ function buildJsonLd(description) {
       "Python",
       "machine learning",
       "computer vision",
-      "pre-sales engineering",
       "Swift",
       "SwiftUI",
-      "hobby iOS",
       "Triple Check",
       "Spanish pop rock",
     ],
@@ -461,7 +620,7 @@ function buildIndex() {
   const title = meta.title || "Felipe Basurto";
   const description =
     meta.description ||
-    "Data Scientist and ML Engineer — NLP, machine learning, and AI for business intelligence.";
+    "Solutions Architect at Multiverse Computing (CompactifAI, LLM compression). Cursor Community Regional Lead for Europe. Madrid.";
   const ogImage = meta.og_image || "/assets/profile.png";
   const ogImageAbs = absOgImage(ogImage);
   const bodyHtml = renderMarkdownBody(body);
@@ -577,7 +736,7 @@ async function buildExperiencePages() {
     const ogImageAbs = absOgImage(ogImage);
     const path = `/experience/${slug}/`;
     const canonicalUrl = `${SITE}${path}`;
-    const bodyHtml = renderMarkdownBody(body);
+    const bodyHtml = renderExperienceBody(body);
     const outDir = join(root, "experience", slug);
     mkdirSync(outDir, { recursive: true });
     const html = fillTemplate({
@@ -590,9 +749,8 @@ async function buildExperiencePages() {
       headerHint: `~/experience/${slug}.md`,
       bodyHtml,
       jsonLd: buildWebPageJsonLd({ name: title, url: canonicalUrl, description }),
-      docClass: slug === "encore" || slug === "habitdex" || slug === "audio-silence-remover" ? " doc--wide" : "",
-      articleClass:
-        slug === "encore" || slug === "habitdex" || slug === "audio-silence-remover" ? ` md-doc--${slug}` : "",
+      docClass: slug === "encore" || slug === "habitdex" || slug === "aily" || slug === "audio-silence-remover" ? " doc--wide" : "",
+      articleClass: experienceArticleClass(slug),
     });
     writeFileSync(join(outDir, "index.html"), html, "utf8");
   }
