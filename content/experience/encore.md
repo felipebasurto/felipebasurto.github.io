@@ -1,6 +1,6 @@
 ---
 title: "Encore: Concert Diary — Felipe Basurto"
-description: "Encore — hobby iOS concert diary (Swift/SwiftUI). Personal side project, App Store."
+description: "Encore — side-project iOS concert diary (Swift/SwiftUI). App Store."
 og_image: "/assets/companies/encore.png"
 ---
 
@@ -10,23 +10,23 @@ og_image: "/assets/companies/encore.png"
 
 ![Encore](../../assets/companies/encore.png)
 
-**Context:** A **hobby / side project**—not my profession. I built it to **ship a real app** in my own time and **experiment** (including **AI-assisted** build and product loops).
+Side project since **May 2025**. I built it in spare time to ship a real iOS app—and to dogfood **Cursor** in the build loop.
 
-**Encore** is an **iPhone concert diary**: log shows with **photo & video**, track **stats** over time, add **friends**, see **upcoming** dates, keep a **passport**-style history of venues and tours, and get a **year-end wrapped** built around the gigs you actually went to.
+**Encore** is an **iPhone concert diary**: log shows with **photo & video**, track **stats**, add **friends**, see **upcoming** dates, keep a **passport**-style venue history, and get a **year-end wrapped** built around the gigs you actually went to.
 
-## What I shipped (product + iOS)
+## What I shipped
 
-As a **side** project I built it **end-to-end in Swift / SwiftUI**: product shape, navigation, persistence, polish, **App Store** cadence (metadata, review cycles, crash triage), and iteration from **user feedback**. Feature-wise that means a **feed** you want to scroll, **stats** that reward consistency, lightweight **social** features (follows / friends without building a full feed product), and flows that stay usable in loud venues and late nights after a show.
+I built the app in **Swift / SwiftUI**: navigation, persistence, App Store cadence (metadata, review cycles, crash triage), and iteration from user feedback. Feed, stats, friends, passport, upcoming, wrapped—the UI still has to work when you're tired and the room is loud.
 
-Revenue is past **$2k** from paying users. Post-launch work: tightening onboarding, fixing edge cases, and shipping again when usage shows something is confusing.
+Revenue is past **$2k** from paying users. Post-launch: fix what breaks, tighten onboarding when usage shows confusion, ship again.
 
-## Sustained iteration
+## After launch
 
-**release → listen → fix → ship** on a loop—same cadence as a product team, except I also handle support DMs, analytics, and crash triage.
+I ship, read DMs and crash reports, fix, ship again—I handle support and analytics too.
 
-## Distribution (no paid acquisition)
+## Distribution
 
-There’s no paid acquisition budget, so growth is **organic short-form content** on the platforms where concert culture already lives—**TikTok**, **Instagram**, **YouTube**, and **Facebook**—with a **network of accounts** so Encore shows up in the **same feeds** people use for tickets, openers, and crowd videos. It’s deliberate and repetitive work; it’s how the app gets reach without ad spend.
+No ad budget. I post short video on **TikTok**, **Instagram**, **YouTube**, and **Facebook**—often from a few accounts—where concert fans already are for tickets, openers, and crowd clips.
 
 ## Links
 

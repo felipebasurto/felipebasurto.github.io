@@ -1,6 +1,6 @@
 ---
 title: "Triple Check — Felipe Basurto"
-description: "Triple Check — pop-rock from Burgos, self-taught from zero and zero-budget, releases and live shows."
+description: "Triple Check — pop-rock from Burgos, home recordings since 2020, releases and live shows."
 og_image: "/assets/triplecheck/atentamente-ep.png"
 # YouTube: set e.g. youtube: "https://www.youtube.com/@YourChannel" to show the link in “Links” below
 youtube: ""
@@ -20,9 +20,9 @@ In the band I focus on **production**, **mixing**, and **lyrics**; **Miguel Ferr
 
 ## The music
 
-**Spanish pop-rock** with a **contemporary, urban-leaning** production polish—closer in spirit to radio-oriented acts such as [El Canto del Loco](https://es.wikipedia.org/wiki/El_Canto_del_Loco), [Pignoise](https://es.wikipedia.org/wiki/Pignoise), or [Despistaos](https://es.wikipedia.org/wiki/Despistaos) than to a straight rap act, but with the kinds of hooks and sonics that fit Spanish playlists in the **early 2020s**. Lyrics cover the usual ground for our 20s: going out, relationships, nostalgia, looking ahead—without forcing a single fixed persona.
+**Spanish pop-rock** with modern, radio-friendly production—closer to [El Canto del Loco](https://es.wikipedia.org/wiki/El_Canto_del_Loco), [Pignoise](https://es.wikipedia.org/wiki/Pignoise), or [Despistaos](https://es.wikipedia.org/wiki/Despistaos) than to a straight rap act. Hooky guitars that sat well on Spanish streaming playlists around 2020–23. Songs about nights out, relationships, and looking back at our twenties.
 
-**Collaborations** and one-off production passes matter too—e.g. the single ***Checkout*** (on [**Spotify**](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR) with the rest of the catalog) featuring [**Safree**](https://music.apple.com/es/artist/safree/599718024), with production by [**Johnatan Pons**](https://www.instagram.com/soyjonathanpons/) — a clear step up in how the record sounded. [**Spotify**](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR) has the full, current catalog; ***Atentamente, Triple Check*** (2023) is the release that best represents us.
+**Collaborations** and one-off production passes matter too—e.g. the single ***Checkout*** (on [**Spotify**](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR) with the rest of the catalog) featuring [**Safree**](https://music.apple.com/es/artist/safree/599718024), with production by [**Johnatan Pons**](https://www.instagram.com/soyjonathanpons/) — ***Checkout*** sounded noticeably better with Johnatan producing. [**Spotify**](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR) has the full, current catalog; ***Atentamente, Triple Check*** (2023) is the release that best represents us.
 
 ## Listings, venues, and ticket hubs
 
@@ -36,11 +36,11 @@ A few **public links** (venues, old bills, ticket hubs) — not a full history:
 
 ## Spotify (by the numbers)
 
-**All-time streams** on Spotify, per the artist catalog in the app, are past **1.7M** plays, with several tracks in the **six figures**. We’re an independent three-person operation—the numbers reflect people keeping the songs in rotation.
+**All-time streams** on Spotify, per the artist catalog in the app, are past **1.7M** plays, with several tracks in the **six figures**. Three of us, no label—people still replay the songs.
 
 ## Live
 
-We’ve played **gigs around Spain**—smaller rooms, a few outdoor stages, shared bills. The photos are from that side of things. An early one was in **Burgos** at [bar **Carabás** (Tomaticket)](https://www.tomaticket.es/es-es/entradas-concierto-de-triple-check-en-en-burgos) — [video (YouTube)](https://www.youtube.com/watch?v=GoWbek9VRvw). We’ve also played [**Sala Vesta**](https://salavesta.com/events/triple-check/) in **Madrid** ([video](https://www.youtube.com/watch?v=rWcaNqSyou4)), at [**Sidecar**](https://www.sidecar.es/) in **Barcelona** (Plaça Reial), and at [**Sala Porta Caeli**](https://salaportacaeli.com/) in **Valladolid** on a night with [**Iskender**](https://open.spotify.com/artist/5UjU9W0brAL4BEwyiGBy8r). Later, a **Madrid** date with [**SANTAS**](https://acqustic.com/santas/) at [Café la Palma](https://www.cafelapalma.com/programacion/triple-check-santas/) (Feb 2023, [event page](https://www.cafelapalma.com/programacion/triple-check-santas/)). Since then, the setlist and the routing have kept moving.
+We’ve played **gigs around Spain**—smaller rooms, a few outdoor stages, shared bills. The photos are from that side of things. An early one was in **Burgos** at [bar **Carabás** (Tomaticket)](https://www.tomaticket.es/es-es/entradas-concierto-de-triple-check-en-en-burgos) — [video (YouTube)](https://www.youtube.com/watch?v=GoWbek9VRvw). We’ve also played [**Sala Vesta**](https://salavesta.com/events/triple-check/) in **Madrid** ([video](https://www.youtube.com/watch?v=rWcaNqSyou4)), at [**Sidecar**](https://www.sidecar.es/) in **Barcelona** (Plaça Reial), and at [**Sala Porta Caeli**](https://salaportacaeli.com/) in **Valladolid** on a night with [**Iskender**](https://open.spotify.com/artist/5UjU9W0brAL4BEwyiGBy8r). Later, a **Madrid** date with [**SANTAS**](https://acqustic.com/santas/) at [Café la Palma](https://www.cafelapalma.com/programacion/triple-check-santas/) (Feb 2023, [event page](https://www.cafelapalma.com/programacion/triple-check-santas/)). We still change the set and book shows when we can.
 
 ![Triple Check — outdoor stage, band holding TRIPLE CHECK banner, large crowd](../assets/triplecheck/live-outdoor.png)
 
@@ -50,7 +50,7 @@ Booking: the links below, or the email on my [home page](../).
 
 ## What it is to me now
 
-**Triple Check** is still a meaningful stretch of my life: whenever someone listens to a track, or goes out of their way to say they like what we made, it lands in a way no stream count can capture. We started from nothing—no training, no money, just the three of us and stubborn curiosity. Grateful that still shows up in people’s headphones.
+**Triple Check** is still a meaningful stretch of my life. A DM about a song hits harder than any Spotify stat. We started from nothing—no training, no money, just the three of us figuring it out as we went. Still weird and nice that strangers have our songs saved.
 
 ## Links
 
@@ -59,4 +59,3 @@ Booking: the links below, or the email on my [home page](../).
 - **Live — Burgos (Carabás):** [YouTube](https://www.youtube.com/watch?v=GoWbek9VRvw)
 - **Live — Madrid (Sala Vesta):** [YouTube](https://www.youtube.com/watch?v=rWcaNqSyou4)
 - **Venues & listings:** see [**Listings, venues, and ticket hubs**](#listings-venues-and-ticket-hubs) above
-- **More:** [felipebasurto.com](../)

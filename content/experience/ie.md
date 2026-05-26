@@ -1,6 +1,6 @@
 ---
 title: "IE School of Science and Technology — Felipe Basurto"
-description: "Master's in Business Analytics and Big Data at IE — datathon wins, Microsoft-backed impact project; photos from a Sam Altman campus session."
+description: "Master's in Business Analytics and Big Data at IE — datathon wins, Microsoft-backed impact project, FITIZENS CV internship; photos from a Sam Altman campus session."
 og_image: "/assets/companies/ie.png"
 ---
 
@@ -10,11 +10,17 @@ og_image: "/assets/companies/ie.png"
 
 ![IE](../../assets/companies/ie.png)
 
-**Master's in Business Analytics and Big Data** at IE. Highlights from the program (datathons, impact project) are summarized on the [home page](../../)—including 1st place at the IE × **NTT DATA** & **o9** Sustainability Datathon and the IE Impact Project (news recommender with **Microsoft**).
+**Master's in Business Analytics and Big Data** at IE. 1st place at the IE × **NTT DATA** & **o9** Sustainability Datathon and at the IE Impact Project (news recommender with **Microsoft**).
+
+## FITIZENS internship
+
+![FITIZENS](../../assets/companies/fitizens.png)
+
+While at IE, I interned at **FITIZENS** in Madrid — **Human Pose Estimation** with **OpenCV** and **MediaPipe**, demoed in **Streamlit** for the team.
 
 ## Sam Altman at IE
 
-I attended this as part of the **IE student community** (alongside faculty and guests): *A conversation with the CEO of OpenAI* with **Sam Altman** (**OpenAI**). Photos from the session:
+I was in the audience for **Sam Altman**'s talk at IE—*A conversation with the CEO of OpenAI*. Photos from the session:
 
 ![Sam Altman on screen, panel at IE](../../assets/experience/ie/sam-altman-ie-01.jpg)
 
