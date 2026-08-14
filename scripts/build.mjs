@@ -269,10 +269,12 @@ function fillTemplate({
   docClass = "",
   articleClass = "",
   extraScripts = "",
+  robots = "index, follow",
 }) {
   let html = loadTemplate();
   html = html.replaceAll("{{TITLE}}", escapeHtml(title));
   html = html.replaceAll("{{DESCRIPTION}}", escapeHtml(description));
+  html = html.replaceAll("{{ROBOTS}}", escapeAttr(robots));
   html = html.replaceAll("{{OG_IMAGE}}", escapeAttr(ogImageAbs));
   html = html.replaceAll("{{CANONICAL}}", escapeAttr(canonicalUrl));
   html = html.replaceAll("{{OG_URL}}", escapeAttr(ogUrl));
@@ -666,6 +668,31 @@ function buildIndex() {
   writeFileSync(join(root, "index.html"), html, "utf8");
 }
 
+function build404Page() {
+  const title = "404 — Felipe Basurto";
+  const description = "No page at this path.";
+  const canonicalUrl = `${SITE}/404.html`;
+  const bodyHtml = renderMarkdownBody(`# 404
+
+No page at this path.
+
+[← Back to CV](/)
+`);
+  const html = fillTemplate({
+    title,
+    description,
+    ogImageAbs: absOgImage("/assets/profile.png"),
+    canonicalUrl,
+    ogUrl: canonicalUrl,
+    relPrefix: "/",
+    headerHint: "~/404.md",
+    bodyHtml,
+    jsonLd: buildWebPageJsonLd({ name: title, url: canonicalUrl, description }),
+    robots: "noindex",
+  });
+  writeFileSync(join(root, "404.html"), html, "utf8");
+}
+
 function buildProjectsPage() {
   const mdPath = join(root, "content", "projects.md");
   if (!existsSync(mdPath)) return;
@@ -834,8 +861,9 @@ async function main() {
   buildProjectsPage();
   buildTriplecheckPage();
   await buildExperiencePages();
+  build404Page();
   writeSitemap();
-  console.log("Build OK: index.html + projects/* + triplecheck/* + experience/* + sitemap.xml");
+  console.log("Build OK: index.html + projects/* + triplecheck/* + experience/* + 404.html + sitemap.xml");
 }
 
 main().catch((err) => {

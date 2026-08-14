@@ -7,6 +7,7 @@ const dist = join(root, "dist");
 
 const entries = [
   "index.html",
+  "404.html",
   "projects",
   "experience",
   "triplecheck",
