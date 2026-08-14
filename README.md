@@ -7,7 +7,7 @@ Static site for my CV and longer **Details** pages per role. Built from Markdown
 
 ## Live site
 
-[https://felipebasurto.com](https://felipebasurto.com) (GitHub Pages + custom domain). Cloudflare Workers preview: `npm run deploy` → `*.workers.dev`.
+[https://felipebasurto.com](https://felipebasurto.com) on Cloudflare Workers. Deploy with `npm run deploy`.
 
 ## Stack
 

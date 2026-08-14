@@ -10,6 +10,7 @@ const entries = [
   "projects",
   "experience",
   "triplecheck",
+  "musatro",
   "assets",
   "css",
   "robots.txt",
