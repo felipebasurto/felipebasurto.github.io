@@ -33,6 +33,18 @@ Hosted on **Cloudflare Pages** at [musatro.felipebasurto.com](https://musatro.fe
 
 Tavern names (Mahou, Ducados, and the rest) are bar-culture references, not sponsorships.
 
+## Screenshots
+
+From the [GitHub repo](https://github.com/felipebasurto/musatro): title screen, a hand in play, the tavern, and the 21 items.
+
+![Musatro — title screen](../../assets/experience/musatro/title.webp)
+
+![Musatro — a hand in play](../../assets/experience/musatro/hand.webp)
+
+![Musatro — the tavern](../../assets/experience/musatro/shop.webp)
+
+![Musatro — the 21 tavern items](../../assets/experience/musatro/items.webp)
+
 ## Links
 
 - **Play:** [musatro.felipebasurto.com](https://musatro.felipebasurto.com/)

@@ -47,10 +47,10 @@ Side projects:
 
 ### Apps (side projects)
 
-- ![Musatro](./assets/companies/musatro.png)**[Musatro](https://musatro.felipebasurto.com/)**: Roguelike deckbuilder with a Spanish deck, inspired by Mus. Play in the browser. [Play](https://musatro.felipebasurto.com/) · [GitHub](https://github.com/felipebasurto/musatro) · [Details](./experience/musatro/)
 - ![Encore Concert Diary](./assets/companies/encore.png)**[Encore: Concert Diary](https://encorearchives.com)**: iOS concert diary in Swift/SwiftUI — feed, stats, friends, passport, wrapped. [App Store (US)](https://apps.apple.com/us/app/encore-concert-diary/id6748657647) · [Details](./experience/encore/)
 - ![HabitDex](./assets/companies/habitdex.png)**[HabitDex](https://apps.apple.com/us/app/habitdex/id6755887620)**: **Miguel Ferrer** ([LinkedIn](https://www.linkedin.com/in/mffdr/?locale=en)) on design. Pokémon-style habit loop; on-device + optional iCloud. [App Store](https://apps.apple.com/us/app/habitdex/id6755887620) · [Details](./experience/habitdex/)
 - ![Audio Silence Remover](./assets/companies/audio-silence-remover.png)**[Audio Silence Remover](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12)**: macOS utility I use for **TikTok/YouTube** voiceovers: threshold-based silence trim, no ML; **open source** on GitHub. [App Store](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12) · [GitHub](https://github.com/felipebasurto/silence-remover) · [Details](./experience/audio-silence-remover/)
+- ![Musatro](./assets/companies/musatro.png)**[Musatro](https://musatro.felipebasurto.com/)**: Unfinished roguelike deckbuilder with a Spanish deck, inspired by Mus. Playable in the browser. [Play](https://musatro.felipebasurto.com/) · [GitHub](https://github.com/felipebasurto/musatro) · [Details](./experience/musatro/)
 
 **GitHub** and coursework: **[Projects →](./projects/)**.
 
