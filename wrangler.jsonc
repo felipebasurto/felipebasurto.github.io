@@ -4,6 +4,10 @@
   "compatibility_date": "2026-08-14",
   "workers_dev": true,
   "preview_urls": true,
+  "routes": [
+    { "pattern": "felipebasurto.com", "custom_domain": true },
+    { "pattern": "www.felipebasurto.com", "custom_domain": true }
+  ],
   "assets": {
     "directory": "./dist",
     "html_handling": "auto-trailing-slash",

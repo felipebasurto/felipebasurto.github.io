@@ -17,8 +17,9 @@ const entries = [
   "robots.txt",
   "sitemap.xml",
   "llms.txt",
-  "CNAME",
 ];
+
+const optional = ["CNAME"];
 
 for (const entry of entries) {
   if (!existsSync(join(root, entry))) {
@@ -33,6 +34,12 @@ mkdirSync(dist, { recursive: true });
 
 for (const entry of entries) {
   cpSync(join(root, entry), join(dist, entry), { recursive: true });
+}
+
+for (const entry of optional) {
+  if (existsSync(join(root, entry))) {
+    cpSync(join(root, entry), join(dist, entry), { recursive: true });
+  }
 }
 
 writeFileSync(join(dist, ".nojekyll"), "");

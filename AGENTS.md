@@ -14,8 +14,8 @@
 
 ## Learned Workspace Facts
 
-- The live personal site is at https://felipebasurto.com/ and is still served from GitHub Pages (repo felipebasurto.github.io), with Cloudflare DNS in front.
-- Cloudflare Workers static assets are configured in `wrangler.jsonc` (Worker name `felipebasurto-com`, assets from `dist/`). Preview with `npm run preview`; publish the workers.dev preview with `npm run deploy`. Custom domain cutover is not done yet.
+- The live personal site is at https://felipebasurto.com/, served by the Cloudflare Worker `felipebasurto-com` (static assets from `dist/`). DNS for the zone is on Cloudflare. GitHub Pages is the old origin and should stay off after cutover.
+- Cloudflare Workers static assets are configured in `wrangler.jsonc` (Worker name `felipebasurto-com`, custom domains `felipebasurto.com` and `www`). Preview with `npm run preview`; publish with `npm run deploy` or the GitHub Action on `main` (`CLOUDFLARE_API_TOKEN`).
 - Static HTML is generated with `npm run build` via `scripts/build.mjs`; `npm run build:dist` also copies public files into `dist/` via `scripts/prepare-dist.mjs`.
 - Local preview: `npm run preview` (Wrangler) or serve the repo root as static files after a build.
 - Primary editable sources include `content/cv.md`, `content/projects.md`, and `content/experience/*.md`, with shared chrome in `scripts/template.html` and `css/styles.css`.
