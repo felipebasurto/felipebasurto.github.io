@@ -14,5 +14,9 @@
   },
   "observability": {
     "enabled": true
-  }
+  },
+  "routes": [
+    { "pattern": "felipebasurto.com", "custom_domain": true },
+    { "pattern": "www.felipebasurto.com", "custom_domain": true }
+  ]
 }

@@ -17,7 +17,6 @@ const entries = [
   "robots.txt",
   "sitemap.xml",
   "llms.txt",
-  "CNAME",
 ];
 
 for (const entry of entries) {
