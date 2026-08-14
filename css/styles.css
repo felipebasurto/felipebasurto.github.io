@@ -623,6 +623,47 @@ h3.md-heading {
   opacity: 0.85;
 }
 
+.md-gameshot-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 1.35rem 0 2rem;
+  align-items: start;
+}
+
+@media (min-width: 720px) {
+  .md-gameshot-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.15rem 1.25rem;
+  }
+}
+
+.md-doc--musatro .md-gameshot-grid .md-figure--gameshot {
+  margin: 0;
+  max-width: none;
+}
+
+.md-doc--musatro .md-figure--gameshot {
+  margin: 1rem 0 1.5rem;
+  max-width: 100%;
+}
+
+.md-doc--musatro .md-img--gameshot {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--hairline);
+  box-sizing: border-box;
+}
+
+.md-doc--musatro .md-figure--gameshot .md-figcap {
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  opacity: 0.85;
+}
+
 .md-doc--cursor .md-p:first-of-type {
   margin-top: 0;
 }

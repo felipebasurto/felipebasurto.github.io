@@ -168,6 +168,10 @@ marked.use({
         const caption = `![${text}](${href})`;
         return `<figure class="md-figure md-figure--macshot"><img class="md-img md-img--macshot" src="${safe}" alt="${alt}"${t} loading="lazy" decoding="async" width="1200" height="750" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
       }
+      if (/\/assets\/experience\/musatro\/(?!icon\.)/i.test(href)) {
+        const caption = `![${text}](${href})`;
+        return `<figure class="md-figure md-figure--gameshot"><img class="md-img md-img--gameshot" src="${safe}" alt="${alt}"${t} loading="lazy" decoding="async" width="1400" height="875" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
+      }
       const isAppStoreShot = /\/assets\/experience\/(encore|habitdex)\//.test(href);
       if (isAppStoreShot) {
         const caption = `![${text}](${href})`;
@@ -197,6 +201,7 @@ function unwrapFigures(html) {
     /<p class="md-p">\s*<figure class="md-figure md-figure--appshot">/g,
     /<p class="md-p">\s*<figure class="md-figure md-figure--appicon">/g,
     /<p class="md-p">\s*<figure class="md-figure md-figure--macshot">/g,
+    /<p class="md-p">\s*<figure class="md-figure md-figure--gameshot">/g,
     /<p class="md-p">\s*<figure class="md-figure md-figure--triplecheck">/g,
     /<p class="md-p">\s*<figure class="md-figure">/g,
   ];
@@ -215,8 +220,15 @@ function wrapAppShotGrids(html) {
   );
 }
 
+function wrapGameShotGrids(html) {
+  return html.replace(
+    /(?:<figure class="md-figure md-figure--gameshot">[\s\S]*?<\/figure>(?:\s*\n*)?)+/g,
+    (block) => `<div class="md-gameshot-grid">\n${block.trim()}\n</div>\n`
+  );
+}
+
 function renderMarkdownBody(body) {
-  return wrapAppShotGrids(unwrapFigures(marked.parse(body)));
+  return wrapGameShotGrids(wrapAppShotGrids(unwrapFigures(marked.parse(body))));
 }
 
 const EXPERIENCE_DIAGRAMS = {
