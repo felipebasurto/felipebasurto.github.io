@@ -31,13 +31,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
-
-      - name: Prepare static output
-        run: |
-          mkdir -p dist
-          cp -R index.html projects experience triplecheck musatro assets css robots.txt sitemap.xml llms.txt CNAME dist/
-          touch dist/.nojekyll
+        run: npm run build:dist
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
