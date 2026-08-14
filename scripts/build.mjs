@@ -792,6 +792,9 @@ function writeSitemap() {
   if (existsSync(join(root, "content", "triplecheck.md"))) {
     pushUrl(`${SITE}/triplecheck/`, "0.7");
   }
+  if (existsSync(join(root, "musatro", "index.html"))) {
+    pushUrl(`${SITE}/musatro/`, "0.6");
+  }
   for (const slug of slugs) {
     pushUrl(`${SITE}/experience/${slug}/`, "0.7");
   }

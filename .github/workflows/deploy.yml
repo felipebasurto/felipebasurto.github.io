@@ -36,7 +36,7 @@ jobs:
       - name: Prepare static output
         run: |
           mkdir -p dist
-          cp -R index.html projects experience triplecheck assets css robots.txt sitemap.xml llms.txt CNAME dist/
+          cp -R index.html projects experience triplecheck musatro assets css robots.txt sitemap.xml llms.txt CNAME dist/
           touch dist/.nojekyll
 
       - name: Upload artifact
