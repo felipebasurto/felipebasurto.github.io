@@ -14,8 +14,9 @@
 
 ## Learned Workspace Facts
 
-- The live personal site is at https://felipebasurto.com/ and is deployed from the GitHub Pages repository felipebasurto.github.io.
-- Static HTML is generated with `npm run build` via `scripts/build.mjs`, compiling Markdown under `content/` plus `content/experience/cursor.json` for the Cursor community timeline.
-- There is no `npm run dev` script; local preview is done by serving the repo root as static files (for example `python3 -m http.server` on a chosen port) after a build.
+- The live personal site is at https://felipebasurto.com/ and is still served from GitHub Pages (repo felipebasurto.github.io), with Cloudflare DNS in front.
+- Cloudflare Workers static assets are configured in `wrangler.jsonc` (Worker name `felipebasurto-com`, assets from `dist/`). Preview with `npm run preview`; publish the workers.dev preview with `npm run deploy`. Custom domain cutover is not done yet.
+- Static HTML is generated with `npm run build` via `scripts/build.mjs`; `npm run build:dist` also copies public files into `dist/` via `scripts/prepare-dist.mjs`.
+- Local preview: `npm run preview` (Wrangler) or serve the repo root as static files after a build.
 - Primary editable sources include `content/cv.md`, `content/projects.md`, and `content/experience/*.md`, with shared chrome in `scripts/template.html` and `css/styles.css`.
 - GEO and AI-discoverability assets include a root `llms.txt`, an expanded `robots.txt` with explicit Allow rules for common AI crawlers, and enriched JSON-LD on the home page emitted by the build.

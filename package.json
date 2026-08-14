@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Static personal portfolio built from Markdown (felipebasurto.com).",
   "scripts": {
-    "build": "node scripts/build.mjs"
+    "build": "node scripts/build.mjs",
+    "build:dist": "node scripts/build.mjs && node scripts/prepare-dist.mjs",
+    "preview": "npm run build:dist && wrangler dev",
+    "deploy": "wrangler deploy"
   },
   "repository": {
     "type": "git",
@@ -18,6 +21,7 @@
   },
   "homepage": "https://github.com/felipebasurto/felipebasurto.github.io#readme",
   "devDependencies": {
-    "marked": "^12.0.2"
+    "marked": "^12.0.2",
+    "wrangler": "^4.123.0"
   }
 }
