@@ -1,6 +1,6 @@
 # Felipe Basurto
 
-> Personal site and CV — **Solutions Architect** at **Multiverse Computing** (**CompactifAI**, LLM compression). **Cursor Community Regional Lead for Europe**. Side **iOS** apps (**Encore**, **HabitDex**), **macOS** app **Audio Silence Remover** (open source), and band **Triple Check**. Madrid, Spain.
+> Personal site and CV — **Solutions Architect** at **Multiverse Computing** (**CompactifAI**, LLM compression). **Cursor Community Regional Lead for Europe**. Side **iOS** apps (**Encore**, **HabitDex**), **macOS** app **Audio Silence Remover** (open source), browser game **Musatro**, and band **Triple Check**. Madrid, Spain.
 
 ## Canonical source
 
@@ -16,7 +16,7 @@ He is **Cursor Community Regional Lead for Europe** (started as Madrid Ambassado
 
 Previously: **Data Scientist** at **AILY LABS** (LangChain, Langfuse, **Graph RAG** over factory manuals with page-level citations, MLOps on **AWS**). Earlier: **Master's** at **IE** (incl. FITIZENS CV internship), Salesforce at **Accenture**, **Computer Science** at **Universidad de Burgos**.
 
-Side work: **Encore: Concert Diary** and **HabitDex** (iOS, Swift/SwiftUI; Miguel Ferrer on HabitDex design); **Audio Silence Remover** (macOS, open source on [GitHub](https://github.com/felipebasurto/silence-remover)); band **Triple Check** (Spanish pop rock, Burgos) — full story at `/triplecheck/`. Coursework and smaller repos on the [Projects](https://felipebasurto.com/projects/) page.
+Side work: **Encore: Concert Diary** and **HabitDex** (iOS, Swift/SwiftUI; Miguel Ferrer on HabitDex design); **Audio Silence Remover** (macOS, open source on [GitHub](https://github.com/felipebasurto/silence-remover)); **Musatro** (browser roguelike deckbuilder, Spanish deck / Mus, open source on [GitHub](https://github.com/felipebasurto/musatro)); band **Triple Check** (Spanish pop rock, Burgos) — full story at `/triplecheck/`. Coursework and smaller repos on the [Projects](https://felipebasurto.com/projects/) page.
 
 ## Main pages
 
@@ -29,6 +29,9 @@ Side work: **Encore: Concert Diary** and **HabitDex** (iOS, Swift/SwiftUI; Migue
 - Experience — HabitDex (side iOS app): https://felipebasurto.com/experience/habitdex/
 - Experience — Audio Silence Remover (side macOS app, open source): https://felipebasurto.com/experience/audio-silence-remover/
 - GitHub — silence-remover (Audio Silence Remover source): https://github.com/felipebasurto/silence-remover
+- Experience — Musatro (browser roguelike, Spanish deck / Mus): https://felipebasurto.com/experience/musatro/
+- Play — Musatro: https://musatro.felipebasurto.com/
+- GitHub — musatro: https://github.com/felipebasurto/musatro
 - Experience — AILY LABS: https://felipebasurto.com/experience/aily/
 - Experience — IE: https://felipebasurto.com/experience/ie/
 - Experience — Universidad de Burgos: https://felipebasurto.com/experience/ubu/
@@ -45,7 +48,7 @@ Side work: **Encore: Concert Diary** and **HabitDex** (iOS, Swift/SwiftUI; Migue
 
 ## Topics (for retrieval / disambiguation)
 
-Multiverse Computing, CompactifAI, LLM compression, quantization, pre-sales, technical demos, PoCs, enterprise AI, LangChain, Langfuse, Graph RAG, Neo4j, unstructured.io, AWS, Apache Airflow, Docker, MLOps, Cursor, community meetups, Madrid, IE, data science, machine learning, computer vision, iOS, macOS, Swift, SwiftUI, open source, audio editing, podcast tooling, Cursor-assisted development, Triple Check, pop rock, Burgos, Spotify.
+Multiverse Computing, CompactifAI, LLM compression, quantization, pre-sales, technical demos, PoCs, enterprise AI, LangChain, Langfuse, Graph RAG, Neo4j, unstructured.io, AWS, Apache Airflow, Docker, MLOps, Cursor, community meetups, Madrid, IE, data science, machine learning, computer vision, iOS, macOS, Swift, SwiftUI, open source, audio editing, podcast tooling, Cursor-assisted development, Triple Check, pop rock, Burgos, Spotify, Musatro, roguelike, Spanish deck, Mus, Balatro.
 
 ## Language
 

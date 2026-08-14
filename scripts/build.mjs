@@ -73,12 +73,32 @@ function isExternalHref(href) {
   return /^https?:\/\//i.test(href) || href.startsWith("//");
 }
 
+/** Pass through <details>/<summary> only; escape any other raw HTML. */
+function renderSafeDetailsHtml(raw) {
+  const text = String(raw ?? "");
+  if (!/<\/?(?:details|summary)\b/i.test(text)) {
+    return escapeHtml(text);
+  }
+  const safe = text.replace(/<\/?(?:details|summary)(\s[^>]*)?>/gi, (tag) => {
+    const close = tag.startsWith("</");
+    const name = /details/i.test(tag) ? "details" : "summary";
+    if (close) return `</${name}>`;
+    if (name === "details") return '<details class="md-details">';
+    return '<summary class="md-details__summary">';
+  });
+  if (/<(?!\/?(?:details|summary)\b)/i.test(safe)) {
+    return escapeHtml(text);
+  }
+  return safe;
+}
+
 marked.use({
   gfm: true,
   breaks: false,
   renderer: {
     html(html) {
-      return escapeHtml(html ?? "");
+      const raw = typeof html === "string" ? html : (html?.text ?? "");
+      return renderSafeDetailsHtml(raw);
     },
     heading(text, level, _raw) {
       const hashes = "#".repeat(level);
@@ -140,7 +160,7 @@ marked.use({
       if (isLogo) {
         return `<img class="md-logo" src="${safe}" alt="${alt}"${t} loading="lazy" width="20" height="20" />`;
       }
-      if (/\/assets\/experience\/(habitdex\/habitdex-icon|audio-silence-remover\/icon)\./i.test(href)) {
+      if (/\/assets\/experience\/(habitdex\/habitdex-icon|audio-silence-remover\/icon|musatro\/icon)\./i.test(href)) {
         const caption = `![${text}](${href})`;
         return `<figure class="md-figure md-figure--appicon"><img class="md-img md-img--appicon" src="${safe}" alt="${alt}"${t} loading="lazy" decoding="async" width="96" height="96" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
       }
@@ -158,7 +178,11 @@ marked.use({
         return `<figure class="md-figure md-figure--triplecheck"><img class="md-img md-img--triplecheck" src="${safe}" alt="${alt}"${t} loading="lazy" decoding="async" width="1200" height="800" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
       }
       const caption = `![${text}](${href})`;
-      return `<figure class="md-figure"><img class="md-img" src="${safe}" alt="${alt}"${t} loading="lazy" width="112" height="112" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
+      const isProfile = /(?:^|\/)assets\/profile\.(png|jpe?g|webp)$/i.test(href);
+      const load = isProfile
+        ? ` fetchpriority="high" decoding="async"`
+        : ` loading="lazy"`;
+      return `<figure class="md-figure"><img class="md-img" src="${safe}" alt="${alt}"${t}${load} width="112" height="112" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
     },
   },
 });
@@ -221,7 +245,9 @@ function renderExperienceBody(body) {
 
 function experienceArticleClass(slug) {
   if (slug === "cursor") return " md-doc--cursor";
-  if (slug === "encore" || slug === "habitdex" || slug === "audio-silence-remover") return ` md-doc--${slug}`;
+  if (slug === "encore" || slug === "habitdex" || slug === "audio-silence-remover" || slug === "musatro") {
+    return ` md-doc--${slug}`;
+  }
   if (slug === "aily") return " md-doc--aily";
   return "";
 }

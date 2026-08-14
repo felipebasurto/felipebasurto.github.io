@@ -16,7 +16,7 @@ Side work: **music**, **iOS and Mac** apps, a browser game, and **GitHub**. For 
 
 ## Apps (side projects)
 
-- ![Musatro](../assets/companies/musatro.png)**[Musatro](https://musatro.felipebasurto.com/)**: Roguelike deckbuilder with a Spanish deck, inspired by Mus. Play in the browser. [Play](https://musatro.felipebasurto.com/) · [GitHub](https://github.com/felipebasurto/musatro)
+- ![Musatro](../assets/companies/musatro.png)**[Musatro](https://musatro.felipebasurto.com/)**: Roguelike deckbuilder with a Spanish deck, inspired by Mus. Play in the browser. [Play](https://musatro.felipebasurto.com/) · [GitHub](https://github.com/felipebasurto/musatro) · [Details](../experience/musatro/)
 - **[Encore: Concert Diary](https://encorearchives.com)**: Concert diary in Swift/SwiftUI. Features, revenue, and distribution: [Details](../experience/encore/)
 - **[HabitDex](https://apps.apple.com/us/app/habitdex/id6755887620)**: Pokémon-style habit tracker; on-device + optional iCloud. **Miguel Ferrer** ([LinkedIn](https://www.linkedin.com/in/mffdr/?locale=en)) on design. [App Store](https://apps.apple.com/us/app/habitdex/id6755887620) · [Product site](https://v0-habitdex.vercel.app/) · [Details](../experience/habitdex/)
 - **[Audio Silence Remover](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12)**: macOS app for short-form voiceovers (TikTok/YouTube): threshold-based silence trim, no ML; open source on GitHub. [App Store](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12) · [GitHub](https://github.com/felipebasurto/silence-remover) · [Details](../experience/audio-silence-remover/)
@@ -24,6 +24,9 @@ Side work: **music**, **iOS and Mac** apps, a browser game, and **GitHub**. For 
 ## Repositories & coursework
 
 University and weekend repos on GitHub:
+
+<details>
+<summary>Coursework and older repos</summary>
 
 - [TfL Data Pipeline](https://github.com/felipebasurto/data-pipeline-tfl-api)
 - [Titanic Dataset Analysis](https://github.com/felipebasurto/titanic-dataset-analysis)
@@ -35,3 +38,5 @@ University and weekend repos on GitHub:
 - [Uber Interactive Data Dashboard](https://github.com/felipebasurto/uber-interactive-data-dashboard)
 - [Video and Image Processing with MATLAB](https://github.com/felipebasurto/video-and-image-processing-with-MATLAB)
 - [Image Processing with scikit-image](https://github.com/felipebasurto/image-processing-with-scikit-image)
+
+</details>

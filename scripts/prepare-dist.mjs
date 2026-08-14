@@ -1,4 +1,4 @@
-import { cpSync, existsSync, mkdirSync, rmSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -10,11 +10,13 @@ const entries = [
   "projects",
   "experience",
   "triplecheck",
+  "musatro",
   "assets",
   "css",
   "robots.txt",
   "sitemap.xml",
   "llms.txt",
+  "CNAME",
 ];
 
 for (const entry of entries) {
@@ -31,3 +33,5 @@ mkdirSync(dist, { recursive: true });
 for (const entry of entries) {
   cpSync(join(root, entry), join(dist, entry), { recursive: true });
 }
+
+writeFileSync(join(dist, ".nojekyll"), "");
