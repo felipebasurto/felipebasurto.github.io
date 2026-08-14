@@ -6,7 +6,7 @@
 - Keep the official wording "Cursor Community Regional Lead for Europe" when describing the Cursor community role (formerly Madrid Ambassador).
 - "Pokémon-style" is acceptable when describing HabitDex's gamified habit loop.
 - Preserve the intentional raw-markdown and terminal aesthetic; avoid generic marketing-card treatments the user has rejected (for example circular profile photo with accent ring, or boxed card grids for parallel activities).
-- Encore belongs under Experience; HabitDex is not listed as parallel experience and stays in Projects only.
+- Encore belongs under Experience; HabitDex and Musatro are not listed as parallel experience and stay in Projects only.
 - Prefer evergreen portfolio copy over ephemeral operational details such as per-event thank-yous, surveys, or mass emails to attendees.
 - Use the X (Twitter) handle @fildotai in site links.
 - On Projects, differentiate major shipped work from minor coursework and repositories (for example with progressive disclosure), rather than one undifferentiated list.
