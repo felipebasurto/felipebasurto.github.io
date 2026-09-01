@@ -1,6 +1,6 @@
 ---
 title: "Multiverse Computing — Felipe Basurto"
-description: "Previously Solutions Architect at Multiverse — CompactifAI pre-sales, Claude skills for sales & presales, demos and PoCs."
+description: "Solutions Architect at Multiverse (Nov 2025 - July 2026) — CompactifAI pre-sales, Claude skills for sales & presales, demos and PoCs."
 og_image: "/assets/companies/multiverse.png"
 ---
 

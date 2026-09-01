@@ -571,6 +571,7 @@ function buildJsonLd(description) {
     "@type": "Person",
     "@id": personId,
     name: "Felipe Basurto",
+    jobTitle: "Solutions Architect",
     description,
     image: `${SITE}/assets/profile.png`,
     url: SITE,
@@ -654,7 +655,7 @@ function buildIndex() {
   const title = meta.title || "Felipe Basurto";
   const description =
     meta.description ||
-    "Cursor Community Regional Lead for Europe. Madrid. Previously Solutions Architect at Multiverse Computing (CompactifAI, LLM compression).";
+    "Previously Solutions Architect at Multiverse Computing (CompactifAI, LLM compression). Cursor Community Regional Lead for Europe. Madrid.";
   const ogImage = meta.og_image || "/assets/profile.png";
   const ogImageAbs = absOgImage(ogImage);
   const bodyHtml = renderMarkdownBody(body);
