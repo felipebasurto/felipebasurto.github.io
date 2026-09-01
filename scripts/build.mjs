@@ -571,7 +571,6 @@ function buildJsonLd(description) {
     "@type": "Person",
     "@id": personId,
     name: "Felipe Basurto",
-    jobTitle: "Solutions Architect",
     description,
     image: `${SITE}/assets/profile.png`,
     url: SITE,
@@ -584,11 +583,6 @@ function buildJsonLd(description) {
       { "@type": "CollegeOrUniversity", name: "IE School of Science and Technology" },
       { "@type": "CollegeOrUniversity", name: "Universidad de Burgos" },
     ],
-    worksFor: {
-      "@type": "Organization",
-      name: "Multiverse Computing",
-      url: "https://multiversecomputing.com/",
-    },
     memberOf: {
       "@type": "MusicGroup",
       name: "Triple Check",
@@ -660,7 +654,7 @@ function buildIndex() {
   const title = meta.title || "Felipe Basurto";
   const description =
     meta.description ||
-    "Solutions Architect at Multiverse Computing (CompactifAI, LLM compression). Cursor Community Regional Lead for Europe. Madrid.";
+    "Cursor Community Regional Lead for Europe. Madrid. Previously Solutions Architect at Multiverse Computing (CompactifAI, LLM compression).";
   const ogImage = meta.og_image || "/assets/profile.png";
   const ogImageAbs = absOgImage(ogImage);
   const bodyHtml = renderMarkdownBody(body);

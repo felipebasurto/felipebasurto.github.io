@@ -1,6 +1,6 @@
 ---
 title: "Multiverse Computing — Felipe Basurto"
-description: "Solutions Architect at Multiverse — CompactifAI pre-sales, Claude skills for sales & presales, demos and PoCs."
+description: "Previously Solutions Architect at Multiverse — CompactifAI pre-sales, Claude skills for sales & presales, demos and PoCs."
 og_image: "/assets/companies/multiverse.png"
 ---
 
@@ -10,9 +10,9 @@ og_image: "/assets/companies/multiverse.png"
 
 ![Multiverse](../../assets/companies/multiverse.png)
 
-**Solutions Architect** (Madrid). I run pre-sales for **CompactifAI**—LLM compression—for finance, manufacturing, retail, and healthcare teams.
+**Solutions Architect** (Madrid). Ran pre-sales for **CompactifAI**—LLM compression—for finance, manufacturing, retail, and healthcare teams.
 
-When a customer asks whether to compress a model, the answer is rarely just “yes.” I explain what a compression choice buys in **cost**, **latency**, and **where the model can run**—cloud, on-prem, or both—usually in the same conversation with engineers and their VP. I work with infrastructure partners on reference architectures for either setup.
+When a customer asked whether to compress a model, the answer was rarely just “yes.” I explained what a compression choice bought in **cost**, **latency**, and **where the model could run**—cloud, on-prem, or both—usually in the same conversation with engineers and their VP. I worked with infrastructure partners on reference architectures for either setup.
 
 ## Claude skills for sales & presales
 
@@ -24,6 +24,6 @@ I built a **Claude skills plugin** for the sales and presales team—not a one-o
 
 ## Always-on company context
 
-The plugin runs with **persistent Multiverse context**: who we are, what **CompactifAI** does, and how we position it—without resetting every thread.
+The plugin ran with **persistent Multiverse context**: who we were, what **CompactifAI** does, and how we positioned it—without resetting every thread.
 
-It is **org-aware**: sales, presales, solutions, partners—outputs match who is in the room and what they need. Same voice, templates, and facts whether you are prepping a call or drafting a one-pager.
+It was **org-aware**: sales, presales, solutions, partners—outputs matched who was in the room and what they needed. Same voice, templates, and facts whether you were prepping a call or drafting a one-pager.

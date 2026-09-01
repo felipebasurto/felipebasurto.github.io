@@ -1,6 +1,6 @@
 ---
-title: "Felipe Basurto | Solutions Architect @ Multiverse Computing"
-description: "Solutions Architect at Multiverse (CompactifAI, LLM compression). Cursor Community Regional Lead for Europe. Side iOS and Mac apps and music. Madrid."
+title: "Felipe Basurto"
+description: "Cursor Community Regional Lead for Europe. Side iOS and Mac apps and music. Madrid. Previously Solutions Architect at Multiverse (CompactifAI, LLM compression)."
 og_image: "/assets/profile.png"
 ---
 
@@ -8,15 +8,15 @@ og_image: "/assets/profile.png"
 
 ![Profile photo](./assets/profile.png)
 
-**Solutions Architect** at [**Multiverse Computing**](https://multiversecomputing.com/) (Madrid). Most of my week is technical pre-sales on **CompactifAI**: LLM compression demos and PoCs for finance, manufacturing, retail, and healthcare. A lot of the work is helping teams run useful models without burning absurd amounts of compute.
+Was **Solutions Architect** at [**Multiverse Computing**](https://multiversecomputing.com/) (Madrid). Technical pre-sales on **CompactifAI**: LLM compression demos and PoCs for finance, manufacturing, retail, and healthcare. Helped teams run useful models without burning absurd amounts of compute.
 
 [**Cursor**](https://cursor.com) **Community Regional Lead for Europe**. What started as meetups in Madrid turned into hackathons, workshops, and founder circles. On the side I ship small **iOS and Mac** apps and play in a band.
 
 ## Experience
 
-### Nov 2025 - present
+### Nov 2025 –
 
-![Multiverse Computing](./assets/companies/multiverse.png)**Solutions Architect** at [**Multiverse Computing**](https://multiversecomputing.com/) (Madrid). Demos and PoCs across finance, manufacturing, retail, and healthcare. Most meetings are translating between engineers, infra teams, and executives until everyone is talking about the same problem. I work with cloud and on-prem partners on reference architectures. Built a **Claude skills plugin** for sales & presales: call prep, consortium work-package fit, and Multiverse-branded decks, one-pagers, and docs. [Details](./experience/multiverse/)
+![Multiverse Computing](./assets/companies/multiverse.png)**Solutions Architect** at [**Multiverse Computing**](https://multiversecomputing.com/) (Madrid). Ran demos and PoCs across finance, manufacturing, retail, and healthcare. Most meetings were translating between engineers, infra teams, and executives until everyone was talking about the same problem. Worked with cloud and on-prem partners on reference architectures. Built a **Claude skills plugin** for sales & presales: call prep, consortium work-package fit, and Multiverse-branded decks, one-pagers, and docs. [Details](./experience/multiverse/)
 
 Side projects:
 
