@@ -12,9 +12,9 @@ og_image: "/assets/profile.png"
 
 [**Cursor**](https://cursor.com) **Community Regional Lead for Europe**. What started as meetups in Madrid turned into hackathons, workshops, and founder circles. On the side I ship small **iOS and Mac** apps and play in a band.
 
+```
 I help teams that already use ChatGPT go further: agents, plugins, skills, deploys, and workshops.
 
-```
 hello@felipebasurto.com
 ```
 
