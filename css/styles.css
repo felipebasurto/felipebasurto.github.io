@@ -362,21 +362,6 @@ h3.md-heading {
   color: var(--muted);
 }
 
-/* CV home: the blockquote is the "AI work" contact box. Keep the quote bar
-   so it still reads as markdown, add a hairline frame so it reads as a box. */
-.md-doc--cv .md-bq {
-  margin: 1.75rem 0 0;
-  padding: 0.85rem 1.1rem;
-  border: 1px solid var(--hairline);
-  border-left: 2px solid var(--syn-quote);
-  border-radius: 6px;
-  color: var(--text);
-}
-
-.md-doc--cv .md-bq .md-p {
-  margin: 0.45rem 0;
-}
-
 /* ---------- horizontal rule ---------- */
 
 .md-hr-line {
