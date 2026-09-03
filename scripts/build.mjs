@@ -670,7 +670,7 @@ function buildIndex() {
     bodyHtml,
     jsonLd: buildJsonLd(description),
     docClass: "",
-    articleClass: "",
+    articleClass: " md-doc--cv",
   });
   writeFileSync(join(root, "index.html"), html, "utf8");
 }
