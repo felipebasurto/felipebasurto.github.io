@@ -5,6 +5,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "build:dist": "node scripts/build.mjs && node scripts/prepare-dist.mjs",
+    "check:content": "node scripts/check-content.mjs",
     "preview": "npm run build:dist && wrangler dev",
     "deploy": "wrangler deploy"
   },
