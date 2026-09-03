@@ -19,8 +19,9 @@ hello@felipebasurto.com
 
 ## Experience
 
-### Current projects
+### Current work
 
+- **Enterprise AI systems for teams.** Agents, internal tools, integrations, and deployment. [Email me](mailto:hello@felipebasurto.com)
 - ![SpaceXAI](./assets/companies/spacexai.png)[SpaceXAI Ambassadors](https://linkedin.com/company/spacexai-community). [Details](./experience/cursor/)
 - ![Encore Concert Diary](./assets/companies/encore.png)[Encore: Concert Diary](https://encorearchives.com). [App Store](https://apps.apple.com/us/app/encore-concert-diary/id6748657647) · [Details](./experience/encore/)
 
