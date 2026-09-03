@@ -16,7 +16,7 @@ og_image: "/assets/profile.png"
 >
 > I help teams that already use ChatGPT go further: agents, plugins, skills, deploys, and workshops. If that's useful, write to me.
 >
-> [hello@felipebasurto.com](mailto:felipeasurtobarrio@gmail.com)
+> [hello@felipebasurto.com](mailto:hello@felipebasurto.com)
 
 ## Experience
 
@@ -65,4 +65,4 @@ Side projects:
 - [GitHub](https://github.com/felipebasurto)
 - [LinkedIn](https://www.linkedin.com/in/felipe-basurto-barrio/)
 - [Twitter / X @fildotai](https://x.com/fildotai)
-- [Email](mailto:felipeasurtobarrio@gmail.com)
+- [Email](mailto:hello@felipebasurto.com)
