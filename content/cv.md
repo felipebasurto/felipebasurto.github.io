@@ -10,7 +10,7 @@ og_image: "/assets/profile.png"
 
 **Solutions Architect** at [**Multiverse Computing**](https://multiversecomputing.com/) (Madrid). Most of my week was technical pre-sales on **CompactifAI**: LLM compression demos and PoCs for finance, manufacturing, retail, and healthcare. A lot of the work was helping teams run useful models without burning absurd amounts of compute.
 
-[**SpaceXAI**](https://linkedin.com/company/spacexai-community) **Europe Regional Lead & Madrid Ambassador**. Started as Cursor Madrid Ambassador in May 2025, then Europe Regional Lead: meetups, hackathons, workshops, founder circles, now Europe-wide. After Cursor was [acquired by SpaceX](https://cursor.com/blog/joining-spacex), the community continues as SpaceXAI Ambassadors. Going forward that is Grok Bot meetups. On the side I ship small **iOS and Mac** apps and play in a band.
+[**SpaceXAI**](https://linkedin.com/company/spacexai-community) **Europe Regional Lead & Madrid Ambassador**. Started as Cursor Madrid Ambassador in May 2025, then Europe Regional Lead: meetups, hackathons, workshops, founder circles, now Europe-wide. After Cursor was [acquired by SpaceX](https://cursor.com/blog/joining-spacex), the community continues as SpaceXAI Ambassadors. Going forward that is Grok Bot meetups.
 
 ```
 I help teams that already use AI go further: agents, plugins, skills, deploys, and workshops.
