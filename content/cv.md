@@ -14,7 +14,9 @@ og_image: "/assets/profile.png"
 
 > **AI work**
 >
-> I help teams that already use ChatGPT go further: agents, plugins, skills, deploys, and workshops. If that's useful, write to me.
+> I help teams that already use AI go further: agents, plugins, skills, deploys, and workshops. If that's useful, write to me.
+>
+> If you're still exploring AI, let's talk about putting it to work in your business.
 >
 > [hello@felipebasurto.com](mailto:hello@felipebasurto.com)
 
