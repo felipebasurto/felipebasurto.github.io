@@ -12,7 +12,7 @@
   <link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt" />
 
   <meta name="title" content="Audio Silence Remover | Felipe Basurto" />
-  <meta name="description" content="Audio Silence Remover: open-source, 100% local macOS utility for short-form voiceovers. No data collected. App Store and GitHub." />
+  <meta name="description" content="Audio Silence Remover is an open-source macOS utility for spoken audio." />
   <meta name="author" content="Felipe Basurto" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0a0a0c" />
@@ -20,14 +20,14 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://felipebasurto.com/experience/audio-silence-remover/" />
   <meta property="og:title" content="Audio Silence Remover | Felipe Basurto" />
-  <meta property="og:description" content="Audio Silence Remover: open-source, 100% local macOS utility for short-form voiceovers. No data collected. App Store and GitHub." />
+  <meta property="og:description" content="Audio Silence Remover is an open-source macOS utility for spoken audio." />
   <meta property="og:image" content="https://felipebasurto.com/assets/experience/audio-silence-remover/icon.png" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@fildotai" />
   <meta name="twitter:url" content="https://felipebasurto.com/experience/audio-silence-remover/" />
   <meta name="twitter:title" content="Audio Silence Remover | Felipe Basurto" />
-  <meta name="twitter:description" content="Audio Silence Remover: open-source, 100% local macOS utility for short-form voiceovers. No data collected. App Store and GitHub." />
+  <meta name="twitter:description" content="Audio Silence Remover is an open-source macOS utility for spoken audio." />
   <meta name="twitter:image" content="https://felipebasurto.com/assets/experience/audio-silence-remover/icon.png" />
 
   <title>Audio Silence Remover | Felipe Basurto</title>
@@ -42,34 +42,29 @@
 <p class="md-p"><a class="md-link" href="../../" title="../../">← Back to CV</a></p>
 <h1 class="md-heading" id="audio-silence-remover"><span class="md-hashes" aria-hidden="true">#</span> Audio Silence Remover</h1>
 <figure class="md-figure md-figure--appicon"><img class="md-img md-img--appicon" src="../../assets/experience/audio-silence-remover/icon.png" alt="Audio Silence Remover app icon" loading="lazy" decoding="async" width="96" height="96" /><figcaption class="md-figcap" aria-hidden="true">![Audio Silence Remover app icon](../../assets/experience/audio-silence-remover/icon.png)</figcaption></figure>
-<p class="md-p">Fully open source on GitHub: the Mac app and the repo are the same codebase.</p>
-<p class="md-p">I built Audio Silence Remover for my own short-form video workflow: tightening voiceovers before I cut TikTok and YouTube clips. I looked for something native and fast. The closest options were a couple of Gradio and Hugging Face demos that routed audio through models you do not need for this job. They were slow for &quot;remove the quiet bits.&quot;</p>
-<p class="md-p">This app does one thing: analyze the waveform and cut or shorten segments that drop below a dB threshold. No cloud, no inference step, no waiting on a GPU.</p>
-<p class="md-p">100% local. No data collected. Your files stay on your Mac from import to export.</p>
-<p class="md-p">Free on the App Store, source on GitHub, no accounts, no analytics pipeline.</p>
-<p class="md-p">Audio Silence Remover is a macOS app for spoken-word MP3s: import a file, detect long pauses, preview the trimmed waveform, export a cleaned MP3. Also useful for podcasters, voiceover work, and audiobook editing when you want tighter pacing without re-recording.</p>
-<h2 class="md-heading" id="what-it-does"><span class="md-hashes" aria-hidden="true">##</span> What it does</h2>
+<p class="md-p">Audio Silence Remover is a free Mac app and an open-source project. The App Store build and the GitHub repository use the same codebase.</p>
+<p class="md-p">I built it because dead air was slowing down every TikTok and YouTube voiceover I edited. The browser demos I found uploaded the file and ran a model. Silence detection only needs a volume threshold, so that route added work without improving the cut.</p>
+<p class="md-p">The app reads the waveform, finds segments below a chosen decibel threshold, and removes or shortens them. Processing stays on the Mac. The app has no account, cloud service, or analytics pipeline.</p>
+<h2 class="md-heading" id="workflow"><span class="md-hashes" aria-hidden="true">##</span> Workflow</h2>
 <ul class="md-list md-list--unordered">
-<li class="md-li"><strong class="md-strong">Import MP3</strong> and scan amplitude against a configurable threshold (dB). Anything below it counts as silence.</li>
-<li class="md-li"><strong class="md-strong">Remove pauses</strong> or <strong class="md-strong">reduce pauses</strong> to a target length so speech keeps a natural rhythm.</li>
-<li class="md-li"><strong class="md-strong">Preview</strong> original vs result on a waveform before you commit.</li>
-<li class="md-li"><strong class="md-strong">Export</strong> a new MP3 when you are happy with the cut.</li>
-<li class="md-li"><strong class="md-strong">English and Spanish</strong> UI; no data collected (App Store privacy label: the developer does not collect data).</li>
+<li class="md-li">Import a spoken-word MP3.</li>
+<li class="md-li">Set the silence threshold and the minimum pause length.</li>
+<li class="md-li">Remove each pause or reduce it to a target duration.</li>
+<li class="md-li">Compare the original and edited waveforms.</li>
+<li class="md-li">Export a new MP3.</li>
 </ul>
-<p class="md-p">Typical workflow for me: ElevenLabs or voiceover export, trim dead air, drop the MP3 into a short-form edit for TikTok or YouTube.</p>
+<p class="md-p">My usual path is an ElevenLabs or recorded voiceover, one pass through the app, then the cleaned file goes into the video edit.</p>
 <h2 class="md-heading" id="how-it-was-built"><span class="md-hashes" aria-hidden="true">##</span> How it was built</h2>
-<p class="md-p">Swift / SwiftUI macOS app with on-device audio processing: read samples, find runs under the threshold, splice. No cloud pipeline, no account, no ML stack. This is signal math.</p>
-<p class="md-p">Visually I went skeuomorphic on purpose: brushed metal, glass panels, controls that look like physical knobs and switches. A nod to the classic Mac OS X utilities I grew up with.</p>
-<p class="md-p">Shipped free on the Mac App Store. Source is public so others can inspect, fork, or adapt the logic.</p>
-<p class="md-p">App Store work: sandbox signing, macOS 15+ target, localized strings, review cycles.</p>
+<p class="md-p">The macOS app uses Swift and SwiftUI. The audio path reads samples, finds runs below the threshold, and splices the segments that remain. There is no machine-learning step.</p>
+<p class="md-p">I chose a skeuomorphic interface on purpose. Brushed metal, glass panels, knobs, and switches fit a single-purpose audio utility better than another flat settings window.</p>
+<p class="md-p">The App Store release required sandbox signing, a macOS 15 or later target, English and Spanish strings, privacy labels, and review cycles. The privacy label states that the developer collects no data.</p>
 <h2 class="md-heading" id="links"><span class="md-hashes" aria-hidden="true">##</span> Links</h2>
 <ul class="md-list md-list--unordered">
-<li class="md-li"><strong class="md-strong">Mac App Store:</strong> <a class="md-link" href="https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12" title="https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12" rel="noopener noreferrer" target="_blank">Audio Silence Remover</a></li>
-<li class="md-li"><strong class="md-strong">GitHub:</strong> <a class="md-link" href="https://github.com/felipebasurto/silence-remover" title="https://github.com/felipebasurto/silence-remover" rel="noopener noreferrer" target="_blank">felipebasurto/silence-remover</a></li>
-<li class="md-li"><strong class="md-strong">Summary on the home page:</strong> <a class="md-link" href="../../" title="../../">CV / home</a></li>
+<li class="md-li"><a class="md-link" href="https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12" title="https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12" rel="noopener noreferrer" target="_blank">Audio Silence Remover on the Mac App Store</a></li>
+<li class="md-li"><a class="md-link" href="https://github.com/felipebasurto/silence-remover" title="https://github.com/felipebasurto/silence-remover" rel="noopener noreferrer" target="_blank">Source on GitHub</a></li>
 </ul>
 <h2 class="md-heading" id="screenshot"><span class="md-hashes" aria-hidden="true">##</span> Screenshot</h2>
-<p class="md-p">Main window: skeuomorphic Mac-style UI, recent files, waveform with original/result toggle, pause mode and threshold controls, export.</p>
+<p class="md-p">The main window shows recent files, the waveform comparison, pause controls, the threshold, and export.</p>
 <figure class="md-figure md-figure--macshot"><img class="md-img md-img--macshot" src="../../assets/experience/audio-silence-remover/screenshot.png" alt="Audio Silence Remover macOS app: waveform editor with pause removal controls" loading="lazy" decoding="async" width="1200" height="750" /><figcaption class="md-figcap" aria-hidden="true">![Audio Silence Remover macOS app: waveform editor with pause removal controls](../../assets/experience/audio-silence-remover/screenshot.png)</figcaption></figure>
 
       </article>
@@ -79,7 +74,7 @@
       <span class="doc__footer-text">EOF · 2026 · built from markdown</span>
     </footer>
   </div>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Audio Silence Remover | Felipe Basurto","url":"https://felipebasurto.com/experience/audio-silence-remover/","description":"Audio Silence Remover: open-source, 100% local macOS utility for short-form voiceovers. No data collected. App Store and GitHub.","isPartOf":{"@type":"WebSite","name":"Felipe Basurto","url":"https://felipebasurto.com"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Audio Silence Remover | Felipe Basurto","url":"https://felipebasurto.com/experience/audio-silence-remover/","description":"Audio Silence Remover is an open-source macOS utility for spoken audio.","isPartOf":{"@type":"WebSite","name":"Felipe Basurto","url":"https://felipebasurto.com"}}</script>
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
     <button class="lightbox__close" type="button" aria-label="Close (Esc)">×</button>
     <img class="lightbox__img" alt="" />
