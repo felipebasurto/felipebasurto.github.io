@@ -1,6 +1,6 @@
 ---
 title: "Musatro | Felipe Basurto"
-description: "Musatro: browser roguelike deckbuilder with a Spanish deck, built around Mus. Open source."
+description: "Musatro is an open-source browser deckbuilder based on Mus."
 og_image: "/assets/experience/musatro/icon.png"
 ---
 
@@ -10,32 +10,33 @@ og_image: "/assets/experience/musatro/icon.png"
 
 ![Musatro icon](../../assets/experience/musatro/icon.png)
 
-Browser roguelike deckbuilder with a Spanish deck, built around Mus: Grande, Chica, Pares, Juego. The loop is closer to Balatro than to a rules-faithful simulator: antes, a tavern, items, and bosses.
+Musatro is an unfinished browser roguelike built around the four Mus lances of Grande, Chica, Pares, and Juego. It uses a Spanish deck, but the run structure borrows more from Balatro than from a rules-faithful Mus simulator.
 
-A full run is playable in the browser. I stopped mid-build; card editions (`dorada`, `holográfica`) are typed and do not score yet.
+A full run is playable in the browser. I stopped mid-build. The `dorada` and `holográfica` card editions exist in the type system but do not affect scoring yet.
 
-## What's in a run
+## What is playable
 
-- Four Mus lances. On each you can pass, envido, envido x2, or órdago.
-- Eight antes: small table, big table, then a boss.
-- Tavern between tables: items and packs. You choose the order items apply.
-- Twenty-one items and ten bosses. Progress stays in `localStorage`.
+- Play all four Mus lances with pass, envido, envido x2, and órdago actions.
+- Work through eight antes. Each ante has a small table, a big table, and a boss.
+- Visit the tavern between tables to choose items and packs.
+- Reorder items to change how their effects combine.
+- Keep progress in `localStorage` across browser sessions.
 
-3 is King; 2 is Ace. Beat the table score and reach Ante 8.
+There are 21 items and 10 bosses. The 3 counts as a King, and the 2 counts as an Ace. A winning run reaches Ante 8.
 
 ## How it was built
 
-Strict TypeScript, no framework. Run state lives in `Game`; the UI is DOM and CSS. Vitest covers the engine: scoring, envite, item order, not the pixels.
+The game uses strict TypeScript without a framework. `Game` owns the run state. The interface uses the DOM and CSS. Vitest covers scoring, envite, and item order, but not the rendered pixels.
 
-Per lance the order is: base, items (your order), envite, boss. Color and mus apply to the hand total after the four lances.
+Each lance scores the base hand, ordered items, envite, and boss effect in that order. Color and mus bonuses apply after all four lances.
 
 Hosted on Cloudflare Pages at [musatro.felipebasurto.com](https://musatro.felipebasurto.com/). MIT.
 
-Tavern names (Mahou, Ducados, and the rest) are bar-culture references, not sponsorships.
+Tavern names such as Mahou and Ducados are bar-culture references, not sponsorships.
 
 ## Screenshots
 
-From the [GitHub repo](https://github.com/felipebasurto/musatro): title screen, a hand in play, the tavern, and the 21 items.
+These screenshots show the title screen, a hand in play, the tavern, and all 21 items.
 
 ![Musatro: title screen](../../assets/experience/musatro/title.webp)
 
@@ -47,6 +48,5 @@ From the [GitHub repo](https://github.com/felipebasurto/musatro): title screen, 
 
 ## Links
 
-- **Play:** [musatro.felipebasurto.com](https://musatro.felipebasurto.com/)
-- **GitHub:** [felipebasurto/musatro](https://github.com/felipebasurto/musatro)
-- **Summary on the home page:** [CV / home](../../)
+- [Play Musatro](https://musatro.felipebasurto.com/)
+- [Source on GitHub](https://github.com/felipebasurto/musatro)

@@ -1,6 +1,6 @@
 ---
 title: "IE School of Science and Technology | Felipe Basurto"
-description: "Master's in Business Analytics and Big Data at IE. Datathon wins, Microsoft-backed impact project, FITIZENS CV internship; photos from a Sam Altman campus session."
+description: "Master's in Business Analytics and Big Data at IE from 2022 to 2023."
 og_image: "/assets/companies/ie.png"
 ---
 
@@ -10,17 +10,19 @@ og_image: "/assets/companies/ie.png"
 
 ![IE](../../assets/companies/ie.png)
 
-**Master's in Business Analytics and Big Data** at IE. 1st place at the IE x NTT DATA & o9 Sustainability Datathon and at the IE Impact Project (news recommender with Microsoft).
+I completed the **Master's in Business Analytics and Big Data** from 2022 to 2023.
+
+The best assignments put a model under a real deadline and made the team explain the decision alongside the score. My teams placed first in the IE, NTT DATA, and o9 Sustainability Datathon and in the IE Impact Project. The Impact Project was a news recommender built with Microsoft.
 
 ## FITIZENS internship
 
 ![FITIZENS](../../assets/companies/fitizens.png)
 
-While at IE, I interned at FITIZENS in Madrid. Human Pose Estimation with OpenCV and MediaPipe, demoed in Streamlit for the team.
+I also interned at FITIZENS in Madrid. I worked on human pose estimation with OpenCV and MediaPipe. A webcam frame became body landmarks, OpenCV drew the result, and Streamlit gave the team a browser demo they could test without opening a notebook.
 
 ## Sam Altman at IE
 
-I was in the audience for Sam Altman's talk at IE, *A conversation with the CEO of OpenAI*. Photos from the session:
+I was in the audience for Sam Altman's campus talk, *A conversation with the CEO of OpenAI*. These photos are from the session.
 
 ![Sam Altman on screen, panel at IE](../../assets/experience/ie/sam-altman-ie-01.jpg)
 

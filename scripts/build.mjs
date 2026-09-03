@@ -138,7 +138,7 @@ marked.use({
       const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const lines = String(code ?? "").split("\n");
       const hasEmail = lines.some((line) => emailRe.test(line));
-      const wrapClass = !infostring && hasEmail ? " md-codeblock--wrap" : "";
+      const contactClass = !infostring && hasEmail ? " md-codeblock--contact" : "";
       const inner = lines
         .map((line) => {
           if (emailRe.test(line)) {
@@ -147,7 +147,7 @@ marked.use({
           return escapeHtml(line);
         })
         .join("\n");
-      return `<div class="md-codeblock${wrapClass}"><div class="md-codeblock-gutter" aria-hidden="true">${escapeHtml(label)}</div><pre class="md-pre"><code class="md-code${lang ? ` language-${lang}` : ""}">${inner}</code></pre></div>\n`;
+      return `<div class="md-codeblock${contactClass}"><div class="md-codeblock-gutter" aria-hidden="true">${escapeHtml(label)}</div><pre class="md-pre"><code class="md-code${lang ? ` language-${lang}` : ""}">${inner}</code></pre></div>\n`;
     },
     codespan(code) {
       return `<code class="md-codespan"><span class="md-muted">\`</span>${escapeHtml(code)}<span class="md-muted">\`</span></code>`;
@@ -355,7 +355,7 @@ async function hydrateCursorImages(events, assetDir) {
           const altRaw =
             im.alt != null && String(im.alt).trim() !== ""
               ? String(im.alt)
-              : `${ev.title} — photo ${idx}`;
+              : `${ev.title}, photo ${idx}`;
           ev._imageFiles.push({ fn, alt: altRaw });
         }
         await new Promise((r) => setTimeout(r, 120));
@@ -372,7 +372,7 @@ async function hydrateCursorImages(events, assetDir) {
         const altRaw =
           im.alt != null && String(im.alt).trim() !== ""
             ? String(im.alt)
-            : `${ev.title} — photo ${idx}`;
+            : `${ev.title}, photo ${idx}`;
         ev._imageFiles.push({ fn, alt: altRaw });
       } else {
         console.warn(`cursor.json: no image for "${baseName}" in event "${ev.id}"`);
@@ -522,7 +522,7 @@ function warnDuplicateCursorImageUrls(data) {
       if (!u) continue;
       if (seen.has(u)) {
         console.warn(
-          `cursor.json: same image URL used in "${seen.get(u)}" and "${ev.id}" — photos will duplicate across events.`
+          `cursor.json: same image URL used in "${seen.get(u)}" and "${ev.id}". Photos will duplicate across events.`
         );
       } else {
         seen.set(u, ev.id);
@@ -583,7 +583,6 @@ function buildJsonLd(description) {
     "@type": "Person",
     "@id": personId,
     name: "Felipe Basurto",
-    jobTitle: "Solutions Architect",
     description,
     image: `${SITE}/assets/profile.png`,
     url: SITE,
@@ -592,45 +591,11 @@ function buildJsonLd(description) {
       "https://www.linkedin.com/in/felipe-basurto-barrio/",
       "https://x.com/fildotai",
     ],
-    alumniOf: [
-      { "@type": "CollegeOrUniversity", name: "IE School of Science and Technology" },
-      { "@type": "CollegeOrUniversity", name: "Universidad de Burgos" },
-    ],
-    memberOf: {
-      "@type": "MusicGroup",
-      name: "Triple Check",
-      url: "https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR",
-      genre: "Spanish pop rock",
-    },
     homeLocation: {
       "@type": "Place",
       name: "Madrid, Spain",
     },
-    nationality: {
-      "@type": "Country",
-      name: "Spain",
-    },
     knowsLanguage: ["en", "es"],
-    knowsAbout: [
-      "LLM compression",
-      "CompactifAI",
-      "Graph RAG",
-      "Neo4j",
-      "LangChain",
-      "Langfuse",
-      "MLOps",
-      "AWS",
-      "Apache Airflow",
-      "Python",
-      "machine learning",
-      "computer vision",
-      "Swift",
-      "SwiftUI",
-      "SpaceXAI",
-      "Grok Bot",
-      "Triple Check",
-      "Spanish pop rock",
-    ],
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `${SITE}/`,
@@ -669,7 +634,7 @@ function buildIndex() {
   const title = meta.title || "Felipe Basurto";
   const description =
     meta.description ||
-    "Previously Solutions Architect at Multiverse Computing (CompactifAI, LLM compression). SpaceXAI Europe Regional Lead & Madrid Ambassador. Madrid.";
+    "AI solutions architect and data scientist based in Madrid.";
   const ogImage = meta.og_image || "/assets/profile.png";
   const ogImageAbs = absOgImage(ogImage);
   const bodyHtml = renderMarkdownBody(body);
@@ -690,7 +655,7 @@ function buildIndex() {
 }
 
 function build404Page() {
-  const title = "404 — Felipe Basurto";
+  const title = "404 · Felipe Basurto";
   const description = "No page at this path.";
   const canonicalUrl = `${SITE}/404.html`;
   const bodyHtml = renderMarkdownBody(`# 404
@@ -719,7 +684,7 @@ function buildProjectsPage() {
   if (!existsSync(mdPath)) return;
   const raw = readFileSync(mdPath, "utf8");
   const { meta, body } = parseFrontmatter(raw);
-  const title = meta.title || "Projects — Felipe Basurto";
+  const title = meta.title || "Projects · Felipe Basurto";
   const description = meta.description || "Shipped apps and GitHub projects.";
   const ogImage = meta.og_image || "/assets/profile.png";
   const ogImageAbs = absOgImage(ogImage);
@@ -754,9 +719,9 @@ function buildTriplecheckPage() {
   } else {
     body = body.replace(/\r?\n- \*\*YouTube:\*\* \[[^\]]+\]\(__YOUTUBE__\)/g, "");
   }
-  const title = meta.title || "Triple Check — Felipe Basurto";
+  const title = meta.title || "Triple Check · Felipe Basurto";
   const description =
-    meta.description || "Triple Check — Spanish pop rock from Burgos: discography, streaming milestones, and story.";
+    meta.description || "Triple Check is a Spanish pop-rock band from Burgos.";
   const ogImage = meta.og_image || "/assets/triplecheck/atentamente-ep.png";
   const ogImageAbs = absOgImage(ogImage);
   const canonicalUrl = `${SITE}/triplecheck/`;

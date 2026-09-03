@@ -353,14 +353,17 @@ h3.md-heading {
   user-select: none;
 }
 
-/* Contact fence on the CV: wrap instead of a horizontal scrollbar. */
-.md-codeblock--wrap .md-pre {
+.md-codeblock--contact .md-pre {
+  padding: 0;
   overflow-x: visible;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
 }
 
-.md-codeblock--wrap .md-code {
+.md-codeblock--contact .md-code {
   white-space: inherit;
 }
 

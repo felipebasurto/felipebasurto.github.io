@@ -1,6 +1,6 @@
 ---
 title: "Multiverse Computing | Felipe Basurto"
-description: "Solutions Architect at Multiverse (Nov 2025 - July 2026). CompactifAI pre-sales, Claude skills for sales and presales, demos and PoCs."
+description: "Previous role at Multiverse Computing from Nov 2025 to July 2026."
 og_image: "/assets/companies/multiverse.png"
 ---
 
@@ -10,20 +10,20 @@ og_image: "/assets/companies/multiverse.png"
 
 ![Multiverse](../../assets/companies/multiverse.png)
 
-**Solutions Architect** (Madrid). Ran pre-sales for CompactifAI (LLM compression) for finance, manufacturing, retail, and healthcare teams.
+**Previous role: Solutions Architect, Nov 2025 to July 2026.** I worked in Madrid on technical pre-sales for CompactifAI, Multiverse Computing's model compression product.
 
-When a customer asked whether to compress a model, the answer was rarely just "yes." I explained what a compression choice bought in cost, latency, and where the model could run: cloud, on-prem, or both. Usually in the same conversation with engineers and their VP. I worked with infrastructure partners on reference architectures for either setup.
+A typical discovery session started with a target model, the available hardware, and a quality constraint. I compared memory use, latency, deployment cost, and the quality tradeoff. The result was a recommendation that an engineer could test and an executive could price.
 
-## Claude skills for sales and presales
+The hard part was not explaining compression. It was getting engineering, infrastructure, procurement, and leadership to make the same decision from different concerns. I worked with cloud and on-premises partners to turn those decisions into reference architectures.
 
-I built a Claude skills plugin for the sales and presales team: packaged workflows the team can run repeatedly, not a one-off prompt.
+## Reusable sales tooling
 
-- **Call prep:** context and talking points before customer meetings.
-- **Consortium / RFP fit:** which work packages map to Multiverse strengths in multi-vendor bids.
-- **Branded outputs** from shared templates: PPTX, Excel, Word, PDF, HTML one-pagers, icons, and diagrams. Multiverse look and feel.
+I built a Claude skills plugin for sales and presales. The team could run the same workflows without rebuilding a prompt for every account.
 
-## Company context
+- Prepare customer context and talking points before a call.
+- Map consortium work packages to Multiverse capabilities in multi-vendor bids.
+- Generate PowerPoint, Excel, Word, PDF, and HTML files from shared company templates.
 
-The plugin ran with persistent Multiverse context: who we were, what CompactifAI does, and how we positioned it, without resetting every thread.
+The plugin loaded approved company context, product positioning, visual assets, and team roles. A call brief and a one-page proposal used the same facts and the same language.
 
-It was org-aware: sales, presales, solutions, partners. Outputs matched who was in the room. Same voice, templates, and facts whether you were prepping a call or drafting a one-pager.
+That consistency mattered more than producing another generic AI draft. A seller could start with a useful first version, and a solutions architect could see where the technical claims came from.
