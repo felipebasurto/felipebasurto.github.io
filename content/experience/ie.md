@@ -12,7 +12,7 @@ og_image: "/assets/companies/ie.png"
 
 I completed the **Master's in Business Analytics and Big Data** from 2022 to 2023.
 
-The best assignments put a model under a real deadline and made the team explain the decision, not only the score. My teams placed first in the IE, NTT DATA, and o9 Sustainability Datathon and in the IE Impact Project. The Impact Project was a news recommender built with Microsoft.
+The best assignments put a model under a real deadline and made the team explain the decision alongside the score. My teams placed first in the IE, NTT DATA, and o9 Sustainability Datathon and in the IE Impact Project. The Impact Project was a news recommender built with Microsoft.
 
 ## FITIZENS internship
 

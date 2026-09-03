@@ -22,7 +22,7 @@ We play Spanish pop-rock. [El Canto del Loco](https://es.wikipedia.org/wiki/El_C
 
 The debut EP, *Sabemos*, has five tracks. A run of singles followed. *Atentamente, Triple Check* from 2023 is the release that best represents us now.
 
-The single *Checkout* features [Safree](https://music.apple.com/es/artist/safree/599718024) and was produced by [Johnatan Pons](https://www.instagram.com/soyjonathanpons/). Johnatan gave it a sharper finish than we could get in the room by ourselves.
+The single *Checkout* includes vocals from [Safree](https://music.apple.com/es/artist/safree/599718024) and production by [Johnatan Pons](https://www.instagram.com/soyjonathanpons/). Johnatan gave it a sharper finish than we could get in the room by ourselves.
 
 ## Reach
 
