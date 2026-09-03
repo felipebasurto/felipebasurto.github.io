@@ -1,8 +1,8 @@
 {
-  "title": "SpaceXAI Ambassadors — Felipe Basurto",
-  "description": "SpaceXAI Europe Regional Lead & Madrid Ambassador — meetups, hackathons, workshops, and photos from Madrid onward. After Cursor was acquired by SpaceX, the community continues as SpaceXAI Ambassadors.",
+  "title": "SpaceXAI Ambassadors | Felipe Basurto",
+  "description": "SpaceXAI Europe Regional Lead and Madrid Ambassador. Meetups, hackathons, workshops, and photos from Madrid onward. After Cursor was acquired by SpaceX, the community continues as SpaceXAI Ambassadors.",
   "og_image": "/assets/companies/spacexai.png",
-  "intro_md": "[← Back to CV](../../)\n\n# SpaceXAI Ambassadors\n\n![SpaceXAI](../../assets/companies/spacexai.png)**SpaceXAI Europe Regional Lead & Madrid Ambassador.** I started as Cursor Madrid Ambassador in May 2025, then Europe Regional Lead—meetups, cafés, hackathons with coworkings, startups, and universities. Now the work is connecting builders across Europe: workshops, founder circles, and the same shipping-heavy community, at a larger scale.\n\nAfter Cursor was [acquired by SpaceX](https://cursor.com/blog/joining-spacex), the community continues as **SpaceXAI Ambassadors**. Going forward that is Grok Bot meetups and similar. [LinkedIn](https://linkedin.com/company/spacexai-community).\n\nVisual log below: events I've organized, and community events I've supported across Europe. More photos: [LinkedIn](https://www.linkedin.com/in/felipe-basurto-barrio/).\n",
+  "intro_md": "[← Back to CV](../../)\n\n# SpaceXAI Ambassadors\n\n![SpaceXAI](../../assets/companies/spacexai.png)**SpaceXAI Europe Regional Lead & Madrid Ambassador.** Started as Cursor Madrid Ambassador in May 2025, then Europe Regional Lead. Meetups, cafes, hackathons, workshops, founder circles with coworkings, startups, and universities in Madrid, then across Europe.\n\nAfter Cursor was [acquired by SpaceX](https://cursor.com/blog/joining-spacex), the community continues as **SpaceXAI Ambassadors**. Going forward that is Grok Bot meetups and similar. [LinkedIn](https://linkedin.com/company/spacexai-community).\n\nVisual log below: events I organized, and community events I supported across Europe. More photos: [LinkedIn](https://www.linkedin.com/in/felipe-basurto-barrio/).\n",
   "organized_events": [
     {
       "id": "spacexai-rename",
@@ -15,14 +15,14 @@
       "id": "regional-lead-europe",
       "date": "May 2026",
       "title": "Cursor Community Regional Lead (Europe)",
-      "body_md": "Promoted to **Cursor Community Regional Lead for Europe**. What started hosting meetups in Madrid—hackathons, workshops, founder circles—now includes connecting builders across the continent.",
+      "body_md": "Promoted to **Cursor Community Regional Lead for Europe**. Meetups, hackathons, workshops, and founder circles in Madrid, then across Europe.",
       "images": []
     },
     {
       "id": "meetup-v2",
       "date": "~Mar 2026",
       "title": "2nd Cursor Meetup",
-      "body_md": "Partners **Tinybird** and **Kfund**. Talks from both, then demos and hallway chats.\n\n- **getshell.ai** — shell-based agent workflows (OpenClaw) demoed for builders.\n- **Cursor** — **Cloud Agents** and the onboarding flow ([cursor.com/onboard](https://cursor.com/onboard)).",
+      "body_md": "Partners **Tinybird** and **Kfund**. Talks from both, then demos and hallway chats.\n\n- **getshell.ai**: shell-based agent workflows (OpenClaw) demoed for builders.\n- **Cursor**: Cloud Agents and the onboarding flow ([cursor.com/onboard](https://cursor.com/onboard)).",
       "images": [
         {
           "url": "https://media.licdn.com/dms/image/v2/D4E22AQHESGzAi70HDg/feedshare-shrink_800/B4EZzCSThCGYAg-/0/1772786104670?e=1778716800&v=beta&t=kmxZMi40_TRUBWcnT98tn61Hg5nvTra0fBEWC6k8RV4",
@@ -46,7 +46,7 @@
       "id": "cafe-cursor",
       "date": "~Feb 2026",
       "title": "Café Cursor",
-      "body_md": "All-day **casual coworking** at a café: people shipped their own projects, met other Cursor users, and talked shop — no talk track, no demos.\n\nVenue **eito** with three zones (main workspace, quieter back, upstairs hub).\n\n**Cursor engineers** on-site for debugging and Q&A.",
+      "body_md": "All-day casual coworking at a cafe: people shipped their own projects, met other Cursor users, and talked shop. No talk track, no demos.\n\nVenue **eito** with three zones (main workspace, quieter back, upstairs hub).\n\nCursor engineers on-site for debugging and Q&A.",
       "images": [
         {
           "url": "https://media.licdn.com/dms/image/v2/D4E22AQGh9qlcheOHoQ/feedshare-shrink_800/B4EZvqgvHRKsAg-/0/1769166009191?e=1778716800&v=beta&t=6INHRzLv5JxtPd8kZdAIVdodLcmvtaejb2qf7Td_8eg",
@@ -62,7 +62,7 @@
       "id": "hackathon-v2",
       "date": "~Dec 2025",
       "title": "Cursor Hackathon × HappyRobot × Kibo Ventures",
-      "body_md": "Challenge: integrate a **HappyRobot AI agent** into a working product using Cursor.\n\n**Winners**\n\n1. **TravelBot** — corporate travel end to end (stays, transport, dining).\n2. **MedTracker** — automated daily calls to elderly relatives for medication check-ins.\n3. **Santa's Call** — Santa calls your kid about behavior and wish lists.",
+      "body_md": "Challenge: integrate a HappyRobot AI agent into a working product using Cursor.\n\n**Winners**\n\n1. **TravelBot**: corporate travel end to end (stays, transport, dining).\n2. **MedTracker**: automated daily calls to elderly relatives for medication check-ins.\n3. **Santa's Call**: Santa calls your kid about behavior and wish lists.",
       "images": [
         {
           "url": "https://media.licdn.com/dms/image/v2/D4E22AQEv1NedpDoZiA/feedshare-shrink_800/B4EZr5TqYnGoAk-/0/1765119273193?e=1778716800&v=beta&t=U1ACJbcq66PQBqnoFmCgwUxbuGCuSu9zmCoXl38yipk",
@@ -78,7 +78,7 @@
       "id": "hackathon-v1",
       "date": "~Nov 2025",
       "title": "First Cursor Hackathon (Madrid)",
-      "body_md": "Partners **Enzo Ventures**, **OneCoWork**, **productmakers.ai**. We opened with a build block; good turnout and a waitlist.\n\nTheme: **gamification** — **~2 hours** to ship with Cursor.\n\n**Winners**\n\n1. **RoomieScore** — chores, expenses, and co-living for roommates.\n2. **FocoQuest** — productivity as missions and progression.\n3. **FinPlay** — personal finance made visual.",
+      "body_md": "Partners **Enzo Ventures**, **OneCoWork**, **productmakers.ai**. We opened with a build block; good turnout and a waitlist.\n\nTheme: gamification. About 2 hours to ship with Cursor.\n\n**Winners**\n\n1. **RoomieScore**: chores, expenses, and co-living for roommates.\n2. **FocoQuest**: productivity as missions and progression.\n3. **FinPlay**: personal finance made visual.",
       "images": [
         {
           "url": "https://media.licdn.com/dms/image/v2/D4D22AQGSGwPzT0XR9w/feedshare-shrink_800/B4DZqNxyIyH0Ag-/0/1763315232663?e=1778716800&v=beta&t=zT-pEqQVYh6wTlOIQwYaURtPuBXI_1Jg0L2-3UjuTEs",
@@ -114,7 +114,7 @@
       "id": "ambassador",
       "date": "May 2025",
       "title": "Cursor Madrid Ambassador",
-      "body_md": "Joined as **Cursor Madrid Ambassador**—meetups, workshops, and ties with local coworkings and universities. This is where the community work started.",
+      "body_md": "Joined as **Cursor Madrid Ambassador**: meetups, workshops, and ties with local coworkings and universities.",
       "images": []
     }
   ],
@@ -122,18 +122,18 @@
     {
       "id": "techie-hackathon-ie-2026",
       "date": "Mar 25, 2026",
-      "title": "Cursor × TechIE Hackathon — IE University",
-      "body_md": "The biggest Cursor hackathon IE has run — auditorium, full house. TechIE × Cursor: students building ambitious projects with an AI-native workflow, not quick demos.",
+      "title": "Cursor x TechIE Hackathon | IE University",
+      "body_md": "TechIE x Cursor at IE. Auditorium, full house. Students building with Cursor.",
       "partner": "TechIE · IE University",
       "url": "https://www.linkedin.com/posts/techie-cursor-hackathon-share-7439223427707658240-_bso/",
       "images": [
         {
           "static": "techie-hackathon-ie-01.png",
-          "alt": "Cursor × IE University hackathon — partner reveal banner"
+          "alt": "Cursor x IE University hackathon: partner reveal banner"
         },
         {
           "static": "techie-hackathon-ie-02.png",
-          "alt": "Cursor × IE University hackathon — stage at the auditorium"
+          "alt": "Cursor x IE University hackathon: stage at the auditorium"
         }
       ]
     },
@@ -141,7 +141,7 @@
       "id": "refugio-madrid-2026",
       "date": "Jun 27, 2026",
       "title": "Refugio Madrid 2026",
-      "body_md": "Upcoming — Saturday at Matadero Madrid. Morning talks + hackathon (~15 teams, AI-native build); afternoon ecosystem session and networking. Cursor sponsoring.",
+      "body_md": "Upcoming. Saturday at Matadero Madrid. Morning talks and a hackathon (~15 teams); afternoon ecosystem session and networking. Cursor sponsoring.",
       "partners": [
         { "name": "Mihura", "url": "https://x.com/XMihura" }
       ],
@@ -152,7 +152,7 @@
       "id": "hackspain-2026",
       "date": "Sep 2026",
       "title": "HackSpain 2026",
-      "body_md": "Upcoming — 24-hour hackathon in Madrid. 300+ builders; ML track with free compute and a non-technical track for first-time builders. Cursor sponsoring; pre-registration open.",
+      "body_md": "Upcoming. 24-hour hackathon in Madrid. 300+ builders; ML track with free compute and a non-technical track for first-time builders. Cursor sponsoring; pre-registration open.",
       "partners": [
         { "name": "HackSpain", "url": "https://hackspain.com/" },
         { "name": "Exponential", "url": "https://www.goexponential.org/" }
