@@ -138,7 +138,7 @@ marked.use({
       const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const lines = String(code ?? "").split("\n");
       const hasEmail = lines.some((line) => emailRe.test(line));
-      const wrapClass = !infostring && hasEmail ? " md-codeblock--wrap" : "";
+      const contactClass = !infostring && hasEmail ? " md-codeblock--contact" : "";
       const inner = lines
         .map((line) => {
           if (emailRe.test(line)) {
@@ -147,7 +147,7 @@ marked.use({
           return escapeHtml(line);
         })
         .join("\n");
-      return `<div class="md-codeblock${wrapClass}"><div class="md-codeblock-gutter" aria-hidden="true">${escapeHtml(label)}</div><pre class="md-pre"><code class="md-code${lang ? ` language-${lang}` : ""}">${inner}</code></pre></div>\n`;
+      return `<div class="md-codeblock${contactClass}"><div class="md-codeblock-gutter" aria-hidden="true">${escapeHtml(label)}</div><pre class="md-pre"><code class="md-code${lang ? ` language-${lang}` : ""}">${inner}</code></pre></div>\n`;
     },
     codespan(code) {
       return `<code class="md-codespan"><span class="md-muted">\`</span>${escapeHtml(code)}<span class="md-muted">\`</span></code>`;

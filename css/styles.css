@@ -353,7 +353,7 @@ h3.md-heading {
   user-select: none;
 }
 
-.md-codeblock--wrap .md-pre {
+.md-codeblock--contact .md-pre {
   padding: 0;
   overflow-x: visible;
   white-space: pre-wrap;
@@ -363,7 +363,7 @@ h3.md-heading {
   background: transparent;
 }
 
-.md-codeblock--wrap .md-code {
+.md-codeblock--contact .md-code {
   white-space: inherit;
 }
 
