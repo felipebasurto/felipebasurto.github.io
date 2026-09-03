@@ -32,119 +32,72 @@ const proseRules = [
   },
 ];
 
-const entityRules = {
+const entityPatterns = {
+  aily: /\bAILY(?: LABS)?\b/iu,
+  audioSilenceRemover: /\bAudio Silence Remover\b/iu,
+  cursor: /\b(?:Cursor|SpaceXAI|Grok Bot|Ambassador|Regional Lead)\b/iu,
+  encore: /\bEncore\b/iu,
+  habitdex: /\bHabitDex\b/iu,
+  ie: /\b(?:IE School of Science and Technology|FITIZENS)\b/iu,
+  multiverse: /\b(?:Multiverse Computing|CompactifAI)\b/iu,
+  musatro: /\bMusatro\b/iu,
+  triplecheck: /\b(?:Triple Check|band)\b/iu,
+  ubu: /\bUniversidad de Burgos\b/iu,
+};
+
+const pageOwners = {
+  "content/experience/aily.md": ["aily"],
+  "content/experience/audio-silence-remover.md": ["audioSilenceRemover"],
+  "content/experience/cursor.json": ["cursor"],
+  "content/experience/encore.md": ["encore", "cursor"],
+  "content/experience/habitdex.md": ["habitdex"],
+  "content/experience/ie.md": ["ie"],
+  "content/experience/multiverse.md": ["multiverse"],
+  "content/experience/musatro.md": ["musatro"],
+  "content/experience/ubu.md": ["ubu"],
+  "content/triplecheck.md": ["triplecheck"],
+};
+
+const pageRules = {
   "content/experience/cursor.json": [
-    /\bA Coru(?:ñ|n)a\b/iu,
-    /\bAudio Silence Remover\b/iu,
-    /\bEncore\b/iu,
-    /\bHabitDex\b/iu,
-    /\biOS\b/u,
-    /\bmacOS\b/u,
-    /\bMusatro\b/iu,
-    /\bTriple Check\b/iu,
-    /\bValencia\b/iu,
-    /\bband\b/iu,
-    /\bon the side\b/iu,
-  ],
-  "content/experience/encore.md": [
-    /\bAmbassador\b/iu,
-    /\bAudio Silence Remover\b/iu,
-    /\bGrok Bot\b/iu,
-    /\bHabitDex\b/iu,
-    /\bMusatro\b/iu,
-    /\bRegional Lead\b/iu,
-    /\bSpaceXAI\b/iu,
-    /\bTriple Check\b/iu,
-    /\bband\b/iu,
-  ],
-  "content/experience/habitdex.md": [
-    /\bAmbassador\b/iu,
-    /\bAudio Silence Remover\b/iu,
-    /\bEncore\b/iu,
-    /\bGrok Bot\b/iu,
-    /\bMusatro\b/iu,
-    /\bSpaceXAI\b/iu,
-    /\bTriple Check\b/iu,
-    /\bband\b/iu,
-  ],
-  "content/experience/audio-silence-remover.md": [
-    /\bAmbassador\b/iu,
-    /\bEncore\b/iu,
-    /\bGrok Bot\b/iu,
-    /\bHabitDex\b/iu,
-    /\bMusatro\b/iu,
-    /\bSpaceXAI\b/iu,
-    /\bTriple Check\b/iu,
-    /\bband\b/iu,
-  ],
-  "content/experience/musatro.md": [
-    /\bAmbassador\b/iu,
-    /\bAudio Silence Remover\b/iu,
-    /\bEncore\b/iu,
-    /\bGrok Bot\b/iu,
-    /\bHabitDex\b/iu,
-    /\bSpaceXAI\b/iu,
-    /\bTriple Check\b/iu,
-    /\bband\b/iu,
-  ],
-  "content/experience/multiverse.md": [
-    /\bAmbassador\b/iu,
-    /\bAudio Silence Remover\b/iu,
-    /\bEncore\b/iu,
-    /\bGrok Bot\b/iu,
-    /\bHabitDex\b/iu,
-    /\bMusatro\b/iu,
-    /\bSpaceXAI\b/iu,
-    /\bTriple Check\b/iu,
-    /\bband\b/iu,
-  ],
-  "content/experience/aily.md": [
-    /\bAmbassador\b/iu,
-    /\bAudio Silence Remover\b/iu,
-    /\bEncore\b/iu,
-    /\bGrok Bot\b/iu,
-    /\bHabitDex\b/iu,
-    /\bMusatro\b/iu,
-    /\bSpaceXAI\b/iu,
-    /\bTriple Check\b/iu,
-    /\bband\b/iu,
-  ],
-  "content/experience/ie.md": [
-    /\bAmbassador\b/iu,
-    /\bAudio Silence Remover\b/iu,
-    /\bEncore\b/iu,
-    /\bGrok Bot\b/iu,
-    /\bHabitDex\b/iu,
-    /\bMusatro\b/iu,
-    /\bSpaceXAI\b/iu,
-    /\bTriple Check\b/iu,
-    /\bband\b/iu,
-  ],
-  "content/experience/ubu.md": [
-    /\bAILY\b/iu,
-    /\bAmbassador\b/iu,
-    /\bAudio Silence Remover\b/iu,
-    /\bEncore\b/iu,
-    /\bGrok Bot\b/iu,
-    /\bHabitDex\b/iu,
-    /\bMultiverse\b/iu,
-    /\bMusatro\b/iu,
-    /\bSpaceXAI\b/iu,
-    /\bTriple Check\b/iu,
-    /\bband\b/iu,
-  ],
-  "content/triplecheck.md": [
-    /\bAILY\b/iu,
-    /\bAmbassador\b/iu,
-    /\bAudio Silence Remover\b/iu,
-    /\bEncore\b/iu,
-    /\bGrok Bot\b/iu,
-    /\bHabitDex\b/iu,
-    /\bMultiverse\b/iu,
-    /\bMusatro\b/iu,
-    /\bSpaceXAI\b/iu,
+    { label: "A Coruña", pattern: /\bA Coru(?:ñ|n)a\b/iu },
+    { label: "Valencia", pattern: /\bValencia\b/iu },
+    { label: "product platform", pattern: /\b(?:iOS|macOS|Mac)\b/u },
+    { label: "side-work wording", pattern: /\bon the side\b/iu },
+    { label: "Slack internals", pattern: /\b(?:Slack|Sunita|Ben Lang)\b/iu },
   ],
 };
+
+const homeStoryRules = [
+  {
+    label: "Multiverse work",
+    pattern: /\b(?:CompactifAI|model compression|reference architecture|Claude skills)\b/iu,
+  },
+  {
+    label: "AILY work",
+    pattern: /\b(?:LangChain|Langfuse|Graph RAG|Neo4j|Airflow|ETL)\b/iu,
+  },
+  {
+    label: "Encore story",
+    pattern: /\b(?:SwiftUI|revenue|paying users|passport|year-end recap|TikTok|Instagram)\b/iu,
+  },
+  {
+    label: "HabitDex story",
+    pattern: /\b(?:Pokémon|CloudKit|RevenueCat|StoreKit|streaks?)\b/iu,
+  },
+  {
+    label: "Audio Silence Remover story",
+    pattern: /\b(?:decibel|threshold|waveform|silence detection)\b/iu,
+  },
+  {
+    label: "Musatro story",
+    pattern: /\b(?:roguelike|Spanish deck|antes?|bosses)\b/iu,
+  },
+  {
+    label: "Triple Check story",
+    pattern: /\b(?:Spotify streams?|EP|venues?)\b/iu,
+  },
+];
 
 const errors = [];
 const content = new Map(
@@ -159,11 +112,23 @@ for (const [path, text] of content) {
   }
 }
 
-for (const [path, patterns] of Object.entries(entityRules)) {
+for (const [path, owners] of Object.entries(pageOwners)) {
   const text = content.get(path);
-  for (const pattern of patterns) {
+  for (const [entity, pattern] of Object.entries(entityPatterns)) {
+    if (owners.includes(entity)) {
+      continue;
+    }
     if (pattern.test(text)) {
-      errors.push(`${path}: crosses its entity boundary with ${pattern}`);
+      errors.push(`${path}: crosses its entity boundary with ${entity}`);
+    }
+  }
+}
+
+for (const [path, rules] of Object.entries(pageRules)) {
+  const text = content.get(path);
+  for (const rule of rules) {
+    if (rule.pattern.test(text)) {
+      errors.push(`${path}: contains prohibited ${rule.label} detail`);
     }
   }
 }
@@ -180,6 +145,12 @@ const homeLead = home
   .replace(/\[([^\]]+)\]\([^)]*\)/gu, "$1")
   .trim();
 const sentenceCount = homeLead.match(/[.!?](?:\s|$)/gu)?.length ?? 0;
+
+for (const rule of homeStoryRules) {
+  if (rule.pattern.test(home)) {
+    errors.push(`content/cv.md: repeats ${rule.label} instead of linking to Details`);
+  }
+}
 
 if (title !== "Felipe Basurto · Madrid") {
   errors.push('content/cv.md: title must be "Felipe Basurto · Madrid"');
