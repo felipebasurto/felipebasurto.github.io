@@ -1,6 +1,6 @@
 ---
 title: "Encore: Concert Diary | Felipe Basurto"
-description: "Encore: side-project iOS concert diary (Swift/SwiftUI). App Store."
+description: "Encore is an independent iPhone concert diary built with SwiftUI."
 og_image: "/assets/companies/encore.png"
 ---
 
@@ -10,30 +10,36 @@ og_image: "/assets/companies/encore.png"
 
 ![Encore](../../assets/companies/encore.png)
 
-Side project since May 2025. I built it in spare time. Cursor was in the build loop.
+Encore is an independent iPhone app that I have built and run since May 2025. I use Cursor as the editor.
 
-Encore is an iPhone concert diary: log shows with photo and video, track stats, add friends, see upcoming dates, keep a passport-style venue history, and get a year-end wrapped from the gigs you went to.
+The useful moment is the ride home after a show. You can log the artist, venue, date, photos, and videos while the details are still fresh. Encore turns those entries into a concert history instead of another camera roll folder.
 
-## What I shipped
+## The product
 
-Swift / SwiftUI: navigation, persistence, App Store cadence (metadata, review cycles, crash triage), and iteration from user feedback. Feed, stats, friends, passport, upcoming, wrapped.
+- A feed for past concerts and the people who went with you.
+- Personal stats, venue history, and a passport for places you have seen music.
+- Upcoming dates and a year-end recap built from your entries.
+- Friends, shared memories, photos, and video attached to each show.
 
-Revenue is past $2k from paying users. After launch I handle support and analytics: read DMs and crash reports, fix, ship again.
+## Building and running it
+
+The app is written in Swift and SwiftUI. I own navigation, persistence, analytics, crash triage, App Store reviews, and each release.
+
+Revenue from paying users has passed $2,000. That number is modest, but it changed how I work. A crash report or a confusing first screen now has a customer on the other side, not a hypothetical user.
 
 ## Distribution
 
-No ad budget. I post short video on TikTok, Instagram, YouTube, and Facebook, often from a few accounts.
+I have not used an ad budget. Installs come from short videos on TikTok, Instagram, YouTube, and Facebook. The posts that work show the app inside a real concert memory, not a feature tour.
 
 ## Links
 
-- **Product (EN):** [encorearchives.com](https://encorearchives.com)
-- **Product (ES):** [encorearchives.com/es](https://encorearchives.com/es)
-- **App Store (US):** [Encore: Concert Diary](https://apps.apple.com/us/app/encore-concert-diary/id6748657647)
-- **Summary on the home page:** [CV / home](../../)
+- [Product site in English](https://encorearchives.com)
+- [Product site in Spanish](https://encorearchives.com/es)
+- [Encore on the App Store](https://apps.apple.com/us/app/encore-concert-diary/id6748657647)
 
 ## App Store gallery
 
-Screens from the live App Store listing: feed, stats, wrapped, friends, passport, and upcoming shows.
+Screens from the live listing show the feed, stats, year-end recap, friends, passport, and upcoming shows.
 
 ![Encore: concerts](../../assets/experience/encore/encore-01.webp)
 

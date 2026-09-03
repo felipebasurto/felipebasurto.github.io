@@ -19,19 +19,19 @@
 </ol>
 </div>
 <div class="aily-flow__panel" data-panel aria-live="polite">
-<p class="aily-flow__panel-text" data-panel-text>Scanned equipment manuals from the factory—PDF and OCR on diagram pages.</p>
+<p class="aily-flow__panel-text" data-panel-text>Scanned factory equipment manuals, with OCR for diagram pages.</p>
 </div>
-<p class="aily-flow__outcome">Operator gets the fault, the manual location, and the exact page—not a vague summary.</p>
+<p class="aily-flow__outcome">The operator gets the fault, the manual location, and the exact page.</p>
 </figure>
 <script>
 (function () {
   var root = document.querySelector("[data-aily-flow]");
   if (!root) return;
   var hints = [
-    "Scanned equipment manuals from the factory—PDF and OCR on diagram pages.",
+    "Scanned factory equipment manuals, with OCR for diagram pages.",
     "unstructured.io preserves layout: tables, figures, and text blocks, each tagged with page and section coordinates.",
     "Neo4j equipment graph links machines, components, fault codes, and repair procedures.",
-    "Each day the line reports what failed—which machine, which alarm, which shift.",
+    "Each day the line reports the machine, alarm, and shift for a failure.",
     "LangChain graph RAG retrieves the relevant subgraph and tool results for that fault.",
     "Production API returns a cited answer: exact page, section, and figure reference for the operator."
   ];

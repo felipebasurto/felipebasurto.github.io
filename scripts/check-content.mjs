@@ -18,6 +18,7 @@ const publicCopyFiles = [
   "content/experience/musatro.md",
   "content/experience/ubu.md",
   "llms.txt",
+  "scripts/diagrams/aily-graph-rag.html",
 ];
 
 const proseRules = [
@@ -175,8 +176,8 @@ const fenceStart = home.indexOf("\n```", profileEnd);
 const experienceStart = home.indexOf("\n## Experience", fenceStart);
 const homeLead = home
   .slice(profileEnd, fenceStart)
-  .replace(/!\[[^\]]*]\([^)]*\)/gu, "")
-  .replace(/\[([^\]]+)]\([^)]*\)/gu, "$1")
+  .replace(/!\[[^\]]*\]\([^)]*\)/gu, "")
+  .replace(/\[([^\]]+)\]\([^)]*\)/gu, "$1")
   .trim();
 const sentenceCount = homeLead.match(/[.!?](?:\s|$)/gu)?.length ?? 0;
 
@@ -188,6 +189,9 @@ if (description.length > 90 || (description.match(/[.!?]/gu)?.length ?? 0) !== 1
 }
 if (sentenceCount < 2 || sentenceCount > 4) {
   errors.push(`content/cv.md: home lead has ${sentenceCount} sentences, expected 2 to 4`);
+}
+if (/\b(started as|then|after|going forward)\b/iu.test(homeLead)) {
+  errors.push("content/cv.md: home lead tells a chronology instead of summarizing current work");
 }
 if (fenceStart === -1 || experienceStart === -1 || fenceStart > experienceStart) {
   errors.push("content/cv.md: contact fence must appear before Experience");

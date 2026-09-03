@@ -1,6 +1,6 @@
 ---
 title: "Projects | Felipe Basurto"
-description: "Side projects: Triple Check (music), Encore and HabitDex (iOS), Audio Silence Remover (macOS), Musatro (browser game), plus GitHub coursework. Day job on the CV."
+description: "Apps, music, and selected software projects."
 og_image: "/assets/profile.png"
 ---
 
@@ -8,18 +8,20 @@ og_image: "/assets/profile.png"
 
 # Projects
 
-Side work: music, iOS and Mac apps, a browser game, and GitHub. For Multiverse and AILY, see the [CV](../).
+Shipped work comes first. Coursework and older repositories stay folded until you need them.
 
-## Music (Triple Check)
+## Shipped products
 
-- ![Triple Check](../assets/companies/triple-check.png)**[Triple Check](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR)**: Pop-rock from Burgos; three friends, home recordings since 2020. Full story, venues, and live photos on the band page. [Spotify](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR) · [Details](../triplecheck/)
+- ![HabitDex](../assets/companies/habitdex.png)[HabitDex](https://apps.apple.com/us/app/habitdex/id6755887620). [App Store](https://apps.apple.com/us/app/habitdex/id6755887620) · [Details](../experience/habitdex/)
+- ![Audio Silence Remover](../assets/companies/audio-silence-remover.png)[Audio Silence Remover](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12). [App Store](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12) · [GitHub](https://github.com/felipebasurto/silence-remover) · [Details](../experience/audio-silence-remover/)
 
-## Apps (side projects)
+## Work in progress
 
-- **[Encore: Concert Diary](https://encorearchives.com)**: Concert diary in Swift/SwiftUI. Features, revenue, and distribution: [Details](../experience/encore/)
-- **[HabitDex](https://apps.apple.com/us/app/habitdex/id6755887620)**: Pokémon-style habit tracker; on-device + optional iCloud. Miguel Ferrer ([LinkedIn](https://www.linkedin.com/in/mffdr/?locale=en)) on design. [App Store](https://apps.apple.com/us/app/habitdex/id6755887620) · [Product site](https://v0-habitdex.vercel.app/) · [Details](../experience/habitdex/)
-- **[Audio Silence Remover](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12)**: macOS app for short-form voiceovers (TikTok/YouTube): threshold-based silence trim, no ML; open source on GitHub. [App Store](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12) · [GitHub](https://github.com/felipebasurto/silence-remover) · [Details](../experience/audio-silence-remover/)
-- ![Musatro](../assets/companies/musatro.png)**[Musatro](https://musatro.felipebasurto.com/)**: Unfinished roguelike deckbuilder with a Spanish deck, inspired by Mus. Playable in the browser. [Play](https://musatro.felipebasurto.com/) · [GitHub](https://github.com/felipebasurto/musatro) · [Details](../experience/musatro/)
+- ![Musatro](../assets/companies/musatro.png)[Musatro](https://musatro.felipebasurto.com/). [Play](https://musatro.felipebasurto.com/) · [GitHub](https://github.com/felipebasurto/musatro) · [Details](../experience/musatro/)
+
+## Music
+
+- ![Triple Check](../assets/companies/triple-check.png)[Triple Check](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR). [Spotify](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR) · [Details](../triplecheck/)
 
 ## Repositories and coursework
 
