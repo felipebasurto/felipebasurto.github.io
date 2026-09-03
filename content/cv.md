@@ -1,6 +1,6 @@
 ---
 title: "Felipe Basurto · Madrid"
-description: "Solutions architect and data scientist based in Madrid."
+description: "AI solutions architect and data scientist based in Madrid."
 og_image: "/assets/profile.png"
 ---
 
@@ -8,38 +8,41 @@ og_image: "/assets/profile.png"
 
 ![Profile photo](./assets/profile.png)
 
-Solutions architect and data scientist based in Madrid. I work across applied AI, technical pre-sales, and product engineering. Current work includes [SpaceXAI Ambassadors](./experience/cursor/) community programs, [Encore](./experience/encore/) on iOS, and music with [Triple Check](./triplecheck/).
+AI solutions architect and data scientist based in Madrid. I work directly with teams on enterprise AI systems that need to fit existing business processes and hold up beyond the demo. Current product and community work includes [Encore](./experience/encore/) and [SpaceXAI Ambassadors](./experience/cursor/).
 
 ```
-I help teams build with AI: agents, plugins, skills, deployments, and workshops.
-Already using AI or starting from zero, email me.
+I help teams scope and ship AI systems that fit existing business processes.
+Agents, internal tools, integrations, and deployment.
+If AI is on your roadmap, email me.
 hello@felipebasurto.com
 ```
 
 ## Experience
 
-### Current
+### Current projects
 
 - ![SpaceXAI](./assets/companies/spacexai.png)[SpaceXAI Ambassadors](https://linkedin.com/company/spacexai-community). [Details](./experience/cursor/)
 - ![Encore Concert Diary](./assets/companies/encore.png)[Encore: Concert Diary](https://encorearchives.com). [App Store](https://apps.apple.com/us/app/encore-concert-diary/id6748657647) · [Details](./experience/encore/)
 
-### Nov 2025 to July 2026
+### Previous roles
+
+#### Nov 2025 to July 2026
 
 ![Multiverse Computing](./assets/companies/multiverse.png)**Solutions Architect** at [Multiverse Computing](https://multiversecomputing.com/), Madrid. [Details](./experience/multiverse/)
 
-### Jul 2023 to Nov 2025
+#### Jul 2023 to Nov 2025
 
 ![AILY LABS](./assets/companies/aily.png)**Data Scientist** at [AILY LABS](https://www.ailylabs.com/), Madrid. [Details](./experience/aily/)
 
-### 2022 to 2023
+#### 2022 to 2023
 
 ![IE School of Science and Technology](./assets/companies/ie.png)**Master's in Business Analytics and Big Data** at [IE School of Science and Technology](https://www.ie.edu/school-science-technology). [Details](./experience/ie/)
 
-### 2021 to 2022
+#### 2021 to 2022
 
 ![Accenture](./assets/companies/accenture.png)**Salesforce developer** at [Accenture](https://www.accenture.com/es-es).
 
-### 2017 to 2022
+#### 2017 to 2022
 
 ![Universidad de Burgos](./assets/companies/ubu.png)**Computer Science Engineering** at [Universidad de Burgos](https://www.ubu.es/). [Details](./experience/ubu/)
 

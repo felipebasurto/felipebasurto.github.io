@@ -634,7 +634,7 @@ function buildIndex() {
   const title = meta.title || "Felipe Basurto";
   const description =
     meta.description ||
-    "Solutions architect and data scientist based in Madrid.";
+    "AI solutions architect and data scientist based in Madrid.";
   const ogImage = meta.og_image || "/assets/profile.png";
   const ogImageAbs = absOgImage(ogImage);
   const bodyHtml = renderMarkdownBody(body);

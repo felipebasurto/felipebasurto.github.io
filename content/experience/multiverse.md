@@ -1,6 +1,6 @@
 ---
 title: "Multiverse Computing | Felipe Basurto"
-description: "Solutions Architect at Multiverse Computing from Nov 2025 to July 2026."
+description: "Previous role at Multiverse Computing from Nov 2025 to July 2026."
 og_image: "/assets/companies/multiverse.png"
 ---
 
@@ -10,7 +10,7 @@ og_image: "/assets/companies/multiverse.png"
 
 ![Multiverse](../../assets/companies/multiverse.png)
 
-**Solutions Architect, Nov 2025 to July 2026.** I worked in Madrid on technical pre-sales for CompactifAI, Multiverse Computing's model compression product.
+**Previous role: Solutions Architect, Nov 2025 to July 2026.** I worked in Madrid on technical pre-sales for CompactifAI, Multiverse Computing's model compression product.
 
 A typical discovery session started with a target model, the available hardware, and a quality constraint. I compared memory use, latency, deployment cost, and the quality tradeoff. The result was a recommendation that an engineer could test and an executive could price.
 
