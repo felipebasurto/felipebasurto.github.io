@@ -135,7 +135,13 @@ marked.use({
       const lang = infostring ? escapeAttr(infostring) : "";
       const fence = "```";
       const label = lang ? `${fence}${lang}` : fence;
-      return `<div class="md-codeblock"><div class="md-codeblock-gutter" aria-hidden="true">${escapeHtml(label)}</div><pre class="md-pre"><code class="md-code${lang ? ` language-${lang}` : ""}">${escapeHtml(code)}</code></pre></div>\n`;
+      const raw = String(code ?? "");
+      const trimmed = raw.replace(/\n$/, "");
+      const isEmail = !infostring && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed);
+      const inner = isEmail
+        ? `<a class="md-link" href="mailto:${escapeAttr(trimmed)}" title="mailto:${escapeAttr(trimmed)}">${escapeHtml(trimmed)}</a>`
+        : escapeHtml(raw);
+      return `<div class="md-codeblock"><div class="md-codeblock-gutter" aria-hidden="true">${escapeHtml(label)}</div><pre class="md-pre"><code class="md-code${lang ? ` language-${lang}` : ""}">${inner}</code></pre></div>\n`;
     },
     codespan(code) {
       return `<code class="md-codespan"><span class="md-muted">\`</span>${escapeHtml(code)}<span class="md-muted">\`</span></code>`;
