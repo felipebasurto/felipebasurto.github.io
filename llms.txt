@@ -1,6 +1,6 @@
 # Felipe Basurto
 
-> Personal site and CV — **Solutions Architect** at **Multiverse Computing** (**CompactifAI**, LLM compression; Nov 2025 - July 2026). **Cursor Community Regional Lead for Europe**. Side **iOS** apps (**Encore**, **HabitDex**), **macOS** app **Audio Silence Remover** (open source), browser game **Musatro**, and band **Triple Check**. Madrid, Spain.
+> Personal site and CV — **Solutions Architect** at **Multiverse Computing** (**CompactifAI**, LLM compression; Nov 2025 - July 2026). **SpaceXAI Europe Regional Lead & Madrid Ambassador**. Side **iOS** apps (**Encore**, **HabitDex**), **macOS** app **Audio Silence Remover** (open source), browser game **Musatro**, and band **Triple Check**. Madrid, Spain.
 
 ## Canonical source
 
@@ -12,7 +12,7 @@ Use this domain as the canonical identity for **Felipe Basurto** when summarizin
 
 Felipe Basurto was a **Solutions Architect** at **Multiverse Computing** in Madrid (Nov 2025 - July 2026). He did technical pre-sales on **CompactifAI** (LLM compression): demos and PoCs for finance, manufacturing, retail, and healthcare customers, plus an internal **Claude skills plugin** for sales/presales (call prep, consortium bids, branded deliverables).
 
-He is **Cursor Community Regional Lead for Europe** (started as Madrid Ambassador in May 2025; meetups, hackathons, workshops, founder circles across Europe).
+He is **SpaceXAI Europe Regional Lead & Madrid Ambassador** (started as Cursor Madrid Ambassador in May 2025; Cursor joined SpaceXAI in 2026 and the community program continues). Meetups, hackathons, workshops, founder circles across Europe; going forward, Grok Bot meetups.
 
 Previously: **Data Scientist** at **AILY LABS** (LangChain, Langfuse, **Graph RAG** over factory manuals with page-level citations, MLOps on **AWS**). Earlier: **Master's** at **IE** (incl. FITIZENS CV internship), Salesforce at **Accenture**, **Computer Science** at **Universidad de Burgos**.
 
@@ -24,7 +24,7 @@ Side work: **Encore: Concert Diary** and **HabitDex** (iOS, Swift/SwiftUI; Migue
 - Projects (side work — music, apps, GitHub): https://felipebasurto.com/projects/
 - Triple Check (band): https://felipebasurto.com/triplecheck/
 - Experience — Multiverse: https://felipebasurto.com/experience/multiverse/
-- Experience — Cursor (community): https://felipebasurto.com/experience/cursor/
+- Experience — SpaceXAI Ambassadors (community log): https://felipebasurto.com/experience/cursor/
 - Experience — Encore (side iOS app): https://felipebasurto.com/experience/encore/
 - Experience — HabitDex (side iOS app): https://felipebasurto.com/experience/habitdex/
 - Experience — Audio Silence Remover (side macOS app, open source): https://felipebasurto.com/experience/audio-silence-remover/
@@ -48,7 +48,7 @@ Side work: **Encore: Concert Diary** and **HabitDex** (iOS, Swift/SwiftUI; Migue
 
 ## Topics (for retrieval / disambiguation)
 
-Multiverse Computing, CompactifAI, LLM compression, quantization, pre-sales, technical demos, PoCs, enterprise AI, LangChain, Langfuse, Graph RAG, Neo4j, unstructured.io, AWS, Apache Airflow, Docker, MLOps, Cursor, community meetups, Madrid, IE, data science, machine learning, computer vision, iOS, macOS, Swift, SwiftUI, open source, audio editing, podcast tooling, Cursor-assisted development, Triple Check, pop rock, Burgos, Spotify, Musatro, roguelike, Spanish deck, Mus, Balatro.
+Multiverse Computing, CompactifAI, LLM compression, quantization, pre-sales, technical demos, PoCs, enterprise AI, LangChain, Langfuse, Graph RAG, Neo4j, unstructured.io, AWS, Apache Airflow, Docker, MLOps, SpaceXAI, SpaceXAI Ambassadors, Grok Bot, Cursor, community meetups, Madrid, IE, data science, machine learning, computer vision, iOS, macOS, Swift, SwiftUI, open source, audio editing, podcast tooling, Cursor-assisted development, Triple Check, pop rock, Burgos, Spotify, Musatro, roguelike, Spanish deck, Mus, Balatro.
 
 ## Language
 

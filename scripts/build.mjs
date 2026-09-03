@@ -550,9 +550,9 @@ async function buildCursorExperiencePage(data) {
   });
   const tabsHtml = renderCursorTabs(organizedHtml, sponsoredHtml, organized.length, sponsored.length);
   const bodyHtml = `${introHtml}\n${tabsHtml}`;
-  const title = data.title || "Cursor Community";
+  const title = data.title || "SpaceXAI Ambassadors";
   const description = data.description || "";
-  const ogImage = data.og_image || "/assets/companies/cursor.png";
+  const ogImage = data.og_image || "/assets/companies/spacexai.png";
   const ogImageAbs = absOgImage(ogImage);
   const slug = "cursor";
   const path = `/experience/${slug}/`;
@@ -626,6 +626,8 @@ function buildJsonLd(description) {
       "computer vision",
       "Swift",
       "SwiftUI",
+      "SpaceXAI",
+      "Grok Bot",
       "Triple Check",
       "Spanish pop rock",
     ],
@@ -667,7 +669,7 @@ function buildIndex() {
   const title = meta.title || "Felipe Basurto";
   const description =
     meta.description ||
-    "Previously Solutions Architect at Multiverse Computing (CompactifAI, LLM compression). Cursor Community Regional Lead for Europe. Madrid.";
+    "Previously Solutions Architect at Multiverse Computing (CompactifAI, LLM compression). SpaceXAI Europe Regional Lead & Madrid Ambassador. Madrid.";
   const ogImage = meta.og_image || "/assets/profile.png";
   const ogImageAbs = absOgImage(ogImage);
   const bodyHtml = renderMarkdownBody(body);

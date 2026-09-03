@@ -1,9 +1,16 @@
 {
-  "title": "Cursor Community — Felipe Basurto",
-  "description": "Cursor Community Regional Lead for Europe — meetups, hackathons, workshops, and photos from Madrid onward.",
-  "og_image": "/assets/companies/cursor.png",
-  "intro_md": "[← Back to CV](../../)\n\n# Cursor Community\n\n![Cursor](../../assets/companies/cursor.png)**Cursor Community Regional Lead for Europe.** I started as Madrid Ambassador in May 2025—meetups, cafés, hackathons with coworkings, startups, and universities. Now the work is connecting builders across Europe: workshops, founder circles, and the same shipping-heavy community, at a larger scale.\n\nVisual log below: events I've organized, and Cursor community events I've supported across Europe. More photos: [LinkedIn](https://www.linkedin.com/in/felipe-basurto-barrio/).\n",
+  "title": "SpaceXAI Ambassadors — Felipe Basurto",
+  "description": "SpaceXAI Europe Regional Lead & Madrid Ambassador — meetups, hackathons, workshops, and photos from Madrid onward. Cursor joined SpaceXAI in 2026; the community program continues.",
+  "og_image": "/assets/companies/spacexai.png",
+  "intro_md": "[← Back to CV](../../)\n\n# SpaceXAI Ambassadors\n\n![SpaceXAI](../../assets/companies/spacexai.png)**SpaceXAI Europe Regional Lead & Madrid Ambassador.** I started as Cursor Madrid Ambassador in May 2025—meetups, cafés, hackathons with coworkings, startups, and universities. Now the work is connecting builders across Europe: workshops, founder circles, and the same shipping-heavy community, at a larger scale.\n\nCursor joined SpaceXAI in 2026: Sunita announced it on 14 Aug; Ben Lang made it official on 2 Sep. The program was renamed, not cancelled. Workspace: **SpaceXAI Ambassadors**. Going forward that is Grok Bot meetups and similar. [LinkedIn](https://linkedin.com/company/spacexai-community).\n\nVisual log below: events I've organized, and community events I've supported across Europe. More photos: [LinkedIn](https://www.linkedin.com/in/felipe-basurto-barrio/).\n",
   "organized_events": [
+    {
+      "id": "spacexai-rename",
+      "date": "Sep 2026",
+      "title": "SpaceXAI Ambassadors",
+      "body_md": "Cursor joined SpaceXAI. Sunita announced it on **14 Aug 2026**; Ben Lang made it official on **2 Sep 2026**. The community program continues as **SpaceXAI Ambassadors** — renamed, not cancelled. Going forward: Grok Bot meetups and similar. [LinkedIn](https://linkedin.com/company/spacexai-community).",
+      "images": []
+    },
     {
       "id": "regional-lead-europe",
       "date": "May 2026",

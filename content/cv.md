@@ -1,6 +1,6 @@
 ---
 title: "Felipe Basurto | Solutions Architect @ Multiverse Computing"
-description: "Previously Solutions Architect at Multiverse (CompactifAI, LLM compression). Cursor Community Regional Lead for Europe. Side iOS and Mac apps and music. Madrid."
+description: "Previously Solutions Architect at Multiverse (CompactifAI, LLM compression). SpaceXAI Europe Regional Lead & Madrid Ambassador. Side iOS and Mac apps and music. Madrid."
 og_image: "/assets/profile.png"
 ---
 
@@ -10,7 +10,7 @@ og_image: "/assets/profile.png"
 
 **Solutions Architect** at [**Multiverse Computing**](https://multiversecomputing.com/) (Madrid). Most of my week was technical pre-sales on **CompactifAI**: LLM compression demos and PoCs for finance, manufacturing, retail, and healthcare. A lot of the work was helping teams run useful models without burning absurd amounts of compute.
 
-[**Cursor**](https://cursor.com) **Community Regional Lead for Europe**. What started as meetups in Madrid turned into hackathons, workshops, and founder circles. On the side I ship small **iOS and Mac** apps and play in a band.
+[**SpaceXAI**](https://linkedin.com/company/spacexai-community) **Europe Regional Lead & Madrid Ambassador**. Started as Cursor Madrid Ambassador in May 2025: meetups, hackathons, workshops, founder circles, now Europe-wide. Cursor joined SpaceXAI in 2026; the community program continues. Going forward that is Grok Bot meetups. On the side I ship small **iOS and Mac** apps and play in a band.
 
 ```
 I help teams that already use AI go further: agents, plugins, skills, deploys, and workshops.
@@ -28,7 +28,7 @@ hello@felipebasurto.com
 
 Side projects:
 
-- ![Cursor](./assets/companies/cursor.png)[**Cursor**](https://cursor.com) **Community Regional Lead for Europe** (Madrid since May 2025, now Europe-wide). Meetups, hackathons, workshops, founder circles: coworkings, startups, universities. [Details](./experience/cursor/)
+- ![SpaceXAI](./assets/companies/spacexai.png)[**SpaceXAI**](https://linkedin.com/company/spacexai-community) **Europe Regional Lead & Madrid Ambassador** (Madrid since May 2025, now Europe-wide). Meetups, hackathons, workshops, founder circles: coworkings, startups, universities. Going forward: Grok Bot meetups. [Details](./experience/cursor/)
 - ![Encore Concert Diary](./assets/companies/encore.png)Side project: [**Encore: Concert Diary**](https://encorearchives.com) (since May 2025). **iOS** in **Swift** / **SwiftUI**: concert feed, stats, friends, passport, upcoming, **wrapped**. Built in spare time with Cursor in the loop. On the App Store; **$2k+** revenue; TikTok/Reels for installs. [App Store (US)](https://apps.apple.com/us/app/encore-concert-diary/id6748657647) · [Site (ES)](https://encorearchives.com/es) · [Details](./experience/encore/)
 
 ### Jul 2023 - Nov 2025
