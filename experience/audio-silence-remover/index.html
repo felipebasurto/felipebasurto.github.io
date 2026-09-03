@@ -42,25 +42,25 @@
 <p class="md-p"><a class="md-link" href="../../" title="../../">← Back to CV</a></p>
 <h1 class="md-heading" id="audio-silence-remover"><span class="md-hashes" aria-hidden="true">#</span> Audio Silence Remover</h1>
 <figure class="md-figure md-figure--appicon"><img class="md-img md-img--appicon" src="../../assets/experience/audio-silence-remover/icon.png" alt="Audio Silence Remover app icon" loading="lazy" decoding="async" width="96" height="96" /><figcaption class="md-figcap" aria-hidden="true">![Audio Silence Remover app icon](../../assets/experience/audio-silence-remover/icon.png)</figcaption></figure>
-<p class="md-p"><strong class="md-strong">Fully open source</strong> on GitHub: the Mac app and the repo are the same codebase.</p>
-<p class="md-p">I built <strong class="md-strong">Audio Silence Remover</strong> for my own <strong class="md-strong">short-form video</strong> workflow: tightening voiceovers before I cut <strong class="md-strong">TikTok</strong> and <strong class="md-strong">YouTube</strong> clips. I looked for something native and fast; the closest options were a couple of <strong class="md-strong">Gradio</strong> and <strong class="md-strong">Hugging Face</strong> demos that routed audio through models you do not need for this job. They were slow and felt over-engineered for “remove the quiet bits.”</p>
-<p class="md-p">This app does one thing: <strong class="md-strong">analyze the waveform</strong> and cut or shorten segments that drop <strong class="md-strong">below a dB threshold</strong>. No cloud, no inference step, no waiting on a GPU.</p>
-<p class="md-p"><strong class="md-strong">100% local. No data collected.</strong> Your files stay on your Mac from import to export. That is not a footnote; it is the point.</p>
-<p class="md-p">I hope we do not sleepwalk into a world where every small tool has to be “AI-powered,” phone home, and monetize your workflow. There is still room for software that just works on your machine: built by someone who needed it, shared without trying to extract value from your audio or your attention. Free on the App Store, source on GitHub, no accounts, no analytics pipeline. The kind of utility people used to ship for the joy of solving a narrow problem well.</p>
-<p class="md-p"><strong class="md-strong">Audio Silence Remover</strong> is a <strong class="md-strong">macOS</strong> app for <strong class="md-strong">spoken-word MP3s</strong>: import a file, detect long pauses, preview the trimmed waveform, export a cleaned MP3. Also useful for podcasters, voiceover work, and audiobook editing when you want tighter pacing without re-recording.</p>
+<p class="md-p">Fully open source on GitHub: the Mac app and the repo are the same codebase.</p>
+<p class="md-p">I built Audio Silence Remover for my own short-form video workflow: tightening voiceovers before I cut TikTok and YouTube clips. I looked for something native and fast. The closest options were a couple of Gradio and Hugging Face demos that routed audio through models you do not need for this job. They were slow for &quot;remove the quiet bits.&quot;</p>
+<p class="md-p">This app does one thing: analyze the waveform and cut or shorten segments that drop below a dB threshold. No cloud, no inference step, no waiting on a GPU.</p>
+<p class="md-p">100% local. No data collected. Your files stay on your Mac from import to export.</p>
+<p class="md-p">Free on the App Store, source on GitHub, no accounts, no analytics pipeline.</p>
+<p class="md-p">Audio Silence Remover is a macOS app for spoken-word MP3s: import a file, detect long pauses, preview the trimmed waveform, export a cleaned MP3. Also useful for podcasters, voiceover work, and audiobook editing when you want tighter pacing without re-recording.</p>
 <h2 class="md-heading" id="what-it-does"><span class="md-hashes" aria-hidden="true">##</span> What it does</h2>
 <ul class="md-list md-list--unordered">
-<li class="md-li"><strong class="md-strong">Import MP3</strong> and scan amplitude against a configurable <strong class="md-strong">threshold (dB)</strong>. Anything below it counts as silence.</li>
+<li class="md-li"><strong class="md-strong">Import MP3</strong> and scan amplitude against a configurable threshold (dB). Anything below it counts as silence.</li>
 <li class="md-li"><strong class="md-strong">Remove pauses</strong> or <strong class="md-strong">reduce pauses</strong> to a target length so speech keeps a natural rhythm.</li>
 <li class="md-li"><strong class="md-strong">Preview</strong> original vs result on a waveform before you commit.</li>
 <li class="md-li"><strong class="md-strong">Export</strong> a new MP3 when you are happy with the cut.</li>
-<li class="md-li"><strong class="md-strong">English and Spanish</strong> UI; <strong class="md-strong">no data collected</strong> (App Store privacy label: the developer does not collect data).</li>
+<li class="md-li"><strong class="md-strong">English and Spanish</strong> UI; no data collected (App Store privacy label: the developer does not collect data).</li>
 </ul>
-<p class="md-p">Typical workflow for me: ElevenLabs or voiceover export → trim dead air → drop the MP3 into a short-form edit for TikTok or YouTube.</p>
+<p class="md-p">Typical workflow for me: ElevenLabs or voiceover export, trim dead air, drop the MP3 into a short-form edit for TikTok or YouTube.</p>
 <h2 class="md-heading" id="how-it-was-built"><span class="md-hashes" aria-hidden="true">##</span> How it was built</h2>
-<p class="md-p"><strong class="md-strong">Swift / SwiftUI</strong> macOS app with on-device audio processing: read samples, find runs under the threshold, splice. No cloud pipeline, no account, no ML stack for a problem that is just signal math. If you can explain the job in five lines of DSP, you probably do not need a model endpoint.</p>
-<p class="md-p">Visually I went <strong class="md-strong">skeuomorphic</strong> on purpose: brushed metal, glass panels, controls that look like physical knobs and switches. A nod to the <strong class="md-strong">classic Mac OS X</strong> utilities I grew up with, the ones that were on the machine when I first started using computers. Felt right for a small single-purpose Mac tool.</p>
-<p class="md-p">Shipped free on the <strong class="md-strong">Mac App Store</strong>; source is public so others can inspect, fork, or adapt the logic.</p>
+<p class="md-p">Swift / SwiftUI macOS app with on-device audio processing: read samples, find runs under the threshold, splice. No cloud pipeline, no account, no ML stack. This is signal math.</p>
+<p class="md-p">Visually I went skeuomorphic on purpose: brushed metal, glass panels, controls that look like physical knobs and switches. A nod to the classic Mac OS X utilities I grew up with.</p>
+<p class="md-p">Shipped free on the Mac App Store. Source is public so others can inspect, fork, or adapt the logic.</p>
 <p class="md-p">App Store work: sandbox signing, macOS 15+ target, localized strings, review cycles.</p>
 <h2 class="md-heading" id="links"><span class="md-hashes" aria-hidden="true">##</span> Links</h2>
 <ul class="md-list md-list--unordered">

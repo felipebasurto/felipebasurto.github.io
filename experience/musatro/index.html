@@ -11,26 +11,26 @@
   <link rel="canonical" href="https://felipebasurto.com/experience/musatro/" />
   <link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt" />
 
-  <meta name="title" content="Musatro — Felipe Basurto" />
-  <meta name="description" content="Musatro — browser roguelike deckbuilder with a Spanish deck, built around Mus. Open source." />
+  <meta name="title" content="Musatro | Felipe Basurto" />
+  <meta name="description" content="Musatro: browser roguelike deckbuilder with a Spanish deck, built around Mus. Open source." />
   <meta name="author" content="Felipe Basurto" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0a0a0c" />
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://felipebasurto.com/experience/musatro/" />
-  <meta property="og:title" content="Musatro — Felipe Basurto" />
-  <meta property="og:description" content="Musatro — browser roguelike deckbuilder with a Spanish deck, built around Mus. Open source." />
+  <meta property="og:title" content="Musatro | Felipe Basurto" />
+  <meta property="og:description" content="Musatro: browser roguelike deckbuilder with a Spanish deck, built around Mus. Open source." />
   <meta property="og:image" content="https://felipebasurto.com/assets/experience/musatro/icon.png" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@fildotai" />
   <meta name="twitter:url" content="https://felipebasurto.com/experience/musatro/" />
-  <meta name="twitter:title" content="Musatro — Felipe Basurto" />
-  <meta name="twitter:description" content="Musatro — browser roguelike deckbuilder with a Spanish deck, built around Mus. Open source." />
+  <meta name="twitter:title" content="Musatro | Felipe Basurto" />
+  <meta name="twitter:description" content="Musatro: browser roguelike deckbuilder with a Spanish deck, built around Mus. Open source." />
   <meta name="twitter:image" content="https://felipebasurto.com/assets/experience/musatro/icon.png" />
 
-  <title>Musatro — Felipe Basurto</title>
+  <title>Musatro | Felipe Basurto</title>
   <link rel="stylesheet" href="../../css/styles.css" />
 </head>
 <body>
@@ -42,28 +42,28 @@
 <p class="md-p"><a class="md-link" href="../../" title="../../">← Back to CV</a> · <a class="md-link" href="../../projects/" title="../../projects/">Projects</a></p>
 <h1 class="md-heading" id="musatro"><span class="md-hashes" aria-hidden="true">#</span> Musatro</h1>
 <figure class="md-figure md-figure--appicon"><img class="md-img md-img--appicon" src="../../assets/experience/musatro/icon.png" alt="Musatro icon" loading="lazy" decoding="async" width="96" height="96" /><figcaption class="md-figcap" aria-hidden="true">![Musatro icon](../../assets/experience/musatro/icon.png)</figcaption></figure>
-<p class="md-p">Browser <strong class="md-strong">roguelike deckbuilder</strong> with a <strong class="md-strong">Spanish deck</strong>, built around <strong class="md-strong">Mus</strong>: Grande, Chica, Pares, Juego. The loop is closer to <strong class="md-strong">Balatro</strong> than to a rules-faithful simulator—antes, a tavern, items, and bosses.</p>
+<p class="md-p">Browser roguelike deckbuilder with a Spanish deck, built around Mus: Grande, Chica, Pares, Juego. The loop is closer to Balatro than to a rules-faithful simulator: antes, a tavern, items, and bosses.</p>
 <p class="md-p">A full run is playable in the browser. I stopped mid-build; card editions (<code class="md-codespan"><span class="md-muted">`</span>dorada<span class="md-muted">`</span></code>, <code class="md-codespan"><span class="md-muted">`</span>holográfica<span class="md-muted">`</span></code>) are typed and do not score yet.</p>
-<h2 class="md-heading" id="what-s-in-a-run"><span class="md-hashes" aria-hidden="true">##</span> What’s in a run</h2>
+<h2 class="md-heading" id="what-39-s-in-a-run"><span class="md-hashes" aria-hidden="true">##</span> What&#39;s in a run</h2>
 <ul class="md-list md-list--unordered">
-<li class="md-li">Four Mus lances. On each you can pass, envido, envido ×2, or órdago.</li>
+<li class="md-li">Four Mus lances. On each you can pass, envido, envido x2, or órdago.</li>
 <li class="md-li">Eight antes: small table, big table, then a boss.</li>
 <li class="md-li">Tavern between tables: items and packs. You choose the order items apply.</li>
 <li class="md-li">Twenty-one items and ten bosses. Progress stays in <code class="md-codespan"><span class="md-muted">`</span>localStorage<span class="md-muted">`</span></code>.</li>
 </ul>
 <p class="md-p">3 is King; 2 is Ace. Beat the table score and reach Ante 8.</p>
 <h2 class="md-heading" id="how-it-was-built"><span class="md-hashes" aria-hidden="true">##</span> How it was built</h2>
-<p class="md-p">Strict <strong class="md-strong">TypeScript</strong>, no framework. Run state lives in <code class="md-codespan"><span class="md-muted">`</span>Game<span class="md-muted">`</span></code>; the UI is DOM and CSS. <strong class="md-strong">Vitest</strong> covers the engine—scoring, envite, item order—not the pixels.</p>
-<p class="md-p">Per lance the order is: base → items (your order) → envite → boss. Color and mus apply to the hand total after the four lances.</p>
-<p class="md-p">Hosted on <strong class="md-strong">Cloudflare Pages</strong> at <a class="md-link" href="https://musatro.felipebasurto.com/" title="https://musatro.felipebasurto.com/" rel="noopener noreferrer" target="_blank">musatro.felipebasurto.com</a>. <strong class="md-strong">MIT</strong>.</p>
+<p class="md-p">Strict TypeScript, no framework. Run state lives in <code class="md-codespan"><span class="md-muted">`</span>Game<span class="md-muted">`</span></code>; the UI is DOM and CSS. Vitest covers the engine: scoring, envite, item order, not the pixels.</p>
+<p class="md-p">Per lance the order is: base, items (your order), envite, boss. Color and mus apply to the hand total after the four lances.</p>
+<p class="md-p">Hosted on Cloudflare Pages at <a class="md-link" href="https://musatro.felipebasurto.com/" title="https://musatro.felipebasurto.com/" rel="noopener noreferrer" target="_blank">musatro.felipebasurto.com</a>. MIT.</p>
 <p class="md-p">Tavern names (Mahou, Ducados, and the rest) are bar-culture references, not sponsorships.</p>
 <h2 class="md-heading" id="screenshots"><span class="md-hashes" aria-hidden="true">##</span> Screenshots</h2>
 <p class="md-p">From the <a class="md-link" href="https://github.com/felipebasurto/musatro" title="https://github.com/felipebasurto/musatro" rel="noopener noreferrer" target="_blank">GitHub repo</a>: title screen, a hand in play, the tavern, and the 21 items.</p>
 <div class="md-gameshot-grid">
-<figure class="md-figure md-figure--gameshot"><img class="md-img md-img--gameshot" src="../../assets/experience/musatro/title.webp" alt="Musatro — title screen" loading="lazy" decoding="async" width="1400" height="875" /><figcaption class="md-figcap" aria-hidden="true">![Musatro — title screen](../../assets/experience/musatro/title.webp)</figcaption></figure>
-<figure class="md-figure md-figure--gameshot"><img class="md-img md-img--gameshot" src="../../assets/experience/musatro/hand.webp" alt="Musatro — a hand in play" loading="lazy" decoding="async" width="1400" height="875" /><figcaption class="md-figcap" aria-hidden="true">![Musatro — a hand in play](../../assets/experience/musatro/hand.webp)</figcaption></figure>
-<figure class="md-figure md-figure--gameshot"><img class="md-img md-img--gameshot" src="../../assets/experience/musatro/shop.webp" alt="Musatro — the tavern" loading="lazy" decoding="async" width="1400" height="875" /><figcaption class="md-figcap" aria-hidden="true">![Musatro — the tavern](../../assets/experience/musatro/shop.webp)</figcaption></figure>
-<figure class="md-figure md-figure--gameshot"><img class="md-img md-img--gameshot" src="../../assets/experience/musatro/items.webp" alt="Musatro — the 21 tavern items" loading="lazy" decoding="async" width="1400" height="875" /><figcaption class="md-figcap" aria-hidden="true">![Musatro — the 21 tavern items](../../assets/experience/musatro/items.webp)</figcaption></figure>
+<figure class="md-figure md-figure--gameshot"><img class="md-img md-img--gameshot" src="../../assets/experience/musatro/title.webp" alt="Musatro: title screen" loading="lazy" decoding="async" width="1400" height="875" /><figcaption class="md-figcap" aria-hidden="true">![Musatro: title screen](../../assets/experience/musatro/title.webp)</figcaption></figure>
+<figure class="md-figure md-figure--gameshot"><img class="md-img md-img--gameshot" src="../../assets/experience/musatro/hand.webp" alt="Musatro: a hand in play" loading="lazy" decoding="async" width="1400" height="875" /><figcaption class="md-figcap" aria-hidden="true">![Musatro: a hand in play](../../assets/experience/musatro/hand.webp)</figcaption></figure>
+<figure class="md-figure md-figure--gameshot"><img class="md-img md-img--gameshot" src="../../assets/experience/musatro/shop.webp" alt="Musatro: the tavern" loading="lazy" decoding="async" width="1400" height="875" /><figcaption class="md-figcap" aria-hidden="true">![Musatro: the tavern](../../assets/experience/musatro/shop.webp)</figcaption></figure>
+<figure class="md-figure md-figure--gameshot"><img class="md-img md-img--gameshot" src="../../assets/experience/musatro/items.webp" alt="Musatro: the 21 tavern items" loading="lazy" decoding="async" width="1400" height="875" /><figcaption class="md-figcap" aria-hidden="true">![Musatro: the 21 tavern items](../../assets/experience/musatro/items.webp)</figcaption></figure>
 </div>
 <h2 class="md-heading" id="links"><span class="md-hashes" aria-hidden="true">##</span> Links</h2>
 <ul class="md-list md-list--unordered">
@@ -79,7 +79,7 @@
       <span class="doc__footer-text">EOF · 2026 · built from markdown</span>
     </footer>
   </div>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Musatro — Felipe Basurto","url":"https://felipebasurto.com/experience/musatro/","description":"Musatro — browser roguelike deckbuilder with a Spanish deck, built around Mus. Open source.","isPartOf":{"@type":"WebSite","name":"Felipe Basurto","url":"https://felipebasurto.com"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Musatro | Felipe Basurto","url":"https://felipebasurto.com/experience/musatro/","description":"Musatro: browser roguelike deckbuilder with a Spanish deck, built around Mus. Open source.","isPartOf":{"@type":"WebSite","name":"Felipe Basurto","url":"https://felipebasurto.com"}}</script>
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
     <button class="lightbox__close" type="button" aria-label="Close (Esc)">×</button>
     <img class="lightbox__img" alt="" />

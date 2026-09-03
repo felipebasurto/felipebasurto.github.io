@@ -11,26 +11,26 @@
   <link rel="canonical" href="https://felipebasurto.com/experience/aily/" />
   <link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt" />
 
-  <meta name="title" content="AILY LABS — Felipe Basurto" />
-  <meta name="description" content="Data Scientist at AILY LABS — Graph RAG over factory manuals, LangChain agents, Langfuse, MLOps on AWS." />
+  <meta name="title" content="AILY LABS | Felipe Basurto" />
+  <meta name="description" content="Data Scientist at AILY LABS. Graph RAG over factory manuals, LangChain agents, Langfuse, MLOps on AWS." />
   <meta name="author" content="Felipe Basurto" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0a0a0c" />
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://felipebasurto.com/experience/aily/" />
-  <meta property="og:title" content="AILY LABS — Felipe Basurto" />
-  <meta property="og:description" content="Data Scientist at AILY LABS — Graph RAG over factory manuals, LangChain agents, Langfuse, MLOps on AWS." />
+  <meta property="og:title" content="AILY LABS | Felipe Basurto" />
+  <meta property="og:description" content="Data Scientist at AILY LABS. Graph RAG over factory manuals, LangChain agents, Langfuse, MLOps on AWS." />
   <meta property="og:image" content="https://felipebasurto.com/assets/companies/aily.png" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@fildotai" />
   <meta name="twitter:url" content="https://felipebasurto.com/experience/aily/" />
-  <meta name="twitter:title" content="AILY LABS — Felipe Basurto" />
-  <meta name="twitter:description" content="Data Scientist at AILY LABS — Graph RAG over factory manuals, LangChain agents, Langfuse, MLOps on AWS." />
+  <meta name="twitter:title" content="AILY LABS | Felipe Basurto" />
+  <meta name="twitter:description" content="Data Scientist at AILY LABS. Graph RAG over factory manuals, LangChain agents, Langfuse, MLOps on AWS." />
   <meta name="twitter:image" content="https://felipebasurto.com/assets/companies/aily.png" />
 
-  <title>AILY LABS — Felipe Basurto</title>
+  <title>AILY LABS | Felipe Basurto</title>
   <link rel="stylesheet" href="../../css/styles.css" />
 </head>
 <body>
@@ -42,12 +42,12 @@
 <p class="md-p"><a class="md-link" href="../../" title="../../">← Back to CV</a></p>
 <h1 class="md-heading" id="aily-labs"><span class="md-hashes" aria-hidden="true">#</span> AILY LABS</h1>
 <p class="md-p"><img class="md-logo" src="../../assets/companies/aily.png" alt="AILY LABS" loading="lazy" width="20" height="20" /></p>
-<p class="md-p"><strong class="md-strong">Data Scientist</strong> (Madrid). Shipped <strong class="md-strong">LangChain</strong> agents to production, with <strong class="md-strong">Langfuse</strong> for tracing—retrieval, tool calls, and guardrails.</p>
-<p class="md-p">NLP and time-series forecasting in SQL/Python. Owned <strong class="md-strong">Airflow</strong> and <strong class="md-strong">Docker</strong> pipelines on <strong class="md-strong">AWS</strong>; cut an internal ETL from ~1.5h to ~15s.</p>
+<p class="md-p"><strong class="md-strong">Data Scientist</strong> (Madrid). Shipped LangChain agents to production, with Langfuse for tracing: retrieval, tool calls, and guardrails.</p>
+<p class="md-p">NLP and time-series forecasting in SQL/Python. Owned Airflow and Docker pipelines on AWS; cut an internal ETL from ~1.5h to ~15s.</p>
 <h2 class="md-heading" id="graph-rag-for-shop-floor-manuals"><span class="md-hashes" aria-hidden="true">##</span> Graph RAG for shop-floor manuals</h2>
-<p class="md-p">Built <strong class="md-strong">Graph RAG</strong> over factory equipment manuals for manufacturing lines. Ingest ran <strong class="md-strong">OCR</strong> on scanned PDFs, then <strong class="md-strong">unstructured.io</strong> to keep structure—not flat text, but <strong class="md-strong">tables</strong>, <strong class="md-strong">figures</strong>, and <strong class="md-strong">diagrams</strong>, each tagged with <strong class="md-strong">page and section</strong> coordinates.</p>
-<p class="md-p">Indexed into <strong class="md-strong">Neo4j</strong> as an equipment graph (machines, components, faults, procedures). <strong class="md-strong">LangChain</strong> retrieves against the graph; a production <strong class="md-strong">API</strong> returns <strong class="md-strong">cited passages</strong> with exact page and section so other models and apps can call it with sources.</p>
-<p class="md-p">On the shop floor: when something fails, the operator sees <strong class="md-strong">what broke</strong> and <strong class="md-strong">where to look in the manual</strong>—the right page and section, not a vague summary. Same class of shop-floor intelligence Aily ships at enterprise scale; see their <a class="md-link" href="https://www.ailylabs.com/case-study/sanofi" title="https://www.ailylabs.com/case-study/sanofi" rel="noopener noreferrer" target="_blank">Sanofi case study</a> (manufacturing agents across hundreds of lines).</p>
+<p class="md-p">Built Graph RAG over factory equipment manuals for manufacturing lines. Ingest ran OCR on scanned PDFs, then unstructured.io to keep structure: tables, figures, and diagrams, each tagged with page and section coordinates.</p>
+<p class="md-p">Indexed into Neo4j as an equipment graph (machines, components, faults, procedures). LangChain retrieves against the graph. A production API returns cited passages with exact page and section so other models and apps can call it with sources.</p>
+<p class="md-p">On the shop floor: when something fails, the operator sees what broke and where to look in the manual, the right page and section. Related: Aily&#39;s <a class="md-link" href="https://www.ailylabs.com/case-study/sanofi" title="https://www.ailylabs.com/case-study/sanofi" rel="noopener noreferrer" target="_blank">Sanofi case study</a> (manufacturing agents across hundreds of lines).</p>
 <figure class="aily-flow" data-aily-flow tabindex="0" aria-labelledby="aily-flow-title">
 <div class="aily-flow__head">
 <p class="aily-flow__title" id="aily-flow-title">Graph RAG pipeline</p>
@@ -275,7 +275,7 @@
       <span class="doc__footer-text">EOF · 2026 · built from markdown</span>
     </footer>
   </div>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"AILY LABS — Felipe Basurto","url":"https://felipebasurto.com/experience/aily/","description":"Data Scientist at AILY LABS — Graph RAG over factory manuals, LangChain agents, Langfuse, MLOps on AWS.","isPartOf":{"@type":"WebSite","name":"Felipe Basurto","url":"https://felipebasurto.com"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"AILY LABS | Felipe Basurto","url":"https://felipebasurto.com/experience/aily/","description":"Data Scientist at AILY LABS. Graph RAG over factory manuals, LangChain agents, Langfuse, MLOps on AWS.","isPartOf":{"@type":"WebSite","name":"Felipe Basurto","url":"https://felipebasurto.com"}}</script>
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
     <button class="lightbox__close" type="button" aria-label="Close (Esc)">×</button>
     <img class="lightbox__img" alt="" />
