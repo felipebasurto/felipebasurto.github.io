@@ -3,7 +3,7 @@
 - Public portfolio copy is English-only.
 - Copy is aimed at startup and tech hiring: clear, credible, and professional; avoid cringe, hype, LinkedIn-style clichés, and flashy lifestyle marketing on product pages.
 - Use the label "Details" instead of "Inside" for links to long-form experience pages.
-- Keep the official wording "SpaceXAI Europe Regional Lead & Madrid Ambassador" when describing the community role (Cursor Community until 2026; started as Madrid Ambassador in May 2025). Do not write as if the ambassador role ended. Do not rebrand past Café Cursor events.
+- Keep the official wording "SpaceXAI Europe Regional Lead & Madrid Ambassador" when describing the community role (started as Cursor Madrid Ambassador in May 2025, then Europe Regional Lead). After Cursor was acquired by SpaceX, the community continues as SpaceXAI Ambassadors. Public source: https://cursor.com/blog/joining-spacex. Do not use Slack names, Sunita, Ben Lang, or 14 Aug / 2 Sep chronology. Do not write as if the ambassador role ended. Do not rebrand past Café Cursor events.
 - "Pokémon-style" is acceptable when describing HabitDex's gamified habit loop.
 - Preserve the intentional raw-markdown and terminal aesthetic; avoid generic marketing-card treatments the user has rejected (for example circular profile photo with accent ring, or boxed card grids for parallel activities).
 - Encore belongs under Experience; HabitDex and Musatro are not listed as parallel experience and stay in Projects only.
