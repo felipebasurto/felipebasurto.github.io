@@ -3,7 +3,7 @@
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Ffelipebasurto.com)](https://felipebasurto.com)
 [![GitHub last commit](https://img.shields.io/github/last-commit/felipebasurto/felipebasurto.github.io)](https://github.com/felipebasurto/felipebasurto.github.io/commits/main)
 
-Static site for my CV and longer **Details** pages per role. Built from Markdown with a small Node script.
+Static site for my CV, service pages, and longer **Details** pages per role. Built from Markdown with a small Node script.
 
 ## Live site
 
@@ -11,7 +11,7 @@ Static site for my CV and longer **Details** pages per role. Built from Markdown
 
 ## Stack
 
-- Markdown: [`content/cv.md`](content/cv.md) (home), [`content/projects.md`](content/projects.md) → `/projects/`, and [`content/experience/*.md`](content/experience/) (per-role pages)
+- Markdown: [`content/cv.md`](content/cv.md) (home), [`content/projects.md`](content/projects.md) → `/projects/`, [`content/pages/`](content/pages/) (landing pages), and [`content/experience/*.md`](content/experience/) (per-role pages)
 - Optional timeline page: [`content/experience/cursor.json`](content/experience/cursor.json) (replaces `cursor.md` if both exist)
 - Build: Node + [marked](https://marked.js.org/) — [`scripts/build.mjs`](scripts/build.mjs)
 - Shell: [`scripts/template.html`](scripts/template.html)
@@ -19,10 +19,10 @@ Static site for my CV and longer **Details** pages per role. Built from Markdown
 
 ## Features
 
-- Edit Markdown, run `npm run build`; output is `index.html` at the repo root, `projects/index.html` from `content/projects.md`, and `experience/<slug>/index.html` for each experience source
+- Edit Markdown, run `npm run build`; output is `index.html` at the repo root, `<slug>/index.html` for each `LANDING_PAGES` entry, `projects/index.html` from `content/projects.md`, and `experience/<slug>/index.html` for each experience source
 - `cursor.json` can list remote image URLs; **the build uses the network** to refresh files under `assets/experience/cursor/` (throttled). Commit those assets if you want reproducible builds offline. Each image object may include an optional string `alt` for accessibility; otherwise alts are generated from the event title. **Use each LinkedIn media URL only once** across the whole file—reusing the same URL under different events repeats the same photo and mixes themes. For assets you keep in-repo without a URL, use `{ "static": "filename.jpg" }` (file must already live under `assets/experience/cursor/`)
 - Terminal-style UI with visible `##` headings and link labels (URL often in the native tooltip via `title`)
-- `npm run build` also regenerates [`sitemap.xml`](sitemap.xml) (home, `/projects/` if present, then experience slugs)
+- `npm run build` also regenerates [`sitemap.xml`](sitemap.xml) (home, landing pages from `LANDING_PAGES`, `/projects/` if present, then experience slugs)
 
 ## Project structure
 
@@ -30,6 +30,7 @@ Static site for my CV and longer **Details** pages per role. Built from Markdown
 ├── content/
 │   ├── cv.md                 # Home page copy
 │   ├── projects.md           # /projects/ (apps + GitHub list)
+│   ├── pages/                # Landing pages declared in LANDING_PAGES
 │   └── experience/           # Per-role Markdown + optional cursor.json
 ├── scripts/
 │   ├── build.mjs
@@ -72,7 +73,7 @@ The custom domain is attached on the Worker (`felipebasurto.com` and `www`). Pre
 
 ## Contact
 
-- Email: [felipeasurtobarrio@gmail.com](mailto:felipeasurtobarrio@gmail.com)
+- Email: [hello@felipebasurto.com](mailto:hello@felipebasurto.com)
 - LinkedIn: [felipe-basurto-barrio](https://www.linkedin.com/in/felipe-basurto-barrio/)
 - Twitter / X: [@fildotai](https://x.com/fildotai)
 

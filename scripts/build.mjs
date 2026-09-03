@@ -1,11 +1,31 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { marked } from "marked";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 const SITE = "https://felipebasurto.com";
+
+export const LANDING_PAGES = [
+  {
+    slug: "ai-consulting",
+    source: "content/pages/ai-consulting.md",
+    schemaKind: "service",
+    serviceType: "enterprise AI consulting",
+    areaServed: ["Madrid", "Spain", "Europe", "remote"],
+  },
+  {
+    slug: "ai-for-pharma-operations",
+    source: "content/pages/ai-for-pharma-operations.md",
+    schemaKind: "article",
+  },
+  {
+    slug: "case-studies",
+    source: "content/pages/case-studies.md",
+    schemaKind: "webpage",
+  },
+];
 
 const FETCH_UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36";
@@ -617,6 +637,15 @@ function buildJsonLd(description) {
   });
 }
 
+function personNode() {
+  return {
+    "@type": "Person",
+    "@id": `${SITE}/#person`,
+    name: "Felipe Basurto",
+    url: SITE,
+  };
+}
+
 function buildWebPageJsonLd({ name, url, description }) {
   return toSafeJsonLdString({
     "@context": "https://schema.org",
@@ -626,6 +655,90 @@ function buildWebPageJsonLd({ name, url, description }) {
     description,
     isPartOf: { "@type": "WebSite", name: "Felipe Basurto", url: SITE },
   });
+}
+
+function buildServiceJsonLd({ name, url, description, serviceType, areaServed }) {
+  return toSafeJsonLdString({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name,
+    serviceType,
+    description,
+    url,
+    provider: personNode(),
+    areaServed,
+    inLanguage: "en",
+  });
+}
+
+function buildArticleJsonLd({ name, url, description }) {
+  return toSafeJsonLdString({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: name,
+    description,
+    url,
+    author: personNode(),
+    publisher: personNode(),
+    inLanguage: "en",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+      url,
+    },
+  });
+}
+
+function jsonLdForLandingPage(page, fields) {
+  switch (page.schemaKind) {
+    case "service":
+      return buildServiceJsonLd({
+        ...fields,
+        serviceType: page.serviceType,
+        areaServed: page.areaServed,
+      });
+    case "article":
+      return buildArticleJsonLd(fields);
+    case "webpage":
+      return buildWebPageJsonLd(fields);
+    default: {
+      const unexpected = page.schemaKind;
+      throw new Error(`Unknown schemaKind: ${unexpected}`);
+    }
+  }
+}
+
+function buildLandingPages() {
+  for (const page of LANDING_PAGES) {
+    const mdPath = join(root, page.source);
+    if (!existsSync(mdPath)) {
+      throw new Error(`Missing landing page source: ${page.source}`);
+    }
+    const raw = readFileSync(mdPath, "utf8");
+    const { meta, body } = parseFrontmatter(raw);
+    const title = meta.title || page.slug;
+    const description = meta.description || "";
+    const ogImage = meta.og_image || "/assets/profile.png";
+    const canonicalUrl = `${SITE}/${page.slug}/`;
+    const outDir = join(root, page.slug);
+    mkdirSync(outDir, { recursive: true });
+    const html = fillTemplate({
+      title,
+      description,
+      ogImageAbs: absOgImage(ogImage),
+      canonicalUrl,
+      ogUrl: canonicalUrl,
+      relPrefix: "../",
+      headerHint: `~/${page.source.replace(/^content\//, "")}`,
+      bodyHtml: renderMarkdownBody(body),
+      jsonLd: jsonLdForLandingPage(page, {
+        name: title,
+        url: canonicalUrl,
+        description,
+      }),
+    });
+    writeFileSync(join(outDir, "index.html"), html, "utf8");
+  }
 }
 
 function buildIndex() {
@@ -825,6 +938,11 @@ function writeSitemap() {
     lines.push("  </url>");
   };
   pushUrl(`${SITE}/`, "1.0");
+  for (const page of LANDING_PAGES) {
+    if (existsSync(join(root, page.source))) {
+      pushUrl(`${SITE}/${page.slug}/`, "0.8");
+    }
+  }
   if (existsSync(join(root, "content", "projects.md"))) {
     pushUrl(`${SITE}/projects/`, "0.75");
   }
@@ -846,13 +964,22 @@ async function main() {
   buildIndex();
   buildProjectsPage();
   buildTriplecheckPage();
+  buildLandingPages();
   await buildExperiencePages();
   build404Page();
   writeSitemap();
-  console.log("Build OK: index.html + projects/* + triplecheck/* + experience/* + 404.html + sitemap.xml");
+  console.log("Build OK: index.html + landing pages + projects/* + triplecheck/* + experience/* + 404.html + sitemap.xml");
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+function isDirectRun() {
+  const entry = process.argv[1];
+  if (!entry) return false;
+  return fileURLToPath(import.meta.url) === resolve(entry);
+}
+
+if (isDirectRun()) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}
