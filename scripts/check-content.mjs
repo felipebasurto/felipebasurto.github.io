@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { LANDING_PAGES } from "./build.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 
@@ -8,6 +9,7 @@ const publicCopyFiles = [
   "content/cv.md",
   "content/projects.md",
   "content/triplecheck.md",
+  ...LANDING_PAGES.map((page) => page.source),
   "content/experience/aily.md",
   "content/experience/audio-silence-remover.md",
   "content/experience/cursor.json",
@@ -177,6 +179,43 @@ if (!cursor.includes("../../assets/companies/spacexai.png")) {
 }
 if (!cursor.includes("Cursor Community Regional Lead for Europe")) {
   errors.push("content/experience/cursor.json: official Cursor role wording is missing");
+}
+
+const landingPaths = LANDING_PAGES.map((page) => page.source);
+const hireBan = /\b(?:freelance(?:r)?|agency|solopreneur|available for hire)\b/iu;
+for (const path of landingPaths) {
+  if (hireBan.test(content.get(path))) {
+    errors.push(`${path}: contains freelance, agency, solopreneur, or available for hire`);
+  }
+}
+
+function landingSource(slug) {
+  return LANDING_PAGES.find((page) => page.slug === slug)?.source;
+}
+
+const consultingPath = landingSource("ai-consulting");
+const pharmaPath = landingSource("ai-for-pharma-operations");
+if (!consultingPath || !pharmaPath) {
+  errors.push("LANDING_PAGES: missing ai-consulting or ai-for-pharma-operations");
+}
+
+const consulting = consultingPath ? content.get(consultingPath) : "";
+if (consultingPath && !/enterprise AI consulting/iu.test(consulting)) {
+  errors.push(`${consultingPath}: missing enterprise AI consulting service language`);
+}
+if (consultingPath && !consulting.includes("hello@felipebasurto.com")) {
+  errors.push(`${consultingPath}: missing hello@felipebasurto.com`);
+}
+
+const pharma = pharmaPath ? content.get(pharmaPath) : "";
+if (
+  pharmaPath &&
+  (!/do not work on manufacturing control/iu.test(pharma) ||
+    !/regulated decisions/iu.test(pharma))
+) {
+  errors.push(
+    `${pharmaPath}: must disclaim manufacturing control and regulated decisions`,
+  );
 }
 
 const multiverse = content.get("content/experience/multiverse.md");

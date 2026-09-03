@@ -1,6 +1,7 @@
 import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { LANDING_PAGES } from "./build.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(root, "dist");
@@ -8,6 +9,7 @@ const dist = join(root, "dist");
 const entries = [
   "index.html",
   "404.html",
+  ...LANDING_PAGES.map((page) => page.slug),
   "projects",
   "experience",
   "triplecheck",
