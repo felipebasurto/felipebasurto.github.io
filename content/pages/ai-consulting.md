@@ -1,14 +1,16 @@
 ---
-title: "Enterprise AI consulting | Felipe Basurto"
-description: "Enterprise AI consulting for systems that fit existing operations."
+title: "AI consultant Madrid | Freelance AI solutions architect | Felipe Basurto"
+description: "Independent AI solutions architect and enterprise AI consultant in Madrid. Agents, internal tools, integrations, and deployment for teams in Spain and across Europe."
 og_image: "/assets/profile.png"
 ---
 
 [← Back to CV](../)
 
-# Enterprise AI systems that fit existing operations
+# AI consulting for teams that already have constraints
 
-I do enterprise AI consulting with teams that already have processes, tools, and constraints. The job is to fit AI into that work so it still runs after the demo.
+I am an independent AI solutions architect and enterprise AI consultant based in Madrid. I work with teams in Spain and across Europe (remote by default) on systems that have to fit existing processes, tools, and owners, and still run after the demo.
+
+If you are looking for a freelance AI solutions architect or an AI consultant in Madrid who will tell you when a model is the wrong tool, this is the page.
 
 ## What I work on
 
@@ -17,8 +19,7 @@ I do enterprise AI consulting with teams that already have processes, tools, and
 - Internal tools that remove a specific manual step from an existing process.
 - Integrations with the systems where the team already works.
 - Deployment, evaluation, logs, and failure handling.
-
-I also run technical workshops that force a decision. Ship it, wait, or drop the idea.
+- Technical workshops that force a decision: ship it, wait, or drop the idea.
 
 ## When I am useful
 
@@ -50,12 +51,12 @@ A vendor comparison that exists to delay a choice the team can already make.
 
 If the honest answer is that the process should stay deterministic, I will say so.
 
-## Selected work
+## Background (for hiring context)
 
-[Case studies and selected work](../case-studies/) link to the public owner pages for previous AI work, shipped products, and community programs.
+I was a Solutions Architect at Multiverse Computing in Madrid from November 2025 to July 2026 (CompactifAI pre-sales and PoCs). Before that I was a Data Scientist at AILY LABS (July 2023 to November 2025), including production LangChain agents and Graph RAG over factory manuals. I am not currently employed by Multiverse.
 
-For a concrete assessment in a regulated setting, read [AI for pharmaceutical operations](../ai-for-pharma-operations/).
+Public notes on selected work: [case studies](../case-studies/). For a regulated-setting assessment note (not a claim of pharma client delivery): [AI for pharmaceutical operations](../ai-for-pharma-operations/).
 
 ## Contact
 
-Email [hello@felipebasurto.com](mailto:hello@felipebasurto.com) with the workflow, the constraint, and what would count as a useful result. I work from Madrid with teams in Spain and across Europe. Remote work is the default.
+Email [hello@felipebasurto.com](mailto:hello@felipebasurto.com) with the workflow, the constraint, and what would count as a useful result. Madrid-based. Spain and Europe. Remote is the default.

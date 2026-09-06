@@ -12,7 +12,7 @@ export const LANDING_PAGES = [
     slug: "ai-consulting",
     source: "content/pages/ai-consulting.md",
     schemaKind: "service",
-    serviceType: "enterprise AI consulting",
+    serviceType: "AI consulting, AI solutions architecture, freelance AI solutions architect",
     areaServed: ["Madrid", "Spain", "Europe", "remote"],
   },
   {
@@ -603,9 +603,11 @@ function buildJsonLd(description) {
     "@type": "Person",
     "@id": personId,
     name: "Felipe Basurto",
+    jobTitle: "Independent AI solutions architect",
     description,
     image: `${SITE}/assets/profile.png`,
     url: SITE,
+    email: "hello@felipebasurto.com",
     sameAs: [
       "https://github.com/felipebasurto",
       "https://www.linkedin.com/in/felipe-basurto-barrio/",
@@ -616,6 +618,36 @@ function buildJsonLd(description) {
       name: "Madrid, Spain",
     },
     knowsLanguage: ["en", "es"],
+    knowsAbout: [
+      "enterprise AI consulting",
+      "AI solutions architecture",
+      "AI agents",
+      "internal tools",
+      "systems integration",
+      "model deployment",
+      "Madrid",
+      "Spain",
+    ],
+    alumniOf: [
+      {
+        "@type": "Organization",
+        name: "Multiverse Computing",
+        url: "https://multiversecomputing.com/",
+      },
+      {
+        "@type": "Organization",
+        name: "AILY LABS",
+        url: "https://www.ailylabs.com/",
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        name: "IE School of Science and Technology",
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        name: "Universidad de Burgos",
+      },
+    ],
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `${SITE}/`,

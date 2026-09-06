@@ -1,6 +1,6 @@
 ---
 title: "Felipe Basurto · Madrid"
-description: "AI solutions architect and data scientist based in Madrid."
+description: "Independent AI solutions architect and enterprise AI consultant in Madrid. Agents, internal tools, integrations, and deployment."
 og_image: "/assets/profile.png"
 ---
 
