@@ -460,18 +460,22 @@ function renderSponsorPartners(ev) {
   return "";
 }
 
-function renderCursorTabs(organizedHtml, sponsoredHtml, orgCount, sponCount) {
+function renderCursorTabs(organizedHtml, sponsoredHtml, attendedHtml, orgCount, sponCount, attCount) {
   return (
     '<section class="cursor-tabs">\n' +
     '<div class="cursor-tabs__list" role="tablist" aria-label="Event categories">\n' +
     `<button type="button" class="cursor-tabs__tab" role="tab" id="cursor-tab-organized" aria-controls="cursor-panel-organized" aria-selected="true" data-tab="organized">Organized <span class="cursor-tabs__count">(${orgCount})</span></button>\n` +
     `<button type="button" class="cursor-tabs__tab" role="tab" id="cursor-tab-sponsored" aria-controls="cursor-panel-sponsored" aria-selected="false" tabindex="-1" data-tab="sponsored">Sponsored <span class="cursor-tabs__count">(${sponCount})</span></button>\n` +
+    `<button type="button" class="cursor-tabs__tab" role="tab" id="cursor-tab-attended" aria-controls="cursor-panel-attended" aria-selected="false" tabindex="-1" data-tab="attended">Attended <span class="cursor-tabs__count">(${attCount})</span></button>\n` +
     "</div>\n" +
     '<div class="cursor-tabs__panel" role="tabpanel" id="cursor-panel-organized" aria-labelledby="cursor-tab-organized" tabindex="0">\n' +
     organizedHtml +
     "</div>\n" +
     '<div class="cursor-tabs__panel" role="tabpanel" id="cursor-panel-sponsored" aria-labelledby="cursor-tab-sponsored" tabindex="0" hidden>\n' +
     sponsoredHtml +
+    "</div>\n" +
+    '<div class="cursor-tabs__panel" role="tabpanel" id="cursor-panel-attended" aria-labelledby="cursor-tab-attended" tabindex="0" hidden>\n' +
+    attendedHtml +
     "</div>\n" +
     "</section>\n"
   );
@@ -483,7 +487,7 @@ const CURSOR_TABS_SCRIPT = `<script>
   if (!root) return;
   var tabs = root.querySelectorAll('[role="tab"]');
   var panels = root.querySelectorAll('[role="tabpanel"]');
-  var tabIds = { organized: 0, sponsored: 1 };
+  var tabIds = { organized: 0, sponsored: 1, attended: 2 };
 
   function selectTab(name) {
     var idx = tabIds[name];
@@ -497,7 +501,7 @@ const CURSOR_TABS_SCRIPT = `<script>
       if (i === idx) panel.removeAttribute("hidden");
       else panel.hidden = true;
     });
-    var hash = idx === 0 ? "organized" : "sponsored";
+    var hash = idx === 0 ? "organized" : idx === 1 ? "sponsored" : "attended";
     if (history.replaceState) history.replaceState(null, "", "#" + hash);
     else location.hash = hash;
   }
@@ -521,11 +525,12 @@ const CURSOR_TABS_SCRIPT = `<script>
 
   var hash = (location.hash || "").replace(/^#/, "");
   if (hash === "sponsored") selectTab("sponsored");
+  else if (hash === "attended") selectTab("attended");
   else selectTab("organized");
 
   window.addEventListener("hashchange", function () {
     var h = (location.hash || "").replace(/^#/, "");
-    if (h === "sponsored" || h === "organized") selectTab(h);
+    if (h === "sponsored" || h === "organized" || h === "attended") selectTab(h);
   });
 })();
 </script>`;
@@ -535,6 +540,7 @@ function warnDuplicateCursorImageUrls(data) {
   const allEvents = [
     ...(data.organized_events || data.events || []),
     ...(data.sponsored_events || []),
+    ...(data.attended_events || []),
   ];
   for (const ev of allEvents) {
     for (const im of ev.images || []) {
@@ -555,9 +561,11 @@ async function buildCursorExperiencePage(data) {
   const assetDir = join(root, "assets", "experience", "cursor");
   const organized = data.organized_events ?? data.events ?? [];
   const sponsored = data.sponsored_events ?? [];
-  warnDuplicateCursorImageUrls({ organized_events: organized, sponsored_events: sponsored });
+  const attended = data.attended_events ?? [];
+  warnDuplicateCursorImageUrls({ organized_events: organized, sponsored_events: sponsored, attended_events: attended });
   await hydrateCursorImages(organized, assetDir);
   await hydrateCursorImages(sponsored, assetDir);
+  await hydrateCursorImages(attended, assetDir);
   const imgRel = "../../assets/experience/cursor/";
   const introHtml = renderMarkdownBody(data.intro_md);
   const organizedHtml = renderCursorEventList(organized, imgRel, {
@@ -568,7 +576,11 @@ async function buildCursorExperiencePage(data) {
     emptyMessage: "No sponsored events listed yet.",
     ariaLabel: "Sponsored events",
   });
-  const tabsHtml = renderCursorTabs(organizedHtml, sponsoredHtml, organized.length, sponsored.length);
+  const attendedHtml = renderCursorEventList(attended, imgRel, {
+    emptyMessage: "No attended events listed yet.",
+    ariaLabel: "Attended events",
+  });
+  const tabsHtml = renderCursorTabs(organizedHtml, sponsoredHtml, attendedHtml, organized.length, sponsored.length, attended.length);
   const bodyHtml = `${introHtml}\n${tabsHtml}`;
   const title = data.title || "SpaceXAI Ambassadors";
   const description = data.description || "";
