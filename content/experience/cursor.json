@@ -180,6 +180,30 @@
   ],
   "sponsored_events": [
     {
+      "id": "compile-london-2026",
+      "date": "Sep 16, 2026",
+      "title": "Compile London",
+      "body_md": "Invited to [Compile London](https://cursor.com/compile/london), Cursor's Compile on the Road day of talks, demos, and conversation. Sessions covered AI deployments at scale, chalk talks (including David Gomes), shipping velocity, and a Grok Bot workshop, followed by a networking reception.",
+      "images": [
+        {
+          "static": "compile-london-01.jpg",
+          "alt": "Compile London — event photo"
+        },
+        {
+          "static": "compile-london-02.jpg",
+          "alt": "Compile London — event photo"
+        },
+        {
+          "static": "compile-london-03.jpg",
+          "alt": "Compile London — event photo"
+        },
+        {
+          "static": "compile-london-04.jpg",
+          "alt": "Group photo on stage at Compile London under the COMPILE backdrop"
+        }
+      ]
+    },
+    {
       "id": "techie-hackathon-ie-2026",
       "date": "Mar 25, 2026",
       "title": "Cursor x TechIE Hackathon | IE University",
