@@ -12,6 +12,27 @@
       "images": []
     },
     {
+      "id": "cafe-coruna-2026",
+      "date": "Aug 22, 2026",
+      "title": "Café Cursor A Coruña",
+      "body_md": "All-day café coworking at **La Terraza by Finisterre** with **The Atlantic Community**. Morning and afternoon slots, no stage schedule. Hosted with Jorge Teixeira, Juanjo do Olmo, David Gomes, and Luís Tavares.",
+      "images": []
+    },
+    {
+      "id": "meetup-mallorca-2026",
+      "date": "Jun 25, 2026",
+      "title": "Cursor Meetup Mallorca",
+      "body_md": "First Cursor Community event outside Madrid. Hosted with **Juan Lopez Salaberry** at **Aethos Club Palma**: a short Cursor masterclass, community demos, and networking. Cursor credits for check-ins.",
+      "images": []
+    },
+    {
+      "id": "hackathon-v3",
+      "date": "Jun 2, 2026",
+      "title": "Cursor Madrid Hackathon #3",
+      "body_md": "Hosted with **Juan Mugica Gonzalez** and **Xuban Ceccon** in Chamberí. About 130 people. The day theme was to ship the most fun project possible with Cursor (and LibreYOLO for body-tracking demos).\n\n**Winners**\n\n1. **Mog Off** — splitscreen minigames with EyeToy-style energy.\n2. **MemeBongo** — drums and music from body movement.\n3. **Meme Ninja** — Fruit Ninja with memes, powered by body tracking.",
+      "images": []
+    },
+    {
       "id": "regional-lead-europe",
       "date": "May 2026",
       "title": "Cursor Community Regional Lead (Europe)",
@@ -143,7 +164,10 @@
       "title": "Refugio Madrid 2026",
       "body_md": "A Saturday at Matadero Madrid with morning talks, a hackathon of about 15 teams, and an afternoon community session. Cursor sponsored the event.",
       "partners": [
-        { "name": "Mihura", "url": "https://x.com/XMihura" }
+        {
+          "name": "Mihura",
+          "url": "https://x.com/XMihura"
+        }
       ],
       "url": "https://refugiomadrid.com/",
       "images": []
@@ -154,8 +178,14 @@
       "title": "HackSpain 2026",
       "body_md": "HackSpain 2026 is listed as a 24-hour Madrid hackathon for more than 300 builders. The published program includes a machine-learning track with free compute and a non-technical track for first-time builders. Cursor is listed as a sponsor.",
       "partners": [
-        { "name": "HackSpain", "url": "https://hackspain.com/" },
-        { "name": "Exponential", "url": "https://www.goexponential.org/" }
+        {
+          "name": "HackSpain",
+          "url": "https://hackspain.com/"
+        },
+        {
+          "name": "Exponential",
+          "url": "https://www.goexponential.org/"
+        }
       ],
       "url": "https://hackspain.com/",
       "images": []
