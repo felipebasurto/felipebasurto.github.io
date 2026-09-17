@@ -15,7 +15,7 @@
       "id": "cafe-coruna-2026",
       "date": "Aug 22, 2026",
       "title": "Café Cursor A Coruña",
-      "body_md": "All-day café coworking at **La Terraza by Finisterre** with **The Atlantic Community**. Morning and afternoon slots, no stage schedule. Hosted with Jorge Teixeira, Juanjo do Olmo, David Gomes, and Luís Tavares.",
+      "body_md": "First Cursor event in **Galicia**, all day at **La Terraza by Finisterre**. Hosted with **Jorge Teixeira** and **Juanjo do Olmo**; **David Gomes** (morning) and **Luís Tavares** (afternoon) from the SpaceXAI team flew in for Q&A on Grok Bot, Grok 4.6, and the editor roadmap. 139 confirmed, 105+ attended (about 60–65 in the morning session). Coffee and pastry were free; local merch covered a customs delay. People came from Madrid, Jaén, across Galicia, and a few from Belgium.",
       "images": []
     },
     {
@@ -23,14 +23,40 @@
       "date": "Jun 25, 2026",
       "title": "Cursor Meetup Mallorca",
       "body_md": "First Cursor Community event outside Madrid. Hosted with **Juan Lopez Salaberry** at **Aethos Club Palma**: a short Cursor masterclass, community demos, and networking. Cursor credits for check-ins.",
-      "images": []
+      "images": [
+        {
+          "static": "mallorca-01.jpg",
+          "alt": "Group outside after Cursor Meetup Mallorca"
+        },
+        {
+          "static": "mallorca-02.jpg",
+          "alt": "Networking at Aethos Club Palma during Cursor Meetup Mallorca"
+        },
+        {
+          "static": "mallorca-03.jpg",
+          "alt": "Talk at Aethos Club Palma during Cursor Meetup Mallorca"
+        }
+      ]
     },
     {
       "id": "hackathon-v3",
       "date": "Jun 2, 2026",
       "title": "Cursor Madrid Hackathon #3",
-      "body_md": "Hosted with **Juan Mugica Gonzalez** and **Xuban Ceccon** in Chamberí. About 130 people. The day theme was to ship the most fun project possible with Cursor (and LibreYOLO for body-tracking demos).\n\n**Winners**\n\n1. **Mog Off** — splitscreen minigames with EyeToy-style energy.\n2. **MemeBongo** — drums and music from body movement.\n3. **Meme Ninja** — Fruit Ninja with memes, powered by body tracking.",
-      "images": []
+      "body_md": "Hosted with **Juan Mugica Gonzalez** and **Xuban Ceccon** in Chamberí. About 130 people. Theme: ship the most fun project possible with Cursor, with a focus on computer vision (Canvas, video, images) and LibreYOLO for body-tracking demos.\n\n**Winners**\n\n1. **Mog Off** — splitscreen minigames with EyeToy-style energy.\n2. **MemeBongo** — drums and music from body movement.\n3. **Meme Ninja** — Fruit Ninja with memes, powered by body tracking.",
+      "images": [
+        {
+          "static": "hack3-01.jpg",
+          "alt": "Crowded room at Cursor Madrid Hackathon #3 in Chamberí"
+        },
+        {
+          "static": "hack3-02.jpg",
+          "alt": "Cursor sticker pack from Madrid Hackathon #3"
+        },
+        {
+          "static": "hack3-03.jpg",
+          "alt": "Opening talk: Cursor Madrid is back — this time with vision"
+        }
+      ]
     },
     {
       "id": "regional-lead-europe",
