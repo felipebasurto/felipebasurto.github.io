@@ -2,7 +2,7 @@
   "title": "SpaceXAI Ambassadors | Felipe Basurto",
   "description": "Community work from Cursor Madrid meetups to SpaceXAI Ambassadors.",
   "og_image": "/assets/companies/spacexai.png",
-  "intro_md": "[← Back to CV](../../)\n\n# SpaceXAI Ambassadors\n\n![SpaceXAI](../../assets/companies/spacexai.png)\n\nI joined Cursor's community program as Madrid Ambassador in May 2025. I later served as **Cursor Community Regional Lead for Europe**, supporting meetups, cafes, hackathons, workshops, and founder groups.\n\nAfter Cursor [joined SpaceX](https://cursor.com/blog/joining-spacex), the program became **SpaceXAI Ambassadors**. I now organize Grok Bot meetups for the next chapter. [SpaceXAI Ambassadors on LinkedIn](https://linkedin.com/company/spacexai-community).\n\nThe event log keeps the original Cursor names for meetups and hackathons that happened before the change. It separates events I organized from events I supported.\n",
+  "intro_md": "[← Back to CV](../../)\n\n# SpaceXAI Ambassadors\n\n![SpaceXAI](../../assets/companies/spacexai.png)\n\nI joined Cursor's community program as Madrid Ambassador in May 2025. I later served as **Cursor Community Regional Lead for Europe**, supporting meetups, cafes, hackathons, workshops, and founder groups.\n\nAfter Cursor [joined SpaceX](https://cursor.com/blog/joining-spacex), the program became **SpaceXAI Ambassadors**. I now organize Grok Bot meetups for the next chapter. [SpaceXAI Ambassadors on LinkedIn](https://linkedin.com/company/spacexai-community).\n\nThe event log keeps the original Cursor names for meetups and hackathons that happened before the change. It separates events I **organized**, events Cursor **sponsored**, and events I **attended** as a guest.\n",
   "organized_events": [
     {
       "id": "spacexai-rename",
@@ -10,6 +10,66 @@
       "title": "SpaceXAI Ambassadors",
       "body_md": "After Cursor [joined SpaceX](https://cursor.com/blog/joining-spacex), the community program became **SpaceXAI Ambassadors**. Grok Bot meetups are the next format.",
       "images": []
+    },
+    {
+      "id": "cafe-coruna-2026",
+      "date": "Aug 22, 2026",
+      "title": "Café Cursor A Coruña",
+      "body_md": "First Cursor event in **Galicia**, all day at **La Terraza by Finisterre**. Hosted with **Jorge Teixeira** and **Juanjo do Olmo**; **David Gomes** (morning) and **Luís Tavares** (afternoon) from the SpaceXAI team flew in for Q&A on Grok Bot, Grok 4.6, and the editor roadmap. 139 confirmed, 105+ attended (about 60–65 in the morning session). Coffee and pastry were free; local merch covered a customs delay. People came from Madrid, Jaén, across Galicia, and a few from Belgium.",
+      "images": [
+        {
+          "static": "coruna-01.jpg",
+          "alt": "Terrace at Café Cursor A Coruña with harbor view"
+        },
+        {
+          "static": "coruna-02.jpg",
+          "alt": "Cursor stickers and swag table at Café A Coruña"
+        },
+        {
+          "static": "coruna-03.jpg",
+          "alt": "Entrance banner for Café Cursor A Coruña"
+        }
+      ]
+    },
+    {
+      "id": "meetup-mallorca-2026",
+      "date": "Jun 25, 2026",
+      "title": "Cursor Meetup Mallorca",
+      "body_md": "First Cursor Community event outside Madrid. Hosted with **Juan Lopez Salaberry** at **Aethos Club Palma**: a short Cursor masterclass, community demos, and networking. Cursor credits for check-ins.",
+      "images": [
+        {
+          "static": "mallorca-01.jpg",
+          "alt": "Group outside after Cursor Meetup Mallorca"
+        },
+        {
+          "static": "mallorca-02.jpg",
+          "alt": "Networking at Aethos Club Palma during Cursor Meetup Mallorca"
+        },
+        {
+          "static": "mallorca-03.jpg",
+          "alt": "Talk at Aethos Club Palma during Cursor Meetup Mallorca"
+        }
+      ]
+    },
+    {
+      "id": "hackathon-v3",
+      "date": "Jun 2, 2026",
+      "title": "Cursor Madrid Hackathon #3",
+      "body_md": "Hosted with **Juan Mugica Gonzalez** and **Xuban Ceccon** in Chamberí. About 130 people. Theme: ship the most fun project possible with Cursor, with a focus on computer vision (Canvas, video, images) and LibreYOLO for body-tracking demos.\n\n**Winners**\n\n1. **Mog Off** — splitscreen minigames with EyeToy-style energy.\n2. **MemeBongo** — drums and music from body movement.\n3. **Meme Ninja** — Fruit Ninja with memes, powered by body tracking.",
+      "images": [
+        {
+          "static": "hack3-01.jpg",
+          "alt": "Crowded room at Cursor Madrid Hackathon #3 in Chamberí"
+        },
+        {
+          "static": "hack3-02.jpg",
+          "alt": "Cursor sticker pack from Madrid Hackathon #3"
+        },
+        {
+          "static": "hack3-03.jpg",
+          "alt": "Opening talk: Cursor Madrid is back — this time with vision"
+        }
+      ]
     },
     {
       "id": "regional-lead-europe",
@@ -143,7 +203,10 @@
       "title": "Refugio Madrid 2026",
       "body_md": "A Saturday at Matadero Madrid with morning talks, a hackathon of about 15 teams, and an afternoon community session. Cursor sponsored the event.",
       "partners": [
-        { "name": "Mihura", "url": "https://x.com/XMihura" }
+        {
+          "name": "Mihura",
+          "url": "https://x.com/XMihura"
+        }
       ],
       "url": "https://refugiomadrid.com/",
       "images": []
@@ -154,11 +217,43 @@
       "title": "HackSpain 2026",
       "body_md": "HackSpain 2026 is listed as a 24-hour Madrid hackathon for more than 300 builders. The published program includes a machine-learning track with free compute and a non-technical track for first-time builders. Cursor is listed as a sponsor.",
       "partners": [
-        { "name": "HackSpain", "url": "https://hackspain.com/" },
-        { "name": "Exponential", "url": "https://www.goexponential.org/" }
+        {
+          "name": "HackSpain",
+          "url": "https://hackspain.com/"
+        },
+        {
+          "name": "Exponential",
+          "url": "https://www.goexponential.org/"
+        }
       ],
       "url": "https://hackspain.com/",
       "images": []
+    }
+  ],
+  "attended_events": [
+    {
+      "id": "compile-london-2026",
+      "date": "Sep 16, 2026",
+      "title": "Compile London",
+      "body_md": "Invited guest at [Compile London](https://cursor.com/compile/london), Cursor's Compile on the Road day of talks, demos, and conversation. Sessions covered AI deployments at scale, chalk talks (including David Gomes), shipping velocity, and a Grok Bot workshop, followed by a networking reception.",
+      "images": [
+        {
+          "static": "compile-london-01.jpg",
+          "alt": "Compile London — event photo"
+        },
+        {
+          "static": "compile-london-02.jpg",
+          "alt": "Compile London — event photo"
+        },
+        {
+          "static": "compile-london-03.jpg",
+          "alt": "Compile London — event photo"
+        },
+        {
+          "static": "compile-london-04.jpg",
+          "alt": "Group photo on stage at Compile London under the COMPILE backdrop"
+        }
+      ]
     }
   ]
 }
