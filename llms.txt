@@ -25,7 +25,7 @@ He was a Data Scientist at AILY LABS from July 2023 to Nov 2025, progressing fro
 
 Community: SpaceXAI Europe Regional Lead & Madrid Ambassador. He started as Cursor Madrid Ambassador in May 2025 and became Cursor Community Regional Lead for Europe in May 2026. After Cursor joined SpaceX, the program continues as SpaceXAI Ambassadors, with Grok Bot meetups going forward. Official note: https://cursor.com/blog/joining-spacex
 
-Products: Encore: Concert Diary (iPhone, over EUR 4,000 in revenue), HabitDex (iPhone), Audio Silence Remover (macOS, open source), and Musatro (browser, unfinished). Triple Check is his Spanish pop-rock band from Burgos, with over 1.7 million Spotify streams.
+Products: Encore: Concert Diary (iPhone, over 2,700 accounts and 15,000 concerts logged; distribution through Fastlane short-form video run by a Grok Bot agent), HabitDex (iPhone), Audio Silence Remover (macOS, open source), and Musatro (browser, unfinished). Tools: Viajante (flight and hotel search for the terminal, Python, and AI assistants over MCP; on PyPI), FreshCtx (local context engine that keeps a coding agent's view of source code current), Cue (on-device meeting recorder for macOS), and Plugin Factory (generates Claude plugins from client information). Triple Check is his Spanish pop-rock band from Burgos, with over 1.7 million Spotify streams.
 
 A note on assessing AI around pharmaceutical operations is at https://felipebasurto.com/ai-for-pharma-operations/.
 
@@ -46,6 +46,9 @@ A note on assessing AI around pharmaceutical operations is at https://felipebasu
 - Musatro: https://felipebasurto.com/experience/musatro/
 - Play Musatro: https://musatro.felipebasurto.com/
 - Musatro source: https://github.com/felipebasurto/musatro
+- Viajante source: https://github.com/felipebasurto/viajante
+- FreshCtx source: https://github.com/felipebasurto/freshctx
+- Plugin Factory source: https://github.com/felipebasurto/plugin-factory
 - AILY LABS: https://felipebasurto.com/experience/aily/
 - IE School of Science and Technology: https://felipebasurto.com/experience/ie/
 - Universidad de Burgos: https://felipebasurto.com/experience/ubu/

@@ -48,14 +48,14 @@
 
 <section class="cursor-tabs">
 <div class="cursor-tabs__list" role="tablist" aria-label="Event categories">
-<button type="button" class="cursor-tabs__tab" role="tab" id="cursor-tab-organized" aria-controls="cursor-panel-organized" aria-selected="true" data-tab="organized">Organized <span class="cursor-tabs__count">(11)</span></button>
+<button type="button" class="cursor-tabs__tab" role="tab" id="cursor-tab-organized" aria-controls="cursor-panel-organized" aria-selected="true" data-tab="organized">Organized <span class="cursor-tabs__count">(8)</span></button>
 <button type="button" class="cursor-tabs__tab" role="tab" id="cursor-tab-sponsored" aria-controls="cursor-panel-sponsored" aria-selected="false" tabindex="-1" data-tab="sponsored">Sponsored <span class="cursor-tabs__count">(3)</span></button>
 <button type="button" class="cursor-tabs__tab" role="tab" id="cursor-tab-attended" aria-controls="cursor-panel-attended" aria-selected="false" tabindex="-1" data-tab="attended">Attended <span class="cursor-tabs__count">(1)</span></button>
 </div>
 <div class="cursor-tabs__panel" role="tabpanel" id="cursor-panel-organized" aria-labelledby="cursor-tab-organized" tabindex="0">
 <section class="ev-wrap" aria-label="Organized events">
 <ul class="ev-list">
-<li class="ev-list-item" id="spacexai-rename">
+<li class="ev-list-item ev-list-item--milestone" id="spacexai-rename">
 <span class="ev-list-date">Sep 2026</span>
 <div class="ev-list-main">
 <span class="ev-list-title">SpaceXAI Ambassadors</span>
@@ -126,7 +126,7 @@
 </div>
 </div>
 </li>
-<li class="ev-list-item" id="regional-lead-europe">
+<li class="ev-list-item ev-list-item--milestone" id="regional-lead-europe">
 <span class="ev-list-date">May 2026</span>
 <div class="ev-list-main">
 <span class="ev-list-title">Cursor Community Regional Lead (Europe)</span>
@@ -240,7 +240,7 @@
 </div>
 </div>
 </li>
-<li class="ev-list-item" id="ambassador">
+<li class="ev-list-item ev-list-item--milestone" id="ambassador">
 <span class="ev-list-date">May 2025</span>
 <div class="ev-list-main">
 <span class="ev-list-title">Cursor Madrid Ambassador</span>
@@ -291,15 +291,15 @@
 </div>
 </li>
 <li class="ev-list-item" id="hackspain-2026">
-<span class="ev-list-date">Sep 2026</span>
+<span class="ev-list-date">Sep 18 to 20, 2026</span>
 <div class="ev-list-main">
 <a class="ev-list-title md-link" href="https://hackspain.com/" rel="noopener noreferrer" target="_blank">HackSpain 2026</a>
-<div class="ev-list-copy"><p class="md-p">A Madrid hackathon for more than 300 builders, with a machine-learning track with free compute and a non-technical track for first-time builders. Cursor sponsored it. A live leaderboard in the hall tracked tokens, GitHub pushes, agent sessions, and pull requests per team, and passed 43 billion tokens during the event. Los_panaderos took the overall prize of €5,000. <a class="md-link" href="https://x.com/hackspain26/status/2102035919440150624/video/1" title="https://x.com/hackspain26/status/2102035919440150624/video/1" rel="noopener noreferrer" target="_blank">Video of the event</a>.</p>
+<div class="ev-list-copy"><p class="md-p">A three-day Madrid hackathon for more than 300 builders, with a machine-learning track with free compute and a non-technical track for first-time builders. Cursor sponsored it. A live leaderboard in the hall tracked tokens, GitHub pushes, agent sessions, and pull requests per team, and passed 43 billion tokens during the event. The mafer.ai team took the overall prize of €5,000. <a class="md-link" href="https://x.com/hackspain26/status/2102035919440150624/video/1" title="https://x.com/hackspain26/status/2102035919440150624/video/1" rel="noopener noreferrer" target="_blank">Video of the event</a>.</p>
 </div>
 <span class="ev-list-meta">with <a class="md-link" href="https://hackspain.com/" rel="noopener noreferrer" target="_blank">HackSpain</a> and <a class="md-link" href="https://www.goexponential.org/" rel="noopener noreferrer" target="_blank">Exponential</a></span>
 <div class="ev-list-photos">
 <a class="ev-shot" href="../../assets/experience/cursor/hackspain-01.jpg">
-<img src="../../assets/experience/cursor/hackspain-01.jpg" alt="Los_panaderos on stage with the HackSpain 2026 overall winner check for 5,000 euros" loading="lazy" decoding="async" width="640" height="400" />
+<img src="../../assets/experience/cursor/hackspain-01.jpg" alt="Team on stage at the HackSpain 2026 awards, next to the 5,000 euro overall winner check" loading="lazy" decoding="async" width="640" height="400" />
 </a>
 <a class="ev-shot" href="../../assets/experience/cursor/hackspain-02.jpg">
 <img src="../../assets/experience/cursor/hackspain-02.jpg" alt="Team working in front of the HackSpain live leaderboard showing tokens, pushes, agent sessions, and pull requests" loading="lazy" decoding="async" width="640" height="400" />
@@ -351,7 +351,10 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"SpaceXAI Ambassadors | Felipe Basurto","url":"https://felipebasurto.com/experience/cursor/","description":"Community work from Cursor Madrid meetups to SpaceXAI Ambassadors.","isPartOf":{"@type":"WebSite","name":"Felipe Basurto","url":"https://felipebasurto.com"}}</script>
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
     <button class="lightbox__close" type="button" aria-label="Close (Esc)">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous photo (Left arrow)">←</button>
     <img class="lightbox__img" alt="" />
+    <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next photo (Right arrow)">→</button>
+    <span class="lightbox__count" aria-live="polite"></span>
   </div>
   <script>
     (function () {
@@ -360,11 +363,28 @@
       var box = document.getElementById("lightbox");
       var img = box.querySelector(".lightbox__img");
       var closeBtn = box.querySelector(".lightbox__close");
+      var prevBtn = box.querySelector(".lightbox__nav--prev");
+      var nextBtn = box.querySelector(".lightbox__nav--next");
+      var count = box.querySelector(".lightbox__count");
+      var group = [];
+      var index = 0;
       var lastFocus = null;
-      function open(href, alt) {
+      function show(i) {
+        index = (i + group.length) % group.length;
+        var a = group[index];
+        var im = a.querySelector("img");
+        img.src = a.getAttribute("href");
+        img.alt = im ? im.alt : "";
+        count.textContent = group.length > 1 ? index + 1 + " / " + group.length : "";
+      }
+      function open(a) {
         lastFocus = document.activeElement;
-        img.src = href;
-        img.alt = alt || "";
+        var gallery = a.closest(".ev-list-photos");
+        group = gallery ? Array.prototype.slice.call(gallery.querySelectorAll("a.ev-shot")) : [a];
+        var multi = group.length > 1;
+        prevBtn.hidden = !multi;
+        nextBtn.hidden = !multi;
+        show(group.indexOf(a));
         box.hidden = false;
         document.body.style.overflow = "hidden";
         closeBtn.focus();
@@ -378,16 +398,20 @@
       shots.forEach(function (a) {
         a.addEventListener("click", function (e) {
           e.preventDefault();
-          var im = a.querySelector("img");
-          open(a.getAttribute("href"), im ? im.alt : "");
+          open(a);
         });
       });
       box.addEventListener("click", function (e) {
         if (e.target === box || e.target === img) close();
       });
       closeBtn.addEventListener("click", close);
+      prevBtn.addEventListener("click", function () { show(index - 1); });
+      nextBtn.addEventListener("click", function () { show(index + 1); });
       document.addEventListener("keydown", function (e) {
-        if (!box.hidden && e.key === "Escape") close();
+        if (box.hidden) return;
+        if (e.key === "Escape") close();
+        else if (e.key === "ArrowLeft" && group.length > 1) { e.preventDefault(); show(index - 1); }
+        else if (e.key === "ArrowRight" && group.length > 1) { e.preventDefault(); show(index + 1); }
       });
     })();
   </script>

@@ -20,7 +20,7 @@ hello@felipebasurto.com
 ### Current work
 
 - ![SpaceXAI](./assets/companies/spacexai.png)**SpaceXAI Europe Regional Lead & Madrid Ambassador** at [SpaceXAI Ambassadors](https://linkedin.com/company/spacexai-community). Hackathons, meetups, and all-day cafés in Madrid, Mallorca, and A Coruña. [Details](./experience/cursor/)
-- ![Encore Concert Diary](./assets/companies/encore.png)**Founder** of [Encore: Concert Diary](https://encorearchives.com). An iPhone app with over €4,000 in revenue and no ad budget. [App Store](https://apps.apple.com/us/app/encore-concert-diary/id6748657647) · [Details](./experience/encore/)
+- ![Encore Concert Diary](./assets/companies/encore.png)**Founder** of [Encore: Concert Diary](https://encorearchives.com). A bootstrapped iPhone concert diary with over 2,700 accounts. [App Store](https://apps.apple.com/us/app/encore-concert-diary/id6748657647) · [Details](./experience/encore/)
 - **Independent AI projects.** Agents, retrieval, and internal tools for teams. [Details](./ai-consulting/) · [Email me](mailto:hello@felipebasurto.com)
 
 ### Previous roles
@@ -37,24 +37,19 @@ hello@felipebasurto.com
 
 ![Accenture](./assets/companies/accenture.png)**Salesforce developer** at [Accenture](https://www.accenture.com/es-es).
 
-### Education
+## Projects
 
-#### 2022 to 2023
+{{PROJECTS_FEATURED}}
+
+## Education
+
+### 2022 to 2023
 
 ![IE School of Science and Technology](./assets/companies/ie.png)**Master's in Business Analytics and Big Data** at [IE School of Science and Technology](https://www.ie.edu/school-science-technology). Two first-place team projects, one of them with Microsoft. [Details](./experience/ie/)
 
-#### 2017 to 2022
+### 2017 to 2022
 
 ![Universidad de Burgos](./assets/companies/ubu.png)**Computer Science Engineering** at [Universidad de Burgos](https://www.ubu.es/), with an Erasmus+ year in Wrocław. [Details](./experience/ubu/)
-
-## Projects
-
-- ![HabitDex](./assets/companies/habitdex.png)[HabitDex](https://apps.apple.com/us/app/habitdex/id6755887620). A Pokémon-style habit tracker for iPhone, designed by Miguel Ferrer. [App Store](https://apps.apple.com/us/app/habitdex/id6755887620) · [Details](./experience/habitdex/)
-- ![Audio Silence Remover](./assets/companies/audio-silence-remover.png)[Audio Silence Remover](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12). A free, open-source Mac app that cuts dead air from voiceovers. [App Store](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12) · [GitHub](https://github.com/felipebasurto/silence-remover) · [Details](./experience/audio-silence-remover/)
-- ![Musatro](./assets/companies/musatro.png)[Musatro](https://musatro.felipebasurto.com/). An unfinished browser roguelike built on the card game Mus. [Play](https://musatro.felipebasurto.com/) · [GitHub](https://github.com/felipebasurto/musatro) · [Details](./experience/musatro/)
-- ![Triple Check](./assets/companies/triple-check.png)[Triple Check](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR). My pop-rock band from Burgos, with over 1.7 million Spotify streams. [Spotify](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR) · [Details](./triplecheck/)
-
-[Coursework and older repositories](./projects/)
 
 ## Links
 

@@ -13,7 +13,7 @@
 <li><button type="button" class="aily-flow__step" data-step="0" style="--step-color: #c4a574" aria-current="step"><span class="aily-flow__label">Factory manuals</span><span class="aily-flow__detail">PDF · OCR scans</span></button></li>
 <li><button type="button" class="aily-flow__step" data-step="1" style="--step-color: #6eb5c4"><span class="aily-flow__label">unstructured.io</span><span class="aily-flow__detail">tables · figures · pages</span></button></li>
 <li><button type="button" class="aily-flow__step" data-step="2" style="--step-color: #7eb896"><span class="aily-flow__label">Neo4j</span><span class="aily-flow__detail">equipment graph</span></button></li>
-<li><button type="button" class="aily-flow__step" data-step="3" style="--step-color: #e88a8a"><span class="aily-flow__label">Daily fault</span><span class="aily-flow__detail">what failed on the line</span></button></li>
+<li><button type="button" class="aily-flow__step" data-step="3" style="--step-color: #e88a8a"><span class="aily-flow__label">Fault code</span><span class="aily-flow__detail">the question</span></button></li>
 <li><button type="button" class="aily-flow__step" data-step="4" style="--step-color: #9bb4ff"><span class="aily-flow__label">LangChain</span><span class="aily-flow__detail">graph RAG + tools</span></button></li>
 <li><button type="button" class="aily-flow__step" data-step="5" style="--step-color: #c7d2fe"><span class="aily-flow__label">Cited answer</span><span class="aily-flow__detail">page · section · figure</span></button></li>
 </ol>
@@ -30,8 +30,8 @@
   var hints = [
     "Scanned factory equipment manuals, with OCR for diagram pages.",
     "unstructured.io preserves layout: tables, figures, and text blocks, each tagged with page and section coordinates.",
-    "Neo4j equipment graph links machines, components, fault codes, and repair procedures.",
-    "Each day the line reports the machine, alarm, and shift for a failure.",
+    "A Neo4j graph links equipment, components, faults, and procedures.",
+    "An operator enters a fault or alarm code.",
     "LangChain graph RAG retrieves the relevant subgraph and tool results for that fault.",
     "Production API returns a cited answer: exact page, section, and figure reference for the operator."
   ];

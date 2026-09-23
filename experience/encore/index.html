@@ -42,8 +42,15 @@
 <p class="md-p"><a class="md-link" href="../../" title="../../">← Back to CV</a></p>
 <h1 class="md-heading" id="encore-concert-diary"><span class="md-hashes" aria-hidden="true">#</span> Encore: Concert Diary</h1>
 <p class="md-p"><img class="md-logo" src="../../assets/companies/encore.png" alt="Encore" loading="lazy" width="20" height="20" /></p>
-<p class="md-p">Encore is an independent iPhone app that I have built and run since May 2025. I use Cursor as the editor.</p>
-<p class="md-p">The useful moment is the ride home after a show. You can log the artist, venue, date, photos, and videos while the details are still fresh. Encore turns those entries into a concert history instead of another camera roll folder.</p>
+<p class="md-p">Encore is Letterboxd for concerts: a diary for the shows you were actually at. I have built and run it since May 2025. It is bootstrapped, with no paid ads.</p>
+<p class="md-p">The useful moment is the ride home after a show. You log the artist, venue, date, photos, and videos while the details are still fresh, and Encore turns them into a concert history instead of another camera roll folder.</p>
+<h2 class="md-heading" id="in-numbers"><span class="md-hashes" aria-hidden="true">##</span> In numbers</h2>
+<ul class="md-list md-list--unordered">
+<li class="md-li">Over 2,700 accounts and over 15,000 concerts logged.</li>
+<li class="md-li">About 590 people open the app in a typical month, and they log around 1,100 concerts.</li>
+<li class="md-li">Available in English, Spanish, German, and French.</li>
+<li class="md-li">About 420 marketing videos published, with close to 200,000 views.</li>
+</ul>
 <h2 class="md-heading" id="the-product"><span class="md-hashes" aria-hidden="true">##</span> The product</h2>
 <ul class="md-list md-list--unordered">
 <li class="md-li">A feed for past concerts and the people who went with you.</li>
@@ -51,11 +58,16 @@
 <li class="md-li">Upcoming dates and a year-end recap built from your entries.</li>
 <li class="md-li">Friends, shared memories, photos, and video attached to each show.</li>
 </ul>
-<h2 class="md-heading" id="building-and-running-it"><span class="md-hashes" aria-hidden="true">##</span> Building and running it</h2>
-<p class="md-p">The app is written in Swift and SwiftUI. I own navigation, persistence, analytics, crash triage, App Store reviews, and each release.</p>
-<p class="md-p">Revenue from paying users has passed €4,000. It is a small number, but it changed how I work. Every crash report and every confusing first screen now belongs to someone who paid for the app.</p>
-<h2 class="md-heading" id="distribution"><span class="md-hashes" aria-hidden="true">##</span> Distribution</h2>
-<p class="md-p">I have not used an ad budget. Installs come from short videos on TikTok, Instagram, YouTube, and Facebook. The posts that work show the app inside a real concert memory, not a feature tour.</p>
+<p class="md-p">It is written in Swift and SwiftUI, with Supabase for accounts and sync and RevenueCat for the Premium subscription. I handle crash triage, App Store reviews, and every release.</p>
+<h2 class="md-heading" id="marketing-run-by-an-agent"><span class="md-hashes" aria-hidden="true">##</span> Marketing run by an agent</h2>
+<p class="md-p">All growth comes from short-form video on TikTok and YouTube. I use <a class="md-link" href="https://usefastlane.ai" title="https://usefastlane.ai" rel="noopener noreferrer" target="_blank">Fastlane</a> to generate and schedule the videos across a set of concert-themed accounts.</p>
+<p class="md-p">A Grok Bot agent is connected to Fastlane&#39;s MCP server. Every day it pulls each post&#39;s views, ranks what worked, schedules close variations of the winners, and rewrites the captions. Every weekday morning it sends me a recap. I still check any new kind of AI video before it goes out.</p>
+<p class="md-p">What the views taught me:</p>
+<ul class="md-list md-list--unordered">
+<li class="md-li">The hooks that travel are about how people behave at concerts. &quot;Phone up the whole set means you weren&#39;t really there&quot; and &quot;unspoken rules of concerts&quot; each passed 3,500 views. The best single video reached 18,000.</li>
+<li class="md-li">Slideshows and green-screen clips with a real person average about three times the views of AI talking heads, so I stopped making talking heads.</li>
+<li class="md-li">A soft, casual caption beats a sales pitch. Links in captions cost views.</li>
+</ul>
 <h2 class="md-heading" id="links"><span class="md-hashes" aria-hidden="true">##</span> Links</h2>
 <ul class="md-list md-list--unordered">
 <li class="md-li"><a class="md-link" href="https://encorearchives.com" title="https://encorearchives.com" rel="noopener noreferrer" target="_blank">Product site in English</a></li>
@@ -83,7 +95,10 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Encore: Concert Diary | Felipe Basurto","url":"https://felipebasurto.com/experience/encore/","description":"Encore is an independent iPhone concert diary built with SwiftUI.","isPartOf":{"@type":"WebSite","name":"Felipe Basurto","url":"https://felipebasurto.com"}}</script>
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
     <button class="lightbox__close" type="button" aria-label="Close (Esc)">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous photo (Left arrow)">←</button>
     <img class="lightbox__img" alt="" />
+    <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next photo (Right arrow)">→</button>
+    <span class="lightbox__count" aria-live="polite"></span>
   </div>
   <script>
     (function () {
@@ -92,11 +107,28 @@
       var box = document.getElementById("lightbox");
       var img = box.querySelector(".lightbox__img");
       var closeBtn = box.querySelector(".lightbox__close");
+      var prevBtn = box.querySelector(".lightbox__nav--prev");
+      var nextBtn = box.querySelector(".lightbox__nav--next");
+      var count = box.querySelector(".lightbox__count");
+      var group = [];
+      var index = 0;
       var lastFocus = null;
-      function open(href, alt) {
+      function show(i) {
+        index = (i + group.length) % group.length;
+        var a = group[index];
+        var im = a.querySelector("img");
+        img.src = a.getAttribute("href");
+        img.alt = im ? im.alt : "";
+        count.textContent = group.length > 1 ? index + 1 + " / " + group.length : "";
+      }
+      function open(a) {
         lastFocus = document.activeElement;
-        img.src = href;
-        img.alt = alt || "";
+        var gallery = a.closest(".ev-list-photos");
+        group = gallery ? Array.prototype.slice.call(gallery.querySelectorAll("a.ev-shot")) : [a];
+        var multi = group.length > 1;
+        prevBtn.hidden = !multi;
+        nextBtn.hidden = !multi;
+        show(group.indexOf(a));
         box.hidden = false;
         document.body.style.overflow = "hidden";
         closeBtn.focus();
@@ -110,16 +142,20 @@
       shots.forEach(function (a) {
         a.addEventListener("click", function (e) {
           e.preventDefault();
-          var im = a.querySelector("img");
-          open(a.getAttribute("href"), im ? im.alt : "");
+          open(a);
         });
       });
       box.addEventListener("click", function (e) {
         if (e.target === box || e.target === img) close();
       });
       closeBtn.addEventListener("click", close);
+      prevBtn.addEventListener("click", function () { show(index - 1); });
+      nextBtn.addEventListener("click", function () { show(index + 1); });
       document.addEventListener("keydown", function (e) {
-        if (!box.hidden && e.key === "Escape") close();
+        if (box.hidden) return;
+        if (e.key === "Escape") close();
+        else if (e.key === "ArrowLeft" && group.length > 1) { e.preventDefault(); show(index - 1); }
+        else if (e.key === "ArrowRight" && group.length > 1) { e.preventDefault(); show(index + 1); }
       });
     })();
   </script>

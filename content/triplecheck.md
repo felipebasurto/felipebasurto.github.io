@@ -12,21 +12,21 @@ og_image: "/assets/triplecheck/atentamente-ep.png"
 
 Triple Check is Felipe Basurto, Miguel Ferrer, and Diego Garrido. We met at Jesuitas in Burgos and began writing at home in May 2020.
 
-None of us had formal musical training or a band budget. The early setup was a microphone, an interface, and whatever room was free. We learned production by finishing songs and hearing every mistake in the next mix.
+None of us had formal musical training or a band budget. The early setup was a microphone, an interface, and whatever room was free. We learned production by finishing songs and fixing our mistakes in the next mix.
 
-I focus on production, mixing, and lyrics. Miguel sings and produces. Diego sings. Most songs start with someone improvising at the microphone, not with a finished page of lyrics.
+I handle production, mixing, and lyrics. Miguel sings and produces. Diego sings. Most songs start with someone improvising at the microphone, and the lyrics come after.
 
 ## The music
 
-We play Spanish pop-rock. [El Canto del Loco](https://es.wikipedia.org/wiki/El_Canto_del_Loco), [Pignoise](https://es.wikipedia.org/wiki/Pignoise), and [Despistaos](https://es.wikipedia.org/wiki/Despistaos) are fair reference points. The songs are about nights out, relationships, and the parts of your twenties that become clearer later.
+We play Spanish pop-rock. [El Canto del Loco](https://es.wikipedia.org/wiki/El_Canto_del_Loco), [Pignoise](https://es.wikipedia.org/wiki/Pignoise), and [Despistaos](https://es.wikipedia.org/wiki/Despistaos) are fair reference points. The songs are about nights out, relationships, and being in your twenties.
 
-The debut EP, *Sabemos*, has five tracks. A run of singles followed. *Atentamente, Triple Check* from 2023 is the release that best represents us now.
+Our debut EP, *Sabemos*, has five tracks. Singles followed. *Atentamente, Triple Check*, from 2023, is the release that sounds most like us today.
 
-The single *Checkout* includes vocals from [Safree](https://music.apple.com/es/artist/safree/599718024) and production by [Johnatan Pons](https://www.instagram.com/soyjonathanpons/). Johnatan gave it a sharper finish than we could get in the room by ourselves.
+The single *Checkout* has vocals from [Safree](https://music.apple.com/es/artist/safree/599718024) and production by [Johnatan Pons](https://www.instagram.com/soyjonathanpons/). His production is more polished than anything we managed on our own.
 
 ## Reach
 
-The catalog has passed 1.7 million Spotify streams. Several tracks are in six figures. We have no label, so the fact that strangers still save and replay these songs is the number that matters.
+The catalog has passed 1.7 million Spotify streams, and several tracks have over 100,000 each. We have no label. People we have never met still save and replay the songs.
 
 ## Live
 
@@ -41,8 +41,8 @@ We have played bars, small rooms, outdoor stages, and shared bills around Spain.
 
 ![Triple Check: indoor venue, band with TRIPLE CHECK flag and audience](../assets/triplecheck/live-venue.png)
 
-## Why it still matters
+## Listeners
 
-A message from someone who found a song still hits harder than the stream count. Three school friends made those songs in spare rooms. They travelled further than we did.
+Messages from people who found one of our songs mean more to us than the stream count. Three school friends made these songs in spare rooms, and the songs travelled further than we did.
 
 [Listen on Spotify](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR). For bookings, use the email on my [home page](../).

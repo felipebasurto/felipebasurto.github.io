@@ -6,6 +6,7 @@
   "organized_events": [
     {
       "id": "spacexai-rename",
+      "kind": "milestone",
       "date": "Sep 2026",
       "title": "SpaceXAI Ambassadors",
       "body_md": "After Cursor [joined SpaceX](https://cursor.com/blog/joining-spacex), the community program became **SpaceXAI Ambassadors**. Grok Bot meetups are the next format.",
@@ -73,6 +74,7 @@
     },
     {
       "id": "regional-lead-europe",
+      "kind": "milestone",
       "date": "May 2026",
       "title": "Cursor Community Regional Lead (Europe)",
       "body_md": "Became **Cursor Community Regional Lead for Europe**. I supported local organizers and helped connect events across the region.",
@@ -172,6 +174,7 @@
     },
     {
       "id": "ambassador",
+      "kind": "milestone",
       "date": "May 2025",
       "title": "Cursor Madrid Ambassador",
       "body_md": "Joined the community program as **Cursor Madrid Ambassador** and began organizing meetups and workshops with local coworkings and universities.",
@@ -226,9 +229,9 @@
     },
     {
       "id": "hackspain-2026",
-      "date": "Sep 2026",
+      "date": "Sep 18 to 20, 2026",
       "title": "HackSpain 2026",
-      "body_md": "A Madrid hackathon for more than 300 builders, with a machine-learning track with free compute and a non-technical track for first-time builders. Cursor sponsored it. A live leaderboard in the hall tracked tokens, GitHub pushes, agent sessions, and pull requests per team, and passed 43 billion tokens during the event. Los_panaderos took the overall prize of €5,000. [Video of the event](https://x.com/hackspain26/status/2102035919440150624/video/1).",
+      "body_md": "A three-day Madrid hackathon for more than 300 builders, with a machine-learning track with free compute and a non-technical track for first-time builders. Cursor sponsored it. A live leaderboard in the hall tracked tokens, GitHub pushes, agent sessions, and pull requests per team, and passed 43 billion tokens during the event. The mafer.ai team took the overall prize of €5,000. [Video of the event](https://x.com/hackspain26/status/2102035919440150624/video/1).",
       "partners": [
         {
           "name": "HackSpain",
@@ -243,7 +246,7 @@
       "images": [
         {
           "static": "hackspain-01.jpg",
-          "alt": "Los_panaderos on stage with the HackSpain 2026 overall winner check for 5,000 euros"
+          "alt": "Team on stage at the HackSpain 2026 awards, next to the 5,000 euro overall winner check"
         },
         {
           "static": "hackspain-02.jpg",

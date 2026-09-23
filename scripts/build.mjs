@@ -260,7 +260,7 @@ function wrapGameShotGrids(html) {
   );
 }
 
-const GENERIC_LINK_TEXTS = new Set(["Details", "App Store", "GitHub", "Play", "Spotify", "Email me"]);
+const GENERIC_LINK_TEXTS = new Set(["Details", "App Store", "GitHub", "Play", "Spotify", "PyPI", "Site", "Research notes", "Event", "Email me"]);
 
 /** Give repeated link labels ("Details", "App Store", ...) an aria-label naming the row's subject. */
 function labelGenericLinks(html) {
@@ -283,6 +283,106 @@ function renderMarkdownBody(body) {
   return labelGenericLinks(wrapGameShotGrids(wrapAppShotGrids(unwrapFigures(marked.parse(body)))));
 }
 
+function loadProjects() {
+  return JSON.parse(readFileSync(join(root, "content", "projects.json"), "utf8"));
+}
+
+function projectHref(href, relPrefix) {
+  return isExternalHref(href) || href.startsWith("mailto:") ? href : `${relPrefix}${href}`;
+}
+
+function renderProjectLink({ label, href }, subject, relPrefix) {
+  const url = projectHref(href, relPrefix);
+  const external = isExternalHref(url) ? ` rel="noopener noreferrer" target="_blank"` : "";
+  const aria = GENERIC_LINK_TEXTS.has(label) ? ` aria-label="${escapeAttr(`${label}: ${subject}`)}"` : "";
+  return `<a class="md-link" href="${escapeAttr(url)}" title="${escapeAttr(url)}"${external}${aria}>${escapeHtml(label)}</a>`;
+}
+
+const LINK_SEP = ' <span class="md-muted" aria-hidden="true">·</span> ';
+
+function renderProjectLinks(item, relPrefix) {
+  return (item.links ?? []).map((l) => renderProjectLink(l, item.name, relPrefix)).join(LINK_SEP);
+}
+
+/** Home page: one line per featured project, in the same shape as the Experience rows. */
+function renderFeaturedProjects(relPrefix) {
+  const items = loadProjects()
+    .groups.flatMap((group) => group.items)
+    .filter((item) => item.featured)
+    .map((item) => {
+      const icon = item.icon
+        ? `<img class="md-logo" src="${escapeAttr(relPrefix + item.icon)}" alt="" loading="lazy" width="20" height="20" />`
+        : "";
+      const name = renderProjectLink({ label: item.name, href: item.href }, item.name, relPrefix);
+      return `<li class="md-li">${icon}${name}. ${escapeHtml(item.tagline)}. ${renderProjectLinks(item, relPrefix)}</li>`;
+    })
+    .join("\n");
+  const all = renderProjectLink({ label: "All projects, experiments, and university work", href: "projects/" }, "", relPrefix);
+  return `<ul class="md-list md-list--unordered">\n${items}\n</ul>\n<p class="md-p">${all}</p>\n`;
+}
+
+function renderTreeLabel(item) {
+  return `<span class="tree__name">${escapeHtml(item.slug)}</span><span class="tree__tagline">${escapeHtml(item.tagline)}</span>`;
+}
+
+function renderTreeItem(item, relPrefix) {
+  const meta = [item.status && `[${item.status}]`, item.year, ...(item.stack ?? [])]
+    .filter(Boolean)
+    .map((s) => escapeHtml(s))
+    .join(LINK_SEP);
+  const links = renderProjectLinks(item, relPrefix);
+  const icon = item.icon
+    ? `<img class="md-logo" src="${escapeAttr(relPrefix + item.icon)}" alt="" loading="lazy" width="20" height="20" />`
+    : "";
+  return `<li class="tree__node"><details class="tree__item">
+<summary class="tree__summary">${renderTreeLabel(item)}</summary>
+<div class="tree__panel">
+<p class="tree__meta">${icon}<strong class="md-strong">${escapeHtml(item.name)}</strong>${meta ? `${LINK_SEP}${meta}` : ""}</p>
+<p class="tree__text">${marked.parseInline(item.summary_md)}</p>
+${links ? `<p class="tree__links">${links}</p>\n` : ""}</div>
+</details></li>`;
+}
+
+function renderTreeLink(item, relPrefix) {
+  const url = projectHref(item.href, relPrefix);
+  return `<li class="tree__node"><a class="tree__link" href="${escapeAttr(url)}" title="${escapeAttr(url)}" rel="noopener noreferrer" target="_blank">${renderTreeLabel(item)}</a></li>`;
+}
+
+/** /projects/: a `tree`-style listing. Folders and projects are <details>; links stay out of <summary>. */
+function renderProjectTree(relPrefix) {
+  const folders = loadProjects()
+    .groups.map((group) => {
+      const render = group.layout === "links" ? renderTreeLink : renderTreeItem;
+      const items = group.items.map((item) => render(item, relPrefix)).join("\n");
+      return `<li class="tree__node"><details class="tree__folder"${group.collapsed ? "" : " open"}>
+<summary class="tree__summary"><span class="tree__name tree__name--folder">${escapeHtml(group.name)}/</span><span class="tree__count">${group.items.length}</span></summary>
+<ul class="tree__list">
+${items}
+</ul>
+</details></li>`;
+    })
+    .join("\n");
+  return `<div class="tree">
+<p class="tree__root" aria-hidden="true">~/projects</p>
+<ul class="tree__list">
+${folders}
+</ul>
+</div>\n`;
+}
+
+const PROJECT_TOKENS = {
+  "{{PROJECTS_FEATURED}}": renderFeaturedProjects,
+  "{{PROJECTS_TREE}}": renderProjectTree,
+};
+
+function renderPageBody(body, relPrefix) {
+  let html = renderMarkdownBody(body);
+  for (const [token, render] of Object.entries(PROJECT_TOKENS)) {
+    html = html.replace(`<p class="md-p">${token}</p>`, () => render(relPrefix));
+  }
+  return html;
+}
+
 const EXPERIENCE_DIAGRAMS = {
   "{{AILY_GRAPH_RAG_DIAGRAM}}": "aily-graph-rag.html",
 };
@@ -297,12 +397,15 @@ function loadExperienceDiagram(filename) {
 }
 
 function renderExperienceBody(body) {
-  for (const [token, file] of Object.entries(EXPERIENCE_DIAGRAMS)) {
-    if (!body.includes(token)) continue;
-    const diagram = loadExperienceDiagram(file);
-    const parts = body.split(token);
-    body = parts.map((part) => renderMarkdownBody(part)).join(diagram);
-    return body;
+  const tokens = Object.keys(EXPERIENCE_DIAGRAMS).filter((token) => body.includes(token));
+  if (tokens.length) {
+    const tokenRe = new RegExp(`(${tokens.map((t) => t.replace(/[{}]/g, "\\$&")).join("|")})`);
+    return body
+      .split(tokenRe)
+      .map((part) =>
+        EXPERIENCE_DIAGRAMS[part] ? loadExperienceDiagram(EXPERIENCE_DIAGRAMS[part]) : renderMarkdownBody(part),
+      )
+      .join("");
   }
   return renderMarkdownBody(body);
 }
@@ -430,7 +533,8 @@ function renderCursorEventList(events, imgRelBase, { emptyMessage, ariaLabel } =
     `<section class="ev-wrap" aria-label="${escapeAttr(ariaLabel || "Events")}">\n` +
     '<ul class="ev-list">\n';
   for (const ev of events) {
-    html += `<li class="ev-list-item" id="${escapeAttr(ev.id)}">\n`;
+    const itemClass = ev.kind === "milestone" ? "ev-list-item ev-list-item--milestone" : "ev-list-item";
+    html += `<li class="${itemClass}" id="${escapeAttr(ev.id)}">\n`;
     html += `<span class="ev-list-date">${escapeHtml(ev.date)}</span>\n`;
     html += '<div class="ev-list-main">\n';
     if (ev.url) {
@@ -600,7 +704,15 @@ async function buildCursorExperiencePage(data) {
     emptyMessage: "No attended events listed yet.",
     ariaLabel: "Attended events",
   });
-  const tabsHtml = renderCursorTabs(organizedHtml, sponsoredHtml, attendedHtml, organized.length, sponsored.length, attended.length);
+  const eventCount = (list) => list.filter((ev) => ev.kind !== "milestone").length;
+  const tabsHtml = renderCursorTabs(
+    organizedHtml,
+    sponsoredHtml,
+    attendedHtml,
+    eventCount(organized),
+    eventCount(sponsored),
+    eventCount(attended),
+  );
   const bodyHtml = `${introHtml}\n${tabsHtml}`;
   const title = data.title || "SpaceXAI Ambassadors";
   const description = data.description || "";
@@ -817,7 +929,7 @@ function buildIndex() {
     "AI solutions architect in Madrid.";
   const ogImage = meta.og_image || DEFAULT_OG_IMAGE;
   const ogImageAbs = absOgImage(ogImage);
-  const bodyHtml = renderMarkdownBody(body);
+  const bodyHtml = renderPageBody(body, "./");
   const html = fillTemplate({
     title,
     description,
@@ -869,7 +981,7 @@ function buildProjectsPage() {
   const ogImage = meta.og_image || DEFAULT_OG_IMAGE;
   const ogImageAbs = absOgImage(ogImage);
   const canonicalUrl = `${SITE}/projects/`;
-  const bodyHtml = renderMarkdownBody(body);
+  const bodyHtml = renderPageBody(body, "../");
   const outDir = join(root, "projects");
   mkdirSync(outDir, { recursive: true });
   const html = fillTemplate({

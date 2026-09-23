@@ -1,0 +1,476 @@
+{
+  "groups": [
+    {
+      "name": "apps",
+      "collapsed": false,
+      "items": [
+        {
+          "name": "Encore",
+          "slug": "encore",
+          "tagline": "Concert diary for iPhone, over 2,700 accounts",
+          "href": "https://apps.apple.com/us/app/encore-concert-diary/id6748657647",
+          "icon": "assets/companies/encore.png",
+          "status": "shipped",
+          "stack": [
+            "iPhone",
+            "SwiftUI",
+            "Supabase",
+            "RevenueCat"
+          ],
+          "summary_md": "Letterboxd for concerts. Log the artist, venue, photos, and videos on the way home, then get stats, a venue passport, and a year-end recap. Over 15,000 concerts logged, in four languages.",
+          "links": [
+            {
+              "label": "App Store",
+              "href": "https://apps.apple.com/us/app/encore-concert-diary/id6748657647"
+            },
+            {
+              "label": "Site",
+              "href": "https://encorearchives.com"
+            },
+            {
+              "label": "Details",
+              "href": "experience/encore/"
+            }
+          ],
+          "year": "2025"
+        },
+        {
+          "name": "HabitDex",
+          "slug": "habitdex",
+          "tagline": "Pokémon-style habit tracker for iPhone",
+          "featured": true,
+          "href": "https://apps.apple.com/us/app/habitdex/id6755887620",
+          "icon": "assets/projects/habitdex.png",
+          "status": "shipped",
+          "stack": [
+            "iPhone",
+            "SwiftUI",
+            "CloudKit",
+            "RevenueCat"
+          ],
+          "summary_md": "Check-ins give your companion XP, and streaks unlock and evolve new creatures. Habit data stays on the device, with optional CloudKit sync. Designed by Miguel Ferrer ([LinkedIn](https://www.linkedin.com/in/mffdr/?locale=en)), built by me.",
+          "links": [
+            {
+              "label": "App Store",
+              "href": "https://apps.apple.com/us/app/habitdex/id6755887620"
+            },
+            {
+              "label": "Details",
+              "href": "experience/habitdex/"
+            }
+          ],
+          "year": "2025"
+        },
+        {
+          "name": "Audio Silence Remover",
+          "slug": "silence-remover",
+          "tagline": "Mac app that cuts dead air from voiceovers",
+          "featured": true,
+          "href": "https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12",
+          "icon": "assets/projects/audio-silence-remover.png",
+          "status": "shipped",
+          "stack": [
+            "macOS",
+            "Swift",
+            "SwiftUI",
+            "open source"
+          ],
+          "summary_md": "Set a decibel threshold and a minimum pause, and it removes or shortens every silence, then exports a new MP3. No account or analytics, and the App Store build shares one codebase with the GitHub repository.",
+          "links": [
+            {
+              "label": "App Store",
+              "href": "https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12"
+            },
+            {
+              "label": "GitHub",
+              "href": "https://github.com/felipebasurto/silence-remover"
+            },
+            {
+              "label": "Details",
+              "href": "experience/audio-silence-remover/"
+            }
+          ],
+          "year": "2026"
+        },
+        {
+          "name": "Musatro",
+          "slug": "musatro",
+          "tagline": "Browser roguelike built on the card game Mus",
+          "href": "https://musatro.felipebasurto.com/",
+          "icon": "assets/projects/musatro.png",
+          "status": "unfinished",
+          "stack": [
+            "Browser",
+            "TypeScript",
+            "Vitest",
+            "Cloudflare Pages"
+          ],
+          "summary_md": "The four Mus lances with a run structure borrowed from Balatro: eight antes, 21 items, and 10 bosses. Strict TypeScript with no framework, and Vitest covers scoring and item order.",
+          "links": [
+            {
+              "label": "Play",
+              "href": "https://musatro.felipebasurto.com/"
+            },
+            {
+              "label": "GitHub",
+              "href": "https://github.com/felipebasurto/musatro"
+            },
+            {
+              "label": "Details",
+              "href": "experience/musatro/"
+            }
+          ],
+          "year": "2026"
+        }
+      ]
+    },
+    {
+      "name": "tools",
+      "collapsed": false,
+      "items": [
+        {
+          "name": "Viajante",
+          "slug": "viajante",
+          "tagline": "Flight and hotel search for the terminal and AI agents",
+          "featured": true,
+          "href": "https://github.com/felipebasurto/viajante",
+          "status": "PyPI + npm",
+          "stack": [
+            "Python",
+            "CLI",
+            "MCP server",
+            "10 tools"
+          ],
+          "summary_md": "Searches Google Flights, Google Hotels, and Booking.com from your own machine, with no API keys. Beyond plain search it finds the cheapest dates, explores destinations from an origin, checks Skiplagged hidden-city fares, and compares award points across transfer partners. Install from PyPI or npm, or run it with `uvx`.",
+          "links": [
+            {
+              "label": "GitHub",
+              "href": "https://github.com/felipebasurto/viajante"
+            },
+            {
+              "label": "PyPI",
+              "href": "https://pypi.org/project/viajante/"
+            }
+          ],
+          "icon": "assets/projects/viajante.jpg",
+          "year": "2026"
+        },
+        {
+          "name": "FreshCtx",
+          "slug": "freshctx",
+          "tagline": "Keeps a coding agent's view of the code current",
+          "featured": true,
+          "href": "https://github.com/felipebasurto/freshctx",
+          "status": "research",
+          "stack": [
+            "Node.js",
+            "coding agents",
+            "6 language parsers"
+          ],
+          "summary_md": "Before each model request, it swaps old file reads in the conversation for the current code, within a token budget. The saved conversation stays intact, and the measurements live in a separate research repo.",
+          "links": [
+            {
+              "label": "GitHub",
+              "href": "https://github.com/felipebasurto/freshctx"
+            },
+            {
+              "label": "Research notes",
+              "href": "https://github.com/felipebasurto/freshctx-research"
+            }
+          ],
+          "icon": "assets/projects/freshctx.jpg",
+          "year": "2026"
+        },
+        {
+          "name": "Cue",
+          "slug": "cue",
+          "tagline": "On-device meeting recorder for the Mac",
+          "stack": [
+            "macOS",
+            "Electron",
+            "React",
+            "Swift",
+            "on-device transcription"
+          ],
+          "summary_md": "Records the microphone and system audio together and transcribes on the device through a native Swift helper built on transcribe.cpp.",
+          "year": "2026"
+        },
+        {
+          "name": "Plugin Factory",
+          "slug": "plugin-factory",
+          "tagline": "Turns client information into a Claude plugin",
+          "href": "https://github.com/felipebasurto/plugin-factory",
+          "stack": [
+            "Claude Code",
+            "Cursor",
+            "agent skills"
+          ],
+          "summary_md": "Drop in any client information and get a ready-to-install Claude plugin in your workspace. It installs from its own marketplace in Claude Code and also loads in Cursor.",
+          "links": [
+            {
+              "label": "GitHub",
+              "href": "https://github.com/felipebasurto/plugin-factory"
+            }
+          ],
+          "year": "2026"
+        }
+      ]
+    },
+    {
+      "name": "experiments",
+      "collapsed": true,
+      "items": [
+        {
+          "name": "Underscore",
+          "slug": "underscore",
+          "tagline": "Original music scored to your video edit",
+          "status": "design demo",
+          "stack": [
+            "Next.js",
+            "Gemini",
+            "ElevenLabs",
+            "ffmpeg"
+          ],
+          "summary_md": "Mark in and out inside the video editor, press generate, and get an original track that lasts exactly that long and changes where the video changes.",
+          "year": "2026"
+        },
+        {
+          "name": "Roamly",
+          "slug": "roamly",
+          "tagline": "Voice travel buddy for iPhone",
+          "status": "2nd place",
+          "stack": [
+            "iPhone",
+            "SwiftUI",
+            "ElevenLabs Agents"
+          ],
+          "summary_md": "Talk to a travel buddy by voice, built on ElevenLabs Agents. Built in 2.5 hours at the ElevenLabs x Enzo Ventures Build Night in Madrid, in a team of three formed on the night, and placed second.",
+          "year": "2026",
+          "links": [
+            {
+              "label": "Event",
+              "href": "https://luma.com/6mabnyq2"
+            }
+          ]
+        },
+        {
+          "name": "Automatic Farms",
+          "slug": "automatic-farms",
+          "tagline": "Minecraft mod that builds survival farms",
+          "stack": [
+            "Java",
+            "Fabric",
+            "Minecraft 1.21.1",
+            "10 blueprints"
+          ],
+          "summary_md": "Place a controller, pick a blueprint, load the materials, and it builds the farm block by block. Blueprints include a mob drop tower, an iron golem farm, a creeper gunpowder chamber, and a Nether gold farm.",
+          "year": "2026"
+        }
+      ]
+    },
+    {
+      "name": "music",
+      "collapsed": false,
+      "items": [
+        {
+          "name": "Triple Check",
+          "slug": "triple-check",
+          "tagline": "Spanish pop-rock band, 1.7M Spotify streams",
+          "featured": true,
+          "href": "https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR",
+          "icon": "assets/projects/triple-check.jpg",
+          "status": "1.7M streams",
+          "stack": [
+            "Spanish pop-rock",
+            "EP and singles",
+            "independent"
+          ],
+          "summary_md": "Three school friends from Burgos: me, Miguel Ferrer, and Diego Garrido. I handle production, mixing, and lyrics. No label, and several tracks have over 100,000 streams each.",
+          "links": [
+            {
+              "label": "Spotify",
+              "href": "https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR"
+            },
+            {
+              "label": "Details",
+              "href": "triplecheck/"
+            }
+          ],
+          "year": "2020"
+        }
+      ]
+    },
+    {
+      "name": "archive",
+      "collapsed": true,
+      "items": [
+        {
+          "name": "Ultramar AI",
+          "slug": "ultramar",
+          "tagline": "Offline travel assistant on local models",
+          "href": "https://github.com/felipebasurto/ultramar",
+          "year": "2026",
+          "stack": [
+            "SwiftUI",
+            "Qwen",
+            "Gemma",
+            "Apple Intelligence"
+          ],
+          "summary_md": "Chat, translation, and photo questions run on local Qwen and Gemma models, with Apple Intelligence as a fallback, so it works on a plane or while roaming."
+        },
+        {
+          "name": "SimpleIndieBudget",
+          "slug": "simpleindiebudget",
+          "tagline": "Budget tracker for indie app makers",
+          "year": "2025",
+          "stack": [
+            "React",
+            "TypeScript"
+          ],
+          "summary_md": "Tracks subscriptions, recurring costs, and revenue estimates for indie app makers, with CSV import."
+        },
+        {
+          "name": "ViralSlide",
+          "slug": "viralslide",
+          "tagline": "TikTok slideshow generator with AI hooks",
+          "href": "https://viralslide.lovable.app/",
+          "year": "2025",
+          "stack": [
+            "React",
+            "DeepSeek"
+          ],
+          "summary_md": "AI-written hooks and reusable slideshow formats, in English and Spanish. Built in two afternoons."
+        },
+        {
+          "name": "FancyDocuments",
+          "slug": "fancydocuments",
+          "tagline": "Turns plain text into designed documents",
+          "year": "2025",
+          "stack": [
+            "React",
+            "Supabase",
+            "Stripe"
+          ],
+          "summary_md": "Upload plain text, Word, or Markdown and get a designed document, with a live preview and credit-based pricing."
+        },
+        {
+          "name": "Katarite",
+          "slug": "katarite",
+          "tagline": "Illustrated AI bedtime stories for children",
+          "year": "2025",
+          "stack": [
+            "React",
+            "Supabase",
+            "Gemini",
+            "Stripe"
+          ],
+          "summary_md": "Personalized stories with generated images, accounts, and a subscription."
+        },
+        {
+          "name": "IdeasHub",
+          "slug": "ideashub",
+          "tagline": "Project docs workspace with AI drafting",
+          "year": "2025",
+          "stack": [
+            "React",
+            "TipTap",
+            "Supabase",
+            "DeepSeek"
+          ],
+          "summary_md": "Structured docs for software, hardware, and service projects, with a Markdown editor and AI-drafted sections."
+        },
+        {
+          "name": "Kalki",
+          "slug": "kalki",
+          "tagline": "Calorie and weight tracker for iPhone",
+          "year": "2025",
+          "stack": [
+            "SwiftUI",
+            "Core Data"
+          ],
+          "summary_md": "Food logging, weight charts, BMR and TDEE goals, and achievements."
+        },
+        {
+          "name": "ChatHerencias",
+          "slug": "chatherencias",
+          "tagline": "AI assistant for Spanish inheritance law",
+          "year": "2025",
+          "stack": [
+            "Next.js",
+            "Prisma",
+            "PostgreSQL",
+            "Stripe"
+          ],
+          "summary_md": "One free consultation, then paid credits through Stripe."
+        }
+      ]
+    },
+    {
+      "name": "university",
+      "collapsed": true,
+      "layout": "links",
+      "items": [
+        {
+          "name": "tfl-data-pipeline",
+          "slug": "tfl-data-pipeline",
+          "tagline": "Data pipeline on TfL data with NiFi, Hadoop, and Spark",
+          "href": "https://github.com/felipebasurto/data-pipeline-tfl-api"
+        },
+        {
+          "name": "titanic-analysis",
+          "slug": "titanic-analysis",
+          "tagline": "Titanic data analysis and missing-value imputation",
+          "href": "https://github.com/felipebasurto/titanic-dataset-analysis"
+        },
+        {
+          "name": "perceptron-with-svms",
+          "slug": "perceptron-with-svms",
+          "tagline": "Perceptron and SVM classifiers, in Spanish",
+          "href": "https://github.com/felipebasurto/perceptron-with-svms"
+        },
+        {
+          "name": "employee-attrition",
+          "slug": "employee-attrition",
+          "tagline": "Employee attrition prediction with iterative sampling",
+          "href": "https://github.com/felipebasurto/employee-attrition-predictor"
+        },
+        {
+          "name": "fifa-22-ml",
+          "slug": "fifa-22-ml",
+          "tagline": "Predicting FIFA Ultimate Team 22 ratings from stats",
+          "href": "https://github.com/felipebasurto/Machine-Learning-in-FIFA-Ultimate-Team-22"
+        },
+        {
+          "name": "rental-bikes-dashboard",
+          "slug": "rental-bikes-dashboard",
+          "tagline": "Bike rental ML dashboard with PyCaret and Streamlit",
+          "href": "https://github.com/felipebasurto/rental-bikes-interactive-machine-learning-dashboard"
+        },
+        {
+          "name": "tokyo-2021-eda",
+          "slug": "tokyo-2021-eda",
+          "tagline": "Tokyo 2020 Olympics EDA and Looker Studio dashboard",
+          "href": "https://github.com/felipebasurto/tokio2021-exploratory-data-analysis"
+        },
+        {
+          "name": "uber-madrid-dashboard",
+          "slug": "uber-madrid-dashboard",
+          "tagline": "Streamlit dashboard of Uber trips in Madrid",
+          "href": "https://github.com/felipebasurto/uber-interactive-data-dashboard"
+        },
+        {
+          "name": "matlab-video-processing",
+          "slug": "matlab-video-processing",
+          "tagline": "Video and image processing in MATLAB with CUDA",
+          "href": "https://github.com/felipebasurto/video-and-image-processing-with-MATLAB"
+        },
+        {
+          "name": "scikit-image-processing",
+          "slug": "scikit-image-processing",
+          "tagline": "Image editing with scikit-image",
+          "href": "https://github.com/felipebasurto/image-processing-with-scikit-image"
+        }
+      ]
+    }
+  ]
+}

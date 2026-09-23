@@ -9,6 +9,7 @@
   --text: #e4e4e7;
   --text-strong: #f4f4f5;
   --muted: #71717a;
+  --text-dim: #8f8f98; /* small secondary text; keeps AA contrast on --bg */
   --syntax: #52525b;
   --hairline: rgba(255, 255, 255, 0.06);
   --accent: #9bb4ff;
@@ -447,16 +448,170 @@ h3.md-heading {
   background: rgba(255, 255, 255, 0.04);
 }
 
-/* Projects section: bump app icons so the section feels like a small showcase
-   rather than a leftover bullet list. iOS-style rounded squares. */
-#projects + .md-list .md-logo {
-  width: 1.5em;
-  height: 1.5em;
-  vertical-align: -0.4em;
-  margin-right: 0.55em;
-  border-radius: 22%;
-  border: 1px solid var(--hairline);
-  background: rgba(255, 255, 255, 0.02);
+/* ---------- projects tree (rendered from content/projects.json) ----------
+   Reads like `tree` output. Connectors are borders, not box-drawing glyphs,
+   so they stay continuous at any line height. --tree-mid is the vertical
+   centre of the first text line (line-height 1.7 / 2). */
+
+.tree {
+  --tree-mid: 0.85em;
+  --tree-indent: 3.25ch;
+  --tree-name: 24ch;
+  margin: 1.5rem 0 2rem;
+}
+
+.tree__root {
+  margin: 0;
+  color: var(--text-dim);
+}
+
+.tree__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tree__node {
+  position: relative;
+  padding-left: var(--tree-indent);
+}
+
+.tree__node::before {
+  content: "";
+  position: absolute;
+  left: 0.5ch;
+  top: 0;
+  width: 2.25ch;
+  height: var(--tree-mid);
+  border-left: 1px solid var(--syntax);
+  border-bottom: 1px solid var(--syntax);
+}
+
+.tree__node:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 0.5ch;
+  top: var(--tree-mid);
+  bottom: 0;
+  border-left: 1px solid var(--syntax);
+}
+
+.tree__summary,
+.tree__link {
+  display: flex;
+  align-items: baseline;
+  gap: 0 1ch;
+  cursor: pointer;
+  list-style: none;
+  border-radius: 2px;
+}
+
+.tree__summary::-webkit-details-marker {
+  display: none;
+}
+
+.tree__summary::before,
+.tree__link::before {
+  flex: 0 0 1.5ch;
+  color: var(--syn-list);
+}
+
+.tree__summary::before {
+  content: "▸";
+}
+
+details[open] > .tree__summary::before {
+  content: "▾";
+}
+
+.tree__link::before {
+  content: "↗";
+  color: var(--syntax);
+}
+
+.tree__link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.tree__name {
+  flex: 0 0 var(--tree-name);
+  color: var(--syn-link);
+  font-weight: 500;
+}
+
+.tree__name--folder {
+  flex-basis: auto;
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.tree__tagline,
+.tree__count {
+  color: var(--text-dim);
+  min-width: 0;
+}
+
+.tree__count::before {
+  content: "(";
+}
+
+.tree__count::after {
+  content: ")";
+}
+
+.tree__summary:hover .tree__name,
+.tree__link:hover .tree__name,
+.tree__summary:focus-visible .tree__name,
+.tree__link:focus-visible .tree__name {
+  color: var(--accent-hover);
+}
+
+.tree__summary:focus-visible,
+.tree__link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.tree__panel {
+  margin: 0.2rem 0 0.9rem 2.5ch;
+  padding-left: 1ch;
+  border-left: 1px solid var(--hairline);
+  max-width: 78ch;
+}
+
+.tree__panel > p {
+  margin: 0.2rem 0;
+}
+
+.tree__meta {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.tree__links {
+  font-size: 0.92rem;
+}
+
+@media (max-width: 520px) {
+  .tree {
+    --tree-indent: 2.5ch;
+  }
+
+  .tree__summary,
+  .tree__link {
+    flex-wrap: wrap;
+  }
+
+  .tree__name {
+    flex-basis: auto;
+  }
+
+  .tree__tagline {
+    flex: 1 0 100%;
+    padding-left: 2.5ch;
+    font-size: 0.88rem;
+  }
 }
 
 .md-task {
@@ -823,6 +978,29 @@ a.ev-list-title:focus-visible {
   font-size: 0.88rem;
   color: var(--muted);
   line-height: 1.45;
+}
+
+/* Role changes and program milestones: orange marker and rule so they read as timeline points, not events. */
+.ev-list-item--milestone .ev-list-date {
+  color: var(--syn-heading);
+}
+
+.ev-list-item--milestone .ev-list-main {
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--syn-heading);
+}
+
+.ev-list-item--milestone .ev-list-title {
+  font-size: 0.9rem;
+  color: var(--syn-heading);
+}
+
+.ev-list-item--milestone .ev-list-title::before {
+  content: "◆ ";
+}
+
+.ev-list-item--milestone .ev-list-copy {
+  font-size: 0.82rem;
 }
 
 .ev-list-copy .md-p {
@@ -1339,14 +1517,69 @@ a.ev-shot:focus-visible {
   transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
-.lightbox__close:hover {
+.lightbox__close:hover,
+.lightbox__nav:hover {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.2);
 }
 
-.lightbox__close:focus-visible {
+.lightbox__close:focus-visible,
+.lightbox__nav:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+/* Prev/next sit over the backdrop edges; the image keeps clear of them via .lightbox padding. */
+.lightbox__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--hairline);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-strong);
+  font: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.lightbox__nav[hidden] {
+  display: none;
+}
+
+.lightbox__nav--prev {
+  left: 0.75rem;
+}
+
+.lightbox__nav--next {
+  right: 0.75rem;
+}
+
+.lightbox__count {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+@media (min-width: 640px) {
+  .lightbox {
+    padding: 2rem 4.5rem;
+  }
+
+  .lightbox__nav--prev {
+    left: 1rem;
+  }
+
+  .lightbox__nav--next {
+    right: 1rem;
+  }
 }
 
 /* ---------- (g) Optional light palette via prefers-color-scheme ---------- */
@@ -1388,12 +1621,14 @@ a.ev-shot:focus-visible {
     background: rgba(250, 250, 249, 0.94);
   }
 
-  .lightbox__close {
+  .lightbox__close,
+  .lightbox__nav {
     background: rgba(0, 0, 0, 0.05);
     color: var(--text-strong);
   }
 
-  .lightbox__close:hover {
+  .lightbox__close:hover,
+  .lightbox__nav:hover {
     background: rgba(0, 0, 0, 0.1);
   }
 }

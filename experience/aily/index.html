@@ -42,14 +42,16 @@
 <p class="md-p"><a class="md-link" href="../../" title="../../">← Back to CV</a></p>
 <h1 class="md-heading" id="aily-labs"><span class="md-hashes" aria-hidden="true">#</span> AILY LABS</h1>
 <p class="md-p"><img class="md-logo" src="../../assets/companies/aily.png" alt="AILY LABS" loading="lazy" width="20" height="20" /></p>
-<p class="md-p"><strong class="md-strong">Data Scientist, July 2023 to Nov 2025.</strong> I joined in Madrid straight after my master&#39;s and built production AI for a Fortune 500 pharmaceutical company: LLM agents, retrieval, NLP, and time-series forecasting. I started as Junior Data Scientist I and left as Mid Data Scientist.</p>
-<p class="md-p">The agents used LangChain for retrieval and tool calls, with a Langfuse trace for every run. When an answer looked wrong, we could see which documents the agent had retrieved, which tool it had called, and where a guardrail had stopped it.</p>
-<p class="md-p">I also owned Airflow and Docker pipelines on AWS. One internal ETL took about 90 minutes. After I restructured the logic and added the right indexes, it ran in 15 seconds.</p>
-<p class="md-p">I mentored interns through data preparation, modeling, evaluation, and deployment, and started a recurring knowledge-sharing session for the team.</p>
-<h2 class="md-heading" id="graph-rag-for-shop-floor-manuals"><span class="md-hashes" aria-hidden="true">##</span> Graph RAG for shop-floor manuals</h2>
-<p class="md-p">I built a Graph RAG service over factory equipment manuals. The ingest step ran OCR on scanned PDFs, then used unstructured.io to keep tables, figures, diagrams, page numbers, and section names.</p>
-<p class="md-p">Neo4j stored machines, components, faults, and procedures as a connected equipment model. LangChain retrieved from that model. The production API returned cited passages with the exact page and section, so other agents and applications could use the answer and still show where it came from.</p>
-<p class="md-p">The test for the service was simple. An operator enters a fault or alarm code and gets a likely procedure plus the manual location to check it against. A confident answer without a page reference counted as a failure.</p>
+<p class="md-p"><strong class="md-strong">Data Scientist, July 2023 to Nov 2025, Madrid.</strong> I joined straight after my master&#39;s and built production AI for a Fortune 500 pharmaceutical company: LLM agents, retrieval, NLP, and time-series forecasting. I started as Junior Data Scientist I and left as Mid Data Scientist.</p>
+<h2 class="md-heading" id="the-company"><span class="md-hashes" aria-hidden="true">##</span> The company</h2>
+<p class="md-p">AILY LABS builds a decision intelligence platform for large enterprises: AI agents that turn company data into recommendations for finance, supply chain, R&amp;D, and commercial teams. It was founded in 2020 by Bianca Anghelina.</p>
+<ul class="md-list md-list--unordered">
+<li class="md-li"><strong class="md-strong">Aug 2023.</strong> <a class="md-link" href="https://www.prnewswire.com/news-releases/aily-labs-raises-19m-in-series-a-round-led-by-insight-partners-301909352.html" title="https://www.prnewswire.com/news-releases/aily-labs-raises-19m-in-series-a-round-led-by-insight-partners-301909352.html" rel="noopener noreferrer" target="_blank">€19M Series A</a>, about $20M, led by Insight Partners. It was the company&#39;s first outside funding, a month after I joined.</li>
+<li class="md-li"><strong class="md-strong">Nov 2025.</strong> <a class="md-link" href="https://www.prnewswire.com/news-releases/aily-labs-raises-80-million-to-scale-ai-that-drives-performance-across-fortune-500-companies-302607864.html" title="https://www.prnewswire.com/news-releases/aily-labs-raises-80-million-to-scale-ai-that-drives-performance-across-fortune-500-companies-302607864.html" rel="noopener noreferrer" target="_blank">$80M Series B</a> led by FPV Ventures, with Insight Partners and J.P. Morgan. It was announced the month I left.</li>
+</ul>
+<h2 class="md-heading" id="shop-floor-agent"><span class="md-hashes" aria-hidden="true">##</span> Shop-floor agent</h2>
+<p class="md-p">I built a Graph RAG agent over factory equipment manuals. An operator enters a fault or alarm code and gets a likely procedure, plus the page and section of the manual to check it against. A confident answer without a page reference counted as a failure.</p>
+<p class="md-p">The ingest step ran OCR on scanned PDFs and kept tables, figures, page numbers, and section names. A graph database linked equipment, faults, and procedures, and a retrieval layer on top returned cited passages, so other agents and applications could use the answer and still show where it came from.</p>
 <figure class="aily-flow" data-aily-flow tabindex="0" aria-labelledby="aily-flow-title">
 <div class="aily-flow__head">
 <p class="aily-flow__title" id="aily-flow-title">Graph RAG pipeline</p>
@@ -65,7 +67,7 @@
 <li><button type="button" class="aily-flow__step" data-step="0" style="--step-color: #c4a574" aria-current="step"><span class="aily-flow__label">Factory manuals</span><span class="aily-flow__detail">PDF · OCR scans</span></button></li>
 <li><button type="button" class="aily-flow__step" data-step="1" style="--step-color: #6eb5c4"><span class="aily-flow__label">unstructured.io</span><span class="aily-flow__detail">tables · figures · pages</span></button></li>
 <li><button type="button" class="aily-flow__step" data-step="2" style="--step-color: #7eb896"><span class="aily-flow__label">Neo4j</span><span class="aily-flow__detail">equipment graph</span></button></li>
-<li><button type="button" class="aily-flow__step" data-step="3" style="--step-color: #e88a8a"><span class="aily-flow__label">Daily fault</span><span class="aily-flow__detail">what failed on the line</span></button></li>
+<li><button type="button" class="aily-flow__step" data-step="3" style="--step-color: #e88a8a"><span class="aily-flow__label">Fault code</span><span class="aily-flow__detail">the question</span></button></li>
 <li><button type="button" class="aily-flow__step" data-step="4" style="--step-color: #9bb4ff"><span class="aily-flow__label">LangChain</span><span class="aily-flow__detail">graph RAG + tools</span></button></li>
 <li><button type="button" class="aily-flow__step" data-step="5" style="--step-color: #c7d2fe"><span class="aily-flow__label">Cited answer</span><span class="aily-flow__detail">page · section · figure</span></button></li>
 </ol>
@@ -82,8 +84,8 @@
   var hints = [
     "Scanned factory equipment manuals, with OCR for diagram pages.",
     "unstructured.io preserves layout: tables, figures, and text blocks, each tagged with page and section coordinates.",
-    "Neo4j equipment graph links machines, components, fault codes, and repair procedures.",
-    "Each day the line reports the machine, alarm, and shift for a failure.",
+    "A Neo4j graph links equipment, components, faults, and procedures.",
+    "An operator enters a fault or alarm code.",
     "LangChain graph RAG retrieves the relevant subgraph and tool results for that fault.",
     "Production API returns a cited answer: exact page, section, and figure reference for the operator."
   ];
@@ -269,6 +271,14 @@
   setStep(0);
 })();
 </script>
+<h2 class="md-heading" id="nlp-before-genai"><span class="md-hashes" aria-hidden="true">##</span> NLP before GenAI</h2>
+<p class="md-p">Before generative AI was practical in production, I worked on text classification for quality assurance on factory machines. We compared CatBoost with XGBoost, LightGBM, and deep neural networks. CatBoost won: it trained on GPU, it was the fastest to train, and it gave the best results.</p>
+<h2 class="md-heading" id="agents-in-production"><span class="md-hashes" aria-hidden="true">##</span> Agents in production</h2>
+<p class="md-p">The agents used LangChain for retrieval and tool calls, with a Langfuse trace for every run. When an answer looked wrong, we could see which documents the agent had retrieved, which tool it had called, and where a guardrail had stopped it.</p>
+<h2 class="md-heading" id="data-pipelines"><span class="md-hashes" aria-hidden="true">##</span> Data pipelines</h2>
+<p class="md-p">I owned Airflow and Docker pipelines on AWS. One internal ETL took about 90 minutes. After I restructured the logic and added the right indexes, it ran in 15 seconds.</p>
+<h2 class="md-heading" id="team"><span class="md-hashes" aria-hidden="true">##</span> Team</h2>
+<p class="md-p">I mentored interns through data preparation, modeling, evaluation, and deployment, and started a recurring knowledge-sharing session for the team.</p>
 
       </article>
     </main>
@@ -280,7 +290,10 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"AILY LABS | Felipe Basurto","url":"https://felipebasurto.com/experience/aily/","description":"Data Scientist at AILY LABS from July 2023 to Nov 2025.","isPartOf":{"@type":"WebSite","name":"Felipe Basurto","url":"https://felipebasurto.com"}}</script>
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
     <button class="lightbox__close" type="button" aria-label="Close (Esc)">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous photo (Left arrow)">←</button>
     <img class="lightbox__img" alt="" />
+    <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next photo (Right arrow)">→</button>
+    <span class="lightbox__count" aria-live="polite"></span>
   </div>
   <script>
     (function () {
@@ -289,11 +302,28 @@
       var box = document.getElementById("lightbox");
       var img = box.querySelector(".lightbox__img");
       var closeBtn = box.querySelector(".lightbox__close");
+      var prevBtn = box.querySelector(".lightbox__nav--prev");
+      var nextBtn = box.querySelector(".lightbox__nav--next");
+      var count = box.querySelector(".lightbox__count");
+      var group = [];
+      var index = 0;
       var lastFocus = null;
-      function open(href, alt) {
+      function show(i) {
+        index = (i + group.length) % group.length;
+        var a = group[index];
+        var im = a.querySelector("img");
+        img.src = a.getAttribute("href");
+        img.alt = im ? im.alt : "";
+        count.textContent = group.length > 1 ? index + 1 + " / " + group.length : "";
+      }
+      function open(a) {
         lastFocus = document.activeElement;
-        img.src = href;
-        img.alt = alt || "";
+        var gallery = a.closest(".ev-list-photos");
+        group = gallery ? Array.prototype.slice.call(gallery.querySelectorAll("a.ev-shot")) : [a];
+        var multi = group.length > 1;
+        prevBtn.hidden = !multi;
+        nextBtn.hidden = !multi;
+        show(group.indexOf(a));
         box.hidden = false;
         document.body.style.overflow = "hidden";
         closeBtn.focus();
@@ -307,16 +337,20 @@
       shots.forEach(function (a) {
         a.addEventListener("click", function (e) {
           e.preventDefault();
-          var im = a.querySelector("img");
-          open(a.getAttribute("href"), im ? im.alt : "");
+          open(a);
         });
       });
       box.addEventListener("click", function (e) {
         if (e.target === box || e.target === img) close();
       });
       closeBtn.addEventListener("click", close);
+      prevBtn.addEventListener("click", function () { show(index - 1); });
+      nextBtn.addEventListener("click", function () { show(index + 1); });
       document.addEventListener("keydown", function (e) {
-        if (!box.hidden && e.key === "Escape") close();
+        if (box.hidden) return;
+        if (e.key === "Escape") close();
+        else if (e.key === "ArrowLeft" && group.length > 1) { e.preventDefault(); show(index - 1); }
+        else if (e.key === "ArrowRight" && group.length > 1) { e.preventDefault(); show(index + 1); }
       });
     })();
   </script>

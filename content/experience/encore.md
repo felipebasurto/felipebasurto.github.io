@@ -10,9 +10,16 @@ og_image: "/assets/companies/encore.png"
 
 ![Encore](../../assets/companies/encore.png)
 
-Encore is an independent iPhone app that I have built and run since May 2025. I use Cursor as the editor.
+Encore is Letterboxd for concerts: a diary for the shows you were actually at. I have built and run it since May 2025. It is bootstrapped, with no paid ads.
 
-The useful moment is the ride home after a show. You can log the artist, venue, date, photos, and videos while the details are still fresh. Encore turns those entries into a concert history instead of another camera roll folder.
+The useful moment is the ride home after a show. You log the artist, venue, date, photos, and videos while the details are still fresh, and Encore turns them into a concert history instead of another camera roll folder.
+
+## In numbers
+
+- Over 2,700 accounts and over 15,000 concerts logged.
+- About 590 people open the app in a typical month, and they log around 1,100 concerts.
+- Available in English, Spanish, German, and French.
+- About 420 marketing videos published, with close to 200,000 views.
 
 ## The product
 
@@ -21,15 +28,19 @@ The useful moment is the ride home after a show. You can log the artist, venue, 
 - Upcoming dates and a year-end recap built from your entries.
 - Friends, shared memories, photos, and video attached to each show.
 
-## Building and running it
+It is written in Swift and SwiftUI, with Supabase for accounts and sync and RevenueCat for the Premium subscription. I handle crash triage, App Store reviews, and every release.
 
-The app is written in Swift and SwiftUI. I own navigation, persistence, analytics, crash triage, App Store reviews, and each release.
+## Marketing run by an agent
 
-Revenue from paying users has passed €4,000. It is a small number, but it changed how I work. Every crash report and every confusing first screen now belongs to someone who paid for the app.
+All growth comes from short-form video on TikTok and YouTube. I use [Fastlane](https://usefastlane.ai) to generate and schedule the videos across a set of concert-themed accounts.
 
-## Distribution
+A Grok Bot agent is connected to Fastlane's MCP server. Every day it pulls each post's views, ranks what worked, schedules close variations of the winners, and rewrites the captions. Every weekday morning it sends me a recap. I still check any new kind of AI video before it goes out.
 
-I have not used an ad budget. Installs come from short videos on TikTok, Instagram, YouTube, and Facebook. The posts that work show the app inside a real concert memory, not a feature tour.
+What the views taught me:
+
+- The hooks that travel are about how people behave at concerts. "Phone up the whole set means you weren't really there" and "unspoken rules of concerts" each passed 3,500 views. The best single video reached 18,000.
+- Slideshows and green-screen clips with a real person average about three times the views of AI talking heads, so I stopped making talking heads.
+- A soft, casual caption beats a sales pitch. Links in captions cost views.
 
 ## Links
 

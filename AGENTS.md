@@ -11,7 +11,7 @@
 - Use the X (Twitter) handle @fildotai in site links.
 - On Projects, differentiate major shipped work from minor coursework and repositories (for example with progressive disclosure), rather than one undifferentiated list.
 - Felipe is deciding between a full-time role (AI Solutions Architect, Solutions Engineer, Forward Deployed Engineer) and starting his own AI company. Keep positioning neutral: "Open to full-time roles and project work." Do not frame the site as a job hunt or as an agency.
-- Public client facts that are approved for the site: AILY LABS work was for a Fortune 500 pharmaceutical company; Multiverse work included AWS, NVIDIA, and Dell, and an on-premises GPU deployment for a defense-sector customer. Encore has passed €4,000 in revenue.
+- Public client facts that are approved for the site: AILY LABS work was for a Fortune 500 pharmaceutical company; Multiverse work included AWS, NVIDIA, and Dell, and an on-premises GPU deployment for a defense-sector customer. Do not publish Encore revenue, MRR, or subscriber counts. Use accounts (over 2,700) and concerts logged (over 15,000). Do not name the marketing accounts or say how many there are.
 - When crediting collaborators, include explicit visible link text such as "LinkedIn" because link destinations are not obvious in the markdown-styled UI.
 
 ## Learned Workspace Facts
