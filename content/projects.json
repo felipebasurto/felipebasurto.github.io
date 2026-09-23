@@ -98,7 +98,7 @@
           "tagline": "Browser roguelike built on the card game Mus",
           "href": "https://musatro.felipebasurto.com/",
           "icon": "assets/projects/musatro.png",
-          "status": "unfinished",
+          "status": "shipped",
           "stack": [
             "Browser",
             "TypeScript",
@@ -134,12 +134,13 @@
           "tagline": "Flight and hotel search for the terminal and AI agents",
           "featured": true,
           "href": "https://github.com/felipebasurto/viajante",
-          "status": "PyPI + npm",
+          "status": "shipped, active",
           "stack": [
             "Python",
             "CLI",
             "MCP server",
-            "10 tools"
+            "10 tools",
+            "PyPI + npm"
           ],
           "summary_md": "Searches Google Flights, Google Hotels, and Booking.com from your own machine, with no API keys. Beyond plain search it finds the cheapest dates, explores destinations from an origin, checks Skiplagged hidden-city fares, and compares award points across transfer partners. Install from PyPI or npm, or run it with `uvx`.",
           "links": [
@@ -161,7 +162,7 @@
           "tagline": "Keeps a coding agent's view of the code current",
           "featured": true,
           "href": "https://github.com/felipebasurto/freshctx",
-          "status": "research",
+          "status": "shipped, active",
           "stack": [
             "Node.js",
             "coding agents",

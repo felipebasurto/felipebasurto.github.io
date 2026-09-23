@@ -20,7 +20,7 @@ One line per item. Each Details page has the full story.
 - [Encore](../experience/encore/). An independent iPhone concert diary, live since May 2025, with over 2,700 accounts and 15,000 concerts logged. Grows through short-form video that a Grok Bot agent runs through Fastlane, with no paid ads.
 - [HabitDex](../experience/habitdex/). A Pokémon-style habit tracker for iPhone, with on-device data, optional CloudKit sync, and a PRO subscription.
 - [Audio Silence Remover](../experience/audio-silence-remover/). A free, open-source Mac app that removes dead air from spoken audio without leaving the Mac.
-- [Musatro](../experience/musatro/). An unfinished browser roguelike built on Mus, in strict TypeScript, with Vitest tests for the scoring.
+- [Musatro](../experience/musatro/). A browser roguelike built on Mus, in strict TypeScript, with Vitest tests for the scoring.
 
 ## Community and music
 

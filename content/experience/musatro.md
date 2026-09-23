@@ -10,9 +10,9 @@ og_image: "/assets/experience/musatro/icon.png"
 
 ![Musatro icon](../../assets/experience/musatro/icon.png)
 
-Musatro is an unfinished browser roguelike built around the four Mus lances of Grande, Chica, Pares, and Juego. It uses a Spanish deck, but the run structure borrows more from Balatro than from a rules-faithful Mus simulator.
+Musatro is a browser roguelike built around the four Mus lances of Grande, Chica, Pares, and Juego. It uses a Spanish deck, but the run structure borrows more from Balatro than from a rules-faithful Mus simulator.
 
-A full run is playable in the browser. I stopped mid-build. The `dorada` and `holográfica` card editions exist in the type system but do not affect scoring yet.
+A full run is playable in the browser, from the first table to the Ante 8 boss.
 
 ## What is playable
 
