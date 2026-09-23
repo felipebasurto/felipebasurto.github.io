@@ -25,7 +25,7 @@ The useful moment is the ride home after a show. You can log the artist, venue, 
 
 The app is written in Swift and SwiftUI. I own navigation, persistence, analytics, crash triage, App Store reviews, and each release.
 
-Revenue from paying users has passed $2,000. That number is modest, but it changed how I work. A crash report or a confusing first screen now has a customer on the other side, not a hypothetical user.
+Revenue from paying users has passed €4,000. It is a small number, but it changed how I work. Every crash report and every confusing first screen now belongs to someone who paid for the app.
 
 ## Distribution
 

@@ -14,6 +14,8 @@ I completed the **Master's in Business Analytics and Big Data** from 2022 to 202
 
 The best assignments put a model under a real deadline and made the team explain the decision alongside the score. My teams placed first in the IE, NTT DATA, and o9 Sustainability Datathon and in the IE Impact Project. The Impact Project was a news recommender built with Microsoft.
 
+Outside class I coordinated events for the IE Coding Club and helped run the IE Big Data and AI Club. My classmates voted me "The Class Techie".
+
 ## FITIZENS internship
 
 ![FITIZENS](../../assets/companies/fitizens.png)

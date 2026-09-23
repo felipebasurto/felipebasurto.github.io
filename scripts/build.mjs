@@ -6,6 +6,7 @@ import { marked } from "marked";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 const SITE = "https://felipebasurto.com";
+const DEFAULT_OG_IMAGE = "/assets/og.png";
 
 export const LANDING_PAGES = [
   {
@@ -259,8 +260,27 @@ function wrapGameShotGrids(html) {
   );
 }
 
+const GENERIC_LINK_TEXTS = new Set(["Details", "App Store", "GitHub", "Play", "Spotify", "Email me"]);
+
+/** Give repeated link labels ("Details", "App Store", ...) an aria-label naming the row's subject. */
+function labelGenericLinks(html) {
+  return html.replace(/<(li|p) class="md-(?:li|p)">[\s\S]*?<\/\1>/g, (block) => {
+    const links = [...block.matchAll(/<a class="md-link"[^>]*>([\s\S]*?)<\/a>/g)];
+    if (!links.some((m) => GENERIC_LINK_TEXTS.has(stripTags(m[1])))) return block;
+    const subjectLink = links.find((m) => !GENERIC_LINK_TEXTS.has(stripTags(m[1])));
+    const strong = block.match(/<strong class="md-strong">([\s\S]*?)<\/strong>/);
+    const subject = stripTags(subjectLink?.[1] ?? strong?.[1] ?? "").replace(/[.:]+$/, "");
+    if (!subject) return block;
+    return block.replace(/<a class="md-link"([^>]*)>([\s\S]*?)<\/a>/g, (link, attrs, text) => {
+      const label = stripTags(text);
+      if (!GENERIC_LINK_TEXTS.has(label)) return link;
+      return `<a class="md-link"${attrs} aria-label="${escapeAttr(`${label}: ${subject}`)}">${text}</a>`;
+    });
+  });
+}
+
 function renderMarkdownBody(body) {
-  return wrapGameShotGrids(wrapAppShotGrids(unwrapFigures(marked.parse(body))));
+  return labelGenericLinks(wrapGameShotGrids(wrapAppShotGrids(unwrapFigures(marked.parse(body)))));
 }
 
 const EXPERIENCE_DIAGRAMS = {
@@ -615,7 +635,7 @@ function buildJsonLd(description) {
     "@type": "Person",
     "@id": personId,
     name: "Felipe Basurto",
-    jobTitle: "Independent AI solutions architect",
+    jobTitle: "AI solutions architect",
     description,
     image: `${SITE}/assets/profile.png`,
     url: SITE,
@@ -637,6 +657,9 @@ function buildJsonLd(description) {
       "internal tools",
       "systems integration",
       "model deployment",
+      "retrieval-augmented generation",
+      "LLM compression",
+      "iOS development",
       "Madrid",
       "Spain",
     ],
@@ -762,7 +785,7 @@ function buildLandingPages() {
     const { meta, body } = parseFrontmatter(raw);
     const title = meta.title || page.slug;
     const description = meta.description || "";
-    const ogImage = meta.og_image || "/assets/profile.png";
+    const ogImage = meta.og_image || DEFAULT_OG_IMAGE;
     const canonicalUrl = `${SITE}/${page.slug}/`;
     const outDir = join(root, page.slug);
     mkdirSync(outDir, { recursive: true });
@@ -791,8 +814,8 @@ function buildIndex() {
   const title = meta.title || "Felipe Basurto";
   const description =
     meta.description ||
-    "AI solutions architect and data scientist based in Madrid.";
-  const ogImage = meta.og_image || "/assets/profile.png";
+    "AI solutions architect in Madrid.";
+  const ogImage = meta.og_image || DEFAULT_OG_IMAGE;
   const ogImageAbs = absOgImage(ogImage);
   const bodyHtml = renderMarkdownBody(body);
   const html = fillTemplate({
@@ -824,7 +847,7 @@ No page at this path.
   const html = fillTemplate({
     title,
     description,
-    ogImageAbs: absOgImage("/assets/profile.png"),
+    ogImageAbs: absOgImage(DEFAULT_OG_IMAGE),
     canonicalUrl,
     ogUrl: canonicalUrl,
     relPrefix: "/",
@@ -843,7 +866,7 @@ function buildProjectsPage() {
   const { meta, body } = parseFrontmatter(raw);
   const title = meta.title || "Projects · Felipe Basurto";
   const description = meta.description || "Shipped apps and GitHub projects.";
-  const ogImage = meta.og_image || "/assets/profile.png";
+  const ogImage = meta.og_image || DEFAULT_OG_IMAGE;
   const ogImageAbs = absOgImage(ogImage);
   const canonicalUrl = `${SITE}/projects/`;
   const bodyHtml = renderMarkdownBody(body);
@@ -928,7 +951,7 @@ async function buildExperiencePages() {
     const { meta, body } = parseFrontmatter(raw);
     const title = meta.title || slug;
     const description = meta.description || "";
-    const ogImage = meta.og_image || "/assets/profile.png";
+    const ogImage = meta.og_image || DEFAULT_OG_IMAGE;
     const ogImageAbs = absOgImage(ogImage);
     const path = `/experience/${slug}/`;
     const canonicalUrl = `${SITE}${path}`;

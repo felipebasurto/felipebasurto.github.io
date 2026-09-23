@@ -1,14 +1,12 @@
 ---
 title: "Projects | Felipe Basurto"
 description: "Apps, music, and selected software projects."
-og_image: "/assets/profile.png"
+og_image: "/assets/og.png"
 ---
 
 [← Back to CV](../)
 
 # Projects
-
-Shipped work comes first. Coursework and older repositories stay folded until you need them.
 
 ## Shipped products
 

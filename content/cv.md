@@ -1,19 +1,17 @@
 ---
 title: "Felipe Basurto · Madrid"
-description: "Independent AI solutions architect and enterprise AI consultant in Madrid. Agents, internal tools, integrations, and deployment."
-og_image: "/assets/profile.png"
+description: "AI solutions architect in Madrid. Production AI agents, retrieval, technical pre-sales, and iPhone apps."
+og_image: "/assets/og.png"
 ---
 
 # Felipe Basurto
 
 ![Profile photo](./assets/profile.png)
 
-AI solutions architect and data scientist based in Madrid. I work directly with teams on enterprise AI systems that need to fit existing business processes and hold up beyond the demo. Current product and community work includes [Encore](./experience/encore/) and [SpaceXAI Ambassadors](./experience/cursor/).
+AI solutions architect in Madrid. At AILY LABS I built production LLM agents and retrieval for a Fortune 500 pharmaceutical company. At Multiverse Computing I ran technical pre-sales for an LLM compression product. I also ship my own iPhone apps and lead the SpaceXAI Ambassadors community in Europe.
 
 ```
-I help teams scope and ship AI systems that fit existing business processes.
-Agents, internal tools, integrations, and deployment.
-If AI is on your roadmap, email me.
+Open to full-time roles and project work.
 hello@felipebasurto.com
 ```
 
@@ -21,38 +19,40 @@ hello@felipebasurto.com
 
 ### Current work
 
-- **Enterprise AI systems for teams.** Agents, internal tools, integrations, and deployment. [Details](./ai-consulting/) · [Email me](mailto:hello@felipebasurto.com)
-- ![SpaceXAI](./assets/companies/spacexai.png)[SpaceXAI Ambassadors](https://linkedin.com/company/spacexai-community). [Details](./experience/cursor/)
-- ![Encore Concert Diary](./assets/companies/encore.png)[Encore: Concert Diary](https://encorearchives.com). [App Store](https://apps.apple.com/us/app/encore-concert-diary/id6748657647) · [Details](./experience/encore/)
+- ![SpaceXAI](./assets/companies/spacexai.png)**SpaceXAI Europe Regional Lead & Madrid Ambassador** at [SpaceXAI Ambassadors](https://linkedin.com/company/spacexai-community). Hackathons, meetups, and all-day cafés in Madrid, Mallorca, and A Coruña. [Details](./experience/cursor/)
+- ![Encore Concert Diary](./assets/companies/encore.png)**Founder** of [Encore: Concert Diary](https://encorearchives.com). An iPhone app with over €4,000 in revenue and no ad budget. [App Store](https://apps.apple.com/us/app/encore-concert-diary/id6748657647) · [Details](./experience/encore/)
+- **Independent AI projects.** Agents, retrieval, and internal tools for teams. [Details](./ai-consulting/) · [Email me](mailto:hello@felipebasurto.com)
 
 ### Previous roles
 
 #### Nov 2025 to July 2026
 
-![Multiverse Computing](./assets/companies/multiverse.png)**Solutions Architect** at [Multiverse Computing](https://multiversecomputing.com/), Madrid. [Details](./experience/multiverse/)
+![Multiverse Computing](./assets/companies/multiverse.png)**Solutions Architect** at [Multiverse Computing](https://multiversecomputing.com/), Madrid. Pre-sales and proofs of concept for CompactifAI, with AWS, NVIDIA, and Dell on deployment. [Details](./experience/multiverse/)
 
 #### Jul 2023 to Nov 2025
 
-![AILY LABS](./assets/companies/aily.png)**Data Scientist** at [AILY LABS](https://www.ailylabs.com/), Madrid. [Details](./experience/aily/)
-
-#### 2022 to 2023
-
-![IE School of Science and Technology](./assets/companies/ie.png)**Master's in Business Analytics and Big Data** at [IE School of Science and Technology](https://www.ie.edu/school-science-technology). [Details](./experience/ie/)
+![AILY LABS](./assets/companies/aily.png)**Data Scientist** at [AILY LABS](https://www.ailylabs.com/), Madrid. Production LLM agents and a Graph RAG service over factory manuals, with cited answers. [Details](./experience/aily/)
 
 #### 2021 to 2022
 
 ![Accenture](./assets/companies/accenture.png)**Salesforce developer** at [Accenture](https://www.accenture.com/es-es).
 
+### Education
+
+#### 2022 to 2023
+
+![IE School of Science and Technology](./assets/companies/ie.png)**Master's in Business Analytics and Big Data** at [IE School of Science and Technology](https://www.ie.edu/school-science-technology). Two first-place team projects, one of them with Microsoft. [Details](./experience/ie/)
+
 #### 2017 to 2022
 
-![Universidad de Burgos](./assets/companies/ubu.png)**Computer Science Engineering** at [Universidad de Burgos](https://www.ubu.es/). [Details](./experience/ubu/)
+![Universidad de Burgos](./assets/companies/ubu.png)**Computer Science Engineering** at [Universidad de Burgos](https://www.ubu.es/), with an Erasmus+ year in Wrocław. [Details](./experience/ubu/)
 
 ## Projects
 
-- ![HabitDex](./assets/companies/habitdex.png)[HabitDex](https://apps.apple.com/us/app/habitdex/id6755887620). [App Store](https://apps.apple.com/us/app/habitdex/id6755887620) · [Details](./experience/habitdex/)
-- ![Audio Silence Remover](./assets/companies/audio-silence-remover.png)[Audio Silence Remover](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12). [App Store](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12) · [GitHub](https://github.com/felipebasurto/silence-remover) · [Details](./experience/audio-silence-remover/)
-- ![Musatro](./assets/companies/musatro.png)[Musatro](https://musatro.felipebasurto.com/). [Play](https://musatro.felipebasurto.com/) · [GitHub](https://github.com/felipebasurto/musatro) · [Details](./experience/musatro/)
-- ![Triple Check](./assets/companies/triple-check.png)[Triple Check](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR). [Spotify](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR) · [Details](./triplecheck/)
+- ![HabitDex](./assets/companies/habitdex.png)[HabitDex](https://apps.apple.com/us/app/habitdex/id6755887620). A Pokémon-style habit tracker for iPhone, designed by Miguel Ferrer. [App Store](https://apps.apple.com/us/app/habitdex/id6755887620) · [Details](./experience/habitdex/)
+- ![Audio Silence Remover](./assets/companies/audio-silence-remover.png)[Audio Silence Remover](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12). A free, open-source Mac app that cuts dead air from voiceovers. [App Store](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12) · [GitHub](https://github.com/felipebasurto/silence-remover) · [Details](./experience/audio-silence-remover/)
+- ![Musatro](./assets/companies/musatro.png)[Musatro](https://musatro.felipebasurto.com/). An unfinished browser roguelike built on the card game Mus. [Play](https://musatro.felipebasurto.com/) · [GitHub](https://github.com/felipebasurto/musatro) · [Details](./experience/musatro/)
+- ![Triple Check](./assets/companies/triple-check.png)[Triple Check](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR). My pop-rock band from Burgos, with over 1.7 million Spotify streams. [Spotify](https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR) · [Details](./triplecheck/)
 
 [Coursework and older repositories](./projects/)
 

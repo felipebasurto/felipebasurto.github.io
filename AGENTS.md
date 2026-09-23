@@ -10,6 +10,8 @@
 - Prefer evergreen portfolio copy over ephemeral operational details such as per-event thank-yous, surveys, or mass emails to attendees.
 - Use the X (Twitter) handle @fildotai in site links.
 - On Projects, differentiate major shipped work from minor coursework and repositories (for example with progressive disclosure), rather than one undifferentiated list.
+- Felipe is deciding between a full-time role (AI Solutions Architect, Solutions Engineer, Forward Deployed Engineer) and starting his own AI company. Keep positioning neutral: "Open to full-time roles and project work." Do not frame the site as a job hunt or as an agency.
+- Public client facts that are approved for the site: AILY LABS work was for a Fortune 500 pharmaceutical company; Multiverse work included AWS, NVIDIA, and Dell, and an on-premises GPU deployment for a defense-sector customer. Encore has passed €4,000 in revenue.
 - When crediting collaborators, include explicit visible link text such as "LinkedIn" because link destinations are not obvious in the markdown-styled UI.
 
 ## Learned Workspace Facts

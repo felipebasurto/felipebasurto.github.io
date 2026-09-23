@@ -15,7 +15,7 @@
       "id": "cafe-coruna-2026",
       "date": "Aug 22, 2026",
       "title": "Café Cursor A Coruña",
-      "body_md": "First Cursor event in **Galicia**, all day at **La Terraza by Finisterre**. Hosted with **Jorge Teixeira** and **Juanjo do Olmo**; **David Gomes** (morning) and **Luís Tavares** (afternoon) from the SpaceXAI team flew in for Q&A on Grok Bot, Grok 4.6, and the editor roadmap. 139 confirmed, 105+ attended (about 60–65 in the morning session). Coffee and pastry were free; local merch covered a customs delay. People came from Madrid, Jaén, across Galicia, and a few from Belgium.",
+      "body_md": "First Cursor event in **Galicia**, all day at **La Terraza by Finisterre**. Hosted with **Jorge Teixeira** and **Juanjo do Olmo**; **David Gomes** (morning) and **Luís Tavares** (afternoon) from the SpaceXAI team flew in for Q&A on Grok Bot, Grok 4.6, and the editor roadmap. 139 confirmed, 105+ attended (about 60 to 65 in the morning session). Coffee and pastry were free; local merch covered a customs delay. People came from Madrid, Jaén, across Galicia, and a few from Belgium.",
       "images": [
         {
           "static": "coruna-01.jpg",
@@ -55,7 +55,7 @@
       "id": "hackathon-v3",
       "date": "Jun 2, 2026",
       "title": "Cursor Madrid Hackathon #3",
-      "body_md": "Hosted with **Juan Mugica Gonzalez** and **Xuban Ceccon** in Chamberí. About 130 people. Theme: ship the most fun project possible with Cursor, with a focus on computer vision (Canvas, video, images) and LibreYOLO for body-tracking demos.\n\n**Winners**\n\n1. **Mog Off** — splitscreen minigames with EyeToy-style energy.\n2. **MemeBongo** — drums and music from body movement.\n3. **Meme Ninja** — Fruit Ninja with memes, powered by body tracking.",
+      "body_md": "Hosted with **Juan Mugica Gonzalez** and **Xuban Ceccon** in Chamberí. About 130 people. Theme: ship the most fun project possible with Cursor, with a focus on computer vision (Canvas, video, images) and LibreYOLO for body-tracking demos.\n\n**Winners**\n\n1. **Mog Off**. Splitscreen minigames in the style of the PS2 EyeToy.\n2. **MemeBongo**. Drums and music played with body movement.\n3. **Meme Ninja**. Fruit Ninja with memes, controlled by body tracking.",
       "images": [
         {
           "static": "hack3-01.jpg",
@@ -67,7 +67,7 @@
         },
         {
           "static": "hack3-03.jpg",
-          "alt": "Opening talk: Cursor Madrid is back — this time with vision"
+          "alt": "Opening talk: Cursor Madrid is back, this time with vision"
         }
       ]
     },
@@ -239,15 +239,15 @@
       "images": [
         {
           "static": "compile-london-01.jpg",
-          "alt": "Compile London — event photo"
+          "alt": "Compile London event photo"
         },
         {
           "static": "compile-london-02.jpg",
-          "alt": "Compile London — event photo"
+          "alt": "Compile London event photo"
         },
         {
           "static": "compile-london-03.jpg",
-          "alt": "Compile London — event photo"
+          "alt": "Compile London event photo"
         },
         {
           "static": "compile-london-04.jpg",

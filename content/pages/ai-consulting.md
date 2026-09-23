@@ -1,62 +1,41 @@
 ---
 title: "AI consultant Madrid | Freelance AI solutions architect | Felipe Basurto"
-description: "Independent AI solutions architect and enterprise AI consultant in Madrid. Agents, internal tools, integrations, and deployment for teams in Spain and across Europe."
-og_image: "/assets/profile.png"
+description: "Enterprise AI consulting from Madrid. Agents, retrieval, internal tools, integrations, and deployment for teams in Spain and across Europe."
+og_image: "/assets/og.png"
 ---
 
 [← Back to CV](../)
 
-# AI consulting for teams that already have constraints
+# AI projects for teams
 
-I am an independent AI solutions architect and enterprise AI consultant based in Madrid. I work with teams in Spain and across Europe (remote by default) on systems that have to fit existing processes, tools, and owners, and still run after the demo.
+I take on a small number of freelance AI projects from Madrid, for teams in Spain and across Europe. Remote is the default. Most projects are agents, retrieval over internal documents, or internal tools that have to fit a process the team already runs.
 
-If you are looking for a freelance AI solutions architect or an AI consultant in Madrid who will tell you when a model is the wrong tool, this is the page.
+## What I build
 
-## What I work on
+- Agent workflows with a clear trigger, a named owner, and a fallback for when the model fails.
+- Retrieval that returns the document, page, or record behind each answer.
+- Internal tools that remove one specific manual step.
+- Integrations with the systems the team already uses.
+- The deployment around all of it: evaluation, logs, permissions, and failure handling.
+- Workshops that end with a decision about whether to build.
 
-- Agent workflows with a clear trigger, owner, and fallback.
-- Retrieval systems that return the source, page, or record behind an answer.
-- Internal tools that remove a specific manual step from an existing process.
-- Integrations with the systems where the team already works.
-- Deployment, evaluation, logs, and failure handling.
-- Technical workshops that force a decision: ship it, wait, or drop the idea.
+## Where I have done this before
 
-## When I am useful
+- At [AILY LABS](../experience/aily/), production LLM agents and a Graph RAG service over factory manuals for a Fortune 500 pharmaceutical company.
+- At [Multiverse Computing](../experience/multiverse/), technical pre-sales and proofs of concept for CompactifAI with AWS, NVIDIA, and Dell, including an on-premises GPU deployment for a defense-sector customer.
 
-A team has a concrete workflow but does not know whether it needs a model, a deterministic rule, or both.
+More in [selected work](../case-studies/). For regulated settings, see [AI for pharmaceutical operations](../ai-for-pharma-operations/).
 
-A prototype works in a demo and now needs evaluation, permissions, logs, and an owner.
+## How a project usually runs
 
-Useful knowledge is spread across documents and systems, but an unsupported answer would be worse than no answer.
+1. Pick one workflow and name the person who owns its outcome.
+2. Map the inputs, systems, decisions, and what a mistake costs.
+3. Write examples that separate a useful result from a confident wrong one.
+4. Build the smallest version that answers the real question.
+5. Add deployment, logs, a fallback, and a handover so the team can run it without me.
 
-The team needs a technical view before it commits to a vendor or a long build.
-
-## How I work
-
-1. Pick one workflow and name the person responsible for its outcome.
-2. Map the inputs, systems, decisions, and failure cost.
-3. Define examples that separate a useful result from a confident mistake.
-4. Build the smallest version that can answer the real question.
-5. Add the deployment path, logs, fallback, and handover needed to run it.
-
-## What I will not sell
-
-A chatbot wrapper presented as a new operating model.
-
-A prototype with no owner, no data path, and no fallback.
-
-A model in the loop for a decision that already has a rule and a named person.
-
-A vendor comparison that exists to delay a choice the team can already make.
-
-If the honest answer is that the process should stay deterministic, I will say so.
-
-## Background (for hiring context)
-
-I was a Solutions Architect at Multiverse Computing in Madrid from November 2025 to July 2026 (CompactifAI pre-sales and PoCs). Before that I was a Data Scientist at AILY LABS (July 2023 to November 2025), including production LangChain agents and Graph RAG over factory manuals. I am not currently employed by Multiverse.
-
-Public notes on selected work: [case studies](../case-studies/). For a regulated-setting assessment note (not a claim of pharma client delivery): [AI for pharmaceutical operations](../ai-for-pharma-operations/).
+Sometimes step 2 shows that the process should stay a plain rule with no model in it. When that happens I say so, and the project gets smaller.
 
 ## Contact
 
-Email [hello@felipebasurto.com](mailto:hello@felipebasurto.com) with the workflow, the constraint, and what would count as a useful result. Madrid-based. Spain and Europe. Remote is the default.
+Email [hello@felipebasurto.com](mailto:hello@felipebasurto.com) with the workflow, the constraint, and what a useful result would look like.
