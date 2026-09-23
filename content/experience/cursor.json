@@ -201,7 +201,7 @@
       "id": "refugio-madrid-2026",
       "date": "Jun 27, 2026",
       "title": "Refugio Madrid 2026",
-      "body_md": "A Saturday at Matadero Madrid with morning talks, a hackathon of about 15 teams, and an afternoon community session. Cursor sponsored the event.",
+      "body_md": "A Saturday at Matadero Madrid with morning talks, a hackathon of about 15 teams, and an afternoon community session. Cursor sponsored the event. Speakers came from NVIDIA, Microsoft AI, Maisa AI, THEKER Robotics, ELLIS Madrid and UC3M, Capchase, and Kibo Ventures.",
       "partners": [
         {
           "name": "Mihura",
@@ -209,13 +209,26 @@
         }
       ],
       "url": "https://refugiomadrid.com/",
-      "images": []
+      "images": [
+        {
+          "static": "refugio-01.jpg",
+          "alt": "Antonio Artés Rodríguez of UC3M presenting on the path from AI research to product at Refugio Madrid 2026"
+        },
+        {
+          "static": "refugio-02.jpg",
+          "alt": "Audience watching a talk with a growth chart on screen at Refugio Madrid 2026"
+        },
+        {
+          "static": "refugio-03.jpg",
+          "alt": "Refugio Madrid 2026 confirmed speakers lineup"
+        }
+      ]
     },
     {
       "id": "hackspain-2026",
       "date": "Sep 2026",
       "title": "HackSpain 2026",
-      "body_md": "HackSpain 2026 is listed as a 24-hour Madrid hackathon for more than 300 builders. The published program includes a machine-learning track with free compute and a non-technical track for first-time builders. Cursor is listed as a sponsor.",
+      "body_md": "A Madrid hackathon for more than 300 builders, with a machine-learning track with free compute and a non-technical track for first-time builders. Cursor sponsored it. A live leaderboard in the hall tracked tokens, GitHub pushes, agent sessions, and pull requests per team, and passed 43 billion tokens during the event. Los_panaderos took the overall prize of €5,000. [Video of the event](https://x.com/hackspain26/status/2102035919440150624/video/1).",
       "partners": [
         {
           "name": "HackSpain",
@@ -227,7 +240,20 @@
         }
       ],
       "url": "https://hackspain.com/",
-      "images": []
+      "images": [
+        {
+          "static": "hackspain-01.jpg",
+          "alt": "Los_panaderos on stage with the HackSpain 2026 overall winner check for 5,000 euros"
+        },
+        {
+          "static": "hackspain-02.jpg",
+          "alt": "Team working in front of the HackSpain live leaderboard showing tokens, pushes, agent sessions, and pull requests"
+        },
+        {
+          "static": "hackspain-03.jpg",
+          "alt": "HackSpain 2026 staff selfie on stage with the full auditorium behind them"
+        }
+      ]
     }
   ],
   "attended_events": [
