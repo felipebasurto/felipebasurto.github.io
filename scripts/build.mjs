@@ -771,7 +771,10 @@ function buildJsonLd(description) {
       "model deployment",
       "retrieval-augmented generation",
       "LLM compression",
+      "MCP servers",
+      "coding agents",
       "iOS development",
+      "macOS development",
       "Madrid",
       "Spain",
     ],
@@ -823,6 +826,88 @@ function personNode() {
     name: "Felipe Basurto",
     url: SITE,
   };
+}
+
+function markdownToPlainText(md) {
+  return String(md ?? "")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/[`*_]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function projectSchemaNode(item, group) {
+  const github = [item.href, ...(item.links ?? []).map((l) => l.href)].find((h) => /github\.com\//.test(h ?? ""));
+  const publicUrl = item.href && isExternalHref(item.href) ? item.href : undefined;
+  const description = item.summary_md ? `${item.tagline}. ${markdownToPlainText(item.summary_md)}` : item.tagline;
+  const base = {
+    name: item.name,
+    description,
+    ...(item.year ? { dateCreated: item.year } : {}),
+    ...(item.stack ? { keywords: item.stack.join(", ") } : {}),
+  };
+  if (group.name === "music") {
+    return { "@type": "MusicGroup", ...base, url: publicUrl, genre: "Spanish pop-rock", member: { "@id": `${SITE}/#person` } };
+  }
+  const creator = { creator: { "@id": `${SITE}/#person` } };
+  if (github) {
+    return { "@type": "SoftwareSourceCode", ...base, codeRepository: github, ...(publicUrl ? { url: publicUrl } : {}), ...creator };
+  }
+  return { "@type": "SoftwareApplication", ...base, ...(publicUrl ? { url: publicUrl } : {}), ...creator };
+}
+
+function buildProjectsJsonLd({ name, url, description }) {
+  const items = loadProjects().groups.flatMap((group) => group.items.map((item) => projectSchemaNode(item, group)));
+  return toSafeJsonLdString({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name,
+    url,
+    description,
+    isPartOf: { "@type": "WebSite", name: "Felipe Basurto", url: SITE },
+    author: personNode(),
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: items.length,
+      itemListElement: items.map((item, i) => ({ "@type": "ListItem", position: i + 1, item })),
+    },
+  });
+}
+
+const FOLDER_TITLES = {
+  apps: "Apps",
+  tools: "Tools",
+  experiments: "Experiments and demos",
+  music: "Music",
+  archive: "Earlier prototypes",
+  university: "University work",
+};
+
+/** Rewrite the generated block in llms.txt so agents see the same project facts as /projects/. */
+function writeLlmsProjects() {
+  const path = join(root, "llms.txt");
+  const begin = "<!-- BEGIN PROJECTS -->";
+  const end = "<!-- END PROJECTS -->";
+  const text = readFileSync(path, "utf8");
+  const start = text.indexOf(begin);
+  const stop = text.indexOf(end);
+  if (start === -1 || stop < start) {
+    console.warn("llms.txt: project markers missing; skipped");
+    return;
+  }
+  const abs = (href) => (isExternalHref(href) ? href : `${SITE}/${href}`);
+  const sections = loadProjects().groups.map((group) => {
+    const lines = group.items.map((item) => {
+      const meta = [item.year, item.status].filter(Boolean).join(", ");
+      const summary = item.summary_md ? ` ${markdownToPlainText(item.summary_md)}` : "";
+      const urls = [item.href, ...(item.links ?? []).map((l) => l.href)].filter(Boolean).map(abs);
+      const links = [...new Set(urls)].join(" ");
+      return `- ${item.name}${meta ? ` (${meta})` : ""}: ${item.tagline}.${summary}${links ? ` ${links}` : ""}`;
+    });
+    return `### ${FOLDER_TITLES[group.name] ?? group.name}\n\n${lines.join("\n")}`;
+  });
+  const next = `${text.slice(0, start + begin.length)}\n${sections.join("\n\n")}\n${text.slice(stop)}`;
+  if (next !== text) writeFileSync(path, next, "utf8");
 }
 
 function buildWebPageJsonLd({ name, url, description }) {
@@ -993,7 +1078,7 @@ function buildProjectsPage() {
     relPrefix: "../",
     headerHint: "~/projects.md",
     bodyHtml,
-    jsonLd: buildWebPageJsonLd({ name: title, url: canonicalUrl, description }),
+    jsonLd: buildProjectsJsonLd({ name: title, url: canonicalUrl, description }),
     docClass: "",
     articleClass: "",
   });
@@ -1128,9 +1213,6 @@ function writeSitemap() {
   if (existsSync(join(root, "content", "triplecheck.md"))) {
     pushUrl(`${SITE}/triplecheck/`, "0.7");
   }
-  if (existsSync(join(root, "musatro", "index.html"))) {
-    pushUrl(`${SITE}/musatro/`, "0.6");
-  }
   for (const slug of slugs) {
     pushUrl(`${SITE}/experience/${slug}/`, "0.7");
   }
@@ -1147,6 +1229,7 @@ async function main() {
   await buildExperiencePages();
   build404Page();
   writeSitemap();
+  writeLlmsProjects();
   console.log("Build OK: index.html + landing pages + projects/* + triplecheck/* + experience/* + 404.html + sitemap.xml");
 }
 

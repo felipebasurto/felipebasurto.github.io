@@ -25,7 +25,7 @@ He was a Data Scientist at AILY LABS from July 2023 to Nov 2025, progressing fro
 
 Community: SpaceXAI Europe Regional Lead & Madrid Ambassador. He started as Cursor Madrid Ambassador in May 2025 and became Cursor Community Regional Lead for Europe in May 2026. After Cursor joined SpaceX, the program continues as SpaceXAI Ambassadors, with Grok Bot meetups going forward. Official note: https://cursor.com/blog/joining-spacex
 
-Products: Encore: Concert Diary (iPhone, over 2,700 accounts and 15,000 concerts logged; distribution through Fastlane short-form video run by a Grok Bot agent), HabitDex (iPhone), Audio Silence Remover (macOS, open source), and Musatro (browser roguelike). Tools: Viajante (flight and hotel search for the terminal, Python, and AI assistants over MCP; on PyPI), FreshCtx (local context engine that keeps a coding agent's view of source code current), Cue (on-device meeting recorder for macOS), and Plugin Factory (generates Claude plugins from client information). Triple Check is his Spanish pop-rock band from Burgos, with over 1.7 million Spotify streams.
+Products: Encore: Concert Diary (iPhone, over 2,700 accounts and 15,000 concerts logged; distribution through Fastlane short-form video run by a Grok Bot agent), HabitDex (iPhone), Audio Silence Remover (macOS, open source), and Musatro (browser roguelike). Tools: Viajante (flight and hotel search for the terminal, Python, and AI assistants over MCP; on PyPI and npm) and FreshCtx (local context engine for coding agents). Triple Check is his Spanish pop-rock band from Burgos, with over 1.7 million Spotify streams. The full project list is below.
 
 A note on assessing AI around pharmaceutical operations is at https://felipebasurto.com/ai-for-pharma-operations/.
 
@@ -42,16 +42,64 @@ A note on assessing AI around pharmaceutical operations is at https://felipebasu
 - Encore: https://felipebasurto.com/experience/encore/
 - HabitDex: https://felipebasurto.com/experience/habitdex/
 - Audio Silence Remover: https://felipebasurto.com/experience/audio-silence-remover/
-- Audio Silence Remover source: https://github.com/felipebasurto/silence-remover
 - Musatro: https://felipebasurto.com/experience/musatro/
-- Play Musatro: https://musatro.felipebasurto.com/
-- Musatro source: https://github.com/felipebasurto/musatro
-- Viajante source: https://github.com/felipebasurto/viajante
-- FreshCtx source: https://github.com/felipebasurto/freshctx
-- Plugin Factory source: https://github.com/felipebasurto/plugin-factory
 - AILY LABS: https://felipebasurto.com/experience/aily/
 - IE School of Science and Technology: https://felipebasurto.com/experience/ie/
 - Universidad de Burgos: https://felipebasurto.com/experience/ubu/
+
+## Projects
+
+Generated from https://felipebasurto.com/projects/. First-person text ("me", "I") refers to Felipe Basurto. Private repositories have no source link.
+
+<!-- BEGIN PROJECTS -->
+### Apps
+
+- Encore (2025, shipped): Concert diary for iPhone, over 2,700 accounts. Letterboxd for concerts. Log the artist, venue, photos, and videos on the way home, then get stats, a venue passport, and a year-end recap. Over 15,000 concerts logged, in four languages. https://apps.apple.com/us/app/encore-concert-diary/id6748657647 https://encorearchives.com https://felipebasurto.com/experience/encore/
+- HabitDex (2025, shipped): Pokémon-style habit tracker for iPhone. Check-ins give your companion XP, and streaks unlock and evolve new creatures. Habit data stays on the device, with optional CloudKit sync. Designed by Miguel Ferrer (LinkedIn), built by me. https://apps.apple.com/us/app/habitdex/id6755887620 https://felipebasurto.com/experience/habitdex/
+- Audio Silence Remover (2026, shipped): Mac app that cuts dead air from voiceovers. Set a decibel threshold and a minimum pause, and it removes or shortens every silence, then exports a new MP3. No account or analytics, and the App Store build shares one codebase with the GitHub repository. https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12 https://github.com/felipebasurto/silence-remover https://felipebasurto.com/experience/audio-silence-remover/
+- Musatro (2026, shipped): Browser roguelike built on the card game Mus. The four Mus lances with a run structure borrowed from Balatro: eight antes, 21 items, and 10 bosses. Strict TypeScript with no framework, and Vitest covers scoring and item order. https://musatro.felipebasurto.com/ https://github.com/felipebasurto/musatro https://felipebasurto.com/experience/musatro/
+
+### Tools
+
+- Viajante (2026, shipped, active): Flight and hotel search for the terminal and AI agents. Searches Google Flights, Google Hotels, and Booking.com from your own machine, with no API keys. Beyond plain search it finds the cheapest dates, explores destinations from an origin, checks Skiplagged hidden-city fares, and compares award points across transfer partners. Install from PyPI or npm, or run it with uvx. https://github.com/felipebasurto/viajante https://pypi.org/project/viajante/
+- FreshCtx (2026, shipped, active): Keeps a coding agent's view of the code current. Before each model request, it swaps old file reads in the conversation for the current code, within a token budget. The saved conversation stays intact, and the measurements live in a separate research repo. https://github.com/felipebasurto/freshctx https://github.com/felipebasurto/freshctx-research
+- Cue (2026): On-device meeting recorder for the Mac. Records the microphone and system audio together and transcribes on the device through a native Swift helper built on transcribe.cpp.
+- Plugin Factory (2026): Turns client information into a Claude plugin. Drop in any client information and get a ready-to-install Claude plugin in your workspace. It installs from its own marketplace in Claude Code and also loads in Cursor. https://github.com/felipebasurto/plugin-factory
+
+### Experiments and demos
+
+- Underscore (2026, design demo): Original music scored to your video edit. Mark in and out inside the video editor, press generate, and get an original track that lasts exactly that long and changes where the video changes.
+- Roamly (2026, 2nd place): Voice travel buddy for iPhone. Talk to a travel buddy by voice, built on ElevenLabs Agents. Built in 2.5 hours at the ElevenLabs x Enzo Ventures Build Night in Madrid, in a team of three formed on the night, and placed second. https://luma.com/6mabnyq2
+- Automatic Farms (2026): Minecraft mod that builds survival farms. Place a controller, pick a blueprint, load the materials, and it builds the farm block by block. Blueprints include a mob drop tower, an iron golem farm, a creeper gunpowder chamber, and a Nether gold farm.
+
+### Music
+
+- Triple Check (2020, 1.7M streams): Spanish pop-rock band, 1.7M Spotify streams. Three school friends from Burgos: me, Miguel Ferrer, and Diego Garrido. I handle production, mixing, and lyrics. No label, and several tracks have over 100,000 streams each. https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR https://felipebasurto.com/triplecheck/
+
+### Earlier prototypes
+
+- Ultramar AI (2026): Offline travel assistant on local models. Chat, translation, and photo questions run on local Qwen and Gemma models, with Apple Intelligence as a fallback, so it works on a plane or while roaming. https://github.com/felipebasurto/ultramar
+- SimpleIndieBudget (2025): Budget tracker for indie app makers. Tracks subscriptions, recurring costs, and revenue estimates for indie app makers, with CSV import.
+- ViralSlide (2025): TikTok slideshow generator with AI hooks. AI-written hooks and reusable slideshow formats, in English and Spanish. Built in two afternoons. https://viralslide.lovable.app/
+- FancyDocuments (2025): Turns plain text into designed documents. Upload plain text, Word, or Markdown and get a designed document, with a live preview and credit-based pricing.
+- Katarite (2025): Illustrated AI bedtime stories for children. Personalized stories with generated images, accounts, and a subscription.
+- IdeasHub (2025): Project docs workspace with AI drafting. Structured docs for software, hardware, and service projects, with a Markdown editor and AI-drafted sections.
+- Kalki (2025): Calorie and weight tracker for iPhone. Food logging, weight charts, BMR and TDEE goals, and achievements.
+- ChatHerencias (2025): AI assistant for Spanish inheritance law. One free consultation, then paid credits through Stripe.
+
+### University work
+
+- tfl-data-pipeline: Data pipeline on TfL data with NiFi, Hadoop, and Spark. https://github.com/felipebasurto/data-pipeline-tfl-api
+- titanic-analysis: Titanic data analysis and missing-value imputation. https://github.com/felipebasurto/titanic-dataset-analysis
+- perceptron-with-svms: Perceptron and SVM classifiers, in Spanish. https://github.com/felipebasurto/perceptron-with-svms
+- employee-attrition: Employee attrition prediction with iterative sampling. https://github.com/felipebasurto/employee-attrition-predictor
+- fifa-22-ml: Predicting FIFA Ultimate Team 22 ratings from stats. https://github.com/felipebasurto/Machine-Learning-in-FIFA-Ultimate-Team-22
+- rental-bikes-dashboard: Bike rental ML dashboard with PyCaret and Streamlit. https://github.com/felipebasurto/rental-bikes-interactive-machine-learning-dashboard
+- tokyo-2021-eda: Tokyo 2020 Olympics EDA and Looker Studio dashboard. https://github.com/felipebasurto/tokio2021-exploratory-data-analysis
+- uber-madrid-dashboard: Streamlit dashboard of Uber trips in Madrid. https://github.com/felipebasurto/uber-interactive-data-dashboard
+- matlab-video-processing: Video and image processing in MATLAB with CUDA. https://github.com/felipebasurto/video-and-image-processing-with-MATLAB
+- scikit-image-processing: Image editing with scikit-image. https://github.com/felipebasurto/image-processing-with-scikit-image
+<!-- END PROJECTS -->
 
 ## Public profiles (same person)
 
@@ -65,7 +113,7 @@ A note on assessing AI around pharmaceutical operations is at https://felipebasu
 
 ## Topics (for retrieval / disambiguation)
 
-AI solutions architect Madrid, AI consultant Madrid, freelance AI solutions architect, forward deployed engineer, solutions engineer, enterprise AI Spain, agents, retrieval-augmented generation, Graph RAG, Neo4j, LangChain, Langfuse, AWS, Airflow, Docker, MLOps, LLM compression, CompactifAI, Multiverse Computing (past), AILY LABS (past), pharmaceutical operations, SpaceXAI, SpaceXAI Ambassadors, Grok Bot, Cursor community, IE, data science, machine learning, iOS, macOS, Swift, SwiftUI, Encore, HabitDex, Musatro, Triple Check, Burgos.
+AI solutions architect Madrid, AI consultant Madrid, freelance AI solutions architect, forward deployed engineer, solutions engineer, enterprise AI Spain, agents, retrieval-augmented generation, Graph RAG, Neo4j, LangChain, Langfuse, AWS, Airflow, Docker, MLOps, LLM compression, CompactifAI, Multiverse Computing (past), AILY LABS (past), pharmaceutical operations, SpaceXAI, SpaceXAI Ambassadors, Grok Bot, Cursor community, IE, data science, machine learning, iOS, macOS, Swift, SwiftUI, MCP servers, coding agents, Encore, HabitDex, Audio Silence Remover, Musatro, Viajante, FreshCtx, Cue, Plugin Factory, Roamly, ElevenLabs, Triple Check, Burgos.
 
 ## Language
 
