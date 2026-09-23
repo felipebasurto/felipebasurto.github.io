@@ -41,6 +41,8 @@ hello@felipebasurto.com
 
 {{PROJECTS_FEATURED}}
 
+{{BLOG_LINK}}
+
 ## Education
 
 ### 2022 to 2023

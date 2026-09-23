@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { marked } from "marked";
@@ -210,6 +210,10 @@ marked.use({
         const caption = `![${text}](${href})`;
         return `<figure class="md-figure md-figure--appshot"><img class="md-img md-img--appshot" src="${safe}" alt="${alt}"${t} loading="lazy" decoding="async" width="300" height="650" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
       }
+      if (/\/assets\/blog\//.test(href)) {
+        const caption = `![${text}](${href})`;
+        return `<figure class="md-figure md-figure--post"><img class="md-img md-img--post" src="${safe}" alt="${alt}"${t} loading="lazy" decoding="async" width="1600" height="900" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
+      }
       if (/\/assets\/triplecheck\//.test(href)) {
         const caption = `![${text}](${href})`;
         return `<figure class="md-figure md-figure--triplecheck"><img class="md-img md-img--triplecheck" src="${safe}" alt="${alt}"${t} loading="lazy" decoding="async" width="1200" height="800" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
@@ -236,6 +240,7 @@ function unwrapFigures(html) {
     /<p class="md-p">\s*<figure class="md-figure md-figure--macshot">/g,
     /<p class="md-p">\s*<figure class="md-figure md-figure--gameshot">/g,
     /<p class="md-p">\s*<figure class="md-figure md-figure--triplecheck">/g,
+    /<p class="md-p">\s*<figure class="md-figure md-figure--post">/g,
     /<p class="md-p">\s*<figure class="md-figure">/g,
   ];
   for (const re of openPatterns) {
@@ -370,9 +375,19 @@ ${folders}
 </div>\n`;
 }
 
+/** Home page: link to the blog with the latest post; renders nothing until a post exists. */
+function renderBlogLink(relPrefix) {
+  const [latest] = loadBlogPosts();
+  if (!latest) return "";
+  const blog = renderProjectLink({ label: "Blog", href: "blog/" }, "", relPrefix);
+  const post = renderProjectLink({ label: latest.title, href: `blog/${latest.slug}/` }, "", relPrefix);
+  return `<p class="md-p">${blog}. Latest: ${post}${LINK_SEP}${escapeHtml(latest.date)}</p>\n`;
+}
+
 const PROJECT_TOKENS = {
   "{{PROJECTS_FEATURED}}": renderFeaturedProjects,
   "{{PROJECTS_TREE}}": renderProjectTree,
+  "{{BLOG_LINK}}": renderBlogLink,
 };
 
 function renderPageBody(body, relPrefix) {
@@ -437,8 +452,10 @@ function fillTemplate({
   articleClass = "",
   extraScripts = "",
   robots = "index, follow",
+  ogType = "website",
 }) {
   let html = loadTemplate();
+  html = html.replaceAll("{{OG_TYPE}}", escapeAttr(ogType));
   html = html.replaceAll("{{TITLE}}", escapeHtml(title));
   html = html.replaceAll("{{DESCRIPTION}}", escapeHtml(description));
   html = html.replaceAll("{{ROBOTS}}", escapeAttr(robots));
@@ -1172,6 +1189,237 @@ async function buildExperiencePages() {
   }
 }
 
+const BLOG_DIR = join(root, "content", "blog");
+const BLOG_TITLE = "Blog · Felipe Basurto";
+const BLOG_DESCRIPTION = "Notes on building with AI, shipping software, and things I find worth writing down.";
+const WORDS_PER_MINUTE = 220;
+
+function isoDate(value, file, field) {
+  const v = String(value ?? "").trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(v) || Number.isNaN(Date.parse(`${v}T00:00:00Z`))) {
+    throw new Error(`content/blog/${file}: "${field}" must be YYYY-MM-DD, got "${v}"`);
+  }
+  return v;
+}
+
+/** Published posts, newest first. Drafts are included only with BLOG_DRAFTS=1. */
+function loadBlogPosts() {
+  if (!existsSync(BLOG_DIR)) return [];
+  const includeDrafts = process.env.BLOG_DRAFTS === "1";
+  const posts = [];
+  for (const file of readdirSync(BLOG_DIR)) {
+    if (!file.endsWith(".md")) continue;
+    const slug = file.replace(/\.md$/i, "");
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+      throw new Error(`content/blog/${file}: file name must be a lowercase-hyphenated slug`);
+    }
+    const { meta, body } = parseFrontmatter(readFileSync(join(BLOG_DIR, file), "utf8"));
+    const draft = String(meta.draft ?? "").trim() === "true";
+    if (draft && !includeDrafts) continue;
+    for (const field of ["title", "description", "date", "cover", "cover_alt"]) {
+      if (!String(meta[field] ?? "").trim()) {
+        throw new Error(`content/blog/${file}: missing "${field}" in frontmatter`);
+      }
+    }
+    const cover = `/${String(meta.cover).trim().replace(/^\/+/, "")}`;
+    if (!existsSync(join(root, cover))) {
+      throw new Error(`content/blog/${file}: cover not found at ${cover}`);
+    }
+    const date = isoDate(meta.date, file, "date");
+    const updated = meta.updated ? isoDate(meta.updated, file, "updated") : date;
+    const words = markdownToPlainText(body).split(" ").filter(Boolean).length;
+    posts.push({
+      slug,
+      title: meta.title,
+      description: meta.description,
+      date,
+      updated,
+      cover,
+      coverAlt: meta.cover_alt,
+      tags: String(meta.tags ?? "")
+        .split(",")
+        .map((t) => t.trim())
+        .filter(Boolean),
+      minutes: Math.max(1, Math.round(words / WORDS_PER_MINUTE)),
+      draft,
+      body,
+    });
+  }
+  return posts.sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));
+}
+
+function blogPostUrl(post) {
+  return `${SITE}/blog/${post.slug}/`;
+}
+
+function renderPostMeta(post) {
+  const parts = [
+    `<time datetime="${escapeAttr(post.date)}">${escapeHtml(post.date)}</time>`,
+    ...(post.tags.length ? [escapeHtml(post.tags.join(", "))] : []),
+    `${post.minutes} min`,
+    ...(post.draft ? ["[draft]"] : []),
+  ];
+  return parts.join(LINK_SEP);
+}
+
+function renderBlogGrid(posts, relPrefix) {
+  if (!posts.length) {
+    return `<p class="md-p"><code class="md-codespan"><span class="md-muted">\`</span>No posts yet.<span class="md-muted">\`</span></code></p>\n`;
+  }
+  const items = posts
+    .map((post, i) => {
+      const load = i === 0 ? ` fetchpriority="high"` : ` loading="lazy"`;
+      return `<li class="blog-grid__item"><a class="blog-card" href="${escapeAttr(`${post.slug}/`)}">
+<img class="blog-card__cover" src="${escapeAttr(relPrefix + post.cover.slice(1))}" alt=""${load} decoding="async" width="1600" height="900" />
+<h2 class="blog-card__title">${escapeHtml(post.title)}</h2>
+<p class="blog-card__meta">${renderPostMeta(post)}</p>
+</a></li>`;
+    })
+    .join("\n");
+  return `<ul class="blog-grid">\n${items}\n</ul>\n`;
+}
+
+function buildBlogPostingJsonLd(post) {
+  const url = blogPostUrl(post);
+  return {
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    url,
+    image: absOgImage(post.cover),
+    datePublished: post.date,
+    dateModified: post.updated,
+    ...(post.tags.length ? { keywords: post.tags.join(", ") } : {}),
+    author: personNode(),
+    publisher: personNode(),
+    inLanguage: "en",
+    mainEntityOfPage: { "@type": "WebPage", "@id": url, url },
+  };
+}
+
+function buildBlogIndex(posts) {
+  const canonicalUrl = `${SITE}/blog/`;
+  const intro = renderMarkdownBody(`[← Back to CV](../)
+
+# Blog
+
+${BLOG_DESCRIPTION}
+`);
+  const feed = `<p class="md-p blog-feed"><a class="md-link" href="feed.xml" title="${escapeAttr(`${SITE}/blog/feed.xml`)}">RSS</a></p>\n`;
+  const bodyHtml = `${intro}${renderBlogGrid(posts, "../")}${posts.length ? feed : ""}`;
+  const jsonLd = toSafeJsonLdString({
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: BLOG_TITLE,
+    url: canonicalUrl,
+    description: BLOG_DESCRIPTION,
+    inLanguage: "en",
+    author: personNode(),
+    isPartOf: { "@type": "WebSite", name: "Felipe Basurto", url: SITE },
+    blogPost: posts.map(buildBlogPostingJsonLd),
+  });
+  const outDir = join(root, "blog");
+  mkdirSync(outDir, { recursive: true });
+  const html = fillTemplate({
+    title: BLOG_TITLE,
+    description: BLOG_DESCRIPTION,
+    ogImageAbs: absOgImage(posts[0]?.cover ?? DEFAULT_OG_IMAGE),
+    canonicalUrl,
+    ogUrl: canonicalUrl,
+    relPrefix: "../",
+    headerHint: "~/blog/",
+    bodyHtml,
+    jsonLd,
+    articleClass: " md-doc--blog",
+    robots: posts.some((p) => !p.draft) ? "index, follow" : "noindex",
+  });
+  writeFileSync(join(outDir, "index.html"), html, "utf8");
+}
+
+function buildBlogPosts(posts) {
+  for (const post of posts) {
+    const canonicalUrl = blogPostUrl(post);
+    const head = renderMarkdownBody(`[← All posts](../)\n\n# ${post.title}\n`);
+    const cover = `<figure class="md-figure md-figure--post md-figure--cover"><img class="md-img md-img--post" src="${escapeAttr(`../../${post.cover.slice(1)}`)}" alt="${escapeAttr(post.coverAlt)}" fetchpriority="high" decoding="async" width="1600" height="900" /></figure>\n`;
+    const footer = renderMarkdownBody(`---\n\n[← All posts](../) · [CV](../../)\n`);
+    const bodyHtml = `${head}<p class="post-meta">${renderPostMeta(post)}</p>\n${cover}${renderMarkdownBody(post.body)}${footer}`;
+    const outDir = join(root, "blog", post.slug);
+    mkdirSync(outDir, { recursive: true });
+    const html = fillTemplate({
+      title: `${post.title} · Felipe Basurto`,
+      description: post.description,
+      ogImageAbs: absOgImage(post.cover),
+      canonicalUrl,
+      ogUrl: canonicalUrl,
+      relPrefix: "../../",
+      headerHint: `~/blog/${post.slug}.md`,
+      bodyHtml,
+      jsonLd: toSafeJsonLdString({ "@context": "https://schema.org", ...buildBlogPostingJsonLd(post) }),
+      articleClass: " md-doc--post",
+      ogType: "article",
+      robots: post.draft ? "noindex" : "index, follow",
+    });
+    writeFileSync(join(outDir, "index.html"), html, "utf8");
+  }
+}
+
+function writeBlogFeed(allPosts) {
+  const posts = allPosts.filter((p) => !p.draft);
+  const rfc822 = (d) => new Date(`${d}T00:00:00Z`).toUTCString();
+  const items = posts.map((post) => {
+    const url = blogPostUrl(post);
+    return [
+      "    <item>",
+      `      <title>${escapeXml(post.title)}</title>`,
+      `      <link>${escapeXml(url)}</link>`,
+      `      <guid isPermaLink="true">${escapeXml(url)}</guid>`,
+      `      <pubDate>${rfc822(post.date)}</pubDate>`,
+      `      <description>${escapeXml(post.description)}</description>`,
+      ...post.tags.map((t) => `      <category>${escapeXml(t)}</category>`),
+      "    </item>",
+    ].join("\n");
+  });
+  const xml = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+    "  <channel>",
+    `    <title>${escapeXml(BLOG_TITLE)}</title>`,
+    `    <link>${SITE}/blog/</link>`,
+    `    <atom:link href="${SITE}/blog/feed.xml" rel="self" type="application/rss+xml" />`,
+    `    <description>${escapeXml(BLOG_DESCRIPTION)}</description>`,
+    "    <language>en</language>",
+    ...(posts.length ? [`    <lastBuildDate>${rfc822(posts[0].updated)}</lastBuildDate>`] : []),
+    ...items,
+    "  </channel>",
+    "</rss>",
+    "",
+  ].join("\n");
+  mkdirSync(join(root, "blog"), { recursive: true });
+  writeFileSync(join(root, "blog", "feed.xml"), xml, "utf8");
+}
+
+/** Rewrite the generated blog block in llms.txt; empty until the first post ships. */
+function writeLlmsBlog(posts) {
+  const path = join(root, "llms.txt");
+  const begin = "<!-- BEGIN BLOG -->";
+  const end = "<!-- END BLOG -->";
+  const text = readFileSync(path, "utf8");
+  const start = text.indexOf(begin);
+  const stop = text.indexOf(end);
+  if (start === -1 || stop < start) {
+    console.warn("llms.txt: blog markers missing; skipped");
+    return;
+  }
+  const published = posts.filter((p) => !p.draft);
+  const block = published.length
+    ? `\n## Blog\n\nIndex: ${SITE}/blog/ · RSS: ${SITE}/blog/feed.xml\n\n${published
+        .map((p) => `- ${p.date}: ${p.title}. ${p.description} ${blogPostUrl(p)}`)
+        .join("\n")}\n`
+    : "\n";
+  const next = `${text.slice(0, start + begin.length)}${block}${text.slice(stop)}`;
+  if (next !== text) writeFileSync(path, next, "utf8");
+}
+
 function getExperienceSlugsForSitemap() {
   const expDir = join(root, "content", "experience");
   const slugs = [];
@@ -1189,11 +1437,11 @@ function getExperienceSlugsForSitemap() {
   return slugs;
 }
 
-function writeSitemap() {
-  const lastmod = new Date().toISOString().slice(0, 10);
+function writeSitemap(posts) {
+  const today = new Date().toISOString().slice(0, 10);
   const slugs = getExperienceSlugsForSitemap();
   const lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'];
-  const pushUrl = (loc, priority) => {
+  const pushUrl = (loc, priority, lastmod = today) => {
     lines.push("  <url>");
     lines.push(`    <loc>${escapeXml(loc)}</loc>`);
     lines.push(`    <lastmod>${escapeXml(lastmod)}</lastmod>`);
@@ -1216,6 +1464,13 @@ function writeSitemap() {
   for (const slug of slugs) {
     pushUrl(`${SITE}/experience/${slug}/`, "0.7");
   }
+  const published = posts.filter((p) => !p.draft);
+  if (published.length) {
+    pushUrl(`${SITE}/blog/`, "0.7", published[0].updated);
+    for (const post of published) {
+      pushUrl(blogPostUrl(post), "0.6", post.updated);
+    }
+  }
   lines.push("</urlset>");
   lines.push("");
   writeFileSync(join(root, "sitemap.xml"), lines.join("\n"), "utf8");
@@ -1227,10 +1482,18 @@ async function main() {
   buildTriplecheckPage();
   buildLandingPages();
   await buildExperiencePages();
+  const posts = loadBlogPosts();
+  rmSync(join(root, "blog"), { recursive: true, force: true });
+  buildBlogIndex(posts);
+  buildBlogPosts(posts);
+  writeBlogFeed(posts);
   build404Page();
-  writeSitemap();
+  writeSitemap(posts);
   writeLlmsProjects();
-  console.log("Build OK: index.html + landing pages + projects/* + triplecheck/* + experience/* + 404.html + sitemap.xml");
+  writeLlmsBlog(posts);
+  console.log(
+    `Build OK: index.html + landing pages + projects/* + triplecheck/* + experience/* + blog/* (${posts.length} ${posts.length === 1 ? "post" : "posts"}) + 404.html + sitemap.xml`,
+  );
 }
 
 function isDirectRun() {

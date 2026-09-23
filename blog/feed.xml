@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog · Felipe Basurto</title>
+    <link>https://felipebasurto.com/blog/</link>
+    <atom:link href="https://felipebasurto.com/blog/feed.xml" rel="self" type="application/rss+xml" />
+    <description>Notes on building with AI, shipping software, and things I find worth writing down.</description>
+    <language>en</language>
+  </channel>
+</rss>
