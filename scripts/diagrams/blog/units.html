@@ -1,0 +1,35 @@
+<figure class="fig fig-units">
+<p class="fig-units__path">price.js, now</p>
+<ol class="fig-units__file">
+<li class="fig-units__block fig-units__block--added">
+<pre class="fig-units__code"><code><span class="fig-units__num" aria-hidden="true">1</span>import { log } from "./log.js";</code></pre>
+<p class="fig-units__note"><strong class="fig-units__kind">New line.</strong> Every byte offset below it shifts.</p>
+</li>
+<li class="fig-units__block fig-units__block--blank" aria-hidden="true">
+<pre class="fig-units__code"><code><span class="fig-units__num">2</span></code></pre>
+</li>
+<li class="fig-units__block fig-units__block--region">
+<pre class="fig-units__code"><code><span class="fig-units__num" aria-hidden="true">3</span>const RATE = 10;</code></pre>
+<p class="fig-units__note"><strong class="fig-units__kind">Region.</strong> Found again by the text around it.</p>
+</li>
+<li class="fig-units__block fig-units__block--blank" aria-hidden="true">
+<pre class="fig-units__code"><code><span class="fig-units__num">4</span></code></pre>
+</li>
+<li class="fig-units__block fig-units__block--symbol">
+<pre class="fig-units__code"><code><span class="fig-units__num" aria-hidden="true">5</span>function total(quantity) {
+<span class="fig-units__num" aria-hidden="true">6</span>  return quantity * 20;
+<span class="fig-units__num" aria-hidden="true">7</span>}</code></pre>
+<p class="fig-units__note"><strong class="fig-units__kind">Symbol <code>total</code>.</strong> Found again by name. The whole function comes back.</p>
+</li>
+<li class="fig-units__block fig-units__block--blank" aria-hidden="true">
+<pre class="fig-units__code"><code><span class="fig-units__num">8</span></code></pre>
+</li>
+<li class="fig-units__block fig-units__block--unread">
+<pre class="fig-units__code"><code><span class="fig-units__num" aria-hidden="true">9</span>function discount(quantity) {
+<span class="fig-units__num" aria-hidden="true">10</span>  return quantity &gt; 100 ? 5 : 0;
+<span class="fig-units__num" aria-hidden="true">11</span>}</code></pre>
+<p class="fig-units__note"><strong class="fig-units__kind">Never read.</strong> Stays out of the projection.</p>
+</li>
+</ol>
+<figcaption class="fig__caption">The file as it is now, banded by what FreshCtx tracks. Line numbers moved; the units did not.</figcaption>
+</figure>

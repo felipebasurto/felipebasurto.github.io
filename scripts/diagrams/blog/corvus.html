@@ -1,0 +1,37 @@
+<figure class="fig fig-corvus">
+<div class="fig-corvus__cols">
+<div class="fig-corvus__col">
+<p class="fig-corvus__who">Usual agent</p>
+<ol class="fig-corvus__loop" aria-label="Loop: think, act, add the result, repeat.">
+<li class="fig-corvus__step">Think</li>
+<li class="fig-corvus__step">Act</li>
+<li class="fig-corvus__step">Add result</li>
+</ol>
+<p class="fig-corvus__label">Prompt after reading a.py three times</p>
+<ol class="fig-request__list">
+<li class="fig-request__msg fig-request__msg--stale"><span class="fig-request__role">tool</span><code>a.py</code><span class="fig-request__tag">old copy</span></li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>edit a.py</li>
+<li class="fig-request__msg fig-request__msg--stale"><span class="fig-request__role">tool</span><code>a.py</code><span class="fig-request__tag">old copy</span></li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>edit a.py</li>
+<li class="fig-request__msg"><span class="fig-request__role">tool</span><code>a.py</code><span class="fig-request__tag">latest copy</span></li>
+</ol>
+</div>
+<div class="fig-corvus__col">
+<p class="fig-corvus__who">CORVUS</p>
+<ol class="fig-corvus__loop" aria-label="Loop: sync files, think, act, add the result, repeat.">
+<li class="fig-corvus__step fig-corvus__step--sync">Sync</li>
+<li class="fig-corvus__step">Think</li>
+<li class="fig-corvus__step">Act</li>
+<li class="fig-corvus__step">Add result</li>
+</ol>
+<p class="fig-corvus__label">Prompt after syncing a.py</p>
+<ol class="fig-request__list">
+<li class="fig-request__msg fig-request__msg--marker"><span class="fig-request__role">tool</span>sync: a.py<span class="fig-request__tag">marker</span></li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>edit a.py</li>
+<li class="fig-request__msg fig-request__msg--marker"><span class="fig-request__role">tool</span>sync: a.py<span class="fig-request__tag">marker</span></li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>edit a.py</li>
+<li class="fig-request__msg fig-corvus__synced"><span class="fig-request__role">sync</span><code>a.py</code><span class="fig-request__tag">read from disk every step</span></li>
+</ol>
+</div>
+</div>
+</figure>

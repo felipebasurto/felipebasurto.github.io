@@ -32,7 +32,7 @@
   <meta name="twitter:image" content="https://felipebasurto.com/assets/experience/musatro/icon.png" />
 
   <title>Musatro | Felipe Basurto</title>
-  <link rel="stylesheet" href="../../css/styles.css" />
+  <link rel="stylesheet" href="../../css/styles.css?v=a7887864b7" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -40,7 +40,7 @@
     <header class="doc__hint">~/experience/musatro.md</header>
     <main id="main" class="doc__main">
       <article class="md-doc md-doc--musatro">
-<p class="md-p"><a class="md-link" href="../../" title="../../">← Back to CV</a> · <a class="md-link" href="../../projects/" title="../../projects/">Projects</a></p>
+<p class="md-p"><a class="md-link" href="../../" title="../../">← Home</a> · <a class="md-link" href="../../projects/" title="../../projects/">Projects</a></p>
 <h1 class="md-heading" id="musatro"><span class="md-hashes" aria-hidden="true">#</span> Musatro</h1>
 <figure class="md-figure md-figure--appicon"><img class="md-img md-img--appicon" src="../../assets/experience/musatro/icon.png" alt="Musatro icon" loading="lazy" decoding="async" width="96" height="96" /><figcaption class="md-figcap" aria-hidden="true">![Musatro icon](../../assets/experience/musatro/icon.png)</figcaption></figure>
 <p class="md-p">Musatro is a browser roguelike built around the four Mus lances of Grande, Chica, Pares, and Juego. It uses a Spanish deck, but the run structure borrows more from Balatro than from a rules-faithful Mus simulator.</p>
@@ -145,6 +145,48 @@
         else if (e.key === "ArrowLeft" && group.length > 1) { e.preventDefault(); show(index - 1); }
         else if (e.key === "ArrowRight" && group.length > 1) { e.preventDefault(); show(index + 1); }
       });
+    })();
+  </script>
+  <script>
+    (function () {
+      // Animated figures replay in a loop while on screen: play, hold the
+      // end state, fade out, snap back to the start, fade in, play again.
+      // data-play holds the length of one run in ms. Reduced motion keeps
+      // the static end state.
+      var figs = document.querySelectorAll("figure[data-play]");
+      if (!figs.length || !("IntersectionObserver" in window)) return;
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      var HOLD = 2600, FADE = 250, GAP = 450;
+      figs.forEach(function (fig) {
+        var run = parseInt(fig.getAttribute("data-play"), 10) || 3000;
+        var timer = null;
+        fig._visible = false;
+        fig.classList.add("fig--armed");
+        function cycle() {
+          fig.classList.add("fig--play");
+          timer = setTimeout(function () {
+            fig.classList.add("fig--fade");
+            timer = setTimeout(function () {
+              fig.classList.remove("fig--play", "fig--fade");
+              timer = setTimeout(function () {
+                timer = null;
+                if (fig._visible) cycle();
+              }, GAP);
+            }, FADE);
+          }, run + HOLD);
+        }
+        fig._start = function () {
+          fig._visible = true;
+          if (!timer) timer = setTimeout(function () { timer = null; cycle(); }, 150);
+        };
+      });
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) e.target._start();
+          else e.target._visible = false;
+        });
+      }, { threshold: 0.3 });
+      figs.forEach(function (fig) { io.observe(fig); });
     })();
   </script>
   

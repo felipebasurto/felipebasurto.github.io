@@ -4,7 +4,7 @@ description: "Audio Silence Remover is an open-source macOS utility for spoken a
 og_image: "/assets/experience/audio-silence-remover/icon.png"
 ---
 
-[← Back to CV](../../)
+[← Home](../../)
 
 # Audio Silence Remover
 

@@ -4,7 +4,7 @@ description: "Encore is an independent iPhone concert diary built with SwiftUI."
 og_image: "/assets/companies/encore.png"
 ---
 
-[← Back to CV](../../)
+[← Home](../../)
 
 # Encore: Concert Diary
 

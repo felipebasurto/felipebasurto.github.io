@@ -4,7 +4,7 @@ description: "HabitDex is a Pokémon-style habit tracker for iPhone."
 og_image: "/assets/experience/habitdex/habitdex-icon.webp"
 ---
 
-[← Back to CV](../../)
+[← Home](../../)
 
 # HabitDex
 

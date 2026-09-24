@@ -15,24 +15,32 @@
   <meta name="title" content="Blog · Felipe Basurto" />
   <meta name="description" content="Notes on building with AI, shipping software, and things I find worth writing down." />
   <meta name="author" content="Felipe Basurto" />
-  <meta name="robots" content="noindex" />
+  <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0a0a0c" />
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://felipebasurto.com/blog/" />
   <meta property="og:title" content="Blog · Felipe Basurto" />
   <meta property="og:description" content="Notes on building with AI, shipping software, and things I find worth writing down." />
-  <meta property="og:image" content="https://felipebasurto.com/assets/og.png" />
+  <meta property="og:image" content="https://felipebasurto.com/assets/blog/model-context-is-not-static/og.png" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@fildotai" />
   <meta name="twitter:url" content="https://felipebasurto.com/blog/" />
   <meta name="twitter:title" content="Blog · Felipe Basurto" />
   <meta name="twitter:description" content="Notes on building with AI, shipping software, and things I find worth writing down." />
-  <meta name="twitter:image" content="https://felipebasurto.com/assets/og.png" />
+  <meta name="twitter:image" content="https://felipebasurto.com/assets/blog/model-context-is-not-static/og.png" />
+  <meta property="og:site_name" content="Felipe Basurto" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:creator" content="@fildotai" />
+  <meta property="og:image:alt" content="A file outlined in green, with a dashed red copy of it slightly out of place behind: the current file and the stale view of it." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="675" />
+  <meta name="twitter:image:alt" content="A file outlined in green, with a dashed red copy of it slightly out of place behind: the current file and the stale view of it." />
+  <link rel="alternate" type="text/markdown" href="https://felipebasurto.com/blog/index.md" title="Markdown" />
 
   <title>Blog · Felipe Basurto</title>
-  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/styles.css?v=a7887864b7" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -40,19 +48,26 @@
     <header class="doc__hint">~/blog/</header>
     <main id="main" class="doc__main">
       <article class="md-doc md-doc--blog">
-<p class="md-p"><a class="md-link" href="../" title="../">← Back to CV</a></p>
+<p class="md-p"><a class="md-link" href="../" title="../">← Home</a></p>
 <h1 class="md-heading" id="blog"><span class="md-hashes" aria-hidden="true">#</span> Blog</h1>
 <p class="md-p">Notes on building with AI, shipping software, and things I find worth writing down.</p>
-<p class="md-p"><code class="md-codespan"><span class="md-muted">`</span>No posts yet.<span class="md-muted">`</span></code></p>
+<ul class="blog-grid">
+<li class="blog-grid__item"><a class="blog-card" href="model-context-is-not-static/">
+<img class="blog-card__cover" src="../assets/blog/model-context-is-not-static/cover.svg" alt="" fetchpriority="high" decoding="async" width="1600" height="900" />
+<h2 class="blog-card__title">Model context is not static</h2>
+<p class="blog-card__meta"><time datetime="2026-09-23">2026-09-23</time> <span class="md-muted" aria-hidden="true">·</span> Coding agents, Context engineering <span class="md-muted" aria-hidden="true">·</span> 12 min</p>
+</a></li>
+</ul>
 
       </article>
     </main>
     <footer class="doc__footer" aria-label="End of document">
       <span class="doc__footer-eof" aria-hidden="true">---</span>
       <span class="doc__footer-text">EOF · 2026 · built from markdown</span>
+      <a class="doc__footer-feed" href="feed.xml" title="RSS feed: https://felipebasurto.com/blog/feed.xml">feed.xml</a>
     </footer>
   </div>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Blog","name":"Blog · Felipe Basurto","url":"https://felipebasurto.com/blog/","description":"Notes on building with AI, shipping software, and things I find worth writing down.","inLanguage":"en","author":{"@type":"Person","@id":"https://felipebasurto.com/#person","name":"Felipe Basurto","url":"https://felipebasurto.com"},"isPartOf":{"@type":"WebSite","name":"Felipe Basurto","url":"https://felipebasurto.com"},"blogPost":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Blog","@id":"https://felipebasurto.com/blog/#blog","name":"Blog · Felipe Basurto","url":"https://felipebasurto.com/blog/","description":"Notes on building with AI, shipping software, and things I find worth writing down.","inLanguage":"en","dateModified":"2026-09-23","author":{"@id":"https://felipebasurto.com/#person"},"publisher":{"@id":"https://felipebasurto.com/#person"},"isPartOf":{"@id":"https://felipebasurto.com/#website"},"blogPost":[{"@type":"BlogPosting","@id":"https://felipebasurto.com/blog/model-context-is-not-static/#article","headline":"Model context is not static","description":"In 78% of 67,074 public coding-agent runs, the agent kept re-sending code that its own edit had made stale. I built a context engine, based on the CORVUS paper, that keeps that code current. It works byte for byte, but the model did not reliably do better, and requests did not get cheaper.","url":"https://felipebasurto.com/blog/model-context-is-not-static/","image":{"@type":"ImageObject","url":"https://felipebasurto.com/assets/blog/model-context-is-not-static/og.png","caption":"A file outlined in green, with a dashed red copy of it slightly out of place behind: the current file and the stale view of it.","width":1200,"height":675},"datePublished":"2026-09-23","dateModified":"2026-09-23","wordCount":2682,"timeRequired":"PT12M","keywords":"Coding agents, Context engineering","articleSection":"Coding agents","inLanguage":"en","author":{"@id":"https://felipebasurto.com/#person"},"publisher":{"@id":"https://felipebasurto.com/#person"},"isPartOf":{"@id":"https://felipebasurto.com/blog/#blog"},"mainEntityOfPage":{"@id":"https://felipebasurto.com/blog/model-context-is-not-static/"}}]},{"@type":"WebPage","@id":"https://felipebasurto.com/blog/","url":"https://felipebasurto.com/blog/","name":"Blog · Felipe Basurto","description":"Notes on building with AI, shipping software, and things I find worth writing down.","inLanguage":"en","isPartOf":{"@id":"https://felipebasurto.com/#website"},"about":{"@id":"https://felipebasurto.com/blog/#blog"},"breadcrumb":{"@id":"https://felipebasurto.com/blog/#breadcrumb"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://felipebasurto.com/assets/blog/model-context-is-not-static/og.png","caption":"A file outlined in green, with a dashed red copy of it slightly out of place behind: the current file and the stale view of it.","width":1200,"height":675}},{"@type":"BreadcrumbList","@id":"https://felipebasurto.com/blog/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://felipebasurto.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://felipebasurto.com/blog/"}]},{"@type":"Person","@id":"https://felipebasurto.com/#person","name":"Felipe Basurto","url":"https://felipebasurto.com","jobTitle":"AI solutions architect","email":"hello@felipebasurto.com","image":"https://felipebasurto.com/assets/profile.png","sameAs":["https://github.com/felipebasurto","https://www.linkedin.com/in/felipe-basurto-barrio/","https://x.com/fildotai"]}]}</script>
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
     <button class="lightbox__close" type="button" aria-label="Close (Esc)">×</button>
     <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous photo (Left arrow)">←</button>
@@ -117,6 +132,48 @@
         else if (e.key === "ArrowLeft" && group.length > 1) { e.preventDefault(); show(index - 1); }
         else if (e.key === "ArrowRight" && group.length > 1) { e.preventDefault(); show(index + 1); }
       });
+    })();
+  </script>
+  <script>
+    (function () {
+      // Animated figures replay in a loop while on screen: play, hold the
+      // end state, fade out, snap back to the start, fade in, play again.
+      // data-play holds the length of one run in ms. Reduced motion keeps
+      // the static end state.
+      var figs = document.querySelectorAll("figure[data-play]");
+      if (!figs.length || !("IntersectionObserver" in window)) return;
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      var HOLD = 2600, FADE = 250, GAP = 450;
+      figs.forEach(function (fig) {
+        var run = parseInt(fig.getAttribute("data-play"), 10) || 3000;
+        var timer = null;
+        fig._visible = false;
+        fig.classList.add("fig--armed");
+        function cycle() {
+          fig.classList.add("fig--play");
+          timer = setTimeout(function () {
+            fig.classList.add("fig--fade");
+            timer = setTimeout(function () {
+              fig.classList.remove("fig--play", "fig--fade");
+              timer = setTimeout(function () {
+                timer = null;
+                if (fig._visible) cycle();
+              }, GAP);
+            }, FADE);
+          }, run + HOLD);
+        }
+        fig._start = function () {
+          fig._visible = true;
+          if (!timer) timer = setTimeout(function () { timer = null; cycle(); }, 150);
+        };
+      });
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) e.target._start();
+          else e.target._visible = false;
+        });
+      }, { threshold: 0.3 });
+      figs.forEach(function (fig) { io.observe(fig); });
     })();
   </script>
   

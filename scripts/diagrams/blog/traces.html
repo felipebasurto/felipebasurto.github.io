@@ -1,0 +1,31 @@
+<figure class="fig fig-traces">
+<p class="fig-traces__total">All five: FreshCtx <strong class="md-strong">8,504</strong> bytes, CORVUS 36,701, <strong class="md-strong">77% fewer</strong></p>
+<ul class="fig-traces__list">
+<li class="fig-traces__row">
+<p class="fig-traces__head"><span class="fig-traces__target">Express <code>createApplication</code></span><span class="fig-traces__ratio">1.7× smaller</span></p>
+<span class="fig-traces__lane fig-traces__lane--fn" style="--value: 7.33"><span class="fig-traces__who">FreshCtx</span><span class="fig-traces__track" aria-hidden="true"><span class="fig-traces__bar"></span></span><span class="fig-traces__num">1,075</span></span>
+<span class="fig-traces__lane fig-traces__lane--file" style="--value: 12.13"><span class="fig-traces__who">CORVUS</span><span class="fig-traces__track" aria-hidden="true"><span class="fig-traces__bar"></span></span><span class="fig-traces__num">1,778</span></span>
+</li>
+<li class="fig-traces__row">
+<p class="fig-traces__head"><span class="fig-traces__target">Flask <code>View.as_view</code></span><span class="fig-traces__ratio">2.6× smaller</span></p>
+<span class="fig-traces__lane fig-traces__lane--fn" style="--value: 18.52"><span class="fig-traces__who">FreshCtx</span><span class="fig-traces__track" aria-hidden="true"><span class="fig-traces__bar"></span></span><span class="fig-traces__num">2,715</span></span>
+<span class="fig-traces__lane fig-traces__lane--file" style="--value: 48.51"><span class="fig-traces__who">CORVUS</span><span class="fig-traces__track" aria-hidden="true"><span class="fig-traces__bar"></span></span><span class="fig-traces__num">7,111</span></span>
+</li>
+<li class="fig-traces__row">
+<p class="fig-traces__head"><span class="fig-traces__target">Flask nested <code>view</code></span><span class="fig-traces__ratio">8.6× smaller</span></p>
+<span class="fig-traces__lane fig-traces__lane--fn" style="--value: 5.66"><span class="fig-traces__who">FreshCtx</span><span class="fig-traces__track" aria-hidden="true"><span class="fig-traces__bar"></span></span><span class="fig-traces__num">829</span></span>
+<span class="fig-traces__lane fig-traces__lane--file" style="--value: 48.57"><span class="fig-traces__who">CORVUS</span><span class="fig-traces__track" aria-hidden="true"><span class="fig-traces__bar"></span></span><span class="fig-traces__num">7,120</span></span>
+</li>
+<li class="fig-traces__row">
+<p class="fig-traces__head"><span class="fig-traces__target">Go tools <code>ContainingPackage</code></span><span class="fig-traces__ratio">4.2× smaller</span></p>
+<span class="fig-traces__lane fig-traces__lane--fn" style="--value: 9.72"><span class="fig-traces__who">FreshCtx</span><span class="fig-traces__track" aria-hidden="true"><span class="fig-traces__bar"></span></span><span class="fig-traces__num">1,425</span></span>
+<span class="fig-traces__lane fig-traces__lane--file" style="--value: 41.17"><span class="fig-traces__who">CORVUS</span><span class="fig-traces__track" aria-hidden="true"><span class="fig-traces__bar"></span></span><span class="fig-traces__num">6,034</span></span>
+</li>
+<li class="fig-traces__row">
+<p class="fig-traces__head"><span class="fig-traces__target">ripgrep <code>Config.is_fixed_strings</code></span><span class="fig-traces__ratio">6.0× smaller</span></p>
+<span class="fig-traces__lane fig-traces__lane--fn" style="--value: 16.78"><span class="fig-traces__who">FreshCtx</span><span class="fig-traces__track" aria-hidden="true"><span class="fig-traces__bar"></span></span><span class="fig-traces__num">2,460</span></span>
+<span class="fig-traces__lane fig-traces__lane--file" style="--value: 100"><span class="fig-traces__who">CORVUS</span><span class="fig-traces__track" aria-hidden="true"><span class="fig-traces__bar"></span></span><span class="fig-traces__num">14,658</span></span>
+</li>
+</ul>
+<figcaption class="fig__caption">Bytes of message text for each trace, all on one scale: the function FreshCtx sends against the whole file CORVUS sends.</figcaption>
+</figure>

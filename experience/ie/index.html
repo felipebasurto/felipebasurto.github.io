@@ -32,7 +32,7 @@
   <meta name="twitter:image" content="https://felipebasurto.com/assets/companies/ie.png" />
 
   <title>IE School of Science and Technology | Felipe Basurto</title>
-  <link rel="stylesheet" href="../../css/styles.css" />
+  <link rel="stylesheet" href="../../css/styles.css?v=a7887864b7" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -40,7 +40,7 @@
     <header class="doc__hint">~/experience/ie.md</header>
     <main id="main" class="doc__main">
       <article class="md-doc">
-<p class="md-p"><a class="md-link" href="../../" title="../../">← Back to CV</a></p>
+<p class="md-p"><a class="md-link" href="../../" title="../../">← Home</a></p>
 <h1 class="md-heading" id="ie-school-of-science-and-technology"><span class="md-hashes" aria-hidden="true">#</span> IE School of Science and Technology</h1>
 <p class="md-p"><img class="md-logo" src="../../assets/companies/ie.png" alt="IE" loading="lazy" width="20" height="20" /></p>
 <p class="md-p">I completed the <strong class="md-strong">Master&#39;s in Business Analytics and Big Data</strong> from 2022 to 2023.</p>
@@ -127,6 +127,48 @@
         else if (e.key === "ArrowLeft" && group.length > 1) { e.preventDefault(); show(index - 1); }
         else if (e.key === "ArrowRight" && group.length > 1) { e.preventDefault(); show(index + 1); }
       });
+    })();
+  </script>
+  <script>
+    (function () {
+      // Animated figures replay in a loop while on screen: play, hold the
+      // end state, fade out, snap back to the start, fade in, play again.
+      // data-play holds the length of one run in ms. Reduced motion keeps
+      // the static end state.
+      var figs = document.querySelectorAll("figure[data-play]");
+      if (!figs.length || !("IntersectionObserver" in window)) return;
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      var HOLD = 2600, FADE = 250, GAP = 450;
+      figs.forEach(function (fig) {
+        var run = parseInt(fig.getAttribute("data-play"), 10) || 3000;
+        var timer = null;
+        fig._visible = false;
+        fig.classList.add("fig--armed");
+        function cycle() {
+          fig.classList.add("fig--play");
+          timer = setTimeout(function () {
+            fig.classList.add("fig--fade");
+            timer = setTimeout(function () {
+              fig.classList.remove("fig--play", "fig--fade");
+              timer = setTimeout(function () {
+                timer = null;
+                if (fig._visible) cycle();
+              }, GAP);
+            }, FADE);
+          }, run + HOLD);
+        }
+        fig._start = function () {
+          fig._visible = true;
+          if (!timer) timer = setTimeout(function () { timer = null; cycle(); }, 150);
+        };
+      });
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) e.target._start();
+          else e.target._visible = false;
+        });
+      }, { threshold: 0.3 });
+      figs.forEach(function (fig) { io.observe(fig); });
     })();
   </script>
   

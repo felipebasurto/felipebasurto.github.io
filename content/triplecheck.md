@@ -4,7 +4,7 @@ description: "Triple Check is a Spanish pop-rock band from Burgos."
 og_image: "/assets/triplecheck/atentamente-ep.png"
 ---
 
-[← Back to CV](../) · [Projects](../projects/)
+[← Home](../) · [Projects](../projects/)
 
 # Triple Check
 

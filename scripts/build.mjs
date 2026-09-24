@@ -1,6 +1,8 @@
+import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import hljs from "highlight.js/lib/common";
 import { marked } from "marked";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -94,6 +96,28 @@ function isExternalHref(href) {
   return /^https?:\/\//i.test(href) || href.startsWith("//");
 }
 
+/** Minimum highlight.js auto-detection relevance before an unlabeled block is coloured. */
+const AUTO_HIGHLIGHT_MIN_RELEVANCE = 5;
+
+/** Highlight at build time; the page ships plain spans styled by .hljs-* rules in styles.css. */
+const PROJECTION_HEADER_RE = /^[\w./-]+:(?:symbol|region|file):\d+bytes$/;
+
+function highlightCode(code, lang) {
+  const language = String(lang ?? "").trim().split(/\s+/)[0];
+  if (language && hljs.getLanguage(language)) {
+    const [first, ...rest] = code.split("\n");
+    if (PROJECTION_HEADER_RE.test(first)) {
+      return `<span class="hljs-meta">${escapeHtml(first)}</span>\n${hljs.highlight(rest.join("\n"), { language, ignoreIllegals: true }).value}`;
+    }
+    return hljs.highlight(code, { language, ignoreIllegals: true }).value;
+  }
+  if (!language) {
+    const auto = hljs.highlightAuto(code);
+    if (auto.relevance >= AUTO_HIGHLIGHT_MIN_RELEVANCE) return auto.value;
+  }
+  return escapeHtml(code);
+}
+
 /** Pass through <details>/<summary> only; escape any other raw HTML. */
 function renderSafeDetailsHtml(raw) {
   const text = String(raw ?? "");
@@ -160,21 +184,27 @@ marked.use({
       const lines = String(code ?? "").split("\n");
       const hasEmail = lines.some((line) => emailRe.test(line));
       const contactClass = !infostring && hasEmail ? " md-codeblock--contact" : "";
-      const inner = lines
-        .map((line) => {
-          if (emailRe.test(line)) {
-            return `<a class="md-link" href="mailto:${escapeAttr(line)}" title="mailto:${escapeAttr(line)}">${escapeHtml(line)}</a>`;
-          }
-          return escapeHtml(line);
-        })
-        .join("\n");
+      const inner = contactClass
+        ? lines
+            .map((line) =>
+              emailRe.test(line)
+                ? `<a class="md-link" href="mailto:${escapeAttr(line)}" title="mailto:${escapeAttr(line)}">${escapeHtml(line)}</a>`
+                : escapeHtml(line),
+            )
+            .join("\n")
+        : highlightCode(String(code ?? ""), infostring);
       return `<div class="md-codeblock${contactClass}"><div class="md-codeblock-gutter" aria-hidden="true">${escapeHtml(label)}</div><pre class="md-pre"><code class="md-code${lang ? ` language-${lang}` : ""}">${inner}</code></pre></div>\n`;
     },
     codespan(code) {
-      return `<code class="md-codespan"><span class="md-muted">\`</span>${escapeHtml(code)}<span class="md-muted">\`</span></code>`;
+      // A bracketed hex ID such as `[a1237d48]` is a FreshCtx marker; the blog colors those.
+      const marker = /^\[[0-9a-f]{8,}\]$/.test(code) ? " md-marker" : "";
+      return `<code class="md-codespan${marker}"><span class="md-muted">\`</span>${code}<span class="md-muted">\`</span></code>`;
     },
     blockquote(quote) {
       return `<blockquote class="md-bq">\n${quote}</blockquote>\n`;
+    },
+    table(header, body) {
+      return `<div class="md-table-wrap"><table class="md-table">\n<thead>\n${header}</thead>\n<tbody>\n${body}</tbody>\n</table></div>\n`;
     },
     hr() {
       return `<p class="md-hr-line" aria-hidden="true">---</p>\n<hr class="md-hr" />\n`;
@@ -232,6 +262,12 @@ function loadTemplate() {
   return readFileSync(join(root, "scripts", "template.html"), "utf8");
 }
 
+/** Content hash appended to the stylesheet URL so browsers refetch it after a change. */
+const CSS_VERSION = createHash("sha256")
+  .update(readFileSync(join(root, "css", "styles.css")))
+  .digest("hex")
+  .slice(0, 10);
+
 function unwrapFigures(html) {
   let out = html;
   const openPatterns = [
@@ -284,7 +320,7 @@ function labelGenericLinks(html) {
   });
 }
 
-function renderMarkdownBody(body) {
+export function renderMarkdownBody(body) {
   return labelGenericLinks(wrapGameShotGrids(wrapAppShotGrids(unwrapFigures(marked.parse(body)))));
 }
 
@@ -375,13 +411,14 @@ ${folders}
 </div>\n`;
 }
 
-/** Home page: link to the blog with the latest post; renders nothing until a post exists. */
+/** Home page: latest post under ## Blog, plus the index. Renders nothing until a post exists. */
 function renderBlogLink(relPrefix) {
   const [latest] = loadBlogPosts();
   if (!latest) return "";
-  const blog = renderProjectLink({ label: "Blog", href: "blog/" }, "", relPrefix);
   const post = renderProjectLink({ label: latest.title, href: `blog/${latest.slug}/` }, "", relPrefix);
-  return `<p class="md-p">${blog}. Latest: ${post}${LINK_SEP}${escapeHtml(latest.date)}</p>\n`;
+  const all = renderProjectLink({ label: "All posts", href: "blog/" }, "", relPrefix);
+  const lead = latest.summary || latest.description.split(/(?<=\.)\s/)[0];
+  return `<ul class="md-list md-list--unordered">\n<li class="md-li">${post}. ${escapeHtml(lead)}</li>\n</ul>\n<p class="md-p">${all}</p>\n`;
 }
 
 const PROJECT_TOKENS = {
@@ -402,27 +439,47 @@ const EXPERIENCE_DIAGRAMS = {
   "{{AILY_GRAPH_RAG_DIAGRAM}}": "aily-graph-rag.html",
 };
 
-function loadExperienceDiagram(filename) {
+/** Blog figures: static HTML in scripts/diagrams/blog/, placed with a token on its own line. */
+export const BLOG_FIGURES = {
+  "{{FIG_OPENING}}": "blog/opening.html",
+  "{{FIG_HARNESS}}": "blog/harness.html",
+  "{{FIG_RESEND}}": "blog/resend.html",
+  "{{FIG_CANVAS}}": "blog/canvas-case.html",
+  "{{FIG_PREVALENCE}}": "blog/prevalence.html",
+  "{{FIG_CORVUS}}": "blog/corvus.html",
+  "{{FIG_APPROACHES}}": "blog/approaches.html",
+  "{{FIG_REQUEST_COPY}}": "blog/request-copy.html",
+  "{{FIG_TREE}}": "blog/tree.html",
+  "{{FIG_UNITS}}": "blog/units.html",
+  "{{FIG_TRACES}}": "blog/traces.html",
+  "{{FIG_REPLAY}}": "blog/replay.html",
+  "{{FIG_BUDGET}}": "blog/budget.html",
+  "{{FIG_CACHE}}": "blog/cache.html",
+  "{{FIG_PILOT}}": "blog/pilot.html",
+  "{{FIG_SESSION}}": "blog/session.html",
+};
+
+export function loadDiagram(filename) {
   const path = join(__dirname, "diagrams", filename);
   if (!existsSync(path)) {
-    console.warn(`Missing diagram: ${path}`);
-    return "";
+    throw new Error(`Missing diagram: ${path}`);
   }
   return readFileSync(path, "utf8");
 }
 
+/** Render markdown, swapping each diagram token for its HTML file. */
+function renderBodyWithDiagrams(body, diagrams) {
+  const tokens = Object.keys(diagrams).filter((token) => body.includes(token));
+  if (!tokens.length) return renderMarkdownBody(body);
+  const tokenRe = new RegExp(`(${tokens.map((t) => t.replace(/[{}]/g, "\\$&")).join("|")})`);
+  return body
+    .split(tokenRe)
+    .map((part) => (diagrams[part] ? loadDiagram(diagrams[part]) : renderMarkdownBody(part)))
+    .join("");
+}
+
 function renderExperienceBody(body) {
-  const tokens = Object.keys(EXPERIENCE_DIAGRAMS).filter((token) => body.includes(token));
-  if (tokens.length) {
-    const tokenRe = new RegExp(`(${tokens.map((t) => t.replace(/[{}]/g, "\\$&")).join("|")})`);
-    return body
-      .split(tokenRe)
-      .map((part) =>
-        EXPERIENCE_DIAGRAMS[part] ? loadExperienceDiagram(EXPERIENCE_DIAGRAMS[part]) : renderMarkdownBody(part),
-      )
-      .join("");
-  }
-  return renderMarkdownBody(body);
+  return renderBodyWithDiagrams(body, EXPERIENCE_DIAGRAMS);
 }
 
 function experienceArticleClass(slug) {
@@ -434,8 +491,41 @@ function experienceArticleClass(slug) {
   return "";
 }
 
+function imageType(sitePath) {
+  if (/\.jpe?g$/i.test(sitePath)) return "image/jpeg";
+  if (/\.webp$/i.test(sitePath)) return "image/webp";
+  return "image/png";
+}
+
 function absOgImage(ogImage) {
   return ogImage.startsWith("http") ? ogImage : `${SITE}${ogImage.startsWith("/") ? "" : "/"}${ogImage}`;
+}
+
+/** Width and height of a PNG or JPEG, for Open Graph and ImageObject. */
+function rasterSize(sitePath) {
+  const full = join(root, String(sitePath).replace(/^\//, ""));
+  if (!existsSync(full)) return null;
+  const buf = readFileSync(full);
+  if (buf.length >= 24 && buf[0] === 0x89 && buf.toString("ascii", 1, 4) === "PNG") {
+    return { width: buf.readUInt32BE(16), height: buf.readUInt32BE(20) };
+  }
+  if (buf[0] === 0xff && buf[1] === 0xd8) {
+    let i = 2;
+    while (i + 8 < buf.length) {
+      if (buf[i] !== 0xff) return null;
+      const marker = buf[i + 1];
+      if (marker === 0xd8 || marker === 0xd9) {
+        i += 2;
+        continue;
+      }
+      const len = buf.readUInt16BE(i + 2);
+      if (marker >= 0xc0 && marker <= 0xc3) {
+        return { height: buf.readUInt16BE(i + 5), width: buf.readUInt16BE(i + 7) };
+      }
+      i += 2 + len;
+    }
+  }
+  return null;
 }
 
 function fillTemplate({
@@ -451,11 +541,14 @@ function fillTemplate({
   docClass = "",
   articleClass = "",
   extraScripts = "",
+  extraHead = "",
+  footerExtra = "",
   robots = "index, follow",
   ogType = "website",
 }) {
   let html = loadTemplate();
   html = html.replaceAll("{{OG_TYPE}}", escapeAttr(ogType));
+  html = html.replaceAll("{{CSS_VERSION}}", CSS_VERSION);
   html = html.replaceAll("{{TITLE}}", escapeHtml(title));
   html = html.replaceAll("{{DESCRIPTION}}", escapeHtml(description));
   html = html.replaceAll("{{ROBOTS}}", escapeAttr(robots));
@@ -470,6 +563,8 @@ function fillTemplate({
   html = html.replaceAll("{{ARTICLE_CLASS}}", articleClass);
   html = html.replaceAll("{{YEAR}}", String(new Date().getFullYear()));
   html = html.replaceAll("{{EXTRA_SCRIPTS}}", extraScripts);
+  html = html.replaceAll("{{EXTRA_HEAD}}", extraHead);
+  html = html.replaceAll("{{FOOTER_EXTRA}}", footerExtra);
   return html;
 }
 
@@ -761,19 +856,8 @@ function buildJsonLd(description) {
   const personId = `${SITE}/#person`;
   const websiteId = `${SITE}/#website`;
   const person = {
-    "@type": "Person",
-    "@id": personId,
-    name: "Felipe Basurto",
-    jobTitle: "AI solutions architect",
+    ...personNode(),
     description,
-    image: `${SITE}/assets/profile.png`,
-    url: SITE,
-    email: "hello@felipebasurto.com",
-    sameAs: [
-      "https://github.com/felipebasurto",
-      "https://www.linkedin.com/in/felipe-basurto-barrio/",
-      "https://x.com/fildotai",
-    ],
     homeLocation: {
       "@type": "Place",
       name: "Madrid, Spain",
@@ -830,9 +914,12 @@ function buildJsonLd(description) {
     inLanguage: "en",
     publisher: { "@id": personId },
   };
+  const graph = [person, website];
+  const published = loadBlogPosts().filter((post) => !post.draft);
+  if (published.length) graph.push(blogListingNode(published[0].updated));
   return toSafeJsonLdString({
     "@context": "https://schema.org",
-    "@graph": [person, website],
+    "@graph": graph,
   });
 }
 
@@ -842,6 +929,14 @@ function personNode() {
     "@id": `${SITE}/#person`,
     name: "Felipe Basurto",
     url: SITE,
+    jobTitle: "AI solutions architect",
+    email: "hello@felipebasurto.com",
+    image: `${SITE}/assets/profile.png`,
+    sameAs: [
+      "https://github.com/felipebasurto",
+      "https://www.linkedin.com/in/felipe-basurto-barrio/",
+      "https://x.com/fildotai",
+    ],
   };
 }
 
@@ -952,21 +1047,44 @@ function buildServiceJsonLd({ name, url, description, serviceType, areaServed })
   });
 }
 
-function buildArticleJsonLd({ name, url, description }) {
+function buildArticleJsonLd({ name, url, description, image, wordCount }) {
   return toSafeJsonLdString({
     "@context": "https://schema.org",
-    "@type": "Article",
-    headline: name,
-    description,
-    url,
-    author: personNode(),
-    publisher: personNode(),
-    inLanguage: "en",
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": url,
-      url,
-    },
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": `${url}#article`,
+        headline: name,
+        description,
+        url,
+        ...(image ? { image: imageObject(image) } : {}),
+        ...(wordCount ? { wordCount } : {}),
+        inLanguage: "en",
+        author: { "@id": `${SITE}/#person` },
+        publisher: { "@id": `${SITE}/#person` },
+        isPartOf: { "@id": `${SITE}/#website` },
+        mainEntityOfPage: { "@id": url },
+      },
+      {
+        "@type": "WebPage",
+        "@id": url,
+        url,
+        name,
+        description,
+        inLanguage: "en",
+        isPartOf: { "@id": `${SITE}/#website` },
+        mainEntity: { "@id": `${url}#article` },
+        breadcrumb: { "@id": `${url}#breadcrumb` },
+      },
+      breadcrumbList(
+        [
+          { name: "Home", item: `${SITE}/` },
+          { name, item: url },
+        ],
+        `${url}#breadcrumb`,
+      ),
+      personNode(),
+    ],
   });
 }
 
@@ -1016,7 +1134,11 @@ function buildLandingPages() {
         name: title,
         url: canonicalUrl,
         description,
+        image: ogImage,
+        wordCount: markdownToPlainText(body).split(" ").filter(Boolean).length,
       }),
+      extraHead:
+        page.schemaKind === "article" ? headTags([...siteShareMeta(), ...imageMetaTags(ogImage, title)]) : "",
     });
     writeFileSync(join(outDir, "index.html"), html, "utf8");
   }
@@ -1039,7 +1161,7 @@ function buildIndex() {
     canonicalUrl: `${SITE}/`,
     ogUrl: `${SITE}/`,
     relPrefix: "./",
-    headerHint: "~/cv.md",
+    headerHint: "~/felipe.md",
     bodyHtml,
     jsonLd: buildJsonLd(description),
     docClass: "",
@@ -1056,7 +1178,7 @@ function build404Page() {
 
 No page at this path.
 
-[← Back to CV](/)
+[← Home](/)
 `);
   const html = fillTemplate({
     title,
@@ -1221,26 +1343,40 @@ function loadBlogPosts() {
         throw new Error(`content/blog/${file}: missing "${field}" in frontmatter`);
       }
     }
-    const cover = `/${String(meta.cover).trim().replace(/^\/+/, "")}`;
-    if (!existsSync(join(root, cover))) {
-      throw new Error(`content/blog/${file}: cover not found at ${cover}`);
+    const assetPath = (field) => {
+      const path = `/${String(meta[field]).trim().replace(/^\/+/, "")}`;
+      if (!existsSync(join(root, path))) {
+        throw new Error(`content/blog/${file}: ${field} not found at ${path}`);
+      }
+      return path;
+    };
+    const cover = assetPath("cover");
+    // Link previews (Open Graph, X, RSS readers) do not render SVG.
+    const ogImage = meta.og_image ? assetPath("og_image") : cover;
+    if (/\.svg$/i.test(ogImage)) {
+      throw new Error(`content/blog/${file}: an SVG cover needs a raster "og_image" (PNG or JPG) for link previews`);
     }
     const date = isoDate(meta.date, file, "date");
     const updated = meta.updated ? isoDate(meta.updated, file, "updated") : date;
-    const words = markdownToPlainText(body).split(" ").filter(Boolean).length;
+    // Collapsed <details> blocks are optional deep dives, so reading time counts the main path only.
+    const mainPath = body.replace(/<details>[\s\S]*?<\/details>/g, "");
+    const words = markdownToPlainText(mainPath).split(" ").filter(Boolean).length;
     posts.push({
       slug,
       title: meta.title,
       description: meta.description,
+      summary: String(meta.summary ?? "").trim(),
       date,
       updated,
       cover,
       coverAlt: meta.cover_alt,
+      ogImage,
       tags: String(meta.tags ?? "")
         .split(",")
         .map((t) => t.trim())
         .filter(Boolean),
       minutes: Math.max(1, Math.round(words / WORDS_PER_MINUTE)),
+      words,
       draft,
       body,
     });
@@ -1250,6 +1386,79 @@ function loadBlogPosts() {
 
 function blogPostUrl(post) {
   return `${SITE}/blog/${post.slug}/`;
+}
+
+function blogMarkdownUrl(slug = "index") {
+  return `${SITE}/blog/${slug}.md`;
+}
+
+function blogListingNode(dateModified) {
+  return {
+    "@type": "Blog",
+    "@id": `${SITE}/blog/#blog`,
+    name: BLOG_TITLE,
+    url: `${SITE}/blog/`,
+    description: BLOG_DESCRIPTION,
+    inLanguage: "en",
+    ...(dateModified ? { dateModified } : {}),
+    author: { "@id": `${SITE}/#person` },
+    publisher: { "@id": `${SITE}/#person` },
+    isPartOf: { "@id": `${SITE}/#website` },
+  };
+}
+
+function breadcrumbList(items, id) {
+  return {
+    "@type": "BreadcrumbList",
+    "@id": id,
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: item.item,
+    })),
+  };
+}
+
+function imageObject(sitePath, caption) {
+  const size = rasterSize(sitePath);
+  return {
+    "@type": "ImageObject",
+    url: absOgImage(sitePath),
+    ...(caption ? { caption } : {}),
+    ...(size ?? {}),
+  };
+}
+
+function siteShareMeta() {
+  return [
+    `<meta property="og:site_name" content="Felipe Basurto" />`,
+    `<meta property="og:locale" content="en_US" />`,
+    `<meta name="twitter:creator" content="@fildotai" />`,
+  ];
+}
+
+function imageMetaTags(sitePath, alt) {
+  const size = rasterSize(sitePath);
+  return [
+    `<meta property="og:image:alt" content="${escapeAttr(alt)}" />`,
+    ...(size
+      ? [
+          `<meta property="og:image:width" content="${size.width}" />`,
+          `<meta property="og:image:height" content="${size.height}" />`,
+        ]
+      : []),
+    `<meta name="twitter:image:alt" content="${escapeAttr(alt)}" />`,
+  ];
+}
+
+function headTags(lines) {
+  return `\n  ${lines.join("\n  ")}`;
+}
+
+/** Drop figure placeholders. The prose around them is the citable text. */
+function blogProse(body) {
+  return String(body).replace(/^\{\{FIG_[A-Z0-9_]+\}\}\n?/gm, "").trim();
 }
 
 function renderPostMeta(post) {
@@ -1283,79 +1492,190 @@ function buildBlogPostingJsonLd(post) {
   const url = blogPostUrl(post);
   return {
     "@type": "BlogPosting",
+    "@id": `${url}#article`,
     headline: post.title,
     description: post.description,
     url,
-    image: absOgImage(post.cover),
+    image: imageObject(post.ogImage, post.coverAlt),
     datePublished: post.date,
     dateModified: post.updated,
-    ...(post.tags.length ? { keywords: post.tags.join(", ") } : {}),
-    author: personNode(),
-    publisher: personNode(),
+    wordCount: post.words,
+    timeRequired: `PT${post.minutes}M`,
+    ...(post.tags.length ? { keywords: post.tags.join(", "), articleSection: post.tags[0] } : {}),
     inLanguage: "en",
-    mainEntityOfPage: { "@type": "WebPage", "@id": url, url },
+    author: { "@id": `${SITE}/#person` },
+    publisher: { "@id": `${SITE}/#person` },
+    isPartOf: { "@id": `${SITE}/blog/#blog` },
+    mainEntityOfPage: { "@id": url },
   };
+}
+
+function buildBlogIndexJsonLd(posts) {
+  const url = `${SITE}/blog/`;
+  const published = posts.filter((post) => !post.draft);
+  const latest = published[0];
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        ...blogListingNode(latest?.updated),
+        blogPost: published.map(buildBlogPostingJsonLd),
+      },
+      {
+        "@type": "WebPage",
+        "@id": url,
+        url,
+        name: BLOG_TITLE,
+        description: BLOG_DESCRIPTION,
+        inLanguage: "en",
+        isPartOf: { "@id": `${SITE}/#website` },
+        about: { "@id": `${SITE}/blog/#blog` },
+        breadcrumb: { "@id": `${url}#breadcrumb` },
+        ...(latest ? { primaryImageOfPage: imageObject(latest.ogImage, latest.coverAlt) } : {}),
+      },
+      breadcrumbList(
+        [
+          { name: "Home", item: `${SITE}/` },
+          { name: "Blog", item: url },
+        ],
+        `${url}#breadcrumb`,
+      ),
+      personNode(),
+    ],
+  };
+}
+
+function buildBlogPostJsonLd(post) {
+  const url = blogPostUrl(post);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      buildBlogPostingJsonLd(post),
+      {
+        "@type": "WebPage",
+        "@id": url,
+        url,
+        name: `${post.title} · Felipe Basurto`,
+        description: post.description,
+        inLanguage: "en",
+        isPartOf: { "@id": `${SITE}/blog/#blog` },
+        primaryImageOfPage: imageObject(post.ogImage, post.coverAlt),
+        breadcrumb: { "@id": `${url}#breadcrumb` },
+        mainEntity: { "@id": `${url}#article` },
+      },
+      breadcrumbList(
+        [
+          { name: "Home", item: `${SITE}/` },
+          { name: "Blog", item: `${SITE}/blog/` },
+          { name: post.title, item: url },
+        ],
+        `${url}#breadcrumb`,
+      ),
+      blogListingNode(),
+      personNode(),
+    ],
+  };
+}
+
+function blogIndexHead(posts) {
+  const latest = posts.find((post) => !post.draft);
+  return headTags([
+    ...siteShareMeta(),
+    ...(latest ? imageMetaTags(latest.ogImage, latest.coverAlt) : []),
+    `<link rel="alternate" type="text/markdown" href="${blogMarkdownUrl()}" title="Markdown" />`,
+  ]);
+}
+
+function blogPostHead(post) {
+  return headTags([
+    ...siteShareMeta(),
+    `<meta property="article:published_time" content="${post.date}T00:00:00Z" />`,
+    `<meta property="article:modified_time" content="${post.updated}T00:00:00Z" />`,
+    `<meta property="article:author" content="${SITE}/#person" />`,
+    ...post.tags.map((tag) => `<meta property="article:tag" content="${escapeAttr(tag)}" />`),
+    ...imageMetaTags(post.ogImage, post.coverAlt),
+    `<link rel="alternate" type="text/markdown" href="${blogMarkdownUrl(post.slug)}" title="Markdown" />`,
+  ]);
 }
 
 function buildBlogIndex(posts) {
   const canonicalUrl = `${SITE}/blog/`;
-  const intro = renderMarkdownBody(`[← Back to CV](../)
+  const intro = renderMarkdownBody(`[← Home](../)
 
 # Blog
 
 ${BLOG_DESCRIPTION}
 `);
-  const feed = `<p class="md-p blog-feed"><a class="md-link" href="feed.xml" title="${escapeAttr(`${SITE}/blog/feed.xml`)}">RSS</a></p>\n`;
-  const bodyHtml = `${intro}${renderBlogGrid(posts, "../")}${posts.length ? feed : ""}`;
-  const jsonLd = toSafeJsonLdString({
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    name: BLOG_TITLE,
-    url: canonicalUrl,
-    description: BLOG_DESCRIPTION,
-    inLanguage: "en",
-    author: personNode(),
-    isPartOf: { "@type": "WebSite", name: "Felipe Basurto", url: SITE },
-    blogPost: posts.map(buildBlogPostingJsonLd),
-  });
+  const bodyHtml = `${intro}${renderBlogGrid(posts, "../")}`;
+  const footerExtra = posts.length
+    ? `\n      <a class="doc__footer-feed" href="feed.xml" title="${escapeAttr(`RSS feed: ${SITE}/blog/feed.xml`)}">feed.xml</a>`
+    : "";
   const outDir = join(root, "blog");
   mkdirSync(outDir, { recursive: true });
   const html = fillTemplate({
     title: BLOG_TITLE,
     description: BLOG_DESCRIPTION,
-    ogImageAbs: absOgImage(posts[0]?.cover ?? DEFAULT_OG_IMAGE),
+    ogImageAbs: absOgImage(posts[0]?.ogImage ?? DEFAULT_OG_IMAGE),
     canonicalUrl,
     ogUrl: canonicalUrl,
     relPrefix: "../",
     headerHint: "~/blog/",
     bodyHtml,
-    jsonLd,
+    jsonLd: toSafeJsonLdString(buildBlogIndexJsonLd(posts)),
     articleClass: " md-doc--blog",
+    extraHead: blogIndexHead(posts),
+    footerExtra,
     robots: posts.some((p) => !p.draft) ? "index, follow" : "noindex",
   });
   writeFileSync(join(outDir, "index.html"), html, "utf8");
 }
 
+const TOC_MIN_SECTIONS = 3;
+
+/** Collapsible list of the post's `##` sections; omitted for short posts. */
+function renderPostToc(articleHtml) {
+  const sections = [...articleHtml.matchAll(/<h2 class="md-heading" id="([^"]+)">([\s\S]*?)<\/h2>/g)].map(([, id, inner]) => ({
+    id,
+    label: inner.replace(/<span class="md-hashes"[^>]*>[\s\S]*?<\/span>/, "").trim(),
+  }));
+  if (sections.length < TOC_MIN_SECTIONS) return "";
+  const items = sections
+    .map((s) => `<li class="post-toc__item"><a class="md-link" href="#${escapeAttr(s.id)}">${s.label}</a></li>`)
+    .join("\n");
+  return `<nav class="post-toc" aria-label="Table of contents">
+<details class="post-toc__details" open>
+<summary class="post-toc__summary">Table of contents</summary>
+<ol class="post-toc__list">
+${items}
+</ol>
+</details>
+</nav>\n`;
+}
+
 function buildBlogPosts(posts) {
   for (const post of posts) {
     const canonicalUrl = blogPostUrl(post);
-    const head = renderMarkdownBody(`[← All posts](../)\n\n# ${post.title}\n`);
+    const back = renderMarkdownBody(`[← All posts](../)\n`);
     const cover = `<figure class="md-figure md-figure--post md-figure--cover"><img class="md-img md-img--post" src="${escapeAttr(`../../${post.cover.slice(1)}`)}" alt="${escapeAttr(post.coverAlt)}" fetchpriority="high" decoding="async" width="1600" height="900" /></figure>\n`;
-    const footer = renderMarkdownBody(`---\n\n[← All posts](../) · [CV](../../)\n`);
-    const bodyHtml = `${head}<p class="post-meta">${renderPostMeta(post)}</p>\n${cover}${renderMarkdownBody(post.body)}${footer}`;
+    const title = renderMarkdownBody(`# ${post.title}\n`);
+    const footer = renderMarkdownBody(`---\n\n[← All posts](../) · [Home](../../)\n`);
+    const articleHtml = renderBodyWithDiagrams(post.body, BLOG_FIGURES);
+    const bodyHtml = `${back}${cover}${title}<p class="post-meta">${renderPostMeta(post)}</p>\n${renderPostToc(articleHtml)}${articleHtml}${footer}`;
     const outDir = join(root, "blog", post.slug);
     mkdirSync(outDir, { recursive: true });
     const html = fillTemplate({
       title: `${post.title} · Felipe Basurto`,
       description: post.description,
-      ogImageAbs: absOgImage(post.cover),
+      ogImageAbs: absOgImage(post.ogImage),
       canonicalUrl,
       ogUrl: canonicalUrl,
       relPrefix: "../../",
       headerHint: `~/blog/${post.slug}.md`,
       bodyHtml,
-      jsonLd: toSafeJsonLdString({ "@context": "https://schema.org", ...buildBlogPostingJsonLd(post) }),
+      jsonLd: toSafeJsonLdString(buildBlogPostJsonLd(post)),
+      docClass: " doc--post",
       articleClass: " md-doc--post",
+      extraHead: blogPostHead(post),
       ogType: "article",
       robots: post.draft ? "noindex" : "index, follow",
     });
@@ -1363,31 +1683,41 @@ function buildBlogPosts(posts) {
   }
 }
 
+function cdata(value) {
+  return `<![CDATA[${String(value).replace(/]]>/g, "]]]]><![CDATA[>")}]]>`;
+}
+
 function writeBlogFeed(allPosts) {
   const posts = allPosts.filter((p) => !p.draft);
   const rfc822 = (d) => new Date(`${d}T00:00:00Z`).toUTCString();
   const items = posts.map((post) => {
     const url = blogPostUrl(post);
+    const html = marked.parse(blogProse(post.body));
     return [
       "    <item>",
       `      <title>${escapeXml(post.title)}</title>`,
       `      <link>${escapeXml(url)}</link>`,
       `      <guid isPermaLink="true">${escapeXml(url)}</guid>`,
       `      <pubDate>${rfc822(post.date)}</pubDate>`,
+      `      <author>hello@felipebasurto.com (Felipe Basurto)</author>`,
+      `      <dc:creator>Felipe Basurto</dc:creator>`,
       `      <description>${escapeXml(post.description)}</description>`,
+      `      <content:encoded>${cdata(html)}</content:encoded>`,
       ...post.tags.map((t) => `      <category>${escapeXml(t)}</category>`),
+      `      <media:content url="${escapeXml(absOgImage(post.ogImage))}" medium="image" type="${imageType(post.ogImage)}" />`,
       "    </item>",
     ].join("\n");
   });
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+    '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/">',
     "  <channel>",
     `    <title>${escapeXml(BLOG_TITLE)}</title>`,
     `    <link>${SITE}/blog/</link>`,
     `    <atom:link href="${SITE}/blog/feed.xml" rel="self" type="application/rss+xml" />`,
     `    <description>${escapeXml(BLOG_DESCRIPTION)}</description>`,
     "    <language>en</language>",
+    "    <dc:creator>Felipe Basurto</dc:creator>",
     ...(posts.length ? [`    <lastBuildDate>${rfc822(posts[0].updated)}</lastBuildDate>`] : []),
     ...items,
     "  </channel>",
@@ -1396,6 +1726,45 @@ function writeBlogFeed(allPosts) {
   ].join("\n");
   mkdirSync(join(root, "blog"), { recursive: true });
   writeFileSync(join(root, "blog", "feed.xml"), xml, "utf8");
+}
+
+/** Plain-text copies for answer engines. The HTML page stays the canonical URL. */
+function writeBlogMarkdown(posts) {
+  const published = posts.filter((post) => !post.draft);
+  const index = [
+    "# Blog",
+    "",
+    `Canonical: ${SITE}/blog/`,
+    `Author: Felipe Basurto (${SITE}/)`,
+    `RSS: ${SITE}/blog/feed.xml`,
+    "",
+    BLOG_DESCRIPTION,
+    "",
+    ...published.map(
+      (post) =>
+        `- ${post.date}: ${post.title}. ${post.description} ${blogPostUrl(post)} · Markdown: ${blogMarkdownUrl(post.slug)}`,
+    ),
+    "",
+  ].join("\n");
+  mkdirSync(join(root, "blog"), { recursive: true });
+  writeFileSync(join(root, "blog", "index.md"), index, "utf8");
+  for (const post of published) {
+    const updated = post.updated !== post.date ? `\nUpdated: ${post.updated}` : "";
+    const tags = post.tags.length ? `\nTags: ${post.tags.join(", ")}` : "";
+    const text = `# ${post.title}
+
+Canonical: ${blogPostUrl(post)}
+Author: Felipe Basurto (${SITE}/)
+Published: ${post.date}${updated}${tags}
+
+${post.description}
+
+---
+
+${blogProse(post.body)}
+`;
+    writeFileSync(join(root, "blog", `${post.slug}.md`), text, "utf8");
+  }
 }
 
 /** Rewrite the generated blog block in llms.txt; empty until the first post ships. */
@@ -1412,8 +1781,11 @@ function writeLlmsBlog(posts) {
   }
   const published = posts.filter((p) => !p.draft);
   const block = published.length
-    ? `\n## Blog\n\nIndex: ${SITE}/blog/ · RSS: ${SITE}/blog/feed.xml\n\n${published
-        .map((p) => `- ${p.date}: ${p.title}. ${p.description} ${blogPostUrl(p)}`)
+    ? `\n## Blog\n\nIndex: ${SITE}/blog/ · Markdown: ${blogMarkdownUrl()} · RSS: ${SITE}/blog/feed.xml\n\n${published
+        .map(
+          (p) =>
+            `- ${p.date}: ${p.title}. ${p.description} ${blogPostUrl(p)} · Markdown: ${blogMarkdownUrl(p.slug)}`,
+        )
         .join("\n")}\n`
     : "\n";
   const next = `${text.slice(0, start + begin.length)}${block}${text.slice(stop)}`;
@@ -1440,13 +1812,23 @@ function getExperienceSlugsForSitemap() {
 function writeSitemap(posts) {
   const today = new Date().toISOString().slice(0, 10);
   const slugs = getExperienceSlugsForSitemap();
-  const lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'];
-  const pushUrl = (loc, priority, lastmod = today) => {
+  const lines = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
+  ];
+  const pushUrl = (loc, priority, lastmod = today, image) => {
     lines.push("  <url>");
     lines.push(`    <loc>${escapeXml(loc)}</loc>`);
     lines.push(`    <lastmod>${escapeXml(lastmod)}</lastmod>`);
     lines.push("    <changefreq>monthly</changefreq>");
     lines.push(`    <priority>${priority}</priority>`);
+    if (image) {
+      lines.push("    <image:image>");
+      lines.push(`      <image:loc>${escapeXml(image.loc)}</image:loc>`);
+      lines.push(`      <image:title>${escapeXml(image.title)}</image:title>`);
+      if (image.caption) lines.push(`      <image:caption>${escapeXml(image.caption)}</image:caption>`);
+      lines.push("    </image:image>");
+    }
     lines.push("  </url>");
   };
   pushUrl(`${SITE}/`, "1.0");
@@ -1466,9 +1848,18 @@ function writeSitemap(posts) {
   }
   const published = posts.filter((p) => !p.draft);
   if (published.length) {
-    pushUrl(`${SITE}/blog/`, "0.7", published[0].updated);
+    const latest = published[0];
+    pushUrl(`${SITE}/blog/`, "0.7", latest.updated, {
+      loc: absOgImage(latest.ogImage),
+      title: BLOG_TITLE,
+      caption: latest.coverAlt,
+    });
     for (const post of published) {
-      pushUrl(blogPostUrl(post), "0.6", post.updated);
+      pushUrl(blogPostUrl(post), "0.6", post.updated, {
+        loc: absOgImage(post.ogImage),
+        title: post.title,
+        caption: post.coverAlt,
+      });
     }
   }
   lines.push("</urlset>");
@@ -1487,6 +1878,7 @@ async function main() {
   buildBlogIndex(posts);
   buildBlogPosts(posts);
   writeBlogFeed(posts);
+  writeBlogMarkdown(posts);
   build404Page();
   writeSitemap(posts);
   writeLlmsProjects();

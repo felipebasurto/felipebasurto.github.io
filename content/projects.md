@@ -4,7 +4,7 @@ description: "Apps, tools for AI agents, experiments, music, and university work
 og_image: "/assets/og.png"
 ---
 
-[← Back to CV](../)
+[← Home](../)
 
 # Projects
 

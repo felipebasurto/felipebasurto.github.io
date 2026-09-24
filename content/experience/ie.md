@@ -4,7 +4,7 @@ description: "Master's in Business Analytics and Big Data at IE from 2022 to 202
 og_image: "/assets/companies/ie.png"
 ---
 
-[← Back to CV](../../)
+[← Home](../../)
 
 # IE School of Science and Technology
 

@@ -29,10 +29,10 @@
   <meta name="twitter:url" content="{{OG_URL}}" />
   <meta name="twitter:title" content="{{TITLE}}" />
   <meta name="twitter:description" content="{{DESCRIPTION}}" />
-  <meta name="twitter:image" content="{{OG_IMAGE}}" />
+  <meta name="twitter:image" content="{{OG_IMAGE}}" />{{EXTRA_HEAD}}
 
   <title>{{TITLE}}</title>
-  <link rel="stylesheet" href="{{REL_PREFIX}}css/styles.css" />
+  <link rel="stylesheet" href="{{REL_PREFIX}}css/styles.css?v={{CSS_VERSION}}" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -45,7 +45,7 @@
     </main>
     <footer class="doc__footer" aria-label="End of document">
       <span class="doc__footer-eof" aria-hidden="true">---</span>
-      <span class="doc__footer-text">EOF · {{YEAR}} · built from markdown</span>
+      <span class="doc__footer-text">EOF · {{YEAR}} · built from markdown</span>{{FOOTER_EXTRA}}
     </footer>
   </div>
   <script type="application/ld+json">{{JSON_LD}}</script>
@@ -113,6 +113,48 @@
         else if (e.key === "ArrowLeft" && group.length > 1) { e.preventDefault(); show(index - 1); }
         else if (e.key === "ArrowRight" && group.length > 1) { e.preventDefault(); show(index + 1); }
       });
+    })();
+  </script>
+  <script>
+    (function () {
+      // Animated figures replay in a loop while on screen: play, hold the
+      // end state, fade out, snap back to the start, fade in, play again.
+      // data-play holds the length of one run in ms. Reduced motion keeps
+      // the static end state.
+      var figs = document.querySelectorAll("figure[data-play]");
+      if (!figs.length || !("IntersectionObserver" in window)) return;
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      var HOLD = 2600, FADE = 250, GAP = 450;
+      figs.forEach(function (fig) {
+        var run = parseInt(fig.getAttribute("data-play"), 10) || 3000;
+        var timer = null;
+        fig._visible = false;
+        fig.classList.add("fig--armed");
+        function cycle() {
+          fig.classList.add("fig--play");
+          timer = setTimeout(function () {
+            fig.classList.add("fig--fade");
+            timer = setTimeout(function () {
+              fig.classList.remove("fig--play", "fig--fade");
+              timer = setTimeout(function () {
+                timer = null;
+                if (fig._visible) cycle();
+              }, GAP);
+            }, FADE);
+          }, run + HOLD);
+        }
+        fig._start = function () {
+          fig._visible = true;
+          if (!timer) timer = setTimeout(function () { timer = null; cycle(); }, 150);
+        };
+      });
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) e.target._start();
+          else e.target._visible = false;
+        });
+      }, { threshold: 0.3 });
+      figs.forEach(function (fig) { io.observe(fig); });
     })();
   </script>
   {{EXTRA_SCRIPTS}}

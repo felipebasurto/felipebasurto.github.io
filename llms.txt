@@ -36,6 +36,7 @@ A note on assessing AI around pharmaceutical operations is at https://felipebasu
 - AI for pharma operations: https://felipebasurto.com/ai-for-pharma-operations/
 - Selected work: https://felipebasurto.com/case-studies/
 - Projects: https://felipebasurto.com/projects/
+- Blog: https://felipebasurto.com/blog/
 - Triple Check: https://felipebasurto.com/triplecheck/
 - Multiverse Computing (past role): https://felipebasurto.com/experience/multiverse/
 - SpaceXAI Ambassadors community log: https://felipebasurto.com/experience/cursor/
@@ -102,6 +103,11 @@ Generated from https://felipebasurto.com/projects/. First-person text ("me", "I"
 <!-- END PROJECTS -->
 
 <!-- BEGIN BLOG -->
+## Blog
+
+Index: https://felipebasurto.com/blog/ · Markdown: https://felipebasurto.com/blog/index.md · RSS: https://felipebasurto.com/blog/feed.xml
+
+- 2026-09-23: Model context is not static. In 78% of 67,074 public coding-agent runs, the agent kept re-sending code that its own edit had made stale. I built a context engine, based on the CORVUS paper, that keeps that code current. It works byte for byte, but the model did not reliably do better, and requests did not get cheaper. https://felipebasurto.com/blog/model-context-is-not-static/ · Markdown: https://felipebasurto.com/blog/model-context-is-not-static.md
 <!-- END BLOG -->
 
 ## Public profiles (same person)

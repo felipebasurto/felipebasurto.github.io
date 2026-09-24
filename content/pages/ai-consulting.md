@@ -4,7 +4,7 @@ description: "Enterprise AI consulting from Madrid. Agents, retrieval, internal 
 og_image: "/assets/og.png"
 ---
 
-[← Back to CV](../)
+[← Home](../)
 
 # AI projects for teams
 

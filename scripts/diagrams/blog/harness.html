@@ -1,0 +1,25 @@
+<figure class="fig fig-loop">
+<ol class="fig-loop__chain">
+<li class="fig-loop__node fig-loop__node--model">
+<p class="fig-loop__name">Model</p>
+<p class="fig-loop__role">The brain: picks the next tool call.</p>
+</li>
+<li class="fig-loop__link">
+<p class="fig-loop__arrow"><span class="fig-loop__dir fig-loop__dir--out" aria-hidden="true"></span><code>read price.js</code></p>
+<p class="fig-loop__arrow fig-loop__arrow--back"><span class="fig-loop__dir fig-loop__dir--back" aria-hidden="true"></span>next request</p>
+</li>
+<li class="fig-loop__node fig-loop__node--harness">
+<p class="fig-loop__name">Harness</p>
+<p class="fig-loop__role">The body: runs tools and builds each request.</p>
+</li>
+<li class="fig-loop__link">
+<p class="fig-loop__arrow"><span class="fig-loop__dir fig-loop__dir--out" aria-hidden="true"></span><code>cat price.js</code></p>
+<p class="fig-loop__arrow fig-loop__arrow--back"><span class="fig-loop__dir fig-loop__dir--back" aria-hidden="true"></span>file contents</p>
+</li>
+<li class="fig-loop__node fig-loop__node--disk">
+<p class="fig-loop__name">Workspace</p>
+<p class="fig-loop__role">Files and a shell.</p>
+</li>
+</ol>
+<figcaption class="fig__caption">The next request carries the whole conversation, now with the file&#39;s contents as a tool result.</figcaption>
+</figure>

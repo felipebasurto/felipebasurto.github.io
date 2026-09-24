@@ -1,0 +1,49 @@
+<figure class="fig fig-resend" data-play="3200">
+<ol class="fig-resend__steps">
+<li class="fig-resend__step">
+<p class="fig-resend__head">Request 1</p>
+<div class="fig-resend__file">
+<p class="fig-resend__name">On disk</p>
+<code class="fig-resend__src">return quantity * 10;</code>
+</div>
+<div class="fig-resend__sent">
+<p class="fig-resend__label">What the model sees</p>
+<ol class="fig-request__list">
+<li class="fig-request__msg"><span class="fig-request__role">user</span>Fix the pricing bug</li>
+</ol>
+</div>
+</li>
+<li class="fig-resend__step">
+<p class="fig-resend__head">Request 2</p>
+<div class="fig-resend__file">
+<p class="fig-resend__name">On disk</p>
+<code class="fig-resend__src">return quantity * 10;</code>
+</div>
+<div class="fig-resend__sent">
+<p class="fig-resend__label">What the model sees</p>
+<ol class="fig-request__list">
+<li class="fig-request__msg"><span class="fig-request__role">user</span>Fix the pricing bug</li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>read price.js</li>
+<li class="fig-request__msg"><span class="fig-request__role">tool</span><code>return quantity * 10;</code></li>
+</ol>
+</div>
+</li>
+<li class="fig-resend__step">
+<p class="fig-resend__head">Request 3</p>
+<div class="fig-resend__file fig-resend__file--changed">
+<p class="fig-resend__name">On disk <span class="fig-resend__tag">changed</span></p>
+<span class="fig-resend__swap"><code class="fig-resend__src fig-resend__src--before" aria-hidden="true">return quantity * 10;</code><code class="fig-resend__src">return quantity * 20;</code></span>
+</div>
+<div class="fig-resend__sent">
+<p class="fig-resend__label">What the model sees</p>
+<ol class="fig-request__list">
+<li class="fig-request__msg"><span class="fig-request__role">user</span>Fix the pricing bug</li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>read price.js</li>
+<li class="fig-request__msg fig-request__msg--stale"><span class="fig-request__role">tool</span><code>return quantity * 10;</code></li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>edit price.js</li>
+<li class="fig-request__msg"><span class="fig-request__role">tool</span>edit applied</li>
+</ol>
+</div>
+</li>
+</ol>
+</figure>

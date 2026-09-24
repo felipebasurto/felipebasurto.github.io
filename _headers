@@ -1,0 +1,3 @@
+# Markdown copies are for answer engines. HTML stays the canonical page.
+/blog/*.md
+  Content-Type: text/markdown; charset=utf-8

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+
+  <link rel="icon" type="image/png" href="../../assets/icon.png" />
+  <link rel="apple-touch-icon" href="../../assets/icon.png" />
+  <link rel="canonical" href="https://felipebasurto.com/blog/model-context-is-not-static/" />
+  <link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt" />
+  <link rel="alternate" type="application/rss+xml" href="../../blog/feed.xml" title="Felipe Basurto · Blog" />
+
+  <meta name="title" content="Model context is not static · Felipe Basurto" />
+  <meta name="description" content="In 78% of 67,074 public coding-agent runs, the agent kept re-sending code that its own edit had made stale. I built a context engine, based on the CORVUS paper, that keeps that code current. It works byte for byte, but the model did not reliably do better, and requests did not get cheaper." />
+  <meta name="author" content="Felipe Basurto" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0a0c" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://felipebasurto.com/blog/model-context-is-not-static/" />
+  <meta property="og:title" content="Model context is not static · Felipe Basurto" />
+  <meta property="og:description" content="In 78% of 67,074 public coding-agent runs, the agent kept re-sending code that its own edit had made stale. I built a context engine, based on the CORVUS paper, that keeps that code current. It works byte for byte, but the model did not reliably do better, and requests did not get cheaper." />
+  <meta property="og:image" content="https://felipebasurto.com/assets/blog/model-context-is-not-static/og.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@fildotai" />
+  <meta name="twitter:url" content="https://felipebasurto.com/blog/model-context-is-not-static/" />
+  <meta name="twitter:title" content="Model context is not static · Felipe Basurto" />
+  <meta name="twitter:description" content="In 78% of 67,074 public coding-agent runs, the agent kept re-sending code that its own edit had made stale. I built a context engine, based on the CORVUS paper, that keeps that code current. It works byte for byte, but the model did not reliably do better, and requests did not get cheaper." />
+  <meta name="twitter:image" content="https://felipebasurto.com/assets/blog/model-context-is-not-static/og.png" />
+  <meta property="og:site_name" content="Felipe Basurto" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:creator" content="@fildotai" />
+  <meta property="article:published_time" content="2026-09-23T00:00:00Z" />
+  <meta property="article:modified_time" content="2026-09-23T00:00:00Z" />
+  <meta property="article:author" content="https://felipebasurto.com/#person" />
+  <meta property="article:tag" content="Coding agents" />
+  <meta property="article:tag" content="Context engineering" />
+  <meta property="og:image:alt" content="A file outlined in green, with a dashed red copy of it slightly out of place behind: the current file and the stale view of it." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="675" />
+  <meta name="twitter:image:alt" content="A file outlined in green, with a dashed red copy of it slightly out of place behind: the current file and the stale view of it." />
+  <link rel="alternate" type="text/markdown" href="https://felipebasurto.com/blog/model-context-is-not-static.md" title="Markdown" />
+
+  <title>Model context is not static · Felipe Basurto</title>
+  <link rel="stylesheet" href="../../css/styles.css?v=a7887864b7" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="doc doc--post">
+    <header class="doc__hint">~/blog/model-context-is-not-static.md</header>
+    <main id="main" class="doc__main">
+      <article class="md-doc md-doc--post">
+<p class="md-p"><a class="md-link" href="../" title="../">← All posts</a></p>
+<figure class="md-figure md-figure--post md-figure--cover"><img class="md-img md-img--post" src="../../assets/blog/model-context-is-not-static/cover.svg" alt="A file outlined in green, with a dashed red copy of it slightly out of place behind: the current file and the stale view of it." fetchpriority="high" decoding="async" width="1600" height="900" /></figure>
+<h1 class="md-heading" id="model-context-is-not-static"><span class="md-hashes" aria-hidden="true">#</span> Model context is not static</h1>
+<p class="post-meta"><time datetime="2026-09-23">2026-09-23</time> <span class="md-muted" aria-hidden="true">·</span> Coding agents, Context engineering <span class="md-muted" aria-hidden="true">·</span> 12 min</p>
+<nav class="post-toc" aria-label="Table of contents">
+<details class="post-toc__details" open>
+<summary class="post-toc__summary">Table of contents</summary>
+<ol class="post-toc__list">
+<li class="post-toc__item"><a class="md-link" href="#every-coding-agent-sees-old-code">Every coding agent sees old code</a></li>
+<li class="post-toc__item"><a class="md-link" href="#how-often-it-happens">How often it happens</a></li>
+<li class="post-toc__item"><a class="md-link" href="#the-idea-comes-from-corvus">The idea comes from CORVUS</a></li>
+<li class="post-toc__item"><a class="md-link" href="#how-freshctx-works">How FreshCtx works</a></li>
+<li class="post-toc__item"><a class="md-link" href="#is-the-code-in-the-request-up-to-date">Is the code in the request up to date?</a></li>
+<li class="post-toc__item"><a class="md-link" href="#does-the-model-actually-do-better">Does the model actually do better?</a></li>
+<li class="post-toc__item"><a class="md-link" href="#is-it-cheaper">Is it cheaper?</a></li>
+<li class="post-toc__item"><a class="md-link" href="#lessons-for-anyone-building-something-like-this">Lessons for anyone building something like this</a></li>
+<li class="post-toc__item"><a class="md-link" href="#what-i-take-from-this">What I take from this</a></li>
+<li class="post-toc__item"><a class="md-link" href="#try-it">Try it</a></li>
+</ol>
+</details>
+</nav>
+<p class="md-p">A coding agent reads a function:</p>
+<div class="md-codeblock"><div class="md-codeblock-gutter" aria-hidden="true">```js</div><pre class="md-pre"><code class="md-code language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">total</span>(<span class="hljs-params">quantity</span>) {
+  <span class="hljs-keyword">return</span> quantity * <span class="hljs-number">10</span>;
+}</code></pre></div>
+<p class="md-p">Then something or someone edits the file: the agent itself, a formatter, another process or another agent. Now the multiplier is <code class="md-codespan"><span class="md-muted">`</span>20<span class="md-muted">`</span></code>. What does the model see on its next request?</p>
+<figure class="fig fig-diff fig-diff--split" data-play="1900">
+<div class="fig-diff__pane">
+<p class="fig-diff__head">What the model sees</p>
+<pre class="fig-diff__code"><code><span class="fig-diff__line"><span class="fig-diff__num" aria-hidden="true">1</span><span class="fig-diff__text">function total(quantity) {</span></span><span class="fig-diff__line fig-diff__line--stale"><span class="fig-diff__num" aria-hidden="true">2</span><span class="fig-diff__text">  return quantity * 10;</span></span><span class="fig-diff__line"><span class="fig-diff__num" aria-hidden="true">3</span><span class="fig-diff__text">}</span></span></code></pre>
+</div>
+<div class="fig-diff__pane">
+<p class="fig-diff__head">What is on disk</p>
+<pre class="fig-diff__code"><code><span class="fig-diff__line"><span class="fig-diff__num" aria-hidden="true">1</span><span class="fig-diff__text">function total(quantity) {</span></span><span class="fig-diff__line fig-diff__line--current"><span class="fig-diff__num" aria-hidden="true">2</span><span class="fig-diff__text">  return quantity * <span class="fig-diff__swap"><span class="fig-diff__before" aria-hidden="true">10</span><span class="fig-diff__after">20</span></span>;</span></span><span class="fig-diff__line"><span class="fig-diff__num" aria-hidden="true">3</span><span class="fig-diff__text">}</span></span></code></pre>
+</div>
+</figure>
+<p class="md-p">The file on disk says <code class="md-codespan"><span class="md-muted">`</span>20<span class="md-muted">`</span></code>. The model still sees <code class="md-codespan"><span class="md-muted">`</span>10<span class="md-muted">`</span></code>, because the agent&#39;s earlier read is still in the model&#39;s context, and most agents re-send the whole conversation on every request. The tools work on one version of the file while the model reasons from another.</p>
+<p class="md-p">What usually happens is that the agent can read the file again, and it often does, but then it depends on the model deciding to. I built <a class="md-link" href="https://github.com/felipebasurto/freshctx" title="https://github.com/felipebasurto/freshctx" rel="noopener noreferrer" target="_blank">FreshCtx</a> to take that job away from the model. It is a local context engine: a program that rebuilds a current view of the code the agent has read before every request is sent.</p>
+<p class="md-p">This post measures how often the problem shows up in public agent runs, explains the paper FreshCtx is based on and how the engine works, and then answers three questions:</p>
+<ul class="md-list md-list--unordered">
+<li class="md-li">Is the code the model receives current?</li>
+<li class="md-li">Does the model do better with it?</li>
+<li class="md-li">What does it cost?</li>
+</ul>
+<details class="md-details">
+<summary class="md-details__summary">Words used in this article</summary>
+
+<ul class="md-list md-list--unordered">
+<li class="md-li"><strong class="md-strong">Harness:</strong> the program around the model that runs tools, records their results and builds each model request.</li>
+<li class="md-li"><strong class="md-strong">Request:</strong> everything sent to the model in one call, usually the whole conversation so far.</li>
+<li class="md-li"><strong class="md-strong">File view:</strong> a tool result that shows a file or some of its lines.</li>
+<li class="md-li"><strong class="md-strong">Stale:</strong> the file has changed since the view, so at least one line it shows no longer matches the disk.</li>
+<li class="md-li"><strong class="md-strong">Marker:</strong> a short placeholder that replaces an old file view in the request.</li>
+<li class="md-li"><strong class="md-strong">Projection:</strong> the current code for what the agent has read, added once at the end of the request.</li>
+<li class="md-li"><strong class="md-strong">Prompt cache:</strong> providers charge less for the start of a request when it is identical to the start of an earlier one.</li>
+</ul>
+</details>
+
+<h2 class="md-heading" id="every-coding-agent-sees-old-code"><span class="md-hashes" aria-hidden="true">##</span> Every coding agent sees old code</h2>
+<p class="md-p">Cursor, Claude Code, Codex, Devin, OpenCode, OpenHands, Hermes and Pi all run the same basic loop. The model reads the request and decides what to do next. The harness gives it tools, such as reading a file, editing one or running a command: the model asks for one, the harness runs it and adds its output, the tool result, to the conversation. The model never touches the disk. Everything it knows about the code comes from tool results in the request.</p>
+<p class="md-p">The simplest way to build the next request, and the usual one, is to re-send the whole conversation so far, with every tool result in it, until compaction trims it:</p>
+<figure class="fig fig-resend" data-play="3200">
+<ol class="fig-resend__steps">
+<li class="fig-resend__step">
+<p class="fig-resend__head">Request 1</p>
+<div class="fig-resend__file">
+<p class="fig-resend__name">On disk</p>
+<code class="fig-resend__src">return quantity * 10;</code>
+</div>
+<div class="fig-resend__sent">
+<p class="fig-resend__label">What the model sees</p>
+<ol class="fig-request__list">
+<li class="fig-request__msg"><span class="fig-request__role">user</span>Fix the pricing bug</li>
+</ol>
+</div>
+</li>
+<li class="fig-resend__step">
+<p class="fig-resend__head">Request 2</p>
+<div class="fig-resend__file">
+<p class="fig-resend__name">On disk</p>
+<code class="fig-resend__src">return quantity * 10;</code>
+</div>
+<div class="fig-resend__sent">
+<p class="fig-resend__label">What the model sees</p>
+<ol class="fig-request__list">
+<li class="fig-request__msg"><span class="fig-request__role">user</span>Fix the pricing bug</li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>read price.js</li>
+<li class="fig-request__msg"><span class="fig-request__role">tool</span><code>return quantity * 10;</code></li>
+</ol>
+</div>
+</li>
+<li class="fig-resend__step">
+<p class="fig-resend__head">Request 3</p>
+<div class="fig-resend__file fig-resend__file--changed">
+<p class="fig-resend__name">On disk <span class="fig-resend__tag">changed</span></p>
+<span class="fig-resend__swap"><code class="fig-resend__src fig-resend__src--before" aria-hidden="true">return quantity * 10;</code><code class="fig-resend__src">return quantity * 20;</code></span>
+</div>
+<div class="fig-resend__sent">
+<p class="fig-resend__label">What the model sees</p>
+<ol class="fig-request__list">
+<li class="fig-request__msg"><span class="fig-request__role">user</span>Fix the pricing bug</li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>read price.js</li>
+<li class="fig-request__msg fig-request__msg--stale"><span class="fig-request__role">tool</span><code>return quantity * 10;</code></li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>edit price.js</li>
+<li class="fig-request__msg"><span class="fig-request__role">tool</span>edit applied</li>
+</ol>
+</div>
+</li>
+</ol>
+</figure>
+<p class="md-p">A file read does two jobs: it records what a tool returned at one moment, and it supplies source code for later reasoning. The two agree until the file changes. Keeping the old result is useful for debugging; reusing it as current source is the risk. The conversation is a cache that never refreshes.</p>
+<h2 class="md-heading" id="how-often-it-happens"><span class="md-hashes" aria-hidden="true">##</span> How often it happens</h2>
+<p class="md-p">To count it, I used a public dataset, <a class="md-link" href="https://huggingface.co/datasets/nebius/SWE-rebench-openhands-trajectories" title="https://huggingface.co/datasets/nebius/SWE-rebench-openhands-trajectories" rel="noopener noreferrer" target="_blank">nebius/SWE-rebench-openhands-trajectories</a>. It holds 67,074 runs of OpenHands, an open-source coding agent, using the Qwen3-Coder-480B model to fix real GitHub issues, with every request recorded. Compaction was switched off, so every request carries the whole conversation.</p>
+<p class="md-p">The rule was strict: a view counts as stale only when the next thing to touch its file is the agent&#39;s own edit, changing a line the view showed. Reads through shell commands such as <code class="md-codespan"><span class="md-muted">`</span>cat<span class="md-muted">`</span></code> do not count.</p>
+<p class="md-p">Here is one interesting case I found. A task asked the agent to fix a bug in <a class="md-link" href="https://github.com/ucfopen/canvasapi" title="https://github.com/ucfopen/canvasapi" rel="noopener noreferrer" target="_blank">canvasapi</a>, a Python library for the Canvas learning platform. The agent read all 231 lines of <code class="md-codespan"><span class="md-muted">`</span>canvasapi/module.py<span class="md-muted">`</span></code>, then edited the function it had just read. The edit added two lines, so everything below line 126 moved down. From then on, every request carried the old read next to a file that no longer matched it:</p>
+<figure class="fig fig-diff fig-diff--stack">
+<div class="fig-diff__pane">
+<p class="fig-diff__head">What the model sees</p>
+<pre class="fig-diff__code"><code><span class="fig-diff__line"><span class="fig-diff__num" aria-hidden="true">125</span><span class="fig-diff__text">if isinstance(module_item, dict) and "type" in module_item:</span></span><span class="fig-diff__line fig-diff__line--stale"><span class="fig-diff__num" aria-hidden="true">126</span><span class="fig-diff__text">    if "content_id" in module_item:</span></span><span class="fig-diff__line"><span class="fig-diff__num" aria-hidden="true">127</span><span class="fig-diff__text">        kwargs["module_item"] = module_item</span></span><span class="fig-diff__line"><span class="fig-diff__num" aria-hidden="true">128</span><span class="fig-diff__text">    else:</span></span></code></pre>
+</div>
+<div class="fig-diff__pane">
+<p class="fig-diff__head">What is on disk</p>
+<pre class="fig-diff__code"><code><span class="fig-diff__line"><span class="fig-diff__num" aria-hidden="true">125</span><span class="fig-diff__text">if isinstance(module_item, dict) and "type" in module_item:</span></span><span class="fig-diff__line fig-diff__line--current"><span class="fig-diff__num" aria-hidden="true">126</span><span class="fig-diff__text">    # content_id is not required for these types according to Canvas API</span></span><span class="fig-diff__line fig-diff__line--current"><span class="fig-diff__num" aria-hidden="true">127</span><span class="fig-diff__text">    types_without_content_id = ['ExternalUrl', 'Page', 'SubHeader']</span></span><span class="fig-diff__line fig-diff__line--current"><span class="fig-diff__num" aria-hidden="true">128</span><span class="fig-diff__text">    if "content_id" in module_item or module_item["type"] in types_without_content_id:</span></span><span class="fig-diff__line"><span class="fig-diff__num" aria-hidden="true">129</span><span class="fig-diff__text">        kwargs["module_item"] = module_item</span></span><span class="fig-diff__line"><span class="fig-diff__num" aria-hidden="true">130</span><span class="fig-diff__text">    else:</span></span></code></pre>
+</div>
+</figure>
+<p class="md-p">That is just one run. Across all of them, <strong class="md-strong">78% of runs sent the model at least one request with a stale view, and 22% still did in their very last request</strong>. Counted by request instead of by run, about 1 in 7 requests carried one:</p>
+<figure class="fig fig-bars">
+<div class="fig-waffle__body">
+<div class="fig-waffle__grid" role="img" aria-label="A grid of 100 squares, 78 of them highlighted: 78 of every 100 runs sent the model at least one stale file view."><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell fig-waffle__cell--stale"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span><span class="fig-waffle__cell"></span></div>
+<div class="fig-waffle__text">
+<p class="fig-waffle__stat">77.8%</p>
+<p class="fig-waffle__label">of runs sent the model at least one request with a stale file view</p>
+<p class="fig-waffle__count">52,151 of 67,074 runs. Each square is 1%.</p>
+</div>
+</div>
+<ul class="fig-bars__list fig-bars__list--runs">
+<li class="fig-bars__row" style="--value: 22.05">
+<span class="fig-bars__label">Runs whose last request still carried one</span>
+<span class="fig-bars__value">22.1%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">14,793 of 67,074 runs</span>
+</li>
+</ul>
+<ul class="fig-bars__list fig-bars__list--requests">
+<li class="fig-bars__row" style="--value: 14.96">
+<span class="fig-bars__label">All requests that carried one, about 1 in 7</span>
+<span class="fig-bars__value">15.0%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">645,736 of 4,316,962 requests</span>
+</li>
+</ul>
+<p class="fig-bars__axis" aria-hidden="true"><span>0</span><span>50%</span><span>100%</span></p>
+</figure>
+<p class="md-p">A stale view is not proof of a wrong answer; if it were, no agent would work. Models often re-read and recover. But it means the prompt holds two versions of the same code, and the model has to work out which is current.</p>
+<h2 class="md-heading" id="the-idea-comes-from-corvus"><span class="md-hashes" aria-hidden="true">##</span> The idea comes from CORVUS</h2>
+<p class="md-p">Everything here builds on <a class="md-link" href="https://arxiv.org/abs/2607.22711" title="https://arxiv.org/abs/2607.22711" rel="noopener noreferrer" target="_blank">CORVUS</a>, a paper published two months ago by <a class="md-link" href="https://zmw12306.github.io/" title="https://zmw12306.github.io/" rel="noopener noreferrer" target="_blank">Mingwei Zheng</a> of Purdue University, with <a class="md-link" href="https://davidmobrien.github.io/" title="https://davidmobrien.github.io/" rel="noopener noreferrer" target="_blank">David O&#39;Brien</a>, <a class="md-link" href="https://jncsw.github.io/" title="https://jncsw.github.io/" rel="noopener noreferrer" target="_blank">Siwei Cui</a>, <a class="md-link" href="https://pardisp.github.io/" title="https://pardisp.github.io/" rel="noopener noreferrer" target="_blank">Pardis Pashakhanloo</a>, <a class="md-link" href="https://rajdeepmukherjee.com/" title="https://rajdeepmukherjee.com/" rel="noopener noreferrer" target="_blank">Rajdeep Mukherjee</a>, <a class="md-link" href="https://codingsoo.github.io/" title="https://codingsoo.github.io/" rel="noopener noreferrer" target="_blank">Myeongsoo Kim</a> and <a class="md-link" href="https://sachitkuhar.github.io/" title="https://sachitkuhar.github.io/" rel="noopener noreferrer" target="_blank">Sachit Kuhar</a> of AWS AI Labs. </p>
+<p class="md-p">They described this problem before I did, and they named its cause: agents keep an append-only history, where a file read is a fixed snapshot that nothing ever updates. Agents then re-read files they already have, and edit from old snapshots, so edits fail and need recovering.</p>
+<p class="md-p">Their fix adds one phase to the agent loop. A new <code class="md-codespan"><span class="md-muted">`</span>sync_file<span class="md-muted">`</span></code> tool puts a file on a list and leaves a short marker in the history. Before every step, a context sync reads each listed file from disk and adds its current contents at the end of the prompt. The prompt holds at most one copy of each file, and that copy is current. Simplified from their first two figures:</p>
+<figure class="fig fig-corvus">
+<div class="fig-corvus__cols">
+<div class="fig-corvus__col">
+<p class="fig-corvus__who">Usual agent</p>
+<ol class="fig-corvus__loop" aria-label="Loop: think, act, add the result, repeat.">
+<li class="fig-corvus__step">Think</li>
+<li class="fig-corvus__step">Act</li>
+<li class="fig-corvus__step">Add result</li>
+</ol>
+<p class="fig-corvus__label">Prompt after reading a.py three times</p>
+<ol class="fig-request__list">
+<li class="fig-request__msg fig-request__msg--stale"><span class="fig-request__role">tool</span><code>a.py</code><span class="fig-request__tag">old copy</span></li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>edit a.py</li>
+<li class="fig-request__msg fig-request__msg--stale"><span class="fig-request__role">tool</span><code>a.py</code><span class="fig-request__tag">old copy</span></li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>edit a.py</li>
+<li class="fig-request__msg"><span class="fig-request__role">tool</span><code>a.py</code><span class="fig-request__tag">latest copy</span></li>
+</ol>
+</div>
+<div class="fig-corvus__col">
+<p class="fig-corvus__who">CORVUS</p>
+<ol class="fig-corvus__loop" aria-label="Loop: sync files, think, act, add the result, repeat.">
+<li class="fig-corvus__step fig-corvus__step--sync">Sync</li>
+<li class="fig-corvus__step">Think</li>
+<li class="fig-corvus__step">Act</li>
+<li class="fig-corvus__step">Add result</li>
+</ol>
+<p class="fig-corvus__label">Prompt after syncing a.py</p>
+<ol class="fig-request__list">
+<li class="fig-request__msg fig-request__msg--marker"><span class="fig-request__role">tool</span>sync: a.py<span class="fig-request__tag">marker</span></li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>edit a.py</li>
+<li class="fig-request__msg fig-request__msg--marker"><span class="fig-request__role">tool</span>sync: a.py<span class="fig-request__tag">marker</span></li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>edit a.py</li>
+<li class="fig-request__msg fig-corvus__synced"><span class="fig-request__role">sync</span><code>a.py</code><span class="fig-request__tag">read from disk every step</span></li>
+</ol>
+</div>
+</div>
+</figure>
+<p class="md-p">Across 573 tasks and four models, they report 9% to 50% fewer input tokens, up to about half the cost, and pass rates within about 1.4 points of the baseline. </p>
+<p class="md-p">They also found that current files work better at the end of the prompt than near the start. Their future work names two open problems: refreshing selected functions instead of whole files, and prompt caching, which gets harder when part of the prompt changes on every step.</p>
+<p class="md-p">That gives three broad ways to handle an old file view:</p>
+<figure class="fig fig-appr">
+<p class="fig-appr__cap">After an edit to <code>total</code>, the request holds:</p>
+<ul class="fig-appr__list">
+<li class="fig-appr__row">
+<p class="fig-appr__name">Keep every result<span class="fig-appr__eg">Most harnesses</span></p>
+<code class="fig-appr__chip fig-appr__chip--stale">return quantity * 10;</code>
+<p class="fig-appr__trade">Old code until the model re-reads. Caches well.</p>
+</li>
+<li class="fig-appr__row">
+<p class="fig-appr__name">Drop or mask old results<span class="fig-appr__eg">Compaction, pruning, masking</span></p>
+<span class="fig-appr__chip fig-appr__chip--gone">removed</span>
+<p class="fig-appr__trade">Nothing until the model re-reads. Small, but context is lost.</p>
+</li>
+<li class="fig-appr__row">
+<p class="fig-appr__name">Refresh<span class="fig-appr__eg">CORVUS (files), FreshCtx (functions)</span></p>
+<code class="fig-appr__chip fig-appr__chip--fresh">return quantity * 20;</code>
+<p class="fig-appr__trade">Current code, re-sent on every request.</p>
+</li>
+</ul>
+</figure>
+<p class="md-p"><strong class="md-strong">FreshCtx is my attempt at the first item of their future work: refreshing only the functions the agent read, instead of whole files.</strong></p>
+<h2 class="md-heading" id="how-freshctx-works"><span class="md-hashes" aria-hidden="true">##</span> How FreshCtx works</h2>
+<p class="md-p">FreshCtx follows the CORVUS idea with four differences:</p>
+<ul class="md-list md-list--unordered">
+<li class="md-li"><strong class="md-strong">No new tool.</strong> The agent reads files the way it always has, and any successful read counts.</li>
+<li class="md-li"><strong class="md-strong">Only the outgoing copy changes.</strong> The saved conversation, what the tools really returned, stays as it was for debugging and replay.</li>
+<li class="md-li"><strong class="md-strong">Functions, not files.</strong> It refreshes the function, or the range of lines, that the agent read. On five traces from Express, Flask, Go tools and ripgrep, that made the refreshed code 1.7 to 8.6 times smaller than whole files.</li>
+<li class="md-li"><strong class="md-strong">An adapter, not an agent.</strong> It runs as a small local process next to the harness, and a thin adapter inside the harness, the bridge, talks to it.</li>
+</ul>
+<p class="md-p">Before each request, the bridge gets back a rewritten copy: each old view becomes a short marker, and the current code for everything the agent read, the projection, is added once at the end. For the <code class="md-codespan"><span class="md-muted">`</span>total<span class="md-muted">`</span></code> example:</p>
+<figure class="fig fig-request" data-play="2400">
+<div class="fig-request__cols">
+<div class="fig-request__col">
+<p class="fig-request__head">Without FreshCtx</p>
+<ol class="fig-request__list">
+<li class="fig-request__msg"><span class="fig-request__role">user</span>Fix the pricing bug</li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>view price.js</li>
+<li class="fig-request__msg fig-request__msg--stale"><span class="fig-request__role">tool</span><code>return quantity * 10;</code><span class="fig-request__tag">stale</span></li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>edit price.js</li>
+<li class="fig-request__msg"><span class="fig-request__role">tool</span>edit applied</li>
+</ol>
+</div>
+<div class="fig-request__col">
+<p class="fig-request__head">With FreshCtx</p>
+<ol class="fig-request__list fig-request__list--linked">
+<li class="fig-request__msg"><span class="fig-request__role">user</span>Fix the pricing bug</li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>view price.js</li>
+<li class="fig-request__msg fig-request__msg--marker"><span class="fig-request__role">tool</span><span class="fig-request__swap"><code class="fig-request__before" aria-hidden="true">return quantity * 10;</code><code>[a2bc5d45e8a9b6375344a9f4]</code></span><span class="fig-request__tag">marker</span></li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>edit price.js</li>
+<li class="fig-request__msg"><span class="fig-request__role">tool</span>edit applied</li>
+<li class="fig-request__msg fig-request__msg--fresh"><span class="fig-request__role">user</span><span class="fig-request__tag">projection</span><pre class="fig-request__proj"><code><span class="fig-request__proj-head">price.js:symbol:52bytes</span>
+function total(quantity) {
+  return quantity * 20;
+}</code></pre></li>
+<li class="fig-request__link" aria-hidden="true"></li>
+</ol>
+</div>
+</div>
+</figure>
+<p class="md-p">The model gets one current version instead of two that disagree, while the saved conversation keeps <code class="md-codespan"><span class="md-muted">`</span>* 10<span class="md-muted">`</span></code> as the record.</p>
+<h3 class="md-heading" id="how-does-it-find-the-function-again"><span class="md-hashes" aria-hidden="true">###</span> How does it find the function again?</h3>
+<p class="md-p">The agent reads some lines at some position. After an edit, those lines may have moved, and they may have changed. Line numbers are useless for finding them again, since a lot can happen to a file during a coding session, and asking a model would be slow, expensive and unreliable.</p>
+<p class="md-p">So FreshCtx reads the file the way a compiler does. It uses <a class="md-link" href="https://tree-sitter.github.io/tree-sitter/" title="https://tree-sitter.github.io/tree-sitter/" rel="noopener noreferrer" target="_blank">Tree-sitter</a>, an open-source parser used by editors such as Neovim and Zed, which turns each file into a tree: the file is the trunk, each function or declaration is a branch, and each line hangs off the branch it belongs to.</p>
+<p class="md-p">When the agent reads a line, FreshCtx notes which branch it hangs from. Before the next request, it parses the file again and looks for that branch by name. Lines can move and change, but the branch called <code class="md-codespan"><span class="md-muted">`</span>total<span class="md-muted">`</span></code> is still the branch called <code class="md-codespan"><span class="md-muted">`</span>total<span class="md-muted">`</span></code>.</p>
+<figure class="fig fig-ts" role="img" aria-label="price.js as a tree. A new import line was added at the top, so every line below moved down. The agent read the RATE line and one line inside the function total. RATE is found again by the text around it. total is found again by name, and the whole function comes back. The function discount was never read and is left out.">
+<div class="fig-ts__trunk"><span class="fig-ts__file">price.js</span></div>
+<ul class="fig-ts__branches">
+<li class="fig-ts__branch fig-ts__branch--added">
+<span class="fig-ts__name">import</span>
+<span class="fig-ts__note">new line, everything below moves down</span>
+</li>
+<li class="fig-ts__branch fig-ts__branch--region">
+<span class="fig-ts__name">RATE</span>
+<span class="fig-ts__note">read · found again by the text around it</span>
+</li>
+<li class="fig-ts__branch fig-ts__branch--symbol">
+<span class="fig-ts__name">total()</span>
+<span class="fig-ts__note">read · found again by name, whole function sent</span>
+<ul class="fig-ts__leaves">
+<li class="fig-ts__leaf"><code>return quantity * 20;</code><span class="fig-ts__here">the line the agent read</span></li>
+</ul>
+</li>
+<li class="fig-ts__branch fig-ts__branch--unread">
+<span class="fig-ts__name">discount()</span>
+<span class="fig-ts__note">never read · left out</span>
+</li>
+</ul>
+</figure>
+<p class="md-p">One line read inside a function brings back the whole function because, even though sending less would be cheaper, half a function is very hard to reason about. A top-level line such as <code class="md-codespan"><span class="md-muted">`</span>RATE<span class="md-muted">`</span></code> belongs to no function, so FreshCtx finds it again by the text around it: a best guess.</p>
+<p class="md-p">If a file cannot be parsed, FreshCtx falls back to the whole file, and if the same code appears twice and it cannot tell which one was read, it leaves the code out rather than guess. There is room for improvement here, but it will never be an exact science.</p>
+<p class="md-p">Parsing is local and fast enough to run before every request, and Tree-sitter still builds a tree when the code has a syntax error, which happens often while an agent is mid-edit.</p>
+<h3 class="md-heading" id="what-is-the-projection-and-why-does-it-have-a-size-limit"><span class="md-hashes" aria-hidden="true">###</span> What is the projection, and why does it have a size limit?</h3>
+<p class="md-p">The projection is the block of current code that FreshCtx adds at the end of each request: one copy of every function the agent has read, as it is on disk right now. It is re-sent in full on every request, and it sits in the part of the prompt that is billed at full price, as the cost section shows.</p>
+<p class="md-p">Without a limit, every function the agent ever read would come back on every request, so a long session would grow more expensive with each step, and the current code would crowd out the conversation in the model&#39;s context window.</p>
+<p class="md-p">So the projection has a budget, 128 KiB by default. It fills with the most recently read functions first, on the assumption that what the agent read last is what it is working on, and a function is never cut in half. One that does not fit is left out, and its marker says so, so the model knows to read it again if it needs it.</p>
+<p class="md-p">Just before sending, FreshCtx re-reads the chosen files and checks the hash of every piece of code it inserts. If a formatter changed the file after the plan, or a tool call was left without its result, the request is not sent. A half-rewritten request is worse than none.</p>
+<h2 class="md-heading" id="is-the-code-in-the-request-up-to-date"><span class="md-hashes" aria-hidden="true">##</span> Is the code in the request up to date?</h2>
+<p class="md-p">Yes. I replayed every 56th run of the OpenHands dataset, 1,198 in total. For each one, I rebuilt the repository at its starting commit and ran its views, edits and requests through the engine, without calling a model:</p>
+<figure class="fig fig-rp">
+<p class="fig-rp__sample">1,198 replayed runs · 26,528 requests</p>
+<p class="fig-rp__hero"><strong>100%</strong> of the code FreshCtx inserted matched the file on disk <span>87,968 of 87,968 pieces</span></p>
+<div class="fig-rp__grid" role="table" aria-label="Stale views before and after FreshCtx">
+<span class="fig-rp__head" role="columnheader"></span>
+<span class="fig-rp__head" role="columnheader">As sent</span>
+<span class="fig-rp__head" role="columnheader">With FreshCtx</span>
+<span class="fig-rp__name" role="rowheader">Requests with a stale view</span>
+<span class="fig-rp__was" style="--value: 25.4"><span class="fig-rp__bar"></span>3,845</span>
+<span class="fig-rp__now">0</span>
+<span class="fig-rp__name" role="rowheader">Stale file views</span>
+<span class="fig-rp__was" style="--value: 100"><span class="fig-rp__bar"></span>15,110</span>
+<span class="fig-rp__now">0</span>
+</div>
+</figure>
+<p class="md-p">Zero stale views.</p>
+<p class="md-p">The more telling result is the code in their place: <strong class="md-strong">every piece of it matched the rebuilt file byte for byte at the moment of its request</strong>.</p>
+<p class="md-p">One gap remains, however: after an edit, OpenHands prints a snippet of the edited file, which FreshCtx does not track yet, so 1,237 requests still carried stale code that way.</p>
+<p class="md-p">A separate check covered an edit from outside the agent: a session in <a class="md-link" href="https://github.com/earendil-works/pi" title="https://github.com/earendil-works/pi" rel="noopener noreferrer" target="_blank">Pi</a>, an open-source coding agent, read a file, another process changed a constant from <code class="md-codespan"><span class="md-muted">`</span>10<span class="md-muted">`</span></code> to <code class="md-codespan"><span class="md-muted">`</span>12<span class="md-muted">`</span></code>, and the next request held <code class="md-codespan"><span class="md-muted">`</span>12<span class="md-muted">`</span></code> with FreshCtx and <code class="md-codespan"><span class="md-muted">`</span>10<span class="md-muted">`</span></code> without it.</p>
+<h2 class="md-heading" id="does-the-model-actually-do-better"><span class="md-hashes" aria-hidden="true">##</span> Does the model actually do better?</h2>
+<p class="md-p">This is the question that matters most, and it cannot be checked byte for byte. I ran two small live experiments with <a class="md-link" href="https://pi.dev/" title="https://pi.dev/" rel="noopener noreferrer" target="_blank">Pi</a> and the <code class="md-codespan"><span class="md-muted">`</span>deepseek-v4-flash<span class="md-muted">`</span></code> model, each with and without FreshCtx:</p>
+<ul class="md-list md-list--unordered">
+<li class="md-li"><strong class="md-strong">When the model could re-read, it did worse.</strong> Five tasks gave a session two reads, changed both files while it was closed, then resumed it and checked the answer. Without FreshCtx, the model saw old code, re-read both files and answered correctly every time. With FreshCtx, it had current code from the start, but failed two tasks.</li>
+<li class="md-li"><strong class="md-strong">When it could not re-read, it did better.</strong> In one ten-turn session, I changed a file between turns and asked about it with the instruction &quot;Do not use tools. Do not read.&quot; On the turns where the code had changed, plain Pi gave the old value 8 times out of 8. FreshCtx gave the current value 7 times out of 8.</li>
+</ul>
+<p class="md-p">In the first experiment, each dot is one request after the session resumed, and a run stopped after eight:</p>
+<figure class="fig fig-pilot">
+<p class="fig-pilot__summary">Passed: without FreshCtx <strong class="md-strong">5 of 5</strong>, with FreshCtx <strong class="md-strong">3 of 5</strong></p>
+<ul class="fig-pilot__list">
+<li class="fig-pilot__row" aria-label="Rate constant: without FreshCtx passed in 2 requests; with FreshCtx passed after 5 requests">
+<span class="fig-pilot__task">Rate constant</span>
+<span class="fig-pilot__lane"><span class="fig-pilot__who">Without</span><span class="fig-pilot__dots" aria-hidden="true"><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span></span><span class="fig-pilot__n">2</span><span class="fig-pilot__out fig-pilot__out--pass">pass</span></span>
+<span class="fig-pilot__lane"><span class="fig-pilot__who">FreshCtx</span><span class="fig-pilot__dots" aria-hidden="true"><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span></span><span class="fig-pilot__n">5</span><span class="fig-pilot__out fig-pilot__out--pass">pass</span></span>
+</li>
+<li class="fig-pilot__row" aria-label="Operator shift: without FreshCtx passed in 2 requests; with FreshCtx passed after 4 requests">
+<span class="fig-pilot__task">Operator shift</span>
+<span class="fig-pilot__lane"><span class="fig-pilot__who">Without</span><span class="fig-pilot__dots" aria-hidden="true"><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span></span><span class="fig-pilot__n">2</span><span class="fig-pilot__out fig-pilot__out--pass">pass</span></span>
+<span class="fig-pilot__lane"><span class="fig-pilot__who">FreshCtx</span><span class="fig-pilot__dots" aria-hidden="true"><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span></span><span class="fig-pilot__n">4</span><span class="fig-pilot__out fig-pilot__out--pass">pass</span></span>
+</li>
+<li class="fig-pilot__row" aria-label="Quote surcharge: without FreshCtx passed in 2 requests; with FreshCtx passed after 2 requests">
+<span class="fig-pilot__task">Quote surcharge</span>
+<span class="fig-pilot__lane"><span class="fig-pilot__who">Without</span><span class="fig-pilot__dots" aria-hidden="true"><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span></span><span class="fig-pilot__n">2</span><span class="fig-pilot__out fig-pilot__out--pass">pass</span></span>
+<span class="fig-pilot__lane"><span class="fig-pilot__who">FreshCtx</span><span class="fig-pilot__dots" aria-hidden="true"><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span></span><span class="fig-pilot__n">2</span><span class="fig-pilot__out fig-pilot__out--pass">pass</span></span>
+</li>
+<li class="fig-pilot__row fig-pilot__row--failed" aria-label="Moved symbol: without FreshCtx passed in 2 requests; with FreshCtx no answer after 8 requests, because the model read a byte size as a line number">
+<span class="fig-pilot__task">Moved symbol</span>
+<span class="fig-pilot__lane"><span class="fig-pilot__who">Without</span><span class="fig-pilot__dots" aria-hidden="true"><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span></span><span class="fig-pilot__n">2</span><span class="fig-pilot__out fig-pilot__out--pass">pass</span></span>
+<span class="fig-pilot__lane"><span class="fig-pilot__who">FreshCtx</span><span class="fig-pilot__dots" aria-hidden="true"><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span></span><span class="fig-pilot__n">8</span><span class="fig-pilot__out fig-pilot__out--fail">no answer</span></span>
+<span class="fig-pilot__why" aria-hidden="true">Read a byte size in the header as a line number.</span>
+</li>
+<li class="fig-pilot__row fig-pilot__row--failed" aria-label="Tax base: without FreshCtx passed in 2 requests; with FreshCtx no answer after 8 requests, because the model never linked the markers to the code at the end">
+<span class="fig-pilot__task">Tax base</span>
+<span class="fig-pilot__lane"><span class="fig-pilot__who">Without</span><span class="fig-pilot__dots" aria-hidden="true"><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span><span class="fig-pilot__dot"></span></span><span class="fig-pilot__n">2</span><span class="fig-pilot__out fig-pilot__out--pass">pass</span></span>
+<span class="fig-pilot__lane"><span class="fig-pilot__who">FreshCtx</span><span class="fig-pilot__dots" aria-hidden="true"><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span><span class="fig-pilot__dot fig-pilot__dot--used"></span></span><span class="fig-pilot__n">8</span><span class="fig-pilot__out fig-pilot__out--fail">no answer</span></span>
+<span class="fig-pilot__why" aria-hidden="true">Never linked the markers to the code at the end.</span>
+</li>
+</ul>
+</figure>
+<p class="md-p">Both failures came from how the code was presented. In the tax-base task, the reads came back as markers, and nothing linked them to the current code at the end, so the model kept re-reading. It only stopped because each run was capped at eight requests, a limit I set so that a stuck model could not loop forever.</p>
+<p class="md-p">In the moved-symbol task, it took the <code class="md-codespan"><span class="md-muted">`</span>46<span class="md-muted">`</span></code> in <code class="md-codespan"><span class="md-muted">`</span>fees.js:region:46<span class="md-muted">`</span></code>, a size in bytes, for a line number, and kept asking for a line that did not exist. The header now says <code class="md-codespan"><span class="md-muted">`</span>46bytes<span class="md-muted">`</span></code>; the marker fix is still open.</p>
+<p class="md-p">In the second experiment, the model read the file only on turns 1, 5 and 8:</p>
+<figure class="fig fig-session">
+<div class="fig-session__turns" aria-hidden="true"><span class="fig-session__label">Turn</span><span class="fig-session__turn">1</span><span class="fig-session__turn">2</span><span class="fig-session__turn fig-session__turn--changed">3</span><span class="fig-session__turn">4</span><span class="fig-session__turn">5</span><span class="fig-session__turn fig-session__turn--changed">6</span><span class="fig-session__turn fig-session__turn--changed">7</span><span class="fig-session__turn">8</span><span class="fig-session__turn fig-session__turn--changed">9</span><span class="fig-session__turn fig-session__turn--deleted">10</span><span class="fig-session__score"></span></div>
+<p class="fig-session__run">Run 1</p>
+<ul class="fig-session__rows">
+<li class="fig-session__row" aria-label="Run 1, plain Pi: 6 of 10. Failed turns 3, 6, 7 and 9."><span class="fig-session__label">Plain Pi</span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--fail"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--fail"></span><span class="fig-session__cell fig-session__cell--fail"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--fail"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__score">6/10</span></li>
+<li class="fig-session__row fig-session__row--fresh" aria-label="Run 1, FreshCtx: 8 of 10. Failed turns 8 and 9."><span class="fig-session__label">FreshCtx</span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--fail"></span><span class="fig-session__cell fig-session__cell--fail"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__score">8/10</span></li>
+</ul>
+<p class="fig-session__run">Run 2</p>
+<ul class="fig-session__rows">
+<li class="fig-session__row" aria-label="Run 2, plain Pi: 6 of 10. Failed turns 3, 6, 7 and 9."><span class="fig-session__label">Plain Pi</span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--fail"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--fail"></span><span class="fig-session__cell fig-session__cell--fail"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--fail"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__score">6/10</span></li>
+<li class="fig-session__row fig-session__row--fresh" aria-label="Run 2, FreshCtx: 10 of 10."><span class="fig-session__label">FreshCtx</span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__cell fig-session__cell--pass"></span><span class="fig-session__score">10/10</span></li>
+</ul>
+<p class="fig-session__legend" aria-hidden="true"><span class="fig-session__key"><span class="fig-session__swatch fig-session__cell--pass"></span>passed</span><span class="fig-session__key"><span class="fig-session__swatch fig-session__cell--fail"></span>failed</span><span class="fig-session__key"><span class="fig-session__swatch fig-session__turn--changed"></span>code changed since the model read it</span><span class="fig-session__key"><span class="fig-session__swatch fig-session__turn--deleted"></span>file deleted</span></p>
+</figure>
+<p class="md-p">This setup clearly favors FreshCtx by design. Together, the two experiments say that FreshCtx helps when the model would otherwise trust the conversation, and that a marker must say where its current code went.</p>
+<p class="md-p">Until that is fixed and tested again, I have no evidence that FreshCtx gives better answers in normal use, where the agent can re-read.</p>
+<h2 class="md-heading" id="is-it-cheaper"><span class="md-hashes" aria-hidden="true">##</span> Is it cheaper?</h2>
+<p class="md-p">The answer is no. Most of each request is an exact copy of the previous one, so providers serve it from the prompt cache at a fraction of the price, about 1/30 in the DeepSeek price table I used. Only the end is billed in full.</p>
+<p class="md-p">FreshCtx keeps the cached start stable, because markers do not change, but it puts the current code in the full-price end:</p>
+<figure class="fig fig-cache">
+<div class="fig-cache__row">
+<p class="fig-cache__who">Without FreshCtx</p>
+<div class="fig-cache__bar" role="img" aria-label="Without FreshCtx: a long cached start that includes the old file views, then a short full-price end with the new messages."><span class="fig-cache__seg fig-cache__seg--cached" style="--value: 84">conversation, old views included</span><span class="fig-cache__seg fig-cache__seg--full" style="--value: 16">new</span></div>
+</div>
+<div class="fig-cache__row">
+<p class="fig-cache__who">With FreshCtx</p>
+<div class="fig-cache__bar" role="img" aria-label="With FreshCtx: a shorter cached start, with markers in place of the old views, then a full-price end with the new messages and the projection."><span class="fig-cache__seg fig-cache__seg--cached" style="--value: 50">conversation</span><span class="fig-cache__seg fig-cache__seg--marker" style="--value: 12">markers</span><span class="fig-cache__seg fig-cache__seg--full" style="--value: 16">new</span><span class="fig-cache__seg fig-cache__seg--proj" style="--value: 22">current code</span></div>
+</div>
+<p class="fig-cache__legend" aria-hidden="true"><span class="fig-cache__key"><span class="fig-cache__swatch fig-cache__seg--cached"></span>cached, about 1/30 of the price</span><span class="fig-cache__key"><span class="fig-cache__swatch fig-cache__seg--marker"></span>markers, cached too</span><span class="fig-cache__key"><span class="fig-cache__swatch fig-cache__seg--full"></span>new messages, full price</span><span class="fig-cache__key"><span class="fig-cache__swatch fig-cache__seg--proj"></span>projection, full price</span></p>
+</figure>
+<p class="md-p">The old views that FreshCtx removes would have been cheap, and the code that replaces them is not. Requests also came out 1.93% larger in the replay, because reading a few lines inside a large function brings the whole function back.</p>
+<p class="md-p">CORVUS reports up to half the cost, and the two results do not contradict each other. Its savings come from the agent&#39;s behavior: fewer duplicate reads, fewer failed edits and fewer steps, and the CORVUS authors flag caching as an open problem, as I do. </p>
+<p class="md-p">My replay cannot show behavioral savings, because the agent&#39;s actions were fixed in the recording, and my live runs were too small to measure them. In the one resumed task where I compared tokens, FreshCtx used more, 6,489 prompt tokens against 2,410, because the model needed five requests instead of two.</p>
+<h2 class="md-heading" id="lessons-for-anyone-building-something-like-this"><span class="md-hashes" aria-hidden="true">##</span> Lessons for anyone building something like this</h2>
+<ul class="md-list md-list--unordered">
+<li class="md-li"><strong class="md-strong">Measure staleness in your own transcripts.</strong> The rule above is a short script, and it needs nothing but the transcripts.</li>
+<li class="md-li"><strong class="md-strong">Rewrite the copy, not the record.</strong> Keep what the tools returned for debugging and replay; change only what you send.</li>
+<li class="md-li"><strong class="md-strong">Label every number you show a model.</strong> A bare <code class="md-codespan"><span class="md-muted">`</span>46<span class="md-muted">`</span></code> was read as a line number. The header now says <code class="md-codespan"><span class="md-muted">`</span>46bytes<span class="md-muted">`</span></code>.</li>
+<li class="md-li"><strong class="md-strong">Leave a pointer when you move content.</strong> The tax-base loop happened because nothing linked the markers to the code at the end.</li>
+<li class="md-li"><strong class="md-strong">Put changing content at the end, and budget for it.</strong> The end works best and keeps the cached start stable, but it is paid in full on every request.</li>
+<li class="md-li"><strong class="md-strong">Judge by outcomes.</strong> Current code and a finished task are different things.</li>
+</ul>
+<h2 class="md-heading" id="what-i-take-from-this"><span class="md-hashes" aria-hidden="true">##</span> What I take from this</h2>
+<p class="md-p">Keeping the code in a request current is solvable, and it can be checked byte for byte. Whether it helps is less clear. </p>
+<p class="md-p">The model did not do better where it could re-read, and it is not cheaper. The harder problem is making sure the model understands what it was given.</p>
+<p class="md-p">This is one agent and one model on one public dataset, plus a handful of live runs. Next, I will make each marker say where its current code went and re-run the resumed tasks with repeated runs. </p>
+<p class="md-p">If that still brings no gain, FreshCtx is mainly useful where re-reading does not happen: long sessions, compacted histories and edits from outside the agent. If it does, the next question is whether the gain survives the cache cost.</p>
+<h2 class="md-heading" id="try-it"><span class="md-hashes" aria-hidden="true">##</span> Try it</h2>
+<p class="md-p">From a clone of the <a class="md-link" href="https://github.com/felipebasurto/freshctx" title="https://github.com/felipebasurto/freshctx" rel="noopener noreferrer" target="_blank">FreshCtx repository</a>, with Node.js 22 or newer:</p>
+<div class="md-codeblock"><div class="md-codeblock-gutter" aria-hidden="true">```bash</div><pre class="md-pre"><code class="md-code language-bash">npm run demo</code></pre></div>
+<p class="md-p">It runs the real engine on the <code class="md-codespan"><span class="md-muted">`</span>total<span class="md-muted">`</span></code> example, without calling a model, and prints the rewritten request with its checks. There are bridges for <a class="md-link" href="https://github.com/felipebasurto/freshctx/tree/main/bridges/pi" title="https://github.com/felipebasurto/freshctx/tree/main/bridges/pi" rel="noopener noreferrer" target="_blank">Pi</a>, tested against the real agent, and <a class="md-link" href="https://github.com/felipebasurto/freshctx/tree/main/bridges/openhands" title="https://github.com/felipebasurto/freshctx/tree/main/bridges/openhands" rel="noopener noreferrer" target="_blank">OpenHands</a>, tested with recorded requests. To connect another harness, see the <a class="md-link" href="https://github.com/felipebasurto/freshctx/blob/main/docs/protocol.md" title="https://github.com/felipebasurto/freshctx/blob/main/docs/protocol.md" rel="noopener noreferrer" target="_blank">protocol reference</a> and the <a class="md-link" href="https://github.com/felipebasurto/freshctx/blob/main/CONTRIBUTING.md" title="https://github.com/felipebasurto/freshctx/blob/main/CONTRIBUTING.md" rel="noopener noreferrer" target="_blank">contributor guide</a>; pull requests are welcome.</p>
+<p class="md-p">The measurements, replays and live runs are all in <a class="md-link" href="https://github.com/felipebasurto/freshctx-research" title="https://github.com/felipebasurto/freshctx-research" rel="noopener noreferrer" target="_blank">freshctx-research</a>.</p>
+<p class="md-p">Thanks for reading, and thanks to the CORVUS authors, whose paper this work rests on.</p>
+<p class="md-hr-line" aria-hidden="true">---</p>
+<hr class="md-hr" />
+<p class="md-p"><a class="md-link" href="../" title="../">← All posts</a> · <a class="md-link" href="../../" title="../../">Home</a></p>
+
+      </article>
+    </main>
+    <footer class="doc__footer" aria-label="End of document">
+      <span class="doc__footer-eof" aria-hidden="true">---</span>
+      <span class="doc__footer-text">EOF · 2026 · built from markdown</span>
+    </footer>
+  </div>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://felipebasurto.com/blog/model-context-is-not-static/#article","headline":"Model context is not static","description":"In 78% of 67,074 public coding-agent runs, the agent kept re-sending code that its own edit had made stale. I built a context engine, based on the CORVUS paper, that keeps that code current. It works byte for byte, but the model did not reliably do better, and requests did not get cheaper.","url":"https://felipebasurto.com/blog/model-context-is-not-static/","image":{"@type":"ImageObject","url":"https://felipebasurto.com/assets/blog/model-context-is-not-static/og.png","caption":"A file outlined in green, with a dashed red copy of it slightly out of place behind: the current file and the stale view of it.","width":1200,"height":675},"datePublished":"2026-09-23","dateModified":"2026-09-23","wordCount":2682,"timeRequired":"PT12M","keywords":"Coding agents, Context engineering","articleSection":"Coding agents","inLanguage":"en","author":{"@id":"https://felipebasurto.com/#person"},"publisher":{"@id":"https://felipebasurto.com/#person"},"isPartOf":{"@id":"https://felipebasurto.com/blog/#blog"},"mainEntityOfPage":{"@id":"https://felipebasurto.com/blog/model-context-is-not-static/"}},{"@type":"WebPage","@id":"https://felipebasurto.com/blog/model-context-is-not-static/","url":"https://felipebasurto.com/blog/model-context-is-not-static/","name":"Model context is not static · Felipe Basurto","description":"In 78% of 67,074 public coding-agent runs, the agent kept re-sending code that its own edit had made stale. I built a context engine, based on the CORVUS paper, that keeps that code current. It works byte for byte, but the model did not reliably do better, and requests did not get cheaper.","inLanguage":"en","isPartOf":{"@id":"https://felipebasurto.com/blog/#blog"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://felipebasurto.com/assets/blog/model-context-is-not-static/og.png","caption":"A file outlined in green, with a dashed red copy of it slightly out of place behind: the current file and the stale view of it.","width":1200,"height":675},"breadcrumb":{"@id":"https://felipebasurto.com/blog/model-context-is-not-static/#breadcrumb"},"mainEntity":{"@id":"https://felipebasurto.com/blog/model-context-is-not-static/#article"}},{"@type":"BreadcrumbList","@id":"https://felipebasurto.com/blog/model-context-is-not-static/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://felipebasurto.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://felipebasurto.com/blog/"},{"@type":"ListItem","position":3,"name":"Model context is not static","item":"https://felipebasurto.com/blog/model-context-is-not-static/"}]},{"@type":"Blog","@id":"https://felipebasurto.com/blog/#blog","name":"Blog · Felipe Basurto","url":"https://felipebasurto.com/blog/","description":"Notes on building with AI, shipping software, and things I find worth writing down.","inLanguage":"en","author":{"@id":"https://felipebasurto.com/#person"},"publisher":{"@id":"https://felipebasurto.com/#person"},"isPartOf":{"@id":"https://felipebasurto.com/#website"}},{"@type":"Person","@id":"https://felipebasurto.com/#person","name":"Felipe Basurto","url":"https://felipebasurto.com","jobTitle":"AI solutions architect","email":"hello@felipebasurto.com","image":"https://felipebasurto.com/assets/profile.png","sameAs":["https://github.com/felipebasurto","https://www.linkedin.com/in/felipe-basurto-barrio/","https://x.com/fildotai"]}]}</script>
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button class="lightbox__close" type="button" aria-label="Close (Esc)">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous photo (Left arrow)">←</button>
+    <img class="lightbox__img" alt="" />
+    <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next photo (Right arrow)">→</button>
+    <span class="lightbox__count" aria-live="polite"></span>
+  </div>
+  <script>
+    (function () {
+      var shots = document.querySelectorAll("a.ev-shot");
+      if (!shots.length) return;
+      var box = document.getElementById("lightbox");
+      var img = box.querySelector(".lightbox__img");
+      var closeBtn = box.querySelector(".lightbox__close");
+      var prevBtn = box.querySelector(".lightbox__nav--prev");
+      var nextBtn = box.querySelector(".lightbox__nav--next");
+      var count = box.querySelector(".lightbox__count");
+      var group = [];
+      var index = 0;
+      var lastFocus = null;
+      function show(i) {
+        index = (i + group.length) % group.length;
+        var a = group[index];
+        var im = a.querySelector("img");
+        img.src = a.getAttribute("href");
+        img.alt = im ? im.alt : "";
+        count.textContent = group.length > 1 ? index + 1 + " / " + group.length : "";
+      }
+      function open(a) {
+        lastFocus = document.activeElement;
+        var gallery = a.closest(".ev-list-photos");
+        group = gallery ? Array.prototype.slice.call(gallery.querySelectorAll("a.ev-shot")) : [a];
+        var multi = group.length > 1;
+        prevBtn.hidden = !multi;
+        nextBtn.hidden = !multi;
+        show(group.indexOf(a));
+        box.hidden = false;
+        document.body.style.overflow = "hidden";
+        closeBtn.focus();
+      }
+      function close() {
+        box.hidden = true;
+        img.src = "";
+        document.body.style.overflow = "";
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+      shots.forEach(function (a) {
+        a.addEventListener("click", function (e) {
+          e.preventDefault();
+          open(a);
+        });
+      });
+      box.addEventListener("click", function (e) {
+        if (e.target === box || e.target === img) close();
+      });
+      closeBtn.addEventListener("click", close);
+      prevBtn.addEventListener("click", function () { show(index - 1); });
+      nextBtn.addEventListener("click", function () { show(index + 1); });
+      document.addEventListener("keydown", function (e) {
+        if (box.hidden) return;
+        if (e.key === "Escape") close();
+        else if (e.key === "ArrowLeft" && group.length > 1) { e.preventDefault(); show(index - 1); }
+        else if (e.key === "ArrowRight" && group.length > 1) { e.preventDefault(); show(index + 1); }
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      // Animated figures replay in a loop while on screen: play, hold the
+      // end state, fade out, snap back to the start, fade in, play again.
+      // data-play holds the length of one run in ms. Reduced motion keeps
+      // the static end state.
+      var figs = document.querySelectorAll("figure[data-play]");
+      if (!figs.length || !("IntersectionObserver" in window)) return;
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      var HOLD = 2600, FADE = 250, GAP = 450;
+      figs.forEach(function (fig) {
+        var run = parseInt(fig.getAttribute("data-play"), 10) || 3000;
+        var timer = null;
+        fig._visible = false;
+        fig.classList.add("fig--armed");
+        function cycle() {
+          fig.classList.add("fig--play");
+          timer = setTimeout(function () {
+            fig.classList.add("fig--fade");
+            timer = setTimeout(function () {
+              fig.classList.remove("fig--play", "fig--fade");
+              timer = setTimeout(function () {
+                timer = null;
+                if (fig._visible) cycle();
+              }, GAP);
+            }, FADE);
+          }, run + HOLD);
+        }
+        fig._start = function () {
+          fig._visible = true;
+          if (!timer) timer = setTimeout(function () { timer = null; cycle(); }, 150);
+        };
+      });
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) e.target._start();
+          else e.target._visible = false;
+        });
+      }, { threshold: 0.3 });
+      figs.forEach(function (fig) { io.observe(fig); });
+    })();
+  </script>
+  
+</body>
+</html>

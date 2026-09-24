@@ -4,7 +4,7 @@ description: "How I assess where AI helps around pharmaceutical operations, and 
 og_image: "/assets/og.png"
 ---
 
-[← Back to CV](../)
+[← Home](../)
 
 # AI for pharmaceutical operations
 

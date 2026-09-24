@@ -41,6 +41,8 @@ hello@felipebasurto.com
 
 {{PROJECTS_FEATURED}}
 
+## Blog
+
 {{BLOG_LINK}}
 
 ## Education

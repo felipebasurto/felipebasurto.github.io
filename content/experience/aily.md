@@ -4,7 +4,7 @@ description: "Data Scientist at AILY LABS from July 2023 to Nov 2025."
 og_image: "/assets/companies/aily.png"
 ---
 
-[← Back to CV](../../)
+[← Home](../../)
 
 # AILY LABS
 

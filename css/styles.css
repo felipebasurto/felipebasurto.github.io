@@ -25,8 +25,11 @@
   --syn-code: #e88a8a;      /* ` … ` */
   --syn-list: #7fb8c4;      /* - and 1. bullets */
   --syn-quote: #a3c293;     /* > */
+  --syn-marker: #c4a7ff;    /* blog: FreshCtx / CORVUS markers */
   --syn-rule: #8a8a93;      /* --- horizontal rule line */
   --syn-link: #9ec1ff;      /* [link text] */
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 
   --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas,
     "Liberation Mono", monospace;
@@ -347,6 +350,60 @@ h3.md-heading {
   margin: 1rem 0;
 }
 
+/* Syntax highlighting (highlight.js classes, emitted at build time), mapped
+   onto the same palette as the markdown markers so code reads as part of
+   the document rather than a pasted theme. */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-meta .hljs-keyword {
+  color: var(--syn-heading);
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition {
+  color: var(--syn-quote);
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-deletion {
+  color: var(--syn-code);
+}
+
+.hljs-title,
+.hljs-title.function_,
+.hljs-section {
+  color: var(--syn-link);
+}
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-property,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-params {
+  color: var(--syn-list);
+}
+
+.hljs-built_in,
+.hljs-type,
+.hljs-title.class_ {
+  color: var(--accent-hover);
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-meta {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.hljs-punctuation,
+.hljs-operator {
+  color: var(--text-dim);
+}
+
 .md-codeblock-gutter {
   font-size: 0.78rem;
   color: var(--syntax);
@@ -375,6 +432,47 @@ h3.md-heading {
   padding: 0.5rem 0 0.5rem 0.85rem;
   border-left: 2px solid var(--syn-quote);
   color: var(--muted);
+}
+
+/* ---------- tables ----------
+   Hairline rows, no cell boxes. The wrapper scrolls sideways on narrow
+   screens so wide numeric tables never push the page wider. */
+
+.md-table-wrap {
+  margin: 1.25rem 0 1.5rem;
+  overflow-x: auto;
+}
+
+.md-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.md-table th,
+.md-table td {
+  padding: 0.5rem 1rem 0.5rem 0;
+  border-bottom: 1px solid var(--hairline);
+  text-align: left;
+  vertical-align: top;
+}
+
+.md-table th {
+  font-weight: 500;
+  color: var(--text-dim);
+  border-bottom-color: rgba(255, 255, 255, 0.14);
+}
+
+.md-table th:last-child,
+.md-table td:last-child {
+  padding-right: 0;
+}
+
+/* marked writes align="right" for `---:` columns; honor it over the default. */
+.md-table th[align="right"],
+.md-table td[align="right"] {
+  text-align: right;
 }
 
 /* ---------- horizontal rule ---------- */
@@ -527,33 +625,2087 @@ h3.md-heading {
   outline-offset: 6px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .blog-card__cover,
-  .blog-card__title {
-    transition: none;
-  }
+/* Posts: one centered reading column (about 80 characters) instead of the
+   wide CV column, so the header hint, article, and footer share one edge. */
+.doc.doc--post {
+  max-width: 54rem;
 }
 
-.blog-feed {
-  font-size: 0.85rem;
-}
-
-/* Posts read at a prose measure instead of the full CV column. */
 .md-doc--post {
-  max-width: 76ch;
+  line-height: 1.85;
+}
+
+.md-doc--post .md-p {
+  margin: 1.15em 0;
+}
+
+.md-doc--post .md-li {
+  margin: 0.45em 0;
+}
+
+.md-doc--post h1.md-heading {
+  margin: 2rem 0 0.6rem;
+  line-height: 1.35;
+}
+
+.md-doc--post h2.md-heading {
+  margin-top: 3.5rem;
+}
+
+.md-doc--post h3.md-heading {
+  margin: 2.5rem 0 0.5rem;
+}
+
+.md-doc--post .md-codeblock {
+  margin: 1.5rem 0;
+}
+
+/* Code keeps a code line height, not the article's looser reading rhythm. */
+.md-doc--post .md-pre {
+  line-height: 1.6;
 }
 
 .post-meta {
-  margin: -0.5rem 0 1.75rem;
+  margin: 0 0 2.75rem;
   font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+/* Table of contents: a quiet box, ordered list numbered like markdown `1.` */
+.post-toc {
+  margin: 0 0 2.75rem;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.post-toc__summary {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  color: var(--text-dim);
+  cursor: pointer;
+  list-style: none;
+}
+
+.post-toc__summary::-webkit-details-marker {
+  display: none;
+}
+
+.post-toc__summary::before {
+  content: "▸";
+  color: var(--syn-list);
+}
+
+.post-toc__details[open] > .post-toc__summary::before {
+  content: "▾";
+}
+
+.post-toc__summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  border-radius: 6px;
+}
+
+.post-toc__list {
+  margin: 0;
+  padding: 0 1rem 0.85rem;
+  list-style: none;
+  counter-reset: toc;
+}
+
+.post-toc__item {
+  position: relative;
+  padding: 0.2rem 0 0.2rem 2.25rem;
+  counter-increment: toc;
+}
+
+.post-toc__item::before {
+  content: counter(toc) ".";
+  position: absolute;
+  left: 0.6rem;
+  color: var(--syn-list);
+}
+
+.md-doc--post h2.md-heading {
+  scroll-margin-top: 1.5rem;
+}
+
+/* ---------- blog figures (scripts/diagrams/blog/*.html) ----------
+   Tufte-style: gray data ink with one highlight (red = stale, green =
+   current), labels on the chart instead of legends, no gridlines. Bar
+   lengths come from a --value custom property (0 to 100). */
+
+.fig {
+  margin: 2.25rem 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.fig__caption {
+  margin-top: 0.9rem;
+  color: var(--text-dim);
+  font-size: 0.76rem;
+}
+
+.fig__note {
+  margin: 1.25rem 0 0;
+  padding-left: 0.85rem;
+  border-left: 2px solid var(--syn-quote);
+  color: var(--text);
+}
+
+.fig code {
+  font-size: 0.95em;
+}
+
+/* 1 in 7: waffle of 100 squares */
+.fig-waffle__body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem 2rem;
+}
+
+.fig-waffle__grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 4px;
+  width: 11.5rem;
+  flex-shrink: 0;
+}
+
+.fig-waffle__cell {
+  aspect-ratio: 1;
+  border: 1px solid #3f3f46;
+  border-radius: 2px;
+}
+
+.fig-waffle__cell--stale {
+  border-color: var(--syn-code);
+  background: rgba(232, 138, 138, 0.35);
+}
+
+.fig-waffle__text {
+  flex: 1 1 14rem;
+}
+
+.fig-waffle__stat {
+  margin: 0;
+  font-size: 2.25rem;
+  line-height: 1.1;
+  font-weight: 600;
+  color: var(--syn-code);
+}
+
+.fig-waffle__label {
+  margin: 0.4rem 0 0;
+  color: var(--text-strong);
+}
+
+.fig-waffle__count {
+  margin: 0.4rem 0 0;
+  color: var(--text-dim);
+}
+
+/* Prevalence: the waffle headline, then bars on one 0 to 100% scale, one
+   color per group (requests, runs) so red stays reserved for stale code. */
+.fig-bars .fig-waffle__body {
+  margin-bottom: 1.75rem;
+}
+
+.fig-bars__list--requests {
+  --bar: var(--syn-list);
+}
+
+.fig-bars__list--runs {
+  --bar: var(--syn-heading);
+}
+
+.fig-bars__group {
+  margin: 0 0 0.6rem;
+  color: var(--text-dim);
+  font-size: 0.74rem;
+}
+
+.fig-bars__list + .fig-bars__group {
+  margin-top: 1.5rem;
+}
+
+.fig-bars__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fig-bars__row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.fig-bars__label {
+  color: var(--text);
+}
+
+.fig-bars__value {
+  color: var(--bar);
+  font-weight: 600;
+  text-align: right;
+}
+
+.fig-bars__track {
+  grid-column: 1 / -1;
+  height: 0.6rem;
+  margin: 0.35rem 0 0.25rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.fig-bars__bar {
+  display: block;
+  width: calc(var(--value) * 1%);
+  height: 100%;
+  background: var(--bar);
+  opacity: 0.8;
+}
+
+.fig-bars__count {
+  grid-column: 1 / -1;
+  color: var(--text-dim);
+  font-size: 0.74rem;
+}
+
+.fig-bars__axis {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.72rem;
+}
+
+/* Request copy: two message stacks side by side */
+.fig-request__cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.fig-request__head {
+  margin: 0 0 0.5rem;
+  color: var(--text-dim);
+}
+
+.fig-request__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fig-request__msg {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.6rem;
+  margin-bottom: 0.35rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #3f3f46;
+  border-radius: 4px;
+  color: var(--text);
+}
+
+.fig-request__role {
+  flex: 0 0 3.25rem;
+  color: var(--syntax);
+}
+
+.fig-request__tag {
+  margin-left: auto;
+  font-size: 0.72rem;
+}
+
+.fig-request__msg--stale {
+  border: 1px dashed var(--syn-code);
+  background: rgba(232, 138, 138, 0.06);
+}
+
+.fig-request__msg--stale code,
+.fig-request__msg--stale .fig-request__tag {
+  color: var(--syn-code);
+}
+
+.fig-request__msg--marker {
+  border: 1px solid var(--syn-marker);
+  background: color-mix(in srgb, var(--syn-marker) 9%, transparent);
+  color: var(--syn-marker);
+}
+
+.fig-request__msg--marker code,
+.fig-request__msg--marker .fig-request__tag {
+  color: var(--syn-marker);
+}
+
+/* A marker named in running text. */
+.md-codespan.md-marker {
+  color: var(--syn-marker);
+}
+
+.fig-request__msg--fresh {
+  border-color: var(--syn-quote);
+  background: rgba(163, 194, 147, 0.07);
+}
+
+.fig-request__msg--fresh code,
+.fig-request__msg--fresh .fig-request__tag {
+  color: var(--syn-quote);
+}
+
+.fig-request__proj {
+  flex-basis: 100%;
+  margin: 0.15rem 0 0;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.fig-request__proj-head {
+  color: var(--text-dim);
+}
+
+/* A bracket from the marker to the projection, drawn beside the messages.
+   It spans rows 3 to 6: the marker, two messages, the projection. */
+.fig-request__list--linked {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 0.9rem;
+  column-gap: 0.35rem;
+}
+
+.fig-request__list--linked > .fig-request__msg {
+  grid-column: 1;
+}
+
+.fig-request__link {
+  grid-column: 2;
+  grid-row: 3 / 7;
+  margin: 1.05rem 0 1.4rem;
+  border: 1px dashed var(--syn-marker);
+  border-left: 0;
+  border-radius: 0 6px 6px 0;
+}
+
+/* Re-sent conversation: three requests side by side, each longer than the
+   last. What the model receives sits in one box; the file on disk sits in a
+   visibly different one at the bottom of every column, so the three align. */
+.fig-resend__steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fig-resend__step {
+  display: flex;
+  flex-direction: column;
+}
+
+.fig-resend__head {
+  margin: 0 0 0.5rem;
+  color: var(--text-dim);
+}
+
+.fig-resend__sent {
+  flex: 1;
+  padding: 0.5rem 0.5rem 0.15rem;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+}
+
+.fig-resend__label {
+  margin: 0 0 0.45rem;
+  color: var(--text-dim);
+  font-size: 0.72rem;
+}
+
+/* Columns are narrow: a short role label stays inline and small. */
+.fig-resend__step .fig-request__role {
+  flex: 0 0 auto;
+  font-size: 0.72rem;
+}
+
+/* The file on disk sits on top of each column, so the three disks line up
+   and request 3's mismatch reads straight down. */
+.fig-resend__file {
+  margin-bottom: 0.6rem;
+  border: 1px solid #52525b;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+}
+
+.fig-resend__name {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.3rem 0.6rem;
+  border-bottom: 1px solid var(--hairline);
+  background: rgba(127, 127, 140, 0.12);
+  color: var(--text-dim);
+  font-size: 0.72rem;
+}
+
+.fig-resend__src {
+  display: block;
+  padding: 0.5rem 0.6rem;
+  color: var(--text);
+}
+
+.fig-resend__file--changed {
+  border-color: var(--syn-quote);
+}
+
+.fig-resend__file--changed .fig-resend__name {
+  background: color-mix(in srgb, var(--syn-quote) 16%, transparent);
+}
+
+.fig-resend__file--changed .fig-resend__tag,
+.fig-resend__file--changed .fig-resend__src {
+  color: var(--syn-quote);
+}
+
+/* Real stale view: the old lines above the same lines on disk */
+.fig-diff__pane + .fig-diff__pane {
+  margin-top: 1.1rem;
+}
+
+.fig-diff__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.6rem;
+  margin: 0 0 0.45rem;
+  color: var(--text-dim);
+}
+
+.fig-diff__tag {
+  font-size: 0.72rem;
+}
+
+.fig-diff__tag--stale {
+  color: var(--syn-code);
+}
+
+.fig-diff__tag--current {
+  color: var(--syn-quote);
+}
+
+.fig-diff__code {
+  margin: 0;
+  padding: 0.6rem 0;
+  overflow-x: auto;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.02);
+  line-height: 1.65;
+}
+
+/* Lines are blocks at least as wide as the pane, so a highlight spans the
+   full width even when a long line scrolls. */
+.fig-diff__line {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+  padding: 0 1rem 0 0.5rem;
+}
+
+.fig-diff__num {
+  display: inline-block;
+  width: 3ch;
+  margin-right: 1.5ch;
+  color: var(--text-dim);
+  text-align: right;
+  user-select: none;
+}
+
+.fig-diff__line--stale {
+  background: rgba(232, 138, 138, 0.1);
+  color: var(--syn-code);
+}
+
+.fig-diff__line--current {
+  background: rgba(163, 194, 147, 0.09);
+  color: var(--syn-quote);
+}
+
+/* Side by side: the stale view next to the file. Panes are narrow, so long
+   lines wrap under their own text instead of scrolling. */
+.fig-diff--split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.1rem 1.25rem;
+}
+
+.fig-diff--split .fig-diff__pane + .fig-diff__pane {
+  margin-top: 0;
+}
+
+.fig-diff--split .fig-diff__pane:first-child .fig-diff__code,
+.fig-diff--stack .fig-diff__pane:first-child .fig-diff__code {
+  border-color: color-mix(in srgb, var(--syn-code) 45%, transparent);
+  border-style: dashed;
+}
+
+.fig-diff--split .fig-diff__pane:nth-child(2) .fig-diff__code,
+.fig-diff--stack .fig-diff__pane:nth-child(2) .fig-diff__code {
+  border-color: color-mix(in srgb, var(--syn-quote) 45%, transparent);
+}
+
+.fig-diff--split .fig-diff__line {
+  display: grid;
+  grid-template-columns: 3ch minmax(0, 1fr);
+  column-gap: 1.5ch;
+  width: auto;
+}
+
+.fig-diff--split .fig-diff__num {
+  width: auto;
+  margin-right: 0;
+}
+
+.fig-diff--split .fig-diff__text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.fig-diff--split .fig__caption {
+  grid-column: 1 / -1;
+  margin-top: 0;
+}
+
+/* Finding code again: the current file, one band per unit, notes beside it */
+.fig-units__path {
+  margin: 0 0 0.45rem;
+  color: var(--text-dim);
+}
+
+.fig-units__file {
+  margin: 0;
+  padding: 0.6rem 0;
+  list-style: none;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.fig-units__block {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 16rem;
+  column-gap: 1.25rem;
+  align-items: center;
+  padding: 0.15rem 1rem 0.15rem 0.5rem;
+}
+
+.fig-units__code {
+  margin: 0;
+  overflow-x: auto;
+  line-height: 1.65;
+}
+
+.fig-units__num {
+  display: inline-block;
+  width: 2ch;
+  margin-right: 1.5ch;
+  color: var(--text-dim);
+  text-align: right;
+  user-select: none;
+}
+
+.fig-units__note {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+.fig-units__kind {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.fig-units__block--region {
+  background: rgba(127, 184, 196, 0.08);
+}
+
+.fig-units__block--region .fig-units__kind {
+  color: var(--syn-list);
+}
+
+.fig-units__block--symbol {
+  background: rgba(163, 194, 147, 0.08);
+}
+
+.fig-units__block--symbol .fig-units__kind {
+  color: var(--syn-quote);
+}
+
+.fig-units__block--unread .fig-units__code {
+  color: var(--text-dim);
+}
+
+/* Functions versus whole files: paired bars on one shared scale */
+.fig-traces__total {
+  margin: 0 0 1.25rem;
+  color: var(--text-dim);
+}
+
+.fig-traces__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fig-traces__row {
+  margin-bottom: 1.1rem;
+}
+
+.fig-traces__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 1rem;
+  margin: 0 0 0.35rem;
+  color: var(--text);
+}
+
+.fig-traces__ratio {
+  color: var(--syn-quote);
+  white-space: nowrap;
+}
+
+.fig-traces__lane {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr) 4.5rem;
+  align-items: center;
+  column-gap: 0.75rem;
+  margin-bottom: 0.2rem;
+}
+
+.fig-traces__who {
+  color: var(--text-dim);
+}
+
+.fig-traces__track {
+  height: 0.55rem;
+  border-left: 1px solid #3f3f46;
+}
+
+.fig-traces__bar {
+  display: block;
+  width: calc(var(--value) * 1%);
+  height: 100%;
+  background: #71717a;
+}
+
+.fig-traces__lane--fn .fig-traces__bar {
+  background: var(--syn-quote);
+}
+
+.fig-traces__num {
+  text-align: right;
+  color: var(--text);
+}
+
+.fig-traces__lane--fn .fig-traces__num {
+  color: var(--syn-quote);
+}
+
+.fig-traces__lane--file .fig-traces__bar {
+  background: var(--accent);
+  opacity: 0.7;
+}
+
+/* Replay: one bar of the stale requests, split by what FreshCtx left.
+   The figure's --value is the fixed share, in percent. */
+.fig-replay__sample {
+  margin: 0 0 1.25rem;
+  color: var(--text-dim);
+}
+
+.fig-replay__sep {
+  margin: 0 0.35rem;
+  color: var(--text-dim);
+}
+
+.fig-replay__title {
+  margin: 0 0 0.5rem;
+  color: var(--text);
+}
+
+.fig-replay__stack,
+.fig-replay__labels {
+  display: flex;
+  gap: 3px;
+}
+
+.fig-replay__stack {
+  height: 1.1rem;
+}
+
+.fig-replay__labels {
+  margin: 0.45rem 0 0;
+}
+
+.fig-replay__seg--fixed,
+.fig-replay__label--fixed {
+  flex: 0 0 calc(var(--value) * 1% - 1.5px);
+}
+
+.fig-replay__seg--left,
+.fig-replay__label--left {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.fig-replay__seg {
+  display: block;
+  border-radius: 2px;
+}
+
+.fig-replay__seg--fixed {
+  background: var(--syn-quote);
+  opacity: 0.85;
+}
+
+.fig-replay__seg--left {
+  border: 1px solid var(--syn-code);
+  background: rgba(232, 138, 138, 0.35);
+}
+
+.fig-replay__label {
+  color: var(--text-dim);
+}
+
+.fig-replay__label--fixed strong {
+  color: var(--syn-quote);
+}
+
+.fig-replay__label--left strong {
+  color: var(--syn-code);
+}
+
+.fig-replay__stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem 1.25rem;
+  margin: 0 0 1.75rem;
+}
+
+.fig-replay__stat {
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--syn-quote);
+}
+
+.fig-replay__stat dt {
+  color: var(--text-dim);
+  font-size: 0.74rem;
+  line-height: 1.4;
+}
+
+.fig-replay__stat dd {
+  margin: 0.35rem 0 0;
+  color: var(--text-dim);
+}
+
+.fig-replay__stat strong {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.fig-replay__of {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.74rem;
+}
+
+.fig-replay__was {
+  color: var(--syn-code);
+  text-decoration: line-through;
+}
+
+.fig-replay__zero {
+  color: var(--syn-quote);
+}
+
+/* Budget: one row per budget, size change around zero next to code left out */
+.fig-budget__head,
+.fig-budget__row {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 1.25rem;
+  align-items: center;
+}
+
+.fig-budget__head {
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--text-dim);
+  font-size: 0.74rem;
+}
+
+.fig-budget__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fig-budget__row {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.fig-budget__budget {
+  color: var(--text);
+}
+
+.fig-budget__tag {
+  color: var(--text-dim);
+  font-size: 0.72rem;
+}
+
+/* Number first, then its bar, so both columns read left to right. */
+.fig-budget__cell {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  align-items: center;
+  column-gap: 0.75rem;
+}
+
+.fig-budget__num {
+  text-align: right;
+  color: var(--text);
+}
+
+.fig-budget__diverge,
+.fig-budget__track {
+  position: relative;
+  height: 0.55rem;
+}
+
+/* Size axis runs from -15% to +5%, so zero sits at 75% of the track and
+   --value is a share of the whole track. */
+.fig-budget__diverge::before {
+  content: "";
+  position: absolute;
+  left: 75%;
+  top: -0.2rem;
+  bottom: -0.2rem;
+  border-left: 1px solid #52525b;
+}
+
+.fig-budget__diverge .fig-budget__bar {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: calc(var(--value) * 1%);
+  background: #71717a;
+}
+
+.fig-budget__diverge--up .fig-budget__bar {
+  left: 75%;
+  background: var(--syn-heading);
+}
+
+.fig-budget__diverge--down .fig-budget__bar {
+  right: 25%;
+  background: var(--syn-list);
+}
+
+.fig-budget__num--up {
+  color: var(--syn-heading);
+}
+
+.fig-budget__num--down {
+  color: var(--syn-list);
+}
+
+.fig-budget__track {
+  border-left: 1px solid #3f3f46;
+}
+
+.fig-budget__track .fig-budget__bar {
+  display: block;
+  height: 100%;
+  width: calc(var(--value) * 1%);
+  min-width: 2px;
+}
+
+.fig-budget__bar--lost {
+  background: var(--syn-code);
+  opacity: 0.8;
+}
+
+.fig-budget__axis {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 1.25rem;
+  padding-top: 0.4rem;
+  color: var(--text-dim);
+  font-size: 0.72rem;
+}
+
+.fig-budget__ticks {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.fig-budget__tick-zero {
+  position: absolute;
+  left: 75%;
+  transform: translateX(-50%);
+}
+
+/* Pilot: one row per task, a dot per post-resume request */
+.fig-pilot__summary {
+  margin: 0 0 1rem;
+  color: var(--text-dim);
+}
+
+.fig-pilot__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fig-pilot__row {
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr);
+  column-gap: 1.25rem;
+  row-gap: 0.25rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.fig-pilot__task {
+  grid-row: span 2;
+  color: var(--text);
+}
+
+.fig-pilot__lane {
+  display: grid;
+  grid-template-columns: 4.75rem auto 1.25rem auto;
+  align-items: center;
+  column-gap: 0.6rem;
+  justify-content: start;
+}
+
+.fig-pilot__who {
+  color: var(--text-dim);
+}
+
+.fig-pilot__dots {
+  display: flex;
+  gap: 4px;
+}
+
+.fig-pilot__dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border: 1px solid #3f3f46;
+  border-radius: 50%;
+}
+
+.fig-pilot__dot--used {
+  border-color: #a1a1aa;
+  background: #a1a1aa;
+}
+
+.fig-pilot__n {
+  color: var(--text-dim);
+  text-align: right;
+}
+
+.fig-pilot__out--pass {
+  color: var(--syn-quote);
+}
+
+.fig-pilot__out--fail {
+  color: var(--syn-code);
+}
+
+.fig-pilot__why {
+  grid-column: 2;
+  color: var(--syn-code);
+  font-size: 0.76rem;
+}
+
+/* Ten-turn sessions: one row of turns per arm and run. Failed cells carry a
+   slash as well as the color, so they read without it. */
+.fig-session__turns,
+.fig-session__row {
+  display: grid;
+  grid-template-columns: 6rem repeat(10, minmax(0, 1fr)) 3.5rem;
+  column-gap: 5px;
+  align-items: center;
+}
+
+.fig-session__turns {
+  margin-bottom: 0.2rem;
+}
+
+.fig-session__label {
+  color: var(--text-dim);
+}
+
+/* Before the modifiers below, so legend swatches take their borders. */
+.fig-session__swatch {
+  display: inline-block;
+  width: 0.9rem;
+  height: 0.9rem;
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+
+.fig-session__turn {
+  display: grid;
+  place-items: center;
+  height: 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: var(--text-dim);
+  font-size: 0.72rem;
+}
+
+.fig-session__turn--changed {
+  border-color: var(--syn-code);
+  color: var(--syn-code);
+}
+
+.fig-session__turn--deleted {
+  border: 1px dashed var(--text-dim);
+}
+
+.fig-session__run {
+  margin: 0.9rem 0 0.35rem;
+  color: var(--text-dim);
+  font-size: 0.74rem;
+}
+
+.fig-session__rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fig-session__row {
+  margin-bottom: 5px;
+}
+
+.fig-session__row .fig-session__label {
+  color: var(--text);
+}
+
+.fig-session__cell {
+  display: block;
+  height: 1.25rem;
+  border-radius: 2px;
+}
+
+.fig-session__cell--pass {
+  background: rgba(163, 194, 147, 0.55);
+}
+
+.fig-session__cell--fail {
+  border: 1px solid var(--syn-code);
+  background:
+    linear-gradient(to top right, transparent calc(50% - 0.75px), var(--syn-code) calc(50% - 0.75px), var(--syn-code) calc(50% + 0.75px), transparent calc(50% + 0.75px)),
+    rgba(232, 138, 138, 0.12);
+}
+
+.fig-session__score {
+  padding-left: 0.3rem;
+  text-align: right;
+  color: var(--text);
+}
+
+.fig-session__row--fresh .fig-session__score {
+  color: var(--syn-quote);
+}
+
+.fig-session__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  margin: 1rem 0 0;
+  color: var(--text-dim);
+  font-size: 0.74rem;
+}
+
+.fig-session__key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+/* Explainer motion. Two figures replay their mechanism once, when scrolled
+   into view: the resend figure (the conversation grows, then the file changes
+   under an old read) and the request copy (the stale read becomes a marker,
+   then the current code arrives). The template script adds .fig--armed only
+   to figures still off screen, then .fig--play; without it they are static.
+   Each step's delay is --d. Reduced motion keeps the fades, drops movement. */
+.fig-resend__swap,
+.fig-request__swap {
+  display: grid;
+}
+
+.fig-resend__swap > *,
+.fig-request__swap > * {
+  grid-area: 1 / 1;
+}
+
+.fig-resend__src--before,
+.fig-request__before {
+  display: none;
+}
+
+.fig--armed .fig-resend__src--before,
+.fig--armed .fig-request__before {
+  display: block;
+}
+
+.fig-request__before {
+  color: var(--syn-code);
+}
+
+.fig--armed .fig-resend__step:nth-child(2) { --d: 300ms; }
+.fig--armed .fig-resend__step:nth-child(3) { --d: 900ms; }
+.fig--armed .fig-resend__step:nth-child(3) .fig-request__msg:nth-child(4) { --d: 1500ms; }
+.fig--armed .fig-resend__step:nth-child(3) .fig-request__msg:nth-child(5) { --d: 1600ms; }
+.fig--armed .fig-resend__file--changed { --d: 2200ms; }
+.fig-resend.fig--armed .fig-request__msg--stale { --d: 2800ms; }
+.fig--armed .fig-request__msg--marker { --d: 600ms; }
+.fig--armed .fig-request__msg--fresh { --d: 1300ms; }
+.fig--armed .fig-request__link { --d: 1900ms; }
+
+/* Looping: between runs the whole figure fades out, snaps back to its
+   start state while invisible, then fades in to play again. */
+.fig--armed {
+  transition: opacity 250ms var(--ease-out);
+}
+
+.fig--fade {
+  opacity: 0;
+}
+
+/* Opening figure: the file on disk changes from 10 to 20, then the model's
+   copy turns stale. The number crossfades in place; both lines start
+   neutral and take their color when their moment comes. */
+.fig-diff__swap {
+  display: inline-grid;
+}
+
+.fig-diff__swap > * {
+  grid-area: 1 / 1;
+}
+
+.fig-diff__before {
+  opacity: 0;
+}
+
+.fig--armed .fig-diff__line--current { --d: 500ms; }
+.fig--armed .fig-diff__line--stale { --d: 1400ms; }
+
+.fig--play .fig-diff__line--current,
+.fig--play .fig-diff__line--stale {
+  transition:
+    background-color 400ms var(--ease-out) var(--d),
+    color 400ms var(--ease-out) var(--d);
+}
+
+.fig--play .fig-diff__swap > * {
+  transition: opacity 300ms var(--ease-out) 500ms;
+}
+
+.fig--armed:not(.fig--play) .fig-diff__line--current,
+.fig--armed:not(.fig--play) .fig-diff__line--stale {
+  background-color: transparent;
+  color: var(--text);
+}
+
+.fig--armed:not(.fig--play) .fig-diff__before {
+  opacity: 1;
+}
+
+.fig--armed:not(.fig--play) .fig-diff__after {
+  opacity: 0;
+}
+
+/* Transitions live on .fig--play only, so arming a figure hides its pieces
+   at once instead of fading them out. */
+
+/* Entering pieces: fade in, rising a few pixels. */
+.fig--play .fig-resend__step:nth-child(n + 2),
+.fig--play .fig-resend__step:nth-child(3) .fig-request__msg:nth-child(n + 4),
+.fig--play .fig-request__msg--fresh,
+.fig--play .fig-request__link {
+  transition:
+    opacity 450ms var(--ease-out) var(--d),
+    transform 450ms var(--ease-out) var(--d);
+}
+
+.fig--armed:not(.fig--play) .fig-resend__step:nth-child(n + 2),
+.fig--armed:not(.fig--play) .fig-resend__step:nth-child(3) .fig-request__msg:nth-child(n + 4),
+.fig--armed:not(.fig--play) .fig-request__msg--fresh,
+.fig--armed:not(.fig--play) .fig-request__link {
+  opacity: 0;
+}
+
+.fig--armed .fig-request__link {
+  transform-origin: top;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fig--armed:not(.fig--play) .fig-resend__step:nth-child(n + 2),
+  .fig--armed:not(.fig--play) .fig-resend__step:nth-child(3) .fig-request__msg:nth-child(n + 4),
+  .fig--armed:not(.fig--play) .fig-request__msg--fresh {
+    transform: translateY(6px);
+  }
+
+  .fig--armed:not(.fig--play) .fig-request__link {
+    transform: scaleY(0);
+  }
+}
+
+/* Swaps: old text crossfades to new text in place. */
+.fig--play .fig-resend__swap > *,
+.fig--play .fig-request__swap > *,
+.fig--play .fig-resend__tag,
+.fig--play .fig-request__msg--marker .fig-request__tag {
+  transition: opacity 400ms var(--ease-out) var(--d);
+}
+
+.fig--armed:not(.fig--play) .fig-resend__swap > :not(.fig-resend__src--before),
+.fig--armed:not(.fig--play) .fig-request__swap > :not(.fig-request__before),
+.fig--armed:not(.fig--play) .fig-resend__tag,
+.fig--armed:not(.fig--play) .fig-request__msg--marker .fig-request__tag,
+.fig--armed.fig--play .fig-resend__src--before,
+.fig--armed.fig--play .fig-request__before {
+  opacity: 0;
+}
+
+.fig--armed .fig-resend__src--before {
+  color: var(--text);
+}
+
+/* The file on disk turns from unchanged to changed. */
+.fig--play .fig-resend__file--changed {
+  transition: border-color 400ms var(--ease-out) var(--d);
+}
+
+.fig--play .fig-resend__file--changed .fig-resend__name {
+  transition: background-color 400ms var(--ease-out) var(--d);
+}
+
+.fig--armed:not(.fig--play) .fig-resend__file--changed {
+  border-color: #52525b;
+}
+
+.fig--armed:not(.fig--play) .fig-resend__file--changed .fig-resend__name {
+  background-color: rgba(127, 127, 140, 0.12);
+}
+
+/* The old read turns stale. Border style can't transition, so the dashed
+   border is an overlay that fades in while the solid one fades out. */
+.fig-resend.fig--armed .fig-request__msg--stale {
+  position: relative;
+  border-style: solid;
+  border-color: transparent;
+}
+
+.fig-resend.fig--play .fig-request__msg--stale {
+  transition:
+    border-color 400ms var(--ease-out) var(--d),
+    background-color 400ms var(--ease-out) var(--d);
+}
+
+.fig-resend.fig--armed .fig-request__msg--stale::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: 1px dashed var(--syn-code);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.fig-resend.fig--play .fig-request__msg--stale::after {
+  transition: opacity 400ms var(--ease-out) var(--d);
+}
+
+.fig-resend.fig--play .fig-request__msg--stale code,
+.fig-resend.fig--play .fig-request__msg--stale .fig-request__tag {
+  transition:
+    color 400ms var(--ease-out) var(--d),
+    opacity 400ms var(--ease-out) var(--d);
+}
+
+.fig-resend.fig--armed:not(.fig--play) .fig-request__msg--stale {
+  border-color: #3f3f46;
+  background-color: transparent;
+}
+
+.fig-resend.fig--armed:not(.fig--play) .fig-request__msg--stale::after,
+.fig-resend.fig--armed:not(.fig--play) .fig-request__msg--stale .fig-request__tag {
+  opacity: 0;
+}
+
+.fig-resend.fig--armed:not(.fig--play) .fig-request__msg--stale code {
+  color: var(--text);
+}
+
+/* Agent loop: model, harness and workspace in a row, with the two messages
+   that cross each link written on it. Arrows turn vertical on phones. */
+.fig-loop__chain {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr) minmax(0, 1fr) minmax(0, 0.85fr) minmax(0, 1fr);
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fig-loop__node {
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #52525b;
+  border-radius: 6px;
+}
+
+.fig-loop__node--model {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.fig-loop__node--harness {
+  border-color: var(--syn-heading);
+  background: color-mix(in srgb, var(--syn-heading) 8%, transparent);
+}
+
+.fig-loop__node--disk {
+  background: rgba(127, 127, 140, 0.08);
+}
+
+.fig-loop__name {
+  margin: 0 0 0.3rem;
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.fig-loop__node--model .fig-loop__name {
+  color: var(--accent);
+}
+
+.fig-loop__node--harness .fig-loop__name {
+  color: var(--syn-heading);
+}
+
+.fig-loop__role {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+.fig-loop__link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0 0.6rem;
+}
+
+.fig-loop__arrow {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.76rem;
+  line-height: 1.4;
+}
+
+.fig-loop__arrow--back {
+  color: var(--text-dim);
+}
+
+.fig-loop__arrow code {
+  white-space: nowrap;
+}
+
+.fig-loop__dir {
+  margin-right: 0.4rem;
+  color: var(--text-dim);
+}
+
+.fig-loop__dir--out::before {
+  content: "\2192";
+}
+
+.fig-loop__dir--back::before {
+  content: "\2190";
+}
+
+/* Syntax tree: the file beside its tree, banded with the same colors as the
+   units figure (green symbol, teal region, dim unread). */
+.fig-tree__cols {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 1.25rem;
+}
+
+.fig-tree__head {
+  margin: 0 0 0.45rem;
+  color: var(--text-dim);
+}
+
+.fig-tree__code {
+  margin: 0;
+  padding: 0.6rem 0;
+  overflow-x: auto;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.02);
+  line-height: 1.65;
+}
+
+.fig-tree__line {
+  display: block;
+  min-height: 1.65em;
+  padding: 0 0.75rem 0 0.5rem;
+}
+
+.fig-tree__num {
+  display: inline-block;
+  width: 2ch;
+  margin-right: 1.5ch;
+  color: var(--text-dim);
+  text-align: right;
+  user-select: none;
+}
+
+.fig-tree__line--region {
+  background: color-mix(in srgb, var(--syn-list) 12%, transparent);
+}
+
+.fig-tree__line--symbol {
+  background: color-mix(in srgb, var(--syn-quote) 12%, transparent);
+}
+
+.fig-tree__line--unread {
+  color: var(--text-dim);
+}
+
+.fig-tree__tree,
+.fig-tree__tree ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fig-tree__tree ul {
+  margin-left: 0.4rem;
+  padding-left: 1rem;
+  border-left: 1px solid #52525b;
+}
+
+.fig-tree__tree li {
+  position: relative;
+  padding: 0.18rem 0;
+}
+
+.fig-tree__tree ul > li::before {
+  content: "";
+  position: absolute;
+  top: 0.95em;
+  left: -1rem;
+  width: 0.7rem;
+  border-top: 1px solid #52525b;
+}
+
+.fig-tree__node {
+  color: var(--text);
+}
+
+.fig-tree__name {
+  padding: 0 0.3rem;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.fig-tree__note {
+  color: var(--text-dim);
+  font-size: 0.74rem;
+}
+
+.fig-tree__item--symbol > .fig-tree__node,
+.fig-tree__item--symbol > .fig-tree__name {
+  color: var(--syn-quote);
+}
+
+.fig-tree__item--symbol > .fig-tree__name {
+  background: color-mix(in srgb, var(--syn-quote) 16%, transparent);
+}
+
+.fig-tree__item--region > .fig-tree__node {
+  color: var(--syn-list);
+}
+
+.fig-tree__item--unread > .fig-tree__node,
+.fig-tree__item--unread > .fig-tree__name {
+  color: var(--text-dim);
+}
+
+/* Function lookup: price.js drawn as a trunk with one branch per top-level
+   declaration. Same bands as elsewhere: green read function, teal region,
+   blue new line, dim never read. */
+.fig-ts__file {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid #52525b;
+  border-radius: 4px;
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.fig-ts__branches,
+.fig-ts__leaves {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fig-ts__branches {
+  margin-left: 1.1rem;
+  padding-left: 1.25rem;
+  border-left: 2px solid #52525b;
+}
+
+.fig-ts__branch,
+.fig-ts__leaf {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.8rem;
+  padding-top: 0.85rem;
+}
+
+.fig-ts__branch::before,
+.fig-ts__leaf::before {
+  content: "";
+  position: absolute;
+  top: calc(0.85rem + 0.8em);
+  left: -1.25rem;
+  width: 1rem;
+  border-top: 2px solid #52525b;
+}
+
+.fig-ts__name {
+  padding: 0.2rem 0.55rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.fig-ts__note,
+.fig-ts__here {
+  color: var(--text-dim);
+  font-size: 0.76rem;
+}
+
+.fig-ts__leaves {
+  flex-basis: 100%;
+  margin-left: 1.1rem;
+  padding-left: 1.25rem;
+  border-left: 2px solid color-mix(in srgb, var(--syn-quote) 50%, transparent);
+}
+
+.fig-ts__leaf {
+  padding-top: 0.6rem;
+}
+
+.fig-ts__leaf::before {
+  top: calc(0.6rem + 0.8em);
+  border-color: color-mix(in srgb, var(--syn-quote) 50%, transparent);
+}
+
+.fig-ts__leaf code {
+  color: var(--syn-quote);
+}
+
+.fig-ts__here::before {
+  content: "\2190  ";
+}
+
+.fig-ts__branch--added .fig-ts__name {
+  border-style: dashed;
+  color: var(--accent);
+}
+
+.fig-ts__branch--region .fig-ts__name {
+  color: var(--syn-list);
+  background: color-mix(in srgb, var(--syn-list) 12%, transparent);
+}
+
+.fig-ts__branch--symbol .fig-ts__name {
+  color: var(--syn-quote);
+  background: color-mix(in srgb, var(--syn-quote) 14%, transparent);
+}
+
+.fig-ts__branch--unread .fig-ts__name {
+  color: var(--text-dim);
+}
+
+/* CORVUS: the usual agent beside CORVUS, each with its loop on top and the
+   prompt it leaves below, in the request figure's message style. Orange
+   marks the sync phase, as in the paper's Figure 2. */
+.fig-corvus__cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.fig-corvus__who {
+  margin: 0 0 0.5rem;
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.fig-corvus__loop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1.2rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.fig-corvus__step {
+  position: relative;
+  padding: 0.25rem 0.55rem;
+  border: 1px solid #52525b;
+  border-radius: 4px;
+}
+
+.fig-corvus__step + .fig-corvus__step::before {
+  content: "\2192";
+  position: absolute;
+  left: -0.95rem;
+  color: var(--text-dim);
+}
+
+.fig-corvus__loop::after {
+  content: "\21BA";
+  margin-left: -0.6rem;
+  color: var(--text-dim);
+}
+
+.fig-corvus__step--sync {
+  border-color: var(--syn-heading);
+  background: color-mix(in srgb, var(--syn-heading) 16%, transparent);
+  color: var(--syn-heading);
+  font-weight: 600;
+}
+
+.fig-corvus__label {
+  margin: 0 0 0.45rem;
+  color: var(--text-dim);
+  font-size: 0.74rem;
+}
+
+.fig-corvus__synced {
+  border-color: var(--syn-heading);
+  background: color-mix(in srgb, var(--syn-heading) 10%, transparent);
+}
+
+.fig-corvus__synced code,
+.fig-corvus__synced .fig-request__tag {
+  color: var(--syn-heading);
+}
+
+/* Three ways to handle an old view: name, what the request holds after an
+   edit (the same red / dim / green code chip), and the trade-off. */
+.fig-appr__cap {
+  margin: 0 0 0.6rem;
+  color: var(--text-dim);
+}
+
+.fig-appr__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fig-appr__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: 0.4rem 1.25rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.fig-appr__name {
+  margin: 0;
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.fig-appr__eg {
+  display: block;
+  color: var(--text-dim);
+  font-size: 0.74rem;
+  font-weight: 400;
+}
+
+.fig-appr__chip {
+  justify-self: start;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid #3f3f46;
+  border-radius: 4px;
+}
+
+.fig-appr__chip--stale {
+  border: 1px dashed var(--syn-code);
+  background: rgba(232, 138, 138, 0.06);
+  color: var(--syn-code);
+}
+
+.fig-appr__chip--gone {
+  border-style: dotted;
+  color: var(--text-dim);
+}
+
+.fig-appr__chip--fresh {
+  border-color: var(--syn-quote);
+  background: rgba(163, 194, 147, 0.07);
+  color: var(--syn-quote);
+}
+
+.fig-appr__trade {
+  margin: 0;
+  color: var(--text);
+}
+
+@media (max-width: 540px) {
+  .fig-appr__row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Replay: the byte-for-byte match as the headline, then stale counts as
+   sent (red bars on one scale) against zero with FreshCtx (green). */
+.fig-rp__sample {
+  margin: 0 0 0.6rem;
+  color: var(--text-dim);
+}
+
+.fig-rp__hero {
+  margin: 0 0 1.5rem;
+  color: var(--text);
+}
+
+.fig-rp__hero strong {
+  margin-right: 0.4rem;
+  color: var(--syn-quote);
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+.fig-rp__hero span {
+  display: block;
+  color: var(--text-dim);
+  font-size: 0.76rem;
+}
+
+.fig-rp__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) auto;
+  align-items: center;
+  gap: 0.6rem 1.25rem;
+}
+
+.fig-rp__head {
+  color: var(--text-dim);
+  font-size: 0.74rem;
+}
+
+.fig-rp__name {
+  color: var(--text);
+}
+
+.fig-rp__was {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--syn-code);
+}
+
+.fig-rp__bar {
+  flex: 0 0 auto;
+  width: calc(var(--value) * 0.7%);
+  min-width: 4px;
+  height: 0.8rem;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--syn-code) 45%, transparent);
+}
+
+.fig-rp__now {
+  color: var(--syn-quote);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Prompt cache: one bar per request, cached start against full-price end.
+   --value is each segment's share of the bar, in percent. */
+.fig-cache__row + .fig-cache__row {
+  margin-top: 1.25rem;
+}
+
+.fig-cache__who {
+  margin: 0 0 0.4rem;
+  color: var(--text);
+}
+
+.fig-cache__bar {
+  display: flex;
+  gap: 3px;
+}
+
+.fig-cache__seg {
+  flex: 0 0 calc(var(--value) * 1% - 2px);
+  min-width: 0;
+  padding: 0.3rem 0.5rem;
+  overflow: hidden;
+  border-radius: 3px;
+  font-size: 0.72rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.fig-cache__seg--cached {
+  border: 1px solid color-mix(in srgb, var(--syn-list) 60%, transparent);
+  background: color-mix(in srgb, var(--syn-list) 18%, transparent);
+  color: var(--syn-list);
+}
+
+.fig-cache__seg--full {
+  border: 1px solid var(--syn-heading);
+  background: color-mix(in srgb, var(--syn-heading) 22%, transparent);
+  color: var(--syn-heading);
+}
+
+.fig-cache__seg--marker {
+  border: 1px solid var(--syn-marker);
+  background: color-mix(in srgb, var(--syn-marker) 18%, transparent);
+  color: var(--syn-marker);
+}
+
+.fig-cache__seg--proj {
+  border: 1px solid var(--syn-quote);
+  background: color-mix(in srgb, var(--syn-quote) 22%, transparent);
+  color: var(--syn-quote);
+}
+
+.fig-cache__desc {
+  margin: 0.4rem 0 0;
+  color: var(--text-dim);
+  font-size: 0.76rem;
+}
+
+.fig-cache__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  margin: 1.1rem 0 0;
+  color: var(--text-dim);
+  font-size: 0.74rem;
+}
+
+.fig-cache__key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.fig-cache__swatch {
+  display: inline-block;
+  width: 0.9rem;
+  height: 0.9rem;
+  padding: 0;
+}
+
+@media (max-width: 540px) {
+  .fig-request__cols,
+  .fig-corvus__cols,
+  .fig-resend__steps,
+  .fig-diff--split,
+  .fig-tree__cols {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fig-loop__chain {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fig-loop__link {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.55rem 0.4rem;
+  }
+
+  .fig-loop__arrow {
+    flex: 1 1 0;
+  }
+
+  .fig-loop__arrow--back {
+    text-align: right;
+  }
+
+  .fig-loop__dir--out::before {
+    content: "\2193";
+  }
+
+  .fig-loop__dir--back::before {
+    content: "\2191";
+  }
+
+  .fig-replay__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fig-cache__seg {
+    padding: 0.3rem 0.3rem;
+    font-size: 0.68rem;
+    text-overflow: clip;
+  }
+
+  .fig-pilot__why {
+    grid-column: auto;
+  }
+
+  .fig-resend__step .fig-request__role {
+    flex-basis: 3.25rem;
+    font-size: inherit;
+  }
+
+  .fig-waffle__grid {
+    width: 100%;
+    max-width: 14rem;
+  }
+
+  .fig-units__block {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.1rem;
+  }
+
+  .fig-units__note {
+    padding: 0 0 0.35rem 3.5ch;
+  }
+
+  .fig-traces__lane {
+    grid-template-columns: 5.25rem minmax(0, 1fr) 3.75rem;
+    column-gap: 0.5rem;
+  }
+
+  .fig-budget__head,
+  .fig-budget__axis {
+    display: none;
+  }
+
+  .fig-budget__row {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.4rem;
+  }
+
+  .fig-budget__cell::before {
+    grid-column: 1 / -1;
+    color: var(--text-dim);
+    font-size: 0.72rem;
+  }
+
+  .fig-budget__cell:nth-child(2)::before {
+    content: "Request size vs as sent";
+  }
+
+  .fig-budget__cell:nth-child(3)::before {
+    content: "Old views left with no code";
+  }
+
+  .fig-session__turns,
+  .fig-session__row {
+    grid-template-columns: 4.25rem repeat(10, minmax(0, 1fr)) 2.5rem;
+    column-gap: 3px;
+  }
+
+  .fig-pilot__row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fig-pilot__task {
+    grid-row: auto;
+  }
+
+  .fig-pilot__lane {
+    grid-template-columns: 4.25rem auto 1rem auto;
+    column-gap: 0.45rem;
+  }
+
+  .fig-pilot__dot {
+    width: 0.55rem;
+    height: 0.55rem;
+  }
 }
 
 .md-figure--post {
-  margin: 1.5rem 0 1.75rem;
+  margin: 1.75rem 0;
 }
 
 .md-figure--cover {
-  margin-bottom: 2.25rem;
+  margin: 1.5rem 0 0;
+}
+
+@media (max-width: 540px) {
+  /* The site drops body text to 14px on phones; long-form reading needs more. */
+  .md-doc--post {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+  }
+
+  .md-doc--post h1.md-heading {
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+  }
+
+  .md-doc--post h2.md-heading {
+    margin-top: 2.75rem;
+    padding-top: 1.5rem;
+  }
+
+  .md-doc--post .md-code {
+    font-size: 0.8rem;
+  }
+
+  .md-doc--post .md-table {
+    font-size: 0.8rem;
+  }
+
+  .post-meta {
+    margin-bottom: 2rem;
+  }
 }
 
 .md-figure--post .md-img--post {
@@ -768,6 +2920,34 @@ details[open] > .tree__summary::before {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 2px;
+}
+
+/* Post deep dives: the summary stays on the text edge; open content is
+   indented under a hairline that starts below the summary. */
+.md-doc--post .md-details {
+  position: relative;
+  margin: 1.75rem 0;
+}
+
+.md-doc--post .md-details[open] {
+  padding-left: 1.25rem;
+}
+
+.md-doc--post .md-details[open] > .md-details__summary {
+  margin-left: -1.25rem;
+}
+
+.md-doc--post .md-details[open]::after {
+  content: "";
+  position: absolute;
+  top: 2.75rem;
+  bottom: 0.5rem;
+  left: 0.3rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.md-doc--post .md-details > :not(.md-details__summary) {
+  font-size: 0.94em;
 }
 
 /* ---------- responsive ---------- */
@@ -1565,11 +3745,24 @@ a.ev-shot:focus-visible {
   padding-top: 1.25rem;
   border-top: 1px dashed var(--hairline);
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   gap: 0.6rem;
   font-size: 0.78rem;
   color: var(--syntax);
   letter-spacing: 0.01em;
+}
+
+.doc__footer-feed {
+  margin-left: auto;
+  color: inherit;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.doc__footer-feed:hover,
+.doc__footer-feed:focus-visible {
+  color: var(--text);
 }
 
 .doc__footer-eof {
@@ -1716,6 +3909,7 @@ a.ev-shot:focus-visible {
     --syn-code: #c0394a;
     --syn-list: #2c7a8a;
     --syn-quote: #5f8a4a;
+    --syn-marker: #7a4fd6;
     --syn-rule: #71717a;
     --syn-link: #2d4bff;
   }

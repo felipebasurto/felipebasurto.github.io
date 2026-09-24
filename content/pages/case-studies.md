@@ -4,7 +4,7 @@ description: "Selected enterprise AI work, shipped products, and community work,
 og_image: "/assets/og.png"
 ---
 
-[← Back to CV](../)
+[← Home](../)
 
 # Selected work
 

@@ -1,0 +1,29 @@
+<figure class="fig fig-request" data-play="2400">
+<div class="fig-request__cols">
+<div class="fig-request__col">
+<p class="fig-request__head">Without FreshCtx</p>
+<ol class="fig-request__list">
+<li class="fig-request__msg"><span class="fig-request__role">user</span>Fix the pricing bug</li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>view price.js</li>
+<li class="fig-request__msg fig-request__msg--stale"><span class="fig-request__role">tool</span><code>return quantity * 10;</code><span class="fig-request__tag">stale</span></li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>edit price.js</li>
+<li class="fig-request__msg"><span class="fig-request__role">tool</span>edit applied</li>
+</ol>
+</div>
+<div class="fig-request__col">
+<p class="fig-request__head">With FreshCtx</p>
+<ol class="fig-request__list fig-request__list--linked">
+<li class="fig-request__msg"><span class="fig-request__role">user</span>Fix the pricing bug</li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>view price.js</li>
+<li class="fig-request__msg fig-request__msg--marker"><span class="fig-request__role">tool</span><span class="fig-request__swap"><code class="fig-request__before" aria-hidden="true">return quantity * 10;</code><code>[a2bc5d45e8a9b6375344a9f4]</code></span><span class="fig-request__tag">marker</span></li>
+<li class="fig-request__msg"><span class="fig-request__role">agent</span>edit price.js</li>
+<li class="fig-request__msg"><span class="fig-request__role">tool</span>edit applied</li>
+<li class="fig-request__msg fig-request__msg--fresh"><span class="fig-request__role">user</span><span class="fig-request__tag">projection</span><pre class="fig-request__proj"><code><span class="fig-request__proj-head">price.js:symbol:52bytes</span>
+function total(quantity) {
+  return quantity * 20;
+}</code></pre></li>
+<li class="fig-request__link" aria-hidden="true"></li>
+</ol>
+</div>
+</div>
+</figure>

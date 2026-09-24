@@ -20,6 +20,7 @@ const entries = [
   "robots.txt",
   "sitemap.xml",
   "llms.txt",
+  "_headers",
 ];
 
 for (const entry of entries) {

@@ -1,0 +1,20 @@
+<figure class="fig fig-appr">
+<p class="fig-appr__cap">After an edit to <code>total</code>, the request holds:</p>
+<ul class="fig-appr__list">
+<li class="fig-appr__row">
+<p class="fig-appr__name">Keep every result<span class="fig-appr__eg">Most harnesses</span></p>
+<code class="fig-appr__chip fig-appr__chip--stale">return quantity * 10;</code>
+<p class="fig-appr__trade">Old code until the model re-reads. Caches well.</p>
+</li>
+<li class="fig-appr__row">
+<p class="fig-appr__name">Drop or mask old results<span class="fig-appr__eg">Compaction, pruning, masking</span></p>
+<span class="fig-appr__chip fig-appr__chip--gone">removed</span>
+<p class="fig-appr__trade">Nothing until the model re-reads. Small, but context is lost.</p>
+</li>
+<li class="fig-appr__row">
+<p class="fig-appr__name">Refresh<span class="fig-appr__eg">CORVUS (files), FreshCtx (functions)</span></p>
+<code class="fig-appr__chip fig-appr__chip--fresh">return quantity * 20;</code>
+<p class="fig-appr__trade">Current code, re-sent on every request.</p>
+</li>
+</ul>
+</figure>

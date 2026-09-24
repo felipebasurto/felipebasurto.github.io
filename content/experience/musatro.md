@@ -4,7 +4,7 @@ description: "Musatro is an open-source browser deckbuilder based on Mus."
 og_image: "/assets/experience/musatro/icon.png"
 ---
 
-[← Back to CV](../../) · [Projects](../../projects/)
+[← Home](../../) · [Projects](../../projects/)
 
 # Musatro
 

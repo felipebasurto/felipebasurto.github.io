@@ -4,7 +4,7 @@ description: "Computer Science Engineering at Universidad de Burgos from 2017 to
 og_image: "/assets/companies/ubu.png"
 ---
 
-[← Back to CV](../../)
+[← Home](../../)
 
 # Universidad de Burgos
 

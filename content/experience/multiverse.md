@@ -4,7 +4,7 @@ description: "Solutions Architect at Multiverse Computing from Nov 2025 to July 
 og_image: "/assets/companies/multiverse.png"
 ---
 
-[← Back to CV](../../)
+[← Home](../../)
 
 # Multiverse Computing
 

@@ -32,12 +32,12 @@
   <meta name="twitter:image" content="https://felipebasurto.com/assets/og.png" />
 
   <title>Felipe Basurto · Madrid</title>
-  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="stylesheet" href="./css/styles.css?v=a7887864b7" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="doc">
-    <header class="doc__hint">~/cv.md</header>
+    <header class="doc__hint">~/felipe.md</header>
     <main id="main" class="doc__main">
       <article class="md-doc">
 <h1 class="md-heading" id="felipe-basurto"><span class="md-hashes" aria-hidden="true">#</span> Felipe Basurto</h1>
@@ -69,6 +69,11 @@
 </ul>
 <p class="md-p"><a class="md-link" href="./projects/" title="./projects/">All projects, experiments, and university work</a></p>
 
+<h2 class="md-heading" id="blog"><span class="md-hashes" aria-hidden="true">##</span> Blog</h2>
+<ul class="md-list md-list--unordered">
+<li class="md-li"><a class="md-link" href="./blog/model-context-is-not-static/" title="./blog/model-context-is-not-static/">Model context is not static</a>. I built a context engine that keeps the code in each request current as the files change.</li>
+</ul>
+<p class="md-p"><a class="md-link" href="./blog/" title="./blog/">All posts</a></p>
 
 <h2 class="md-heading" id="education"><span class="md-hashes" aria-hidden="true">##</span> Education</h2>
 <h3 class="md-heading" id="2022-to-2023"><span class="md-hashes" aria-hidden="true">###</span> 2022 to 2023</h3>
@@ -90,7 +95,7 @@
       <span class="doc__footer-text">EOF · 2026 · built from markdown</span>
     </footer>
   </div>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://felipebasurto.com/#person","name":"Felipe Basurto","jobTitle":"AI solutions architect","description":"AI solutions architect in Madrid. Production AI agents, retrieval, technical pre-sales, and iPhone apps.","image":"https://felipebasurto.com/assets/profile.png","url":"https://felipebasurto.com","email":"hello@felipebasurto.com","sameAs":["https://github.com/felipebasurto","https://www.linkedin.com/in/felipe-basurto-barrio/","https://x.com/fildotai"],"homeLocation":{"@type":"Place","name":"Madrid, Spain"},"knowsLanguage":["en","es"],"knowsAbout":["enterprise AI consulting","AI solutions architecture","AI agents","internal tools","systems integration","model deployment","retrieval-augmented generation","LLM compression","MCP servers","coding agents","iOS development","macOS development","Madrid","Spain"],"alumniOf":[{"@type":"Organization","name":"Multiverse Computing","url":"https://multiversecomputing.com/"},{"@type":"Organization","name":"AILY LABS","url":"https://www.ailylabs.com/"},{"@type":"CollegeOrUniversity","name":"IE School of Science and Technology"},{"@type":"CollegeOrUniversity","name":"Universidad de Burgos"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://felipebasurto.com/","url":"https://felipebasurto.com"}},{"@type":"WebSite","@id":"https://felipebasurto.com/#website","url":"https://felipebasurto.com","name":"Felipe Basurto","description":"AI solutions architect in Madrid. Production AI agents, retrieval, technical pre-sales, and iPhone apps.","inLanguage":"en","publisher":{"@id":"https://felipebasurto.com/#person"}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://felipebasurto.com/#person","name":"Felipe Basurto","url":"https://felipebasurto.com","jobTitle":"AI solutions architect","email":"hello@felipebasurto.com","image":"https://felipebasurto.com/assets/profile.png","sameAs":["https://github.com/felipebasurto","https://www.linkedin.com/in/felipe-basurto-barrio/","https://x.com/fildotai"],"description":"AI solutions architect in Madrid. Production AI agents, retrieval, technical pre-sales, and iPhone apps.","homeLocation":{"@type":"Place","name":"Madrid, Spain"},"knowsLanguage":["en","es"],"knowsAbout":["enterprise AI consulting","AI solutions architecture","AI agents","internal tools","systems integration","model deployment","retrieval-augmented generation","LLM compression","MCP servers","coding agents","iOS development","macOS development","Madrid","Spain"],"alumniOf":[{"@type":"Organization","name":"Multiverse Computing","url":"https://multiversecomputing.com/"},{"@type":"Organization","name":"AILY LABS","url":"https://www.ailylabs.com/"},{"@type":"CollegeOrUniversity","name":"IE School of Science and Technology"},{"@type":"CollegeOrUniversity","name":"Universidad de Burgos"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://felipebasurto.com/","url":"https://felipebasurto.com"}},{"@type":"WebSite","@id":"https://felipebasurto.com/#website","url":"https://felipebasurto.com","name":"Felipe Basurto","description":"AI solutions architect in Madrid. Production AI agents, retrieval, technical pre-sales, and iPhone apps.","inLanguage":"en","publisher":{"@id":"https://felipebasurto.com/#person"}},{"@type":"Blog","@id":"https://felipebasurto.com/blog/#blog","name":"Blog · Felipe Basurto","url":"https://felipebasurto.com/blog/","description":"Notes on building with AI, shipping software, and things I find worth writing down.","inLanguage":"en","dateModified":"2026-09-23","author":{"@id":"https://felipebasurto.com/#person"},"publisher":{"@id":"https://felipebasurto.com/#person"},"isPartOf":{"@id":"https://felipebasurto.com/#website"}}]}</script>
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
     <button class="lightbox__close" type="button" aria-label="Close (Esc)">×</button>
     <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous photo (Left arrow)">←</button>
@@ -155,6 +160,48 @@
         else if (e.key === "ArrowLeft" && group.length > 1) { e.preventDefault(); show(index - 1); }
         else if (e.key === "ArrowRight" && group.length > 1) { e.preventDefault(); show(index + 1); }
       });
+    })();
+  </script>
+  <script>
+    (function () {
+      // Animated figures replay in a loop while on screen: play, hold the
+      // end state, fade out, snap back to the start, fade in, play again.
+      // data-play holds the length of one run in ms. Reduced motion keeps
+      // the static end state.
+      var figs = document.querySelectorAll("figure[data-play]");
+      if (!figs.length || !("IntersectionObserver" in window)) return;
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      var HOLD = 2600, FADE = 250, GAP = 450;
+      figs.forEach(function (fig) {
+        var run = parseInt(fig.getAttribute("data-play"), 10) || 3000;
+        var timer = null;
+        fig._visible = false;
+        fig.classList.add("fig--armed");
+        function cycle() {
+          fig.classList.add("fig--play");
+          timer = setTimeout(function () {
+            fig.classList.add("fig--fade");
+            timer = setTimeout(function () {
+              fig.classList.remove("fig--play", "fig--fade");
+              timer = setTimeout(function () {
+                timer = null;
+                if (fig._visible) cycle();
+              }, GAP);
+            }, FADE);
+          }, run + HOLD);
+        }
+        fig._start = function () {
+          fig._visible = true;
+          if (!timer) timer = setTimeout(function () { timer = null; cycle(); }, 150);
+        };
+      });
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) e.target._start();
+          else e.target._visible = false;
+        });
+      }, { threshold: 0.3 });
+      figs.forEach(function (fig) { io.observe(fig); });
     })();
   </script>
   
