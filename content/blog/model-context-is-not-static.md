@@ -32,6 +32,10 @@ This post measures how often the problem shows up in public agent runs, explains
 - Does the model do better with it?
 - What does it cost?
 
+If you prefer video, this [walkthrough on YouTube](https://www.youtube.com/watch?v=DIVOnXUCZkg) covers the same material:
+
+{{FIG_VIDEO}}
+
 <details>
 <summary>Words used in this article</summary>
 
@@ -203,10 +207,6 @@ This is one agent and one model on one public dataset, plus a handful of live ru
 If that still brings no gain, FreshCtx is mainly useful where re-reading does not happen: long sessions, compacted histories and edits from outside the agent. If it does, the next question is whether the gain survives the cache cost.
 
 ## Try it
-
-This [short demo on YouTube](https://www.youtube.com/watch?v=DIVOnXUCZkg) shows FreshCtx running:
-
-{{FIG_VIDEO}}
 
 From a clone of the [FreshCtx repository](https://github.com/felipebasurto/freshctx), with Node.js 22 or newer:
 
