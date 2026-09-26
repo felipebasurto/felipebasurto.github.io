@@ -457,6 +457,7 @@ export const BLOG_FIGURES = {
   "{{FIG_CACHE}}": "blog/cache.html",
   "{{FIG_PILOT}}": "blog/pilot.html",
   "{{FIG_SESSION}}": "blog/session.html",
+  "{{FIG_VIDEO}}": "blog/video.html",
 };
 
 export function loadDiagram(filename) {

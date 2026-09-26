@@ -204,6 +204,10 @@ If that still brings no gain, FreshCtx is mainly useful where re-reading does no
 
 ## Try it
 
+This [short demo on YouTube](https://www.youtube.com/watch?v=DIVOnXUCZkg) shows FreshCtx running:
+
+{{FIG_VIDEO}}
+
 From a clone of the [FreshCtx repository](https://github.com/felipebasurto/freshctx), with Node.js 22 or newer:
 
 ```bash
