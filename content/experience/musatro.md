@@ -14,15 +14,25 @@ Musatro is a browser roguelike built around the four Mus lances of Grande, Chica
 
 A full run is playable in the browser, from the first table to the Ante 8 boss.
 
+![Musatro: title screen](../../assets/experience/musatro/title.webp)
+
 ## What is playable
 
 - Play all four Mus lances with pass, envido, envido x2, and órdago actions.
+
+![Musatro: a hand in play](../../assets/experience/musatro/hand.webp)
+
 - Work through eight antes. Each ante has a small table, a big table, and a boss.
 - Visit the tavern between tables to choose items and packs.
+
+![Musatro: the tavern](../../assets/experience/musatro/shop.webp)
+
 - Reorder items to change how their effects combine.
 - Keep progress in `localStorage` across browser sessions.
 
 There are 21 items and 10 bosses. The 3 counts as a King, and the 2 counts as an Ace. A winning run reaches Ante 8.
+
+![Musatro: the 21 tavern items](../../assets/experience/musatro/items.webp)
 
 ## How it was built
 
@@ -33,18 +43,6 @@ Each lance scores the base hand, ordered items, envite, and boss effect in that 
 Hosted on Cloudflare Pages at [musatro.felipebasurto.com](https://musatro.felipebasurto.com/). MIT.
 
 Tavern names such as Mahou and Ducados are bar-culture references, not sponsorships.
-
-## Screenshots
-
-These screenshots show the title screen, a hand in play, the tavern, and all 21 items.
-
-![Musatro: title screen](../../assets/experience/musatro/title.webp)
-
-![Musatro: a hand in play](../../assets/experience/musatro/hand.webp)
-
-![Musatro: the tavern](../../assets/experience/musatro/shop.webp)
-
-![Musatro: the 21 tavern items](../../assets/experience/musatro/items.webp)
 
 ## Links
 

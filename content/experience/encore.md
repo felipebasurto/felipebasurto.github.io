@@ -12,7 +12,11 @@ og_image: "/assets/companies/encore.png"
 
 Encore is Letterboxd for concerts: a diary for the shows you were actually at. I have built and run it since May 2025. It is bootstrapped, with no paid ads.
 
-The useful moment is the ride home after a show. You log the artist, venue, date, photos, and videos while the details are still fresh, and Encore turns them into a concert history instead of another camera roll folder.
+The useful moment is the ride home after a show. You log the artist, venue, date, photos, and videos while the details are still fresh, and Encore turns them into a feed of past concerts and the people who went with you, instead of another camera roll folder.
+
+![Encore: concerts](../../assets/experience/encore/encore-01.webp)
+
+![Encore: gallery](../../assets/experience/encore/encore-02.webp)
 
 ## In numbers
 
@@ -23,10 +27,17 @@ The useful moment is the ride home after a show. You log the artist, venue, date
 
 ## The product
 
-- A feed for past concerts and the people who went with you.
-- Personal stats, venue history, and a passport for places you have seen music.
-- Upcoming dates and a year-end recap built from your entries.
-- Friends, shared memories, photos, and video attached to each show.
+Personal stats, venue history, and a passport for places you have seen music, and a year-end recap built from your entries.
+
+![Encore: passport](../../assets/experience/encore/encore-05.webp)
+
+![Encore: wrapped](../../assets/experience/encore/encore-03.webp)
+
+Upcoming dates, friends, shared memories, photos, and video attached to each show.
+
+![Encore: upcoming](../../assets/experience/encore/encore-06.webp)
+
+![Encore: social](../../assets/experience/encore/encore-04.webp)
 
 It is written in Swift and SwiftUI, with Supabase for accounts and sync and RevenueCat for the Premium subscription. I handle crash triage, App Store reviews, and every release.
 
@@ -47,19 +58,3 @@ What the views taught me:
 - [Product site in English](https://encorearchives.com)
 - [Product site in Spanish](https://encorearchives.com/es)
 - [Encore on the App Store](https://apps.apple.com/us/app/encore-concert-diary/id6748657647)
-
-## App Store gallery
-
-Screens from the live listing show the feed, stats, year-end recap, friends, passport, and upcoming shows.
-
-![Encore: concerts](../../assets/experience/encore/encore-01.webp)
-
-![Encore: gallery](../../assets/experience/encore/encore-02.webp)
-
-![Encore: wrapped](../../assets/experience/encore/encore-03.webp)
-
-![Encore: social](../../assets/experience/encore/encore-04.webp)
-
-![Encore: passport](../../assets/experience/encore/encore-05.webp)
-
-![Encore: upcoming](../../assets/experience/encore/encore-06.webp)

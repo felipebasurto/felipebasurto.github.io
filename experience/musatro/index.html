@@ -32,7 +32,7 @@
   <meta name="twitter:image" content="https://felipebasurto.com/assets/experience/musatro/icon.png" />
 
   <title>Musatro | Felipe Basurto</title>
-  <link rel="stylesheet" href="../../css/styles.css?v=4d1bb58fa5" />
+  <link rel="stylesheet" href="../../css/styles.css?v=5d2db6c473" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -45,28 +45,28 @@
 <figure class="md-figure md-figure--appicon"><img class="md-img md-img--appicon" src="../../assets/experience/musatro/icon.png" alt="Musatro icon" loading="lazy" decoding="async" width="96" height="96" /><figcaption class="md-figcap" aria-hidden="true">![Musatro icon](../../assets/experience/musatro/icon.png)</figcaption></figure>
 <p class="md-p">Musatro is a browser roguelike built around the four Mus lances of Grande, Chica, Pares, and Juego. It uses a Spanish deck, but the run structure borrows more from Balatro than from a rules-faithful Mus simulator.</p>
 <p class="md-p">A full run is playable in the browser, from the first table to the Ante 8 boss.</p>
+<figure class="md-figure md-figure--gameshot"><img class="md-img md-img--gameshot" src="../../assets/experience/musatro/title.webp" alt="Musatro: title screen" loading="lazy" decoding="async" width="1400" height="875" /><figcaption class="md-figcap" aria-hidden="true">![Musatro: title screen](../../assets/experience/musatro/title.webp)</figcaption></figure>
 <h2 class="md-heading" id="what-is-playable"><span class="md-hashes" aria-hidden="true">##</span> What is playable</h2>
 <ul class="md-list md-list--unordered">
 <li class="md-li">Play all four Mus lances with pass, envido, envido x2, and órdago actions.</li>
+</ul>
+<figure class="md-figure md-figure--gameshot"><img class="md-img md-img--gameshot" src="../../assets/experience/musatro/hand.webp" alt="Musatro: a hand in play" loading="lazy" decoding="async" width="1400" height="875" /><figcaption class="md-figcap" aria-hidden="true">![Musatro: a hand in play](../../assets/experience/musatro/hand.webp)</figcaption></figure>
+<ul class="md-list md-list--unordered">
 <li class="md-li">Work through eight antes. Each ante has a small table, a big table, and a boss.</li>
 <li class="md-li">Visit the tavern between tables to choose items and packs.</li>
+</ul>
+<figure class="md-figure md-figure--gameshot"><img class="md-img md-img--gameshot" src="../../assets/experience/musatro/shop.webp" alt="Musatro: the tavern" loading="lazy" decoding="async" width="1400" height="875" /><figcaption class="md-figcap" aria-hidden="true">![Musatro: the tavern](../../assets/experience/musatro/shop.webp)</figcaption></figure>
+<ul class="md-list md-list--unordered">
 <li class="md-li">Reorder items to change how their effects combine.</li>
 <li class="md-li">Keep progress in <code class="md-codespan"><span class="md-muted">`</span>localStorage<span class="md-muted">`</span></code> across browser sessions.</li>
 </ul>
 <p class="md-p">There are 21 items and 10 bosses. The 3 counts as a King, and the 2 counts as an Ace. A winning run reaches Ante 8.</p>
+<figure class="md-figure md-figure--gameshot"><img class="md-img md-img--gameshot" src="../../assets/experience/musatro/items.webp" alt="Musatro: the 21 tavern items" loading="lazy" decoding="async" width="1400" height="875" /><figcaption class="md-figcap" aria-hidden="true">![Musatro: the 21 tavern items](../../assets/experience/musatro/items.webp)</figcaption></figure>
 <h2 class="md-heading" id="how-it-was-built"><span class="md-hashes" aria-hidden="true">##</span> How it was built</h2>
 <p class="md-p">The game uses strict TypeScript without a framework. <code class="md-codespan"><span class="md-muted">`</span>Game<span class="md-muted">`</span></code> owns the run state. The interface uses the DOM and CSS. Vitest covers scoring, envite, and item order, but not the rendered pixels.</p>
 <p class="md-p">Each lance scores the base hand, ordered items, envite, and boss effect in that order. Color and mus bonuses apply after all four lances.</p>
 <p class="md-p">Hosted on Cloudflare Pages at <a class="md-link" href="https://musatro.felipebasurto.com/" title="https://musatro.felipebasurto.com/" rel="noopener noreferrer" target="_blank">musatro.felipebasurto.com</a>. MIT.</p>
 <p class="md-p">Tavern names such as Mahou and Ducados are bar-culture references, not sponsorships.</p>
-<h2 class="md-heading" id="screenshots"><span class="md-hashes" aria-hidden="true">##</span> Screenshots</h2>
-<p class="md-p">These screenshots show the title screen, a hand in play, the tavern, and all 21 items.</p>
-<div class="md-gameshot-grid">
-<figure class="md-figure md-figure--gameshot"><img class="md-img md-img--gameshot" src="../../assets/experience/musatro/title.webp" alt="Musatro: title screen" loading="lazy" decoding="async" width="1400" height="875" /><figcaption class="md-figcap" aria-hidden="true">![Musatro: title screen](../../assets/experience/musatro/title.webp)</figcaption></figure>
-<figure class="md-figure md-figure--gameshot"><img class="md-img md-img--gameshot" src="../../assets/experience/musatro/hand.webp" alt="Musatro: a hand in play" loading="lazy" decoding="async" width="1400" height="875" /><figcaption class="md-figcap" aria-hidden="true">![Musatro: a hand in play](../../assets/experience/musatro/hand.webp)</figcaption></figure>
-<figure class="md-figure md-figure--gameshot"><img class="md-img md-img--gameshot" src="../../assets/experience/musatro/shop.webp" alt="Musatro: the tavern" loading="lazy" decoding="async" width="1400" height="875" /><figcaption class="md-figcap" aria-hidden="true">![Musatro: the tavern](../../assets/experience/musatro/shop.webp)</figcaption></figure>
-<figure class="md-figure md-figure--gameshot"><img class="md-img md-img--gameshot" src="../../assets/experience/musatro/items.webp" alt="Musatro: the 21 tavern items" loading="lazy" decoding="async" width="1400" height="875" /><figcaption class="md-figcap" aria-hidden="true">![Musatro: the 21 tavern items](../../assets/experience/musatro/items.webp)</figcaption></figure>
-</div>
 <h2 class="md-heading" id="links"><span class="md-hashes" aria-hidden="true">##</span> Links</h2>
 <ul class="md-list md-list--unordered">
 <li class="md-li"><a class="md-link" href="https://musatro.felipebasurto.com/" title="https://musatro.felipebasurto.com/" rel="noopener noreferrer" target="_blank">Play Musatro</a></li>

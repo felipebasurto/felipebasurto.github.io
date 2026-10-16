@@ -24,6 +24,8 @@ The app reads the waveform, finds segments below a chosen decibel threshold, and
 - Compare the original and edited waveforms.
 - Export a new MP3.
 
+![Audio Silence Remover macOS app: waveform editor with pause removal controls](../../assets/experience/audio-silence-remover/screenshot.png)
+
 My usual path is an ElevenLabs or recorded voiceover, one pass through the app, then the cleaned file goes into the video edit.
 
 ## How it was built
@@ -38,9 +40,3 @@ The App Store release required sandbox signing, a macOS 15 or later target, Engl
 
 - [Audio Silence Remover on the Mac App Store](https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12)
 - [Source on GitHub](https://github.com/felipebasurto/silence-remover)
-
-## Screenshot
-
-The main window shows recent files, the waveform comparison, pause controls, the threshold, and export.
-
-![Audio Silence Remover macOS app: waveform editor with pause removal controls](../../assets/experience/audio-silence-remover/screenshot.png)

@@ -286,19 +286,25 @@ function unwrapFigures(html) {
   return out;
 }
 
-/** Wrap consecutive App Store figures in a responsive grid (Encore, HabitDex, etc.). */
-function wrapAppShotGrids(html) {
-  return html.replace(
-    /(?:<figure class="md-figure md-figure--appshot">[\s\S]*?<\/figure>(?:\s*\n*)?)+/g,
-    (block) => `<div class="md-appshot-grid">\n${block.trim()}\n</div>\n`
+/** Wrap two or more consecutive figures in a grid. A single figure stays centered on its own. */
+function wrapFigureRun(html, figureClass, gridClass) {
+  const run = new RegExp(
+    `(?:<figure class="md-figure ${figureClass}">[\\s\\S]*?<\\/figure>(?:\\s*\\n*)?)+`,
+    "g",
   );
+  return html.replace(run, (block) => {
+    const count = block.match(/<figure /g)?.length ?? 0;
+    if (count < 2) return block;
+    return `<div class="${gridClass}">\n${block.trim()}\n</div>\n`;
+  });
+}
+
+function wrapAppShotGrids(html) {
+  return wrapFigureRun(html, "md-figure--appshot", "md-appshot-grid");
 }
 
 function wrapGameShotGrids(html) {
-  return html.replace(
-    /(?:<figure class="md-figure md-figure--gameshot">[\s\S]*?<\/figure>(?:\s*\n*)?)+/g,
-    (block) => `<div class="md-gameshot-grid">\n${block.trim()}\n</div>\n`
-  );
+  return wrapFigureRun(html, "md-figure--gameshot", "md-gameshot-grid");
 }
 
 const GENERIC_LINK_TEXTS = new Set(["Details", "App Store", "GitHub", "Play", "Spotify", "PyPI", "Site", "Research notes", "Research", "Write-up", "Method", "Pull requests", "Trailer", "Walkthrough", "Video", "Event", "Email me"]);

@@ -4212,6 +4212,12 @@ details[open] > .tree__summary::before {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.15rem 1.25rem;
   }
+
+  /* A pair illustrates one idea, so it stays two columns instead of leaving an empty third. */
+  .md-appshot-grid:has(> :last-child:nth-child(2)) {
+    grid-template-columns: repeat(2, minmax(0, 380px));
+    justify-content: start;
+  }
 }
 
 .md-doc--encore .md-appshot-grid .md-figure--appshot,
