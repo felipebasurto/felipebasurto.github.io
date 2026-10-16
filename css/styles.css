@@ -1388,14 +1388,19 @@ h3.md-heading {
 /* Simulated game replay: a canvas drawn from a recorded trace with the
    game's own sprites, kept small and scaled without smoothing. */
 .fig-sim {
-  max-width: 30rem;
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+.fig-sim .fig__caption a {
+  color: var(--syn-link);
 }
 
 .fig-sim__canvas {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 8 / 5;
+  aspect-ratio: 16 / 9;
   border: 1px solid var(--hairline);
   border-radius: 6px;
   image-rendering: pixelated;
