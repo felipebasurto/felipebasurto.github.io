@@ -1385,15 +1385,20 @@ h3.md-heading {
   color: var(--text-dim);
 }
 
-/* Simulated game replay: a canvas drawn from a recorded trace, with a
-   small HUD. Colors come from the theme tokens at draw time. */
+/* Simulated game replay: a canvas drawn from a recorded trace with the
+   game's own sprites, kept small and scaled without smoothing. */
+.fig-sim {
+  max-width: 30rem;
+}
+
 .fig-sim__canvas {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 8 / 5;
   border: 1px solid var(--hairline);
   border-radius: 6px;
+  image-rendering: pixelated;
 }
 
 .fig-sim__hud {
@@ -1412,7 +1417,7 @@ h3.md-heading {
 }
 
 .fig-sim__hp {
-  flex: 1 1 8rem;
+  flex: 1 1 6rem;
   height: 0.45rem;
   border-bottom: 1px solid var(--hairline);
 }
@@ -1434,29 +1439,6 @@ h3.md-heading {
   font: inherit;
   cursor: pointer;
 }
-
-.fig-sim__legend {
-  margin: 0.5rem 0 0;
-  color: var(--text-dim);
-  font-size: 0.74rem;
-}
-
-.fig-sim__dot {
-  display: inline-block;
-  width: 0.6rem;
-  height: 0.6rem;
-  margin: 0 0.3rem 0 0.9rem;
-  border-radius: 50%;
-  vertical-align: -0.05rem;
-}
-
-.fig-sim__dot:first-child {
-  margin-left: 0;
-}
-
-.fig-sim__dot--me { background: var(--accent); }
-.fig-sim__dot--foe { background: var(--syn-code); }
-.fig-sim__dot--alt { background: var(--syn-heading); }
 
 /* Prevalence: the waffle headline, then bars on one 0 to 100% scale, one
    color per group (requests, runs) so red stays reserved for stale code. */

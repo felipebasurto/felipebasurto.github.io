@@ -32,7 +32,7 @@
   <meta name="twitter:image" content="https://felipebasurto.com/assets/experience/survivortiers/site.jpg" />
 
   <title>SurvivorTiers | Felipe Basurto</title>
-  <link rel="stylesheet" href="../../css/styles.css?v=cd295243af" />
+  <link rel="stylesheet" href="../../css/styles.css?v=b6429fb9f3" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -112,16 +112,15 @@
 </figure>
 <p class="md-p">Tiers have fixed sizes: 30 in S, 90 in A, 200 in B, 300 in C, and 346 in D. A Pokémon also has to clear minimums to enter a tier. S needs the top 40% on stats, attacks of three different types, and a starting attack that is not melee. A Pokémon that misses a minimum waits for the next tier it qualifies for.</p>
 <h2 class="md-heading" id="what-the-simulations-show"><span class="md-hashes" aria-hidden="true">##</span> What the simulations show</h2>
-<figure class="fig fig-sim" data-trace="../../assets/experience/survivortiers/trace-keldeo.json">
-<canvas class="fig-sim__canvas" width="1280" height="720" role="img" aria-label="Replay of one simulated game: Keldeo with Water Gun moves away from enemies closing in from every side until its HP runs out at 113.7 seconds."></canvas>
+<figure class="fig fig-sim" data-trace="../../assets/experience/survivortiers/replay/trace-squirtle.json" data-sprites="../../assets/experience/survivortiers/replay/">
+<canvas class="fig-sim__canvas" width="480" height="300" role="img" aria-label="Replay of one simulated game: Squirtle fires Water Gun at the nearest enemy while it moves away from a swarm closing in from every side, until its HP runs out at 84.7 seconds."></canvas>
 <div class="fig-sim__hud">
-<span class="fig-sim__who">Keldeo · Water Gun · seed 1</span>
+<span class="fig-sim__who">Squirtle · Water Gun · seed 17</span>
 <span class="fig-sim__time">0.0 s</span>
 <span class="fig-sim__hp" aria-hidden="true"><span class="fig-sim__hpbar"></span></span>
 <button class="fig-sim__toggle" type="button">Pause</button>
 </div>
-<p class="fig-sim__legend" aria-hidden="true"><span class="fig-sim__dot fig-sim__dot--me"></span> Keldeo, the camera follows it <span class="fig-sim__dot fig-sim__dot--foe"></span> walking enemy <span class="fig-sim__dot fig-sim__dot--alt"></span> flying enemy</p>
-<figcaption class="fig__caption">A real game recorded from the Rust simulator, played back at 4× speed. The bot moves away from the swarm while its one attack fires on its own. It survived 113.7 seconds and defeated 82 enemies. Projectiles are not recorded in the trace.</figcaption>
+<figcaption class="fig__caption">A real game recorded from the Rust simulator and played back at 2× speed with the game's own sprites. The bot moves away from the swarm while Water Gun fires on its own. It survived 84.7 seconds, close to Squirtle's median of 87.1, and defeated 69 enemies. Pokémon sprites by the SpriteCollab artists under CC BY-NC 4.0 (<a href="../../assets/experience/survivortiers/replay/CREDITS.md">sprite credits</a>). Attack sprites are drawn by PokéSurvivor's code.</figcaption>
 <script>
 (function () {
   var fig = document.currentScript.closest(".fig-sim");
@@ -130,11 +129,18 @@
   var timeEl = fig.querySelector(".fig-sim__time");
   var hpEl = fig.querySelector(".fig-sim__hpbar");
   var btn = fig.querySelector(".fig-sim__toggle");
+  var base = fig.getAttribute("data-sprites");
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var SPEED = 4, HOLD = 1800;
-  var data = null, frames = null, t = 0, playing = !reduce, visible = false, last = 0, holdUntil = 0;
+  // Same constants as the game: 2 world units per art pixel, shots fly 18 above the ground.
+  var PX = 2, LIFT = 18, SPEED = 2, HOLD = 1800;
+  var W = canvas.width, H = canvas.height;
+  var data = null, frames = null, sheets = {}, fx = {};
+  var t = 0, anim = 0, playing = !reduce, visible = false, last = 0, holdUntil = 0;
+  var meDir = 0;
 
   function color(name) { return getComputedStyle(fig).getPropertyValue(name).trim() || "#888"; }
+
+  function image(src) { var img = new Image(); img.src = src; return img; }
 
   function frameAt(time) {
     var lo = 0, hi = frames.length - 1;
@@ -142,47 +148,94 @@
     return lo;
   }
 
+  // Screen angle to sprite row: 0 Down, 1 DownRight, 2 Right ... 7 DownLeft.
+  function dirOf(dx, dy) { return ((Math.round((Math.PI / 2 - Math.atan2(dy, dx)) / (Math.PI / 4)) % 8) + 8) % 8; }
+
+  function walkFrame(m, clock) {
+    var total = 0, i;
+    for (i = 0; i < m.n; i++) total += m.d[i];
+    var at = (clock * 60) % total;
+    for (i = 0; i < m.n; i++) { at -= m.d[i]; if (at < 0) return i; }
+    return 0;
+  }
+
+  function shadow(m, x, y) {
+    var rx = [5, 8, 12][Math.max(0, Math.min(2, m.s))] * PX;
+    ctx.beginPath();
+    ctx.ellipse(x, y, rx, rx * 0.42, 0, 0, 6.2832);
+    ctx.fill();
+  }
+
+  function mon(dex, x, y, dir, clock) {
+    var m = data.sprites[dex], img = sheets[dex];
+    if (!m || !img || !img.complete || !img.naturalWidth) return;
+    ctx.drawImage(img, walkFrame(m, clock) * m.w, dir * m.h, m.w, m.h,
+      Math.round(x - m.ax * PX), Math.round(y - m.ay * PX), m.w * PX, m.h * PX);
+  }
+
+  // Attack sprites face right; directional ones turn in 16 steps, as in the game.
+  function shot(type, x, y, vx, vy, clock) {
+    var s = fx[type];
+    if (!s || !s.img[0].complete) return;
+    var img = s.img[Math.floor(clock * 12) % s.img.length];
+    var a = s.dir ? Math.round(Math.atan2(vy, vx) / (Math.PI / 8)) * (Math.PI / 8) : s.spin ? clock * 9 : 0;
+    ctx.save();
+    ctx.translate(Math.round(x), Math.round(y - LIFT));
+    if (a) ctx.rotate(a);
+    ctx.drawImage(img, -s.w * PX / 2, -s.h * PX / 2, s.w * PX, s.h * PX);
+    ctx.restore();
+  }
+
   function draw() {
-    var W = canvas.width, H = canvas.height, k = W / (2 * data.view);
     var i = frameAt(t), f = frames[i], g = frames[Math.min(i + 1, frames.length - 1)];
-    var span = g[0] - f[0], a = span > 0 ? Math.min(1, (t - f[0]) / span) : 0;
+    var span = g[0] - f[0], a = span > 0 ? Math.min(1, (t - f[0]) / span) : 0, dt = t - f[0];
     var px = f[2] + (g[2] - f[2]) * a, py = f[3] + (g[3] - f[3]) * a;
+    var ox = W / 2 - px, oy = H / 2 - py, n;
+    if (Math.abs(g[2] - f[2]) + Math.abs(g[3] - f[3]) > 1) meDir = dirOf(g[2] - f[2], g[3] - f[3]);
+
+    ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, W, H);
 
     // Ground grid scrolls with the camera so movement reads.
     ctx.strokeStyle = color("--hairline");
     ctx.lineWidth = 1;
-    var step = 80 * k, ox = (-px * k) % step, oy = (-py * k) % step;
+    var step = 64, gx0 = ((ox % step) + step) % step, gy0 = ((oy % step) + step) % step;
     ctx.beginPath();
-    for (var gx = ox; gx < W; gx += step) { ctx.moveTo(gx, 0); ctx.lineTo(gx, H); }
-    for (var gy = oy; gy < H; gy += step) { ctx.moveTo(0, gy); ctx.lineTo(W, gy); }
+    for (var gx = gx0; gx < W; gx += step) { ctx.moveTo(Math.round(gx) + 0.5, 0); ctx.lineTo(Math.round(gx) + 0.5, H); }
+    for (var gy = gy0; gy < H; gy += step) { ctx.moveTo(0, Math.round(gy) + 0.5); ctx.lineTo(W, Math.round(gy) + 0.5); }
     ctx.stroke();
 
-    // The bot's recent path, relative to where it is now.
-    ctx.strokeStyle = color("--syn-link");
-    ctx.globalAlpha = 0.45;
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    for (var j = Math.max(0, i - 24); j <= i; j++) {
-      var sx = W / 2 + (frames[j][2] - px) * k, sy = H / 2 + (frames[j][3] - py) * k;
-      if (j === Math.max(0, i - 24)) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+    // Enemies move between samples by id; one that is gone next sample stays put.
+    var next = {}, ge = g[4], e = f[4], list = [];
+    for (n = 0; n < ge.length; n += 5) next[ge[n]] = n;
+    for (n = 0; n < e.length; n += 5) {
+      var j = next[e[n]], ex = e[n + 2], ey = e[n + 3], dir;
+      if (j !== undefined) {
+        var nx = ge[j + 2], ny = ge[j + 3];
+        dir = Math.abs(nx - ex) + Math.abs(ny - ey) > 0.5 ? dirOf(nx - ex, ny - ey) : dirOf(px - ex, py - ey);
+        ex += (nx - ex) * a; ey += (ny - ey) * a;
+      } else dir = dirOf(px - ex, py - ey);
+      list.push([e[n + 1], ex + ox, ey + oy, dir, anim + e[n] * 0.137]);
     }
-    ctx.stroke();
-    ctx.globalAlpha = 1;
+    list.push([data.dex, W / 2, H / 2, meDir, anim]);
+    list.sort(function (p, q) { return p[2] - q[2]; });
 
-    // Enemies, stored relative to the bot at their own frame.
-    var foe = color("--syn-code"), alt = color("--syn-heading"), e = f[4];
-    for (var n = 0; n < e.length; n += 4) {
-      ctx.fillStyle = e[n + 3] ? alt : foe;
-      ctx.beginPath();
-      ctx.arc(W / 2 + (e[n] + f[2] - px) * k, H / 2 + (e[n + 1] + f[3] - py) * k, Math.max(3, e[n + 2] * k), 0, 6.283);
-      ctx.fill();
+    ctx.fillStyle = "rgba(0,0,0,.34)";
+    list.forEach(function (p) { if (data.sprites[p[0]]) shadow(data.sprites[p[0]], p[1], p[2]); });
+    ctx.fillStyle = "rgba(0,0,0,.25)";
+    var s = f[5], x = f[6];
+    for (n = 0; n < s.length; n += 4) {
+      ctx.beginPath(); ctx.ellipse(s[n] + s[n + 2] * dt + ox, s[n + 1] + s[n + 3] * dt + oy, 6, 2.6, 0, 0, 6.2832); ctx.fill();
+    }
+    // Enemy shots carry a red ring on the ground, as in the game.
+    ctx.fillStyle = "rgba(255,60,80,.35)";
+    for (n = 0; n < x.length; n += 5) {
+      ctx.beginPath(); ctx.ellipse(x[n] + x[n + 2] * dt + ox, x[n + 1] + x[n + 3] * dt + oy, 10, 4, 0, 0, 6.2832); ctx.fill();
     }
 
-    ctx.fillStyle = color("--accent");
-    ctx.beginPath();
-    ctx.arc(W / 2, H / 2, 14.08 * k, 0, 6.283);
-    ctx.fill();
+    list.forEach(function (p) { mon(p[0], p[1], p[2], p[3], p[4]); });
+    for (n = 0; n < s.length; n += 4) shot("water", s[n] + s[n + 2] * dt + ox, s[n + 1] + s[n + 3] * dt + oy, s[n + 2], s[n + 3], anim);
+    for (n = 0; n < x.length; n += 5) shot(x[n + 4], x[n] + x[n + 2] * dt + ox, x[n + 1] + x[n + 3] * dt + oy, x[n + 2], x[n + 3], anim);
 
     timeEl.textContent = t.toFixed(1) + " s";
     hpEl.style.width = Math.max(0, f[1] / data.maxHp * 100) + "%";
@@ -191,9 +244,11 @@
   function tick(now) {
     if (!playing || !visible) { last = 0; return; }
     if (last) {
-      if (now < holdUntil) { requestAnimationFrame(tick); return; }
-      t += (now - last) / 1000 * SPEED;
-      if (t >= data.time) { t = data.time; holdUntil = now + HOLD; draw(); t = 0; last = now; requestAnimationFrame(tick); return; }
+      var real = (now - last) / 1000;
+      if (now < holdUntil) { last = now; requestAnimationFrame(tick); return; }
+      anim += real;
+      t += real * SPEED;
+      if (t >= data.time) { t = data.time; draw(); holdUntil = now + HOLD; t = 0; last = now; requestAnimationFrame(tick); return; }
     }
     last = now;
     draw();
@@ -209,17 +264,30 @@
   });
   if (reduce) btn.textContent = "Play";
 
-  fetch(fig.getAttribute("data-trace")).then(function (r) { return r.json(); }).then(function (d) {
-    data = d; frames = d.frames;
-    if (!playing) t = 100;
-    draw();
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (entries) {
-        visible = entries[0].isIntersecting;
-        start();
-      }).observe(fig);
-    } else { visible = true; start(); }
-  });
+  function load() {
+    fetch(fig.getAttribute("data-trace")).then(function (r) { return r.json(); }).then(function (d) {
+      data = d; frames = d.frames;
+      Object.keys(d.sprites).forEach(function (dex) { sheets[dex] = image(base + dex + ".png"); });
+      Object.keys(d.fx).forEach(function (type) {
+        var s = d.fx[type];
+        fx[type] = { w: s.w, h: s.h, dir: s.dir, spin: s.spin, img: s.frames.map(image) };
+      });
+      if (!playing) t = 60;
+      // Draw once the player's sheet is in, then keep going.
+      sheets[d.dex].onload = draw;
+      draw();
+      start();
+    });
+  }
+
+  if ("IntersectionObserver" in window) {
+    var loaded = false;
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      if (visible && !loaded) { loaded = true; load(); }
+      start();
+    }, { rootMargin: "200px" }).observe(fig);
+  } else { visible = true; load(); }
 })();
 </script>
 </figure>
@@ -389,6 +457,7 @@
 <li class="md-li"><a class="md-link" href="https://survivortiers.pages.dev/en/" title="https://survivortiers.pages.dev/en/" rel="noopener noreferrer" target="_blank">SurvivorTiers website</a></li>
 <li class="md-li"><a class="md-link" href="https://survivortiers.pages.dev/en/metodo" title="https://survivortiers.pages.dev/en/metodo" rel="noopener noreferrer" target="_blank">Method, with interactive charts</a></li>
 <li class="md-li"><a class="md-link" href="https://github.com/felipebasurto/survivortiers" title="https://github.com/felipebasurto/survivortiers" rel="noopener noreferrer" target="_blank">Source on GitHub</a></li>
+<li class="md-li"><a class="md-link" href="https://github.com/felipebasurto/survivortiers/tree/main/simulator" title="https://github.com/felipebasurto/survivortiers/tree/main/simulator" rel="noopener noreferrer" target="_blank">Simulator source, JavaScript and Rust</a></li>
 <li class="md-li"><a class="md-link" href="https://pokesurvivor.com" title="https://pokesurvivor.com" rel="noopener noreferrer" target="_blank">Play PokéSurvivor, the original game</a></li>
 </ul>
 

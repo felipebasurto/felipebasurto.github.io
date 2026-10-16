@@ -77,4 +77,5 @@ The game data comes from PokéSurvivor, whose code is MIT licensed by its author
 - [SurvivorTiers website](https://survivortiers.pages.dev/en/)
 - [Method, with interactive charts](https://survivortiers.pages.dev/en/metodo)
 - [Source on GitHub](https://github.com/felipebasurto/survivortiers)
+- [Simulator source, JavaScript and Rust](https://github.com/felipebasurto/survivortiers/tree/main/simulator)
 - [Play PokéSurvivor, the original game](https://pokesurvivor.com)
