@@ -223,7 +223,7 @@ marked.use({
       if (isLogo) {
         return `<img class="md-logo" src="${safe}" alt="${alt}"${t} loading="lazy" width="20" height="20" />`;
       }
-      if (/\/assets\/experience\/(habitdex\/habitdex-icon|audio-silence-remover\/icon|musatro\/icon)\./i.test(href)) {
+      if (/\/assets\/experience\/(habitdex\/habitdex-icon|audio-silence-remover\/icon|musatro\/icon|toma\/icon)\./i.test(href)) {
         const caption = `![${text}](${href})`;
         return `<figure class="md-figure md-figure--appicon"><img class="md-img md-img--appicon" src="${safe}" alt="${alt}"${t} loading="lazy" decoding="async" width="96" height="96" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
       }
@@ -458,6 +458,16 @@ export const BLOG_FIGURES = {
   "{{FIG_PILOT}}": "blog/pilot.html",
   "{{FIG_SESSION}}": "blog/session.html",
   "{{FIG_VIDEO}}": "blog/video.html",
+  "{{FIG_TSP}}": "blog/tsp.html",
+  "{{FIG_VIDEO_TRAILER}}": "blog/video-trailer.html",
+  "{{FIG_VIDEO_HOWTO}}": "blog/video-howto.html",
+  "{{FIG_RELEASES}}": "blog/releases.html",
+  "{{FIG_PIPELINE}}": "blog/pipeline.html",
+  "{{FIG_TFS}}": "blog/tfs-bytes.html",
+  "{{FIG_WATERFALL}}": "blog/waterfall.html",
+  "{{FIG_PIPELINE_HOTELS}}": "blog/pipeline-hotels.html",
+  "{{FIG_COMPARE}}": "blog/compare.html",
+  "{{FIG_WATERFALL_HOTELS}}": "blog/waterfall-hotels.html",
 };
 
 export function loadDiagram(filename) {

@@ -93,6 +93,36 @@
           "year": "2026"
         },
         {
+          "name": "Toma",
+          "slug": "toma",
+          "tagline": "Mac menu bar app that records a screen region as MP4, HEVC or GIF",
+          "href": "https://toma.felipebasurto.com",
+          "icon": "assets/projects/toma.png",
+          "status": "shipped",
+          "stack": [
+            "macOS",
+            "Swift",
+            "ScreenCaptureKit",
+            "open source"
+          ],
+          "summary_md": "Press a shortcut, drag a rectangle, and it records. It saves to MP4, HEVC or GIF, with no account, no analytics, and no editor. Free and open source under MIT.",
+          "links": [
+            {
+              "label": "Site",
+              "href": "https://toma.felipebasurto.com"
+            },
+            {
+              "label": "GitHub",
+              "href": "https://github.com/felipebasurto/toma"
+            },
+            {
+              "label": "Details",
+              "href": "experience/toma/"
+            }
+          ],
+          "year": "2026"
+        },
+        {
           "name": "Musatro",
           "slug": "musatro",
           "tagline": "Browser roguelike built on the card game Mus",
@@ -133,7 +163,7 @@
           "slug": "viajante",
           "tagline": "Flight and hotel search for the terminal and AI agents",
           "featured": true,
-          "href": "https://github.com/felipebasurto/viajante",
+          "href": "https://viajante.felipebasurto.com/",
           "status": "shipped, active",
           "stack": [
             "Python",
@@ -144,6 +174,10 @@
           ],
           "summary_md": "Searches Google Flights, Google Hotels, and Booking.com from your own machine, with no API keys. Beyond plain search it finds the cheapest dates, explores destinations from an origin, checks Skiplagged hidden-city fares, and compares award points across transfer partners. Install from PyPI or npm, or run it with `uvx`.",
           "links": [
+            {
+              "label": "Site",
+              "href": "https://viajante.felipebasurto.com/"
+            },
             {
               "label": "GitHub",
               "href": "https://github.com/felipebasurto/viajante"

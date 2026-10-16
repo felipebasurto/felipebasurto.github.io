@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+
+  <link rel="icon" type="image/png" href="../../assets/icon.png" />
+  <link rel="apple-touch-icon" href="../../assets/icon.png" />
+  <link rel="canonical" href="https://felipebasurto.com/experience/toma/" />
+  <link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt" />
+  <link rel="alternate" type="application/rss+xml" href="../../blog/feed.xml" title="Felipe Basurto · Blog" />
+
+  <meta name="title" content="Toma | Felipe Basurto" />
+  <meta name="description" content="Toma is a free, open-source macOS menu bar app that records a region of the screen as MP4, HEVC or GIF." />
+  <meta name="author" content="Felipe Basurto" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0a0c" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://felipebasurto.com/experience/toma/" />
+  <meta property="og:title" content="Toma | Felipe Basurto" />
+  <meta property="og:description" content="Toma is a free, open-source macOS menu bar app that records a region of the screen as MP4, HEVC or GIF." />
+  <meta property="og:image" content="https://felipebasurto.com/assets/experience/toma/icon.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@fildotai" />
+  <meta name="twitter:url" content="https://felipebasurto.com/experience/toma/" />
+  <meta name="twitter:title" content="Toma | Felipe Basurto" />
+  <meta name="twitter:description" content="Toma is a free, open-source macOS menu bar app that records a region of the screen as MP4, HEVC or GIF." />
+  <meta name="twitter:image" content="https://felipebasurto.com/assets/experience/toma/icon.png" />
+
+  <title>Toma | Felipe Basurto</title>
+  <link rel="stylesheet" href="../../css/styles.css?v=ad201fa490" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="doc">
+    <header class="doc__hint">~/experience/toma.md</header>
+    <main id="main" class="doc__main">
+      <article class="md-doc">
+<p class="md-p"><a class="md-link" href="../../" title="../../">← Home</a></p>
+<h1 class="md-heading" id="toma"><span class="md-hashes" aria-hidden="true">#</span> Toma</h1>
+<figure class="md-figure md-figure--appicon"><img class="md-img md-img--appicon" src="../../assets/experience/toma/icon.png" alt="Toma app icon" loading="lazy" decoding="async" width="96" height="96" /><figcaption class="md-figcap" aria-hidden="true">![Toma app icon](../../assets/experience/toma/icon.png)</figcaption></figure>
+<p class="md-p">Toma is a free, open-source Mac app. It lives in the menu bar: you press a shortcut, drag a rectangle, and it records. When you stop, it saves the clip as MP4, HEVC or GIF.</p>
+<p class="md-p">The name is the point. It works like ⇧⌘4, the Mac&#39;s screenshot shortcut, but for video. There is no settings window, no account, and no editor. It records a region of the screen and saves it well.</p>
+<p class="md-p">Everything happens on the Mac. Toma does not connect to the internet, has no analytics, and does not store anything outside the folder you choose.</p>
+<h2 class="md-heading" id="how-it-works"><span class="md-hashes" aria-hidden="true">##</span> How it works</h2>
+<ul class="md-list md-list--unordered">
+<li class="md-li">Press ⌥⇧⌘4 and drag a region. Recording starts as soon as you let go.</li>
+<li class="md-li">Press the shortcut again, or click the timer in the menu bar, to stop.</li>
+<li class="md-li">A thumbnail appears in the corner. Pick MP4, HEVC or GIF, copy the file to paste it into Slack or Mail, or drag it into any folder.</li>
+<li class="md-li">If you do nothing, it saves in the last format you used after six seconds.</li>
+</ul>
+<h2 class="md-heading" id="formats"><span class="md-hashes" aria-hidden="true">##</span> Formats</h2>
+<ul class="md-list md-list--unordered">
+<li class="md-li"><strong class="md-strong">MP4</strong> (H.264) plays everywhere.</li>
+<li class="md-li"><strong class="md-strong">HEVC</strong> is about half the size and works well on Apple devices and modern browsers.</li>
+<li class="md-li"><strong class="md-strong">GIF</strong> plays without a player, which suits READMEs and chats.</li>
+</ul>
+<p class="md-p">Toma records a high-quality original first and re-encodes it when you choose a format. Text stays sharp, and a still screen barely adds to the file size.</p>
+<h2 class="md-heading" id="how-it-39-s-built"><span class="md-hashes" aria-hidden="true">##</span> How it&#39;s built</h2>
+<p class="md-p">About 2,500 lines of Swift in a single module, built on ScreenCaptureKit. The state is a small state machine, and each file owns one concern: coordinates, recording and permissions, the library and re-encoding, the GIF encoder, and the interface.</p>
+<p class="md-p">The GIF encoder is custom. Each frame only stores what changed, so interface colours stay exact and gradients stay smooth. The reasoning behind each decision is written up in the repository&#39;s architecture notes.</p>
+<p class="md-p">Toma targets macOS 26 or later, runs on Apple silicon and Intel, and weighs under 1 MB. It is signed and notarized, so it opens without warnings, and it has no dependencies.</p>
+<h2 class="md-heading" id="links"><span class="md-hashes" aria-hidden="true">##</span> Links</h2>
+<ul class="md-list md-list--unordered">
+<li class="md-li"><a class="md-link" href="https://toma.felipebasurto.com" title="https://toma.felipebasurto.com" rel="noopener noreferrer" target="_blank">Toma website</a></li>
+<li class="md-li"><a class="md-link" href="https://github.com/felipebasurto/toma" title="https://github.com/felipebasurto/toma" rel="noopener noreferrer" target="_blank">Source and release downloads on GitHub</a></li>
+</ul>
+<h2 class="md-heading" id="screenshot"><span class="md-hashes" aria-hidden="true">##</span> Screenshot</h2>
+<p class="md-p">The thumbnail that appears after each recording, with the clip, its duration, the three formats, and a copy button.</p>
+<figure class="md-figure"><img class="md-img" src="../../assets/experience/toma/screenshot.png" alt="Toma thumbnail after a recording, with MP4, HEVC and GIF options and a copy button" loading="lazy" width="112" height="112" /><figcaption class="md-figcap" aria-hidden="true">![Toma thumbnail after a recording, with MP4, HEVC and GIF options and a copy button](../../assets/experience/toma/screenshot.png)</figcaption></figure>
+
+      </article>
+    </main>
+    <footer class="doc__footer" aria-label="End of document">
+      <span class="doc__footer-eof" aria-hidden="true">---</span>
+      <span class="doc__footer-text">EOF · 2026 · built from markdown</span>
+    </footer>
+  </div>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Toma | Felipe Basurto","url":"https://felipebasurto.com/experience/toma/","description":"Toma is a free, open-source macOS menu bar app that records a region of the screen as MP4, HEVC or GIF.","isPartOf":{"@type":"WebSite","name":"Felipe Basurto","url":"https://felipebasurto.com"}}</script>
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button class="lightbox__close" type="button" aria-label="Close (Esc)">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous photo (Left arrow)">←</button>
+    <img class="lightbox__img" alt="" />
+    <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next photo (Right arrow)">→</button>
+    <span class="lightbox__count" aria-live="polite"></span>
+  </div>
+  <script>
+    (function () {
+      var shots = document.querySelectorAll("a.ev-shot");
+      if (!shots.length) return;
+      var box = document.getElementById("lightbox");
+      var img = box.querySelector(".lightbox__img");
+      var closeBtn = box.querySelector(".lightbox__close");
+      var prevBtn = box.querySelector(".lightbox__nav--prev");
+      var nextBtn = box.querySelector(".lightbox__nav--next");
+      var count = box.querySelector(".lightbox__count");
+      var group = [];
+      var index = 0;
+      var lastFocus = null;
+      function show(i) {
+        index = (i + group.length) % group.length;
+        var a = group[index];
+        var im = a.querySelector("img");
+        img.src = a.getAttribute("href");
+        img.alt = im ? im.alt : "";
+        count.textContent = group.length > 1 ? index + 1 + " / " + group.length : "";
+      }
+      function open(a) {
+        lastFocus = document.activeElement;
+        var gallery = a.closest(".ev-list-photos");
+        group = gallery ? Array.prototype.slice.call(gallery.querySelectorAll("a.ev-shot")) : [a];
+        var multi = group.length > 1;
+        prevBtn.hidden = !multi;
+        nextBtn.hidden = !multi;
+        show(group.indexOf(a));
+        box.hidden = false;
+        document.body.style.overflow = "hidden";
+        closeBtn.focus();
+      }
+      function close() {
+        box.hidden = true;
+        img.src = "";
+        document.body.style.overflow = "";
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+      shots.forEach(function (a) {
+        a.addEventListener("click", function (e) {
+          e.preventDefault();
+          open(a);
+        });
+      });
+      box.addEventListener("click", function (e) {
+        if (e.target === box || e.target === img) close();
+      });
+      closeBtn.addEventListener("click", close);
+      prevBtn.addEventListener("click", function () { show(index - 1); });
+      nextBtn.addEventListener("click", function () { show(index + 1); });
+      document.addEventListener("keydown", function (e) {
+        if (box.hidden) return;
+        if (e.key === "Escape") close();
+        else if (e.key === "ArrowLeft" && group.length > 1) { e.preventDefault(); show(index - 1); }
+        else if (e.key === "ArrowRight" && group.length > 1) { e.preventDefault(); show(index + 1); }
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      // Animated figures replay in a loop while on screen: play, hold the
+      // end state, fade out, snap back to the start, fade in, play again.
+      // data-play holds the length of one run in ms. Reduced motion keeps
+      // the static end state.
+      var figs = document.querySelectorAll("figure[data-play]");
+      if (!figs.length || !("IntersectionObserver" in window)) return;
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      var HOLD = 2600, FADE = 250, GAP = 450;
+      figs.forEach(function (fig) {
+        var run = parseInt(fig.getAttribute("data-play"), 10) || 3000;
+        var timer = null;
+        fig._visible = false;
+        fig.classList.add("fig--armed");
+        function cycle() {
+          fig.classList.add("fig--play");
+          timer = setTimeout(function () {
+            fig.classList.add("fig--fade");
+            timer = setTimeout(function () {
+              fig.classList.remove("fig--play", "fig--fade");
+              timer = setTimeout(function () {
+                timer = null;
+                if (fig._visible) cycle();
+              }, GAP);
+            }, FADE);
+          }, run + HOLD);
+        }
+        fig._start = function () {
+          fig._visible = true;
+          if (!timer) timer = setTimeout(function () { timer = null; cycle(); }, 150);
+        };
+      });
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) e.target._start();
+          else e.target._visible = false;
+        });
+      }, { threshold: 0.3 });
+      figs.forEach(function (fig) { io.observe(fig); });
+    })();
+  </script>
+  
+</body>
+</html>

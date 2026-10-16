@@ -777,6 +777,565 @@ h3.md-heading {
   border: 0;
 }
 
+/* Pipeline: one row per file, with what goes in and what comes out. */
+.fig-pipe__steps {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: pipe;
+}
+
+.fig-pipe__step {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 0.25rem 1rem;
+  align-items: baseline;
+  padding: 0.5rem 0.75rem;
+  border-left: 2px solid var(--syn-quote);
+  background: var(--tint);
+}
+
+/* Flights and hotels side by side: one row per property of the request. */
+.fig-cmp__grid {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+}
+
+.fig-cmp__grid > span {
+  padding: 0.55rem 0.75rem;
+  background: var(--bg);
+}
+
+.fig-cmp__col {
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.fig-cmp__col--fl { box-shadow: inset 0 2px 0 var(--syn-list); }
+.fig-cmp__col--ht { box-shadow: inset 0 2px 0 var(--accent); }
+
+.fig-cmp__row {
+  color: var(--text-dim);
+}
+
+.fig-cmp__cell {
+  color: var(--text);
+}
+
+.fig-cmp__cell--num {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 520px) {
+  .fig-cmp__grid { grid-template-columns: 5rem minmax(0, 1fr) minmax(0, 1fr); }
+  .fig-cmp__grid > span { padding: 0.45rem 0.5rem; }
+}
+
+.fig-pipe__step--net { border-left-color: var(--syn-list); }
+.fig-pipe__step--out { border-left-color: var(--accent); }
+
+.fig-pipe__file {
+  color: var(--text-strong);
+}
+
+.fig-pipe__io {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.4rem;
+  color: var(--text-dim);
+}
+
+.fig-pipe__chip + .fig-pipe__chip::before {
+  content: "→";
+  margin-right: 0.4rem;
+  color: var(--syntax);
+}
+
+@media (max-width: 480px) {
+  .fig-pipe__step { grid-template-columns: 1fr; }
+}
+
+/* Protobuf bytes: hex on the left, meaning on the right, nested fields indented. */
+.fig-bytes__b64 {
+  margin: 0 0 1rem;
+  overflow-wrap: anywhere;
+}
+
+.fig-bytes__rows {
+  display: grid;
+  gap: 0.15rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fig-bytes__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.3rem 0.75rem;
+  border-left: 2px solid var(--syn-heading);
+}
+
+.fig-bytes__row--msg { border-left-color: var(--syn-quote); }
+
+.fig-bytes__row--in {
+  border-left-color: var(--syn-quote);
+  border-left-style: dotted;
+}
+
+.fig-bytes__row--in .fig-bytes__hex {
+  padding-left: 1.25rem;
+}
+
+.fig-bytes__row--new {
+  border-left-style: solid;
+  border-left-color: var(--accent);
+  background: rgba(155, 180, 255, 0.07);
+}
+
+.fig-bytes__row--new .fig-bytes__what {
+  color: var(--accent-hover);
+}
+
+.fig-bytes__hex {
+  color: var(--text-dim);
+  overflow-wrap: anywhere;
+}
+
+.fig-bytes__hex b {
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.fig-bytes__what {
+  color: var(--text);
+}
+
+/* Network waterfall: one row per HTTP request, on a shared time axis. */
+.fig-wf {
+  --consent: var(--syn-code);
+  --out: var(--syn-list);
+  --ret: var(--syn-heading);
+}
+
+.fig-wf__lane + .fig-wf__lane {
+  margin-top: 1.25rem;
+}
+
+.fig-wf__head {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 0.4rem;
+}
+
+.fig-wf__ver {
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.fig-wf__total {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.fig-wf__rows {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fig-wf__row {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  align-items: center;
+  column-gap: 0.75rem;
+}
+
+.fig-wf__label {
+  color: var(--text-dim);
+  font-size: 0.72rem;
+}
+
+.fig-wf__track {
+  position: relative;
+  height: 0.6rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.fig-wf__bar {
+  position: absolute;
+  top: 0;
+  left: var(--l);
+  width: var(--w);
+  height: 100%;
+  border-radius: 2px;
+  transform-origin: left;
+}
+
+.fig-wf__bar--consent { background: var(--consent); }
+.fig-wf__bar--out { background: var(--out); }
+.fig-wf__bar--ret { background: var(--ret); }
+.fig-wf__bar--hotel { background: var(--accent); }
+
+.fig-wf__axis {
+  position: relative;
+  height: 1rem;
+  margin: 0.5rem 0 0 8.25rem;
+  color: var(--text-dim);
+  font-size: 0.7rem;
+}
+
+.fig-wf__axis span {
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.fig-wf__axis span:first-child {
+  transform: none;
+}
+
+.fig-wf__key::before {
+  content: "";
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin: 0 0.3rem 0 0.6rem;
+  vertical-align: -0.05rem;
+}
+
+.fig-wf__key--consent::before { background: var(--consent); }
+.fig-wf__key--out::before { background: var(--out); }
+.fig-wf__key--ret::before { background: var(--ret); }
+.fig-wf__key--hotel::before { background: var(--accent); }
+
+.fig-wf__replay {
+  margin-left: 0.75rem;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+  transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.fig-wf__replay:active { transform: scale(0.97); }
+
+/* Each bar starts at its measured time and grows for its measured duration, scaled. */
+.fig-wf--animate .fig-wf__bar {
+  transform: scaleX(0);
+}
+
+.fig-wf--animate.is-in .fig-wf__bar {
+  transform: scaleX(1);
+  transition: transform var(--dt) linear var(--t0);
+}
+
+@media (max-width: 480px) {
+  .fig-wf__row { grid-template-columns: 5rem 1fr; }
+  .fig-wf__axis { margin-left: 5.75rem; }
+}
+
+/* Speed per release: one bar per search kind, failures named in place. */
+.fig-rel {
+  --ow: var(--syn-list);
+  --rt: var(--syn-heading);
+}
+
+.fig-rel__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.fig-rel__stat {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.fig-rel__from {
+  margin-right: 0.35rem;
+  color: var(--text-dim);
+  font-weight: 400;
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.fig-rel__what {
+  display: block;
+  color: var(--text-dim);
+  font-size: 0.74rem;
+  font-weight: 400;
+}
+
+.fig-rel__rows {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fig-rel__row {
+  display: grid;
+  grid-template-columns: 4.25rem 1fr;
+  column-gap: 1rem;
+  align-items: center;
+}
+
+.fig-rel__ver {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.fig-rel__date {
+  display: block;
+  color: var(--text-dim);
+  font-size: 0.7rem;
+}
+
+.fig-rel__row--now .fig-rel__ver {
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.fig-rel__bars {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.fig-rel__line {
+  display: grid;
+  grid-template-columns: 1fr 3.25rem;
+  align-items: center;
+  column-gap: 0.6rem;
+  min-height: 0.9rem;
+}
+
+.fig-rel__track {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 0.55rem;
+}
+
+.fig-rel__note {
+  flex: none;
+  color: var(--text-dim);
+  font-size: 0.7rem;
+}
+
+.fig-rel__bar {
+  display: block;
+  flex: none;
+  width: calc(var(--v) * 1%);
+  height: 100%;
+  border-radius: 0 2px 2px 0;
+  transform-origin: left;
+}
+
+.fig-rel__bar--ow { background: var(--ow); }
+.fig-rel__bar--rt { background: var(--rt); }
+
+.fig-rel__row:not(.fig-rel__row--now) .fig-rel__bar {
+  opacity: 0.55;
+}
+
+.fig-rel__val {
+  font-size: 0.74rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.fig-rel__val--ow { color: var(--ow); }
+.fig-rel__val--rt { color: var(--rt); }
+
+.fig-rel__fail {
+  grid-column: 1 / -1;
+  color: var(--syn-code);
+  font-size: 0.74rem;
+}
+
+.fig-rel__axis {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.6rem 0 0 5.25rem;
+  padding-right: 3.85rem;
+  color: var(--text-dim);
+  font-size: 0.7rem;
+}
+
+.fig-rel__key::before {
+  content: "";
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin: 0 0.3rem 0 0.6rem;
+  vertical-align: -0.05rem;
+}
+
+.fig-rel__key--ow::before { background: var(--ow); }
+.fig-rel__key--rt::before { background: var(--rt); }
+
+/* Bars grow in once, staggered, when the figure scrolls into view. */
+.fig-rel--animate .fig-rel__bar {
+  transform: scaleX(0);
+  transition: transform 900ms cubic-bezier(0.23, 1, 0.32, 1);
+  transition-delay: calc(var(--i) * 60ms);
+}
+
+.fig-rel--animate.is-in .fig-rel__bar {
+  transform: scaleX(1);
+}
+
+.fig-rel--animate .fig-rel__val {
+  opacity: 0;
+  transition: opacity 300ms ease;
+  transition-delay: calc(var(--i) * 60ms + 500ms);
+}
+
+.fig-rel--animate.is-in .fig-rel__val {
+  opacity: 1;
+}
+
+/* Click-to-load YouTube: a quiet poster until the reader asks for the player. */
+.fig-video__poster {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 1px solid var(--hairline);
+  background: #000;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.fig-video__poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.72;
+  transition: opacity 200ms ease;
+}
+
+.fig-video__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3.25rem;
+  height: 3.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  background: rgba(10, 10, 12, 0.55);
+  backdrop-filter: blur(6px);
+  transform: translate(-50%, -50%);
+  transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.fig-video__play::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  border-style: solid;
+  border-width: 0.5rem 0 0.5rem 0.8rem;
+  border-color: transparent transparent transparent var(--text-strong);
+  transform: translate(-50%, -50%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .fig-video__poster:hover img { opacity: 0.9; }
+}
+
+.fig-video__poster:active .fig-video__play {
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+.fig-video__poster:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Travelling salesman: every leg faint, the shortest tour in green. */
+.fig-tsp__map {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.fig-tsp__edge {
+  stroke: var(--syntax);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+
+.fig-tsp__tour,
+.fig-tsp__try,
+.fig-tsp__glow {
+  fill: none;
+  stroke-linejoin: round;
+}
+
+.fig-tsp__tour {
+  stroke: var(--syn-quote);
+  stroke-width: 2.5;
+}
+
+.fig-tsp__try {
+  stroke: var(--syn-code);
+  stroke-width: 1.75;
+}
+
+/* Hidden path the plane follows; it also lends the tour a faint halo. */
+.fig-tsp__glow {
+  stroke: var(--syn-quote);
+  stroke-width: 9;
+}
+
+.fig-tsp__plane {
+  fill: var(--text-strong);
+}
+
+.fig-tsp__score {
+  font-size: 20px;
+}
+
+.fig-tsp__score--try { fill: var(--syn-code); }
+.fig-tsp__score--best { fill: var(--syn-quote); }
+
+.fig-tsp__still {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fig-tsp__anim { display: none; }
+  .fig-tsp__still { display: inline; }
+}
+
+.fig-tsp__city {
+  fill: var(--bg);
+  stroke: var(--syn-quote);
+  stroke-width: 2.5;
+}
+
+.fig-tsp__label {
+  fill: var(--text);
+  font-size: 19px;
+}
+
 /* 1 in 7: waffle of 100 squares */
 .fig-waffle__body {
   display: flex;

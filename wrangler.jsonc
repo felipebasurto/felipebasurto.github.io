@@ -17,6 +17,8 @@
   },
   "routes": [
     { "pattern": "felipebasurto.com", "custom_domain": true },
-    { "pattern": "www.felipebasurto.com", "custom_domain": true }
+    { "pattern": "www.felipebasurto.com", "custom_domain": true },
+    { "pattern": "felipe.md", "custom_domain": true },
+    { "pattern": "www.felipe.md", "custom_domain": true }
   ]
 }
