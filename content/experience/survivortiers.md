@@ -12,7 +12,7 @@ og_image: "/assets/experience/survivortiers/site.jpg"
 
 SurvivorTiers is an unofficial tier list for PokéSurvivor, a free fan-made browser game. It ranks all 966 Pokémon in five tiers, and every rank comes from data: simulated games, a model of each Pokémon's sheet, and a late-game formula, rerun 2,000 times so each rank has a range instead of a single guess.
 
-It is a static site in English and Spanish, with a page per Pokémon, tier lists for moves and items, gacha odds, and a collection tracker. The data is published as CSV and JSON with an `llms.txt`, so AI assistants can answer questions from it.
+It is a static site in English and Spanish, with a page per Pokémon, tier lists for moves and items, gacha odds, and a collection tracker. Each Pokémon page suggests a build: the attack that did best in the simulations, two attacks for type coverage, a boost, optional attacks, and items, with a card to share. The data is published as CSV and JSON with an `llms.txt`, so AI assistants can answer questions from it.
 
 ![The SurvivorTiers tier list, with the 30 Pokémon of tier S](../../assets/experience/survivortiers/site.jpg)
 
@@ -29,20 +29,22 @@ So a Pokémon's value is not just its official stats. It depends on the attack i
 Each Pokémon gets three scores, and each becomes a percentile so seconds and stats can be compared:
 
 - **Sheet:** base stats, the attacks it can learn, type resistance, and hitbox size.
-- **Simulated games:** a bot plays 200 games with the starting attack and 200 with the best attack it can learn, and the median survival time is the score.
+- **Simulated games:** a bot plays 200 games with the starting attack and 200 with the best attack it can learn, on the real map with walls and water, and with burn, poison and slow. The median survival time is the score.
 - **Late game:** a formula for the end of a run, once with every shop upgrade maxed and once with none.
 
 They are combined with a geometric mean, so one very weak piece pulls the score down instead of being averaged away.
 
 {{ST_METHOD}}
 
-Tiers have fixed sizes: 30 in S, 90 in A, 200 in B, 300 in C, and 346 in D. A Pokémon also has to clear minimums to enter a tier. S needs the top 40% on stats, attacks of three different types, and a starting attack that is not melee. A Pokémon that misses a minimum waits for the next tier it qualifies for.
+Tiers have fixed sizes: 30 in S, 90 in A, 200 in B, 300 in C, and 346 in D. A Pokémon also has to clear minimums to enter a tier. S needs the top 40% on stats, attacks of three different types (Normal counts, and every Pokémon learns it), and a starting attack that is not melee. A Pokémon that misses a minimum waits for the next tier it qualifies for.
 
 ## What the simulations show
 
 {{ST_REPLAY}}
 
-The first simulator was written in JavaScript, like the game. To run hundreds of thousands of games, I rewrote it in Rust: about 4,000 lines that run games in parallel across every core. With V8's math functions replayed, it matches the JavaScript engine bit for bit, and every change to the rules is re-checked against it. On a 10-core laptop, 28,980 games take 4.4 seconds in Rust against 28.4 in JavaScript, about 6.5 times faster.
+The first simulator was written in JavaScript, like the game. To run hundreds of thousands of games, I rewrote it in Rust: about 4,000 lines that run games in parallel across every core. On an open field, with V8's math functions replayed, it matches the JavaScript engine bit for bit, and every change to the rules is re-checked against it. On a 10-core laptop, 28,980 games take 4.4 seconds in Rust against 28.4 in JavaScript, about 6.5 times faster.
+
+The ranking runs on the Rust version alone, which also plays the game's real map, with walls, props, water and pathing, and models burn, poison and slow with the game's values. Auras and cones that inflict a status are not modelled yet, and the method page says so. Both simulators are [open source](https://github.com/felipebasurto/survivortiers/tree/main/simulator).
 
 {{ST_SIMS}}
 

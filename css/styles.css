@@ -1385,6 +1385,418 @@ h3.md-heading {
   color: var(--text-dim);
 }
 
+/* Game figures (SurvivorTiers): Tufte rules (direct labels, range frames, gray
+   first) drawn like the game, with its pixel font, tier colors and sprites. */
+@font-face {
+  font-family: "Pixelify Sans";
+  src: url("../assets/fonts/pixelify-sans.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+.gm {
+  --pix: "Pixelify Sans", var(--font-mono);
+  --tier-S: #ff6b6b;
+  --tier-A: #ffa94d;
+  --tier-B: #ffd43b;
+  --tier-C: #69db7c;
+  --tier-D: #5c9dff;
+  --hp-high: #4cd964;
+  --hp-mid: #ffcc00;
+  --hp-low: #ff3b30;
+  --pip-off: rgba(255, 255, 255, 0.08);
+}
+
+.gm__title {
+  margin: 0 0 0.2rem;
+  color: var(--text-strong);
+  font: 600 1.05rem/1.3 var(--pix);
+  letter-spacing: 0.02em;
+}
+
+.gm__sub {
+  margin: 0 0 1rem;
+  color: var(--text-dim);
+  font-size: 0.74rem;
+  line-height: 1.6;
+}
+
+.gm-badge {
+  display: inline-grid;
+  place-items: center;
+  width: 1.5em;
+  height: 1.5em;
+  background: var(--t);
+  color: #1b1528;
+  font: 700 0.78rem/1 var(--font-mono);
+  vertical-align: 0.05em;
+}
+
+.gm-sprite {
+  image-rendering: pixelated;
+  vertical-align: bottom;
+}
+
+/* Method: weights as segmented bars, then two status screens. */
+.gm-mix {
+  display: flex;
+  gap: 4px;
+}
+
+.gm-mix__part {
+  display: flex;
+  flex: var(--w) 1 0;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.gm-mix__name {
+  color: var(--text);
+  font-size: 0.74rem;
+}
+
+.gm-mix__name b {
+  color: var(--text-strong);
+  font: 700 0.85rem var(--font-mono);
+}
+
+.gm-mix__bar {
+  height: 14px;
+  background: repeating-linear-gradient(90deg, var(--c) 0 8px, transparent 8px 10px);
+}
+
+.gm-mix--sub {
+  width: 45%;
+  min-width: 17rem;
+  margin-top: 0.9rem;
+}
+
+.gm-mix__bar--thin {
+  height: 6px;
+  opacity: 0.6;
+}
+
+.gm-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem 2.5rem;
+  margin-top: 1.6rem;
+}
+
+.gm-card__head {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  margin: 0 0 0.6rem;
+  font: 700 0.9rem/1 var(--font-mono);
+}
+
+.gm-card__name {
+  font: 600 1.05rem/1 var(--pix);
+}
+
+.gm-card__rank {
+  color: var(--text-dim);
+}
+
+.gm-card__name {
+  color: var(--text-strong);
+}
+
+.gm-hp {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gm-hp__row {
+  display: grid;
+  grid-template-columns: 4rem 1fr 3.5rem;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.3rem 0;
+  font-size: 0.74rem;
+}
+
+.gm-hp__label {
+  color: var(--text-dim);
+  font: 700 0.78rem var(--font-mono);
+  text-transform: uppercase;
+}
+
+.gm-hp__rank {
+  color: var(--text-strong);
+  font: 700 0.85rem var(--font-mono);
+  text-align: right;
+}
+
+.gm-hp__bar {
+  position: relative;
+  height: 8px;
+  background: repeating-linear-gradient(90deg, var(--pip-off) 0 6px, transparent 6px 8px);
+}
+
+.gm-hp__bar::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--p) * 1%);
+  background: repeating-linear-gradient(90deg, var(--hp) 0 6px, transparent 6px 8px);
+}
+
+.gm-hp__bar--high { --hp: var(--hp-high); }
+.gm-hp__bar--mid { --hp: var(--hp-mid); }
+.gm-hp__bar--low { --hp: var(--hp-low); }
+
+/* Sims: one square per Pokémon in a strip per starting attack. */
+.gm-counter {
+  margin: 0 0 0.8rem;
+  color: var(--text-dim);
+  font: 700 0.85rem var(--font-mono);
+}
+
+.gm-counter__n {
+  margin-right: 0.4rem;
+  color: var(--text-strong);
+  font: 700 2.2rem/1 var(--pix);
+}
+
+.gm-sims .gm__sub .gm-badge {
+  width: 1.4em;
+  height: 1.4em;
+  font-size: 0.7rem;
+}
+
+.gm-strip__row {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr 4rem;
+  align-items: center;
+  gap: 0.6rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.gm-strip__row--axis {
+  border-bottom: 0;
+}
+
+.gm-strip__label {
+  color: var(--text);
+  font: 700 0.85rem var(--font-mono);
+}
+
+.gm-strip__label small {
+  display: block;
+  color: var(--text-dim);
+  font: 400 0.68rem var(--font-mono);
+}
+
+.gm-strip__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  shape-rendering: crispEdges;
+}
+
+.gm-strip__med {
+  stroke: var(--text-strong);
+  stroke-width: 2;
+}
+
+.gm-strip__med-label {
+  color: var(--text-strong);
+  font: 700 0.85rem var(--font-mono);
+  text-align: right;
+}
+
+.gm-strip__axis {
+  position: relative;
+  height: 1.4rem;
+  border-top: 1px solid var(--syntax);
+}
+
+.gm-strip__axis span,
+.gm-dots__axis span {
+  position: absolute;
+  top: 0.3rem;
+  transform: translateX(-50%);
+  color: var(--text-dim);
+  font-size: 0.68rem;
+  white-space: nowrap;
+}
+
+.gm-notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 2rem;
+  margin: 0.8rem 0 0;
+  color: var(--text-dim);
+  font-size: 0.74rem;
+}
+
+.gm-notes span {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+/* Stats: a dot plot on one 0 to 1 scale. */
+.gm-dots__group {
+  margin: 0.8rem 0 0.2rem;
+  color: var(--text-dim);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.gm-dots {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gm-dots__row {
+  display: grid;
+  grid-template-columns: 11rem 1fr 3rem;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.gm-dots__row {
+  height: 1.7rem;
+}
+
+.gm-dots__label {
+  color: var(--text);
+  font-size: 0.78rem;
+}
+
+.gm-dots__track {
+  position: relative;
+  height: 100%;
+}
+
+.gm-dots__track::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: calc(var(--v) * 1%);
+  border-top: 2px dotted var(--syntax);
+}
+
+.gm-dots__dot {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--v) * 1%);
+  width: 12px;
+  height: 12px;
+  background: var(--c);
+  box-shadow: 0 0 0 2px var(--bg);
+  transform: translate(-50%, -50%);
+}
+
+.gm-dots__value {
+  color: var(--text-strong);
+  font: 700 0.85rem var(--font-mono);
+  text-align: right;
+}
+
+.gm-dots__axis {
+  position: relative;
+  height: 1.4rem;
+  margin: 0 calc(3rem + 0.6rem) 0 calc(11rem + 0.6rem);
+  border-top: 1px solid var(--syntax);
+}
+
+/* Tiers: every Pokémon's rank range along the diagonal. */
+.gm-cat {
+  position: relative;
+}
+
+.gm-cat__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.gm-cat__ranges path {
+  fill: none;
+  stroke-width: 0.8;
+}
+
+.gm-cat__cut {
+  stroke: var(--syntax);
+  stroke-width: 1;
+  stroke-dasharray: 2 3;
+}
+
+.gm-cat__y {
+  position: absolute;
+  color: var(--text-dim);
+  font-size: 0.68rem;
+}
+
+.gm-cat__y--top { top: 0; left: 1.2rem; }
+.gm-cat__y--bottom { right: 0; bottom: 0.2rem; }
+
+.gm-cat__note {
+  position: absolute;
+  top: 0;
+  left: 16%;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  color: var(--text-dim);
+  font-size: 0.74rem;
+}
+
+.gm-tierlist {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gm-tierlist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  color: var(--text-dim);
+  font-size: 0.68rem;
+  line-height: 1.5;
+}
+
+.gm-tierlist b {
+  color: var(--text-strong);
+  font: 700 0.85rem var(--font-mono);
+}
+
+@media (max-width: 640px) {
+  .gm-tierlist { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .gm-dots__row { grid-template-columns: 7.5rem 1fr 2.5rem; }
+  .gm-dots__axis { margin-left: calc(7.5rem + 0.6rem); margin-right: calc(2.5rem + 0.6rem); }
+  .gm-strip__row { grid-template-columns: 5rem 1fr 3.2rem; }
+  .gm-cat__note { position: static; margin-top: 0.4rem; }
+  .gm-mix--sub { width: 100%; min-width: 0; }
+}
+
+@media (prefers-color-scheme: light) {
+  .gm {
+    --tier-S: #e03131;
+    --tier-A: #e8590c;
+    --tier-B: #c79100;
+    --tier-C: #2f9e44;
+    --tier-D: #1c7ed6;
+    --hp-high: #2f9e44;
+    --hp-mid: #d9a400;
+    --hp-low: #e03131;
+    --pip-off: rgba(0, 0, 0, 0.08);
+  }
+}
+
 /* Simulated game replay: a canvas drawn from a recorded trace with the
    game's own sprites, kept small and scaled without smoothing. */
 .fig-sim {

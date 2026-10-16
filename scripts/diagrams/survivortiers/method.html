@@ -1,52 +1,8 @@
-<figure class="fig fig-bars">
-<p class="fig-bars__group">Weight of each piece in the final score</p>
-<ul class="fig-bars__list">
-<li class="fig-bars__row" style="--value: 45.00; --bar: var(--syn-list)">
-<span class="fig-bars__label">Sheet: base stats, moves, type resistance, hitbox</span>
-<span class="fig-bars__value">45%</span>
-<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
-<span class="fig-bars__count">Percentiles of four pillars</span>
-</li>
-<li class="fig-bars__row" style="--value: 30.00; --bar: var(--syn-heading)">
-<span class="fig-bars__label">Simulated games: survival with the starting and the best attack</span>
-<span class="fig-bars__value">30%</span>
-<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
-<span class="fig-bars__count">Median of 200 games per attack</span>
-</li>
-<li class="fig-bars__row" style="--value: 25.00; --bar: var(--syn-quote)">
-<span class="fig-bars__label">Late game: with all shop upgrades maxed and with none</span>
-<span class="fig-bars__value">25%</span>
-<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
-<span class="fig-bars__count">A late-game formula with 80 assumptions</span>
-</li>
-</ul>
-<p class="fig-bars__group">Weight of each pillar inside the sheet</p>
-<ul class="fig-bars__list">
-<li class="fig-bars__row" style="--value: 45.00; --bar: var(--syn-list)">
-<span class="fig-bars__label">Base stats</span>
-<span class="fig-bars__value">45%</span>
-<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
-<span class="fig-bars__count">HP, Attack, Defense, Sp. Atk, Sp. Def, Speed</span>
-</li>
-<li class="fig-bars__row" style="--value: 25.00; --bar: var(--syn-list)">
-<span class="fig-bars__label">Moves</span>
-<span class="fig-bars__value">25%</span>
-<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
-<span class="fig-bars__count">The attacks it can learn</span>
-</li>
-<li class="fig-bars__row" style="--value: 15.00; --bar: var(--syn-list)">
-<span class="fig-bars__label">Type resistance</span>
-<span class="fig-bars__value">15%</span>
-<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
-<span class="fig-bars__count">How it takes type-based damage</span>
-</li>
-<li class="fig-bars__row" style="--value: 15.00; --bar: var(--syn-list)">
-<span class="fig-bars__label">Small hitbox</span>
-<span class="fig-bars__value">15%</span>
-<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
-<span class="fig-bars__count">Smaller bodies are hit less</span>
-</li>
-</ul>
-<p class="fig-bars__axis" aria-hidden="true"><span>0</span><span>50%</span><span>100%</span></p>
-<figcaption class="fig__caption">The whole calculation runs 2,000 times. Each repeat shifts the data within its error margin, the weight between games and late game, and the late-game assumption. The final rank is the median of the 2,000 positions.</figcaption>
+<figure class="fig gm gm-method">
+<p class="gm__title">Three scores make the rank, and the weakest one counts most</p>
+<p class="gm__sub">Weight of each score, then of each part of the sheet</p>
+<div class="gm-mix"><div class="gm-mix__part" style="--w: 45; --c: var(--syn-list)"><span class="gm-mix__name">Sheet <b>45%</b></span><span class="gm-mix__bar"></span></div><div class="gm-mix__part" style="--w: 30; --c: var(--syn-heading)"><span class="gm-mix__name">Games <b>30%</b></span><span class="gm-mix__bar"></span></div><div class="gm-mix__part" style="--w: 25; --c: var(--syn-quote)"><span class="gm-mix__name">Late game <b>25%</b></span><span class="gm-mix__bar"></span></div></div>
+<div class="gm-mix gm-mix--sub" aria-label="Inside the sheet"><div class="gm-mix__part" style="--w: 45; --c: var(--syn-list)"><span class="gm-mix__bar gm-mix__bar--thin"></span><span class="gm-mix__name">Stats <b>45%</b></span></div><div class="gm-mix__part" style="--w: 25; --c: var(--syn-list)"><span class="gm-mix__bar gm-mix__bar--thin"></span><span class="gm-mix__name">Moves <b>25%</b></span></div><div class="gm-mix__part" style="--w: 15; --c: var(--syn-list)"><span class="gm-mix__bar gm-mix__bar--thin"></span><span class="gm-mix__name">Types <b>15%</b></span></div><div class="gm-mix__part" style="--w: 15; --c: var(--syn-list)"><span class="gm-mix__bar gm-mix__bar--thin"></span><span class="gm-mix__name">Size <b>15%</b></span></div></div>
+<div class="gm-cards"><div class="gm-card"><p class="gm-card__head"><img class="gm-sprite" src="../../assets/experience/survivortiers/sprites/647.png" width="34" height="52" alt="" loading="lazy"><span class="gm-card__rank">#1</span> <span class="gm-card__name">Keldeo</span> <span class="gm-badge" style="--t: var(--tier-S)">S</span></p><ul class="gm-hp"><li class="gm-hp__row"><span class="gm-hp__label">Sheet</span><span class="gm-hp__bar gm-hp__bar--high" style="--p: 99.8"></span><span class="gm-hp__rank">#3</span></li><li class="gm-hp__row"><span class="gm-hp__label">Games</span><span class="gm-hp__bar gm-hp__bar--high" style="--p: 99.0"></span><span class="gm-hp__rank">#11</span></li><li class="gm-hp__row"><span class="gm-hp__label">Late</span><span class="gm-hp__bar gm-hp__bar--high" style="--p: 99.9"></span><span class="gm-hp__rank">#2</span></li></ul></div><div class="gm-card"><p class="gm-card__head"><img class="gm-sprite" src="../../assets/experience/survivortiers/sprites/81.png" width="38" height="28" alt="" loading="lazy"><span class="gm-card__rank">#430</span> <span class="gm-card__name">Magnemite</span> <span class="gm-badge" style="--t: var(--tier-C)">C</span></p><ul class="gm-hp"><li class="gm-hp__row"><span class="gm-hp__label">Sheet</span><span class="gm-hp__bar gm-hp__bar--mid" style="--p: 30.8"></span><span class="gm-hp__rank">#669</span></li><li class="gm-hp__row"><span class="gm-hp__label">Games</span><span class="gm-hp__bar gm-hp__bar--high" style="--p: 80.8"></span><span class="gm-hp__rank">#186</span></li><li class="gm-hp__row"><span class="gm-hp__label">Late</span><span class="gm-hp__bar gm-hp__bar--high" style="--p: 93.7"></span><span class="gm-hp__rank">#62</span></li></ul></div></div>
+<figcaption class="fig__caption">Each bar is a percentile, full at rank 1 and empty at rank 966. Magnemite is #186 in games and #62 in the late game, but its sheet is #669, and the geometric mean drops it to #430. The whole calculation runs 2,000 times.</figcaption>
 </figure>

@@ -1,70 +1,10 @@
-<figure class="fig fig-bars">
-<p class="fig-bars__group">How closely each measure follows the final rank (rank correlation)</p>
-<ul class="fig-bars__list">
-<li class="fig-bars__row" style="--value: 88.00; --bar: var(--syn-heading)">
-<span class="fig-bars__label">Survival with the best attack</span>
-<span class="fig-bars__value">0.88</span>
-<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
-<span class="fig-bars__count">Simulated games</span>
-</li>
-<li class="fig-bars__row" style="--value: 65.00; --bar: var(--syn-list)">
-<span class="fig-bars__label">Moves pillar</span>
-<span class="fig-bars__value">0.65</span>
-<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
-<span class="fig-bars__count">The attacks it can learn</span>
-</li>
-<li class="fig-bars__row" style="--value: 63.00; --bar: var(--syn-list)">
-<span class="fig-bars__label">Base stats pillar</span>
-<span class="fig-bars__value">0.63</span>
-<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
-<span class="fig-bars__count">All six stats as a percentile</span>
-</li>
-<li class="fig-bars__row" style="--value: 27.00; --bar: var(--syn-list)">
-<span class="fig-bars__label">Type resistance pillar</span>
-<span class="fig-bars__value">0.27</span>
-<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
-<span class="fig-bars__count">How it takes type-based damage</span>
-</li>
-</ul>
-<p class="fig-bars__group">Each base stat on its own</p>
-<ul class="fig-bars__list">
-<li class="fig-bars__row" style="--value: 53.00; --bar: var(--syn-quote)">
-<span class="fig-bars__label">Sp. Atk</span>
-<span class="fig-bars__value">0.53</span>
-<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
-<span class="fig-bars__count">The strongest single stat</span>
-</li>
-<li class="fig-bars__row" style="--value: 42.00; --bar: var(--syn-quote)">
-<span class="fig-bars__label">Attack</span>
-<span class="fig-bars__value">0.42</span>
-<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
-<span class="fig-bars__count"></span>
-</li>
-<li class="fig-bars__row" style="--value: 41.00; --bar: var(--syn-quote)">
-<span class="fig-bars__label">Speed</span>
-<span class="fig-bars__value">0.41</span>
-<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
-<span class="fig-bars__count">Moving away from the swarm</span>
-</li>
-<li class="fig-bars__row" style="--value: 39.00; --bar: var(--syn-quote)">
-<span class="fig-bars__label">HP</span>
-<span class="fig-bars__value">0.39</span>
-<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
-<span class="fig-bars__count"></span>
-</li>
-<li class="fig-bars__row" style="--value: 32.00; --bar: var(--syn-quote)">
-<span class="fig-bars__label">Sp. Def</span>
-<span class="fig-bars__value">0.32</span>
-<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
-<span class="fig-bars__count"></span>
-</li>
-<li class="fig-bars__row" style="--value: 25.00; --bar: var(--syn-quote)">
-<span class="fig-bars__label">Defense</span>
-<span class="fig-bars__value">0.25</span>
-<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
-<span class="fig-bars__count">The weakest single stat</span>
-</li>
-</ul>
-<p class="fig-bars__axis" aria-hidden="true"><span>0</span><span>0.5</span><span>1</span></p>
-<figcaption class="fig__caption">Spearman correlation between each measure and the final rank over the 966 Pokémon. 1 means the measure alone would give the same order.</figcaption>
+<figure class="fig gm gm-stats">
+<p class="gm__title">Sp. Atk matters most, Defense least</p>
+<p class="gm__sub">Rank correlation with the final rank. At 1, the measure alone would give the same order</p>
+<p class="gm-dots__group">The scores</p>
+<ul class="gm-dots"><li class="gm-dots__row" style="--v: 88; --c: var(--accent)"><span class="gm-dots__label">Survival, best attack</span><span class="gm-dots__track"><span class="gm-dots__dot"></span></span><span class="gm-dots__value">0.88</span></li><li class="gm-dots__row" style="--v: 65; --c: var(--syntax)"><span class="gm-dots__label">Moves pillar</span><span class="gm-dots__track"><span class="gm-dots__dot"></span></span><span class="gm-dots__value">0.65</span></li><li class="gm-dots__row" style="--v: 63; --c: var(--syntax)"><span class="gm-dots__label">Base stats pillar</span><span class="gm-dots__track"><span class="gm-dots__dot"></span></span><span class="gm-dots__value">0.63</span></li><li class="gm-dots__row" style="--v: 27; --c: var(--syntax)"><span class="gm-dots__label">Type resistance</span><span class="gm-dots__track"><span class="gm-dots__dot"></span></span><span class="gm-dots__value">0.27</span></li></ul>
+<p class="gm-dots__group">Each base stat on its own</p>
+<ul class="gm-dots"><li class="gm-dots__row" style="--v: 53; --c: #9db7f5"><span class="gm-dots__label">Sp. Atk</span><span class="gm-dots__track"><span class="gm-dots__dot"></span></span><span class="gm-dots__value">0.53</span></li><li class="gm-dots__row" style="--v: 42; --c: #f5ac78"><span class="gm-dots__label">Attack</span><span class="gm-dots__track"><span class="gm-dots__dot"></span></span><span class="gm-dots__value">0.42</span></li><li class="gm-dots__row" style="--v: 41; --c: #fa92b2"><span class="gm-dots__label">Speed</span><span class="gm-dots__track"><span class="gm-dots__dot"></span></span><span class="gm-dots__value">0.41</span></li><li class="gm-dots__row" style="--v: 39; --c: #ff5959"><span class="gm-dots__label">HP</span><span class="gm-dots__track"><span class="gm-dots__dot"></span></span><span class="gm-dots__value">0.39</span></li><li class="gm-dots__row" style="--v: 32; --c: #a7db8d"><span class="gm-dots__label">Sp. Def</span><span class="gm-dots__track"><span class="gm-dots__dot"></span></span><span class="gm-dots__value">0.32</span></li><li class="gm-dots__row" style="--v: 25; --c: #fae078"><span class="gm-dots__label">Defense</span><span class="gm-dots__track"><span class="gm-dots__dot"></span></span><span class="gm-dots__value">0.25</span></li></ul>
+<p class="gm-dots__axis" aria-hidden="true"><span style="left: 0%">0</span><span style="left: 50%">0.5</span><span style="left: 100%">1</span></p>
+<figcaption class="fig__caption">Spearman correlation over the 966 Pokémon. Speed helps because the bot survives by moving away from the swarm.</figcaption>
 </figure>
