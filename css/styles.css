@@ -3288,6 +3288,159 @@ h3.md-heading {
   border-radius: 6px;
 }
 
+/* ---------- projects page: featured blocks and aligned rows ----------
+   Rendered from content/projects.json. No card chrome: spacing, the ###
+   marker and a status column carry the hierarchy. */
+
+.proj-mark {
+  display: inline-block;
+  width: 1.5ch;
+  font-style: normal;
+}
+
+.proj-mark--live {
+  color: var(--syn-quote);
+}
+
+.proj-mark--wip {
+  color: var(--syn-heading);
+}
+
+.proj-mark--off {
+  color: var(--syntax);
+}
+
+.proj-feature {
+  margin: 1.75rem 0 2.75rem;
+}
+
+.proj-feature__title {
+  font-size: 1.05rem;
+}
+
+.proj-feature__icon {
+  width: 1.75em;
+  height: 1.75em;
+  vertical-align: -0.55em;
+  border-radius: 7px;
+}
+
+.proj-feature > p {
+  margin: 0.45rem 0;
+}
+
+.proj-meta {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.proj-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.proj-badges a {
+  display: block;
+  line-height: 0;
+}
+
+.proj-badge {
+  height: 20px;
+  width: auto;
+}
+
+.proj-shots {
+  display: flex;
+  gap: 0.75rem;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.proj-shot {
+  display: block;
+  height: 260px;
+  width: auto;
+  min-width: 0;
+  object-fit: contain;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+}
+
+.proj-shot--tall {
+  border-radius: 12px;
+}
+
+.proj-shot:not(.proj-shot--tall) {
+  width: min(100%, 620px);
+  height: auto;
+}
+
+.proj-links {
+  font-size: 0.92rem;
+}
+
+.proj-rows {
+  margin: 1.25rem 0 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.proj-row {
+  display: grid;
+  grid-template-columns: 1.5ch 27ch minmax(0, 1fr) auto;
+  gap: 0.1rem 1ch;
+  align-items: baseline;
+  padding: 0.45rem 0;
+}
+
+.proj-row__tagline,
+.proj-row__meta {
+  color: var(--text-dim);
+}
+
+.proj-row__meta {
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+.proj-row__links {
+  grid-column: 2 / -1;
+  font-size: 0.85rem;
+}
+
+.proj-row.is-minor .proj-row__name a,
+.proj-row.is-minor .proj-row__tagline {
+  color: var(--muted);
+}
+
+.proj-legend {
+  margin: 0.5rem 0 0;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+
+.proj-legend .proj-mark:not(:first-child) {
+  margin-left: 1.5ch;
+}
+
+@media (max-width: 640px) {
+  .proj-shot--tall {
+    height: 180px;
+  }
+
+  .proj-row {
+    grid-template-columns: 1.5ch minmax(0, 1fr);
+  }
+
+  .proj-row__tagline,
+  .proj-row__meta,
+  .proj-row__links {
+    grid-column: 2;
+    text-align: left;
+  }
+}
+
 /* ---------- projects tree (rendered from content/projects.json) ----------
    Reads like `tree` output. Connectors are borders, not box-drawing glyphs,
    so they stay continuous at any line height. --tree-mid is the vertical
@@ -3372,6 +3525,19 @@ details[open] > .tree__summary::before {
 .tree__link {
   text-decoration: none;
   color: inherit;
+}
+
+.tree__link--plain {
+  cursor: default;
+}
+
+.tree__link--plain::before {
+  content: "·";
+}
+
+.tree__link--plain .tree__name,
+.tree__link--plain:hover .tree__name {
+  color: var(--text);
 }
 
 .tree__name {

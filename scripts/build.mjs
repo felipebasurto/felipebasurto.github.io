@@ -301,7 +301,7 @@ function wrapGameShotGrids(html) {
   );
 }
 
-const GENERIC_LINK_TEXTS = new Set(["Details", "App Store", "GitHub", "Play", "Spotify", "PyPI", "Site", "Research notes", "Event", "Email me"]);
+const GENERIC_LINK_TEXTS = new Set(["Details", "App Store", "GitHub", "Play", "Spotify", "PyPI", "Site", "Research notes", "Research", "Write-up", "Method", "Pull requests", "Event", "Email me"]);
 
 /** Give repeated link labels ("Details", "App Store", ...) an aria-label naming the row's subject. */
 function labelGenericLinks(html) {
@@ -341,10 +341,6 @@ function renderProjectLink({ label, href }, subject, relPrefix) {
 
 const LINK_SEP = ' <span class="md-muted" aria-hidden="true">·</span> ';
 
-function renderProjectLinks(item, relPrefix) {
-  return (item.links ?? []).map((l) => renderProjectLink(l, item.name, relPrefix)).join(LINK_SEP);
-}
-
 /** Home page: one line per featured project, in the same shape as the Experience rows. */
 function renderFeaturedProjects(relPrefix) {
   const items = loadProjects()
@@ -362,12 +358,82 @@ function renderFeaturedProjects(relPrefix) {
   return `<ul class="md-list md-list--unordered">\n${items}\n</ul>\n<p class="md-p">${all}</p>\n`;
 }
 
+/** Blog slugs that are published in this build, so "Write-up" never points at a draft. */
+let publishedPostSlugs;
+function isPublishedPost(slug) {
+  publishedPostSlugs ??= new Set(loadBlogPosts().map((p) => p.slug));
+  return publishedPostSlugs.has(slug);
+}
+
+/** The item's links plus a "Write-up" link when its blog post is live. */
+function renderProjectLinks(item, relPrefix) {
+  const links = [...(item.links ?? [])];
+  if (item.post && isPublishedPost(item.post)) links.push({ label: "Write-up", href: `blog/${item.post}/` });
+  return links.map((l) => renderProjectLink(l, item.name, relPrefix)).join(LINK_SEP);
+}
+
+const STATUS_MARKS = { live: "●", "in development": "◐", demo: "◐", archived: "○" };
+
+function renderStatusMark(item) {
+  const status = item.minor ? "minor" : item.status ?? "live";
+  const mark = item.minor ? "○" : STATUS_MARKS[status] ?? "●";
+  const tone = status === "live" ? "live" : status === "minor" || status === "archived" ? "off" : "wip";
+  return `<span class="proj-mark proj-mark--${tone}" title="${escapeAttr(status)}" aria-label="${escapeAttr(status)}">${mark}</span>`;
+}
+
+function renderSectionHeading(title) {
+  return `<h2 class="md-heading" id="${escapeAttr(slugify(title))}"><span class="md-hashes" aria-hidden="true">##</span> ${escapeHtml(title)}</h2>`;
+}
+
+/** shields.io badge in the site palette, with a light variant for prefers-color-scheme: light. */
+function renderBadge({ alt, src, href }) {
+  const tint = (labelColor, color) => `${src}${src.includes("?") ? "&" : "?"}labelColor=${labelColor}&color=${color}`;
+  const img = `<picture><source media="(prefers-color-scheme: light)" srcset="${escapeAttr(tint("e4e4e7", "c7d2fe"))}" /><img class="proj-badge" src="${escapeAttr(tint("27272a", "34446b"))}" alt="${escapeAttr(alt)}" height="20" loading="lazy" decoding="async" /></picture>`;
+  return `<a href="${escapeAttr(href)}" rel="noopener noreferrer" target="_blank">${img}</a>`;
+}
+
+function renderShots(item, relPrefix) {
+  const imgs = (item.shots ?? []).map(
+    (s) =>
+      `<img class="proj-shot${s.height > s.width ? " proj-shot--tall" : ""}" src="${escapeAttr(relPrefix + s.src)}" alt="${escapeAttr(s.alt)}" width="${s.width}" height="${s.height}" loading="lazy" decoding="async" />`
+  );
+  return imgs.length ? `<div class="proj-shots">${imgs.join("")}</div>\n` : "";
+}
+
+function renderMeta(item) {
+  return [item.platform, item.year, item.note].filter(Boolean).map((s) => escapeHtml(s)).join(LINK_SEP);
+}
+
+/** Featured: a `###` block with the proof, badges, and screenshots in view. */
+function renderFeaturedBlock(item, relPrefix) {
+  const icon = item.icon
+    ? `<img class="md-logo proj-feature__icon" src="${escapeAttr(relPrefix + item.icon)}" alt="" loading="lazy" width="32" height="32" />`
+    : "";
+  const name = item.href ? renderProjectLink({ label: item.name, href: item.href }, item.name, relPrefix) : escapeHtml(item.name);
+  const badges = item.badges?.length ? `<p class="proj-badges">${item.badges.map(renderBadge).join("")}</p>\n` : "";
+  return `<section class="proj-feature">
+<h3 class="md-heading proj-feature__title" id="${escapeAttr(item.slug)}"><span class="md-hashes" aria-hidden="true">###</span> ${icon}${name}</h3>
+<p class="proj-meta">${renderStatusMark(item)} ${escapeHtml(item.status ?? "live")}${LINK_SEP}${renderMeta(item)}</p>
+<p class="md-p">${marked.parseInline(item.summary_md)}</p>
+${item.proof ? `<p class="md-p"><strong class="md-strong">${escapeHtml(item.proof)}</strong></p>\n` : ""}${badges}${renderShots(item, relPrefix)}<p class="proj-links">${renderProjectLinks(item, relPrefix)}</p>
+</section>`;
+}
+
+/** Also shipped / Music: one aligned row per project, links visible. */
+function renderProjectRow(item, relPrefix) {
+  const icon = item.icon
+    ? `<img class="md-logo" src="${escapeAttr(relPrefix + item.icon)}" alt="" loading="lazy" width="20" height="20" />`
+    : "";
+  const name = item.href ? renderProjectLink({ label: item.name, href: item.href }, item.name, relPrefix) : escapeHtml(item.name);
+  return `<li class="proj-row${item.minor ? " is-minor" : ""}">${renderStatusMark(item)}<span class="proj-row__name">${icon}${name}</span><span class="proj-row__tagline">${escapeHtml(item.tagline)}</span><span class="proj-row__meta">${renderMeta(item)}</span><span class="proj-row__links">${renderProjectLinks(item, relPrefix)}</span></li>`;
+}
+
 function renderTreeLabel(item) {
   return `<span class="tree__name">${escapeHtml(item.slug)}</span><span class="tree__tagline">${escapeHtml(item.tagline)}</span>`;
 }
 
 function renderTreeItem(item, relPrefix) {
-  const meta = [item.status && `[${item.status}]`, item.year, ...(item.stack ?? [])]
+  const meta = [item.status && `[${item.status}]`, item.note, item.year, ...(item.stack ?? [])]
     .filter(Boolean)
     .map((s) => escapeHtml(s))
     .join(LINK_SEP);
@@ -389,11 +455,35 @@ function renderTreeLink(item, relPrefix) {
   return `<li class="tree__node"><a class="tree__link" href="${escapeAttr(url)}" title="${escapeAttr(url)}" rel="noopener noreferrer" target="_blank">${renderTreeLabel(item)}</a></li>`;
 }
 
-/** /projects/: a `tree`-style listing. Folders and projects are <details>; links stay out of <summary>. */
-function renderProjectTree(relPrefix) {
-  const folders = loadProjects()
-    .groups.map((group) => {
-      const render = group.layout === "links" ? renderTreeLink : renderTreeItem;
+/** A tree line with no link, for work whose repository is private. */
+function renderTreePlain(item) {
+  return `<li class="tree__node"><span class="tree__link tree__link--plain">${renderTreeLabel(item)}</span></li>`;
+}
+
+/**
+ * /projects/: ordered by evidence. Featured blocks, then aligned rows, then the
+ * smaller work as a collapsed `tree` (folders and projects are <details>).
+ */
+function renderProjectsPage(relPrefix) {
+  const groups = loadProjects().groups;
+  const sections = groups
+    .filter((group) => group.layout === "featured" || group.layout === "rows")
+    .map((group) => {
+      const body =
+        group.layout === "featured"
+          ? group.items.map((item) => renderFeaturedBlock(item, relPrefix)).join("\n")
+          : `<ul class="proj-rows">\n${group.items.map((item) => renderProjectRow(item, relPrefix)).join("\n")}\n</ul>`;
+      return `${renderSectionHeading(group.title)}\n${body}`;
+    });
+  const tree = renderProjectTree(groups.filter((group) => group.layout === "tree" || group.layout === "links" || group.layout === "plain"), relPrefix);
+  const legend = `<p class="proj-legend" aria-hidden="true"><span class="proj-mark proj-mark--live">●</span> live <span class="proj-mark proj-mark--wip">◐</span> in development or demo <span class="proj-mark proj-mark--off">○</span> minor or archived</p>`;
+  return `${sections.join("\n")}\n${renderSectionHeading("More")}\n${tree}${legend}\n`;
+}
+
+function renderProjectTree(groups, relPrefix) {
+  const folders = groups
+    .map((group) => {
+      const render = { links: renderTreeLink, plain: renderTreePlain }[group.layout] ?? renderTreeItem;
       const items = group.items.map((item) => render(item, relPrefix)).join("\n");
       return `<li class="tree__node"><details class="tree__folder"${group.collapsed ? "" : " open"}>
 <summary class="tree__summary"><span class="tree__name tree__name--folder">${escapeHtml(group.name)}/</span><span class="tree__count">${group.items.length}</span></summary>
@@ -423,7 +513,7 @@ function renderBlogLink(relPrefix) {
 
 const PROJECT_TOKENS = {
   "{{PROJECTS_FEATURED}}": renderFeaturedProjects,
-  "{{PROJECTS_TREE}}": renderProjectTree,
+  "{{PROJECTS_PAGE}}": renderProjectsPage,
   "{{BLOG_LINK}}": renderBlogLink,
 };
 
@@ -437,6 +527,8 @@ function renderPageBody(body, relPrefix) {
 
 const EXPERIENCE_DIAGRAMS = {
   "{{AILY_GRAPH_RAG_DIAGRAM}}": "aily-graph-rag.html",
+  "{{FRESHCTX_PREVALENCE}}": "blog/prevalence.html",
+  "{{FRESHCTX_REQUEST_COPY}}": "blog/request-copy.html",
 };
 
 /** Blog figures: static HTML in scripts/diagrams/blog/, placed with a token on its own line. */
@@ -969,7 +1061,7 @@ function projectSchemaNode(item, group) {
     ...(item.year ? { dateCreated: item.year } : {}),
     ...(item.stack ? { keywords: item.stack.join(", ") } : {}),
   };
-  if (group.name === "music") {
+  if (item.kind === "music") {
     return { "@type": "MusicGroup", ...base, url: publicUrl, genre: "Spanish pop-rock", member: { "@id": `${SITE}/#person` } };
   }
   const creator = { creator: { "@id": `${SITE}/#person` } };
@@ -997,15 +1089,6 @@ function buildProjectsJsonLd({ name, url, description }) {
   });
 }
 
-const FOLDER_TITLES = {
-  apps: "Apps",
-  tools: "Tools",
-  experiments: "Experiments and demos",
-  music: "Music",
-  archive: "Earlier prototypes",
-  university: "University work",
-};
-
 /** Rewrite the generated block in llms.txt so agents see the same project facts as /projects/. */
 function writeLlmsProjects() {
   const path = join(root, "llms.txt");
@@ -1021,13 +1104,13 @@ function writeLlmsProjects() {
   const abs = (href) => (isExternalHref(href) ? href : `${SITE}/${href}`);
   const sections = loadProjects().groups.map((group) => {
     const lines = group.items.map((item) => {
-      const meta = [item.year, item.status].filter(Boolean).join(", ");
+      const meta = [item.year, item.status, item.note].filter(Boolean).join(", ");
       const summary = item.summary_md ? ` ${markdownToPlainText(item.summary_md)}` : "";
       const urls = [item.href, ...(item.links ?? []).map((l) => l.href)].filter(Boolean).map(abs);
       const links = [...new Set(urls)].join(" ");
       return `- ${item.name}${meta ? ` (${meta})` : ""}: ${item.tagline}.${summary}${links ? ` ${links}` : ""}`;
     });
-    return `### ${FOLDER_TITLES[group.name] ?? group.name}\n\n${lines.join("\n")}`;
+    return `### ${group.title ?? group.name}\n\n${lines.join("\n")}`;
   });
   const next = `${text.slice(0, start + begin.length)}\n${sections.join("\n\n")}\n${text.slice(stop)}`;
   if (next !== text) writeFileSync(path, next, "utf8");

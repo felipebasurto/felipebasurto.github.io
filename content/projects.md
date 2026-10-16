@@ -8,6 +8,6 @@ og_image: "/assets/og.png"
 
 # Projects
 
-Work I started myself: apps, tools for AI agents, experiments, and a band. Open a line for details.
+Things I built and shipped myself. Live products first, then smaller work, experiments, and university projects.
 
-{{PROJECTS_TREE}}
+{{PROJECTS_PAGE}}

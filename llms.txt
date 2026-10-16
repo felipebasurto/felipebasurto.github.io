@@ -53,54 +53,57 @@ A note on assessing AI around pharmaceutical operations is at https://felipebasu
 Generated from https://felipebasurto.com/projects/. First-person text ("me", "I") refers to Felipe Basurto. Private repositories have no source link.
 
 <!-- BEGIN PROJECTS -->
-### Apps
+### Featured
 
-- Encore (2025, shipped): Concert diary for iPhone, over 2,700 accounts. Letterboxd for concerts. Log the artist, venue, photos, and videos on the way home, then get stats, a venue passport, and a year-end recap. Over 15,000 concerts logged, in four languages. https://apps.apple.com/us/app/encore-concert-diary/id6748657647 https://encorearchives.com https://felipebasurto.com/experience/encore/
-- HabitDex (2025, shipped): Pokémon-style habit tracker for iPhone. Check-ins give your companion XP, and streaks unlock and evolve new creatures. Habit data stays on the device, with optional CloudKit sync. Designed by Miguel Ferrer (LinkedIn), built by me. https://apps.apple.com/us/app/habitdex/id6755887620 https://felipebasurto.com/experience/habitdex/
-- Audio Silence Remover (2026, shipped): Mac app that cuts dead air from voiceovers. Set a decibel threshold and a minimum pause, and it removes or shortens every silence, then exports a new MP3. No account or analytics, and the App Store build shares one codebase with the GitHub repository. https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12 https://github.com/felipebasurto/silence-remover https://felipebasurto.com/experience/audio-silence-remover/
-- Toma (2026, shipped): Mac menu bar app that records a screen region as MP4, HEVC or GIF. Press a shortcut, drag a rectangle, and it records. It saves to MP4, HEVC or GIF, with no account, no analytics, and no editor. Free and open source under MIT. https://toma.felipebasurto.com https://github.com/felipebasurto/toma https://felipebasurto.com/experience/toma/
-- Musatro (2026, shipped): Browser roguelike built on the card game Mus. The four Mus lances with a run structure borrowed from Balatro: eight antes, 21 items, and 10 bosses. Strict TypeScript with no framework, and Vitest covers scoring and item order. https://musatro.felipebasurto.com/ https://github.com/felipebasurto/musatro https://felipebasurto.com/experience/musatro/
+- Encore (2025, live): Concert diary for iPhone, over 2,700 accounts. Letterboxd for concerts. Log the artist, venue, photos, and videos on the way home, then get stats, a venue passport, and a year-end recap. Available in four languages. https://apps.apple.com/us/app/encore-concert-diary/id6748657647 https://encorearchives.com https://felipebasurto.com/experience/encore/
+- Viajante (2026, live): Flight and hotel search for the terminal and AI agents. Searches Google Flights, Google Hotels, and Booking.com from your own machine, with no API keys. Beyond plain search it finds the cheapest dates, explores destinations from an origin, checks Skiplagged hidden-city fares, and compares award points across transfer partners. Install from PyPI or npm, or run it with uvx. https://viajante.felipebasurto.com/ https://github.com/felipebasurto/viajante
+- FreshCtx (2026, live): Keeps a coding agent's view of the code current. Before each model request, it swaps old file reads in the conversation for the current code, within a token budget. The saved conversation stays intact, and the measurements live in a separate research repo. https://github.com/felipebasurto/freshctx https://github.com/felipebasurto/freshctx-research https://felipebasurto.com/experience/freshctx/
 
-### Tools
+### Also shipped
 
-- Viajante (2026, shipped, active): Flight and hotel search for the terminal and AI agents. Searches Google Flights, Google Hotels, and Booking.com from your own machine, with no API keys. Beyond plain search it finds the cheapest dates, explores destinations from an origin, checks Skiplagged hidden-city fares, and compares award points across transfer partners. Install from PyPI or npm, or run it with uvx. https://viajante.felipebasurto.com/ https://github.com/felipebasurto/viajante https://pypi.org/project/viajante/
-- FreshCtx (2026, shipped, active): Keeps a coding agent's view of the code current. Before each model request, it swaps old file reads in the conversation for the current code, within a token budget. The saved conversation stays intact, and the measurements live in a separate research repo. https://github.com/felipebasurto/freshctx https://github.com/felipebasurto/freshctx-research
-- Cue (2026): On-device meeting recorder for the Mac. Records the microphone and system audio together and transcribes on the device through a native Swift helper built on transcribe.cpp.
-- Plugin Factory (2026): Turns client information into a Claude plugin. Drop in any client information and get a ready-to-install Claude plugin in your workspace. It installs from its own marketplace in Claude Code and also loads in Cursor. https://github.com/felipebasurto/plugin-factory
-
-### Experiments and demos
-
-- Underscore (2026, design demo): Original music scored to your video edit. Mark in and out inside the video editor, press generate, and get an original track that lasts exactly that long and changes where the video changes.
-- Roamly (2026, 2nd place): Voice travel buddy for iPhone. Talk to a travel buddy by voice, built on ElevenLabs Agents. Built in 2.5 hours at the ElevenLabs x Enzo Ventures Build Night in Madrid, in a team of three formed on the night, and placed second. https://luma.com/6mabnyq2
-- Automatic Farms (2026): Minecraft mod that builds survival farms. Place a controller, pick a blueprint, load the materials, and it builds the farm block by block. Blueprints include a mob drop tower, an iron golem farm, a creeper gunpowder chamber, and a Nether gold farm.
+- HabitDex (2025, live): Pokémon-style habit tracker for iPhone. Check-ins give your companion XP, and streaks unlock and evolve new creatures. Habit data stays on the device, with optional CloudKit sync. Designed by Miguel Ferrer (LinkedIn), built by me. https://apps.apple.com/us/app/habitdex/id6755887620 https://felipebasurto.com/experience/habitdex/
+- Audio Silence Remover (2026, live): Mac app that cuts dead air from voiceovers. Set a decibel threshold and a minimum pause, and it removes or shortens every silence, then exports a new MP3. No account or analytics, and the App Store build shares one codebase with the GitHub repository. https://apps.apple.com/us/app/audio-silence-remover/id6763403196?mt=12 https://github.com/felipebasurto/silence-remover https://felipebasurto.com/experience/audio-silence-remover/
+- Toma (2026, live): Mac menu bar app that records a screen region as MP4, HEVC or GIF. Press a shortcut, drag a rectangle, and it records. It saves to MP4, HEVC or GIF, with no account, no analytics, and no editor. Free and open source under MIT. https://toma.felipebasurto.com https://github.com/felipebasurto/toma https://felipebasurto.com/experience/toma/
+- SurvivorTiers (2026, live): Simulation-based tier list for the fan game PokéSurvivor. Ranks all 966 Pokémon in five tiers. A bot plays the game with each one, a model scores stats, moves, and types, and the whole method reruns 2,000 times under shifted assumptions to give each rank a range. Static and bilingual, with CSV and JSON data files and an llms.txt for AI agents. https://survivortiers.pages.dev/en/ https://survivortiers.pages.dev/en/metodo https://github.com/felipebasurto/survivortiers
+- Musatro (2026, live): Browser roguelike built on the card game Mus. The four Mus lances with a run structure borrowed from Balatro: eight antes, 21 items, and 10 bosses. Strict TypeScript with no framework, and Vitest covers scoring and item order. https://musatro.felipebasurto.com/ https://github.com/felipebasurto/musatro https://felipebasurto.com/experience/musatro/
+- herdr-fleet (2026, live, contributor): Runs several coding agents in parallel. An orchestrator for running Claude, Codex, Cursor, and other agent CLIs side by side in Herdr panes, reporting through files. Created by Dmitrii Stovpets (GitHub). I contributed two merged pull requests: support for more agent kinds, model discovery from each CLI, a run index, and robustness fixes. https://github.com/Dimabytes/herdr-fleet https://github.com/Dimabytes/herdr-fleet/pulls?q=is%3Apr+author%3Afelipebasurto
+- Plugin Factory (2026, live): Turns client information into a Claude plugin. Drop in any client information and get a ready-to-install Claude plugin in your workspace. It installs from its own marketplace in Claude Code and also loads in Cursor. https://github.com/felipebasurto/plugin-factory
 
 ### Music
 
-- Triple Check (2020, 1.7M streams): Spanish pop-rock band, 1.7M Spotify streams. Three school friends from Burgos: me, Miguel Ferrer, and Diego Garrido. I handle production, mixing, and lyrics. No label, and several tracks have over 100,000 streams each. https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR https://felipebasurto.com/triplecheck/
+- Triple Check (2020, live): Spanish pop-rock band, 1.7M Spotify streams. Three school friends from Burgos: me, Miguel Ferrer, and Diego Garrido. I handle production, mixing, and lyrics. No label, and several tracks have over 100,000 streams each. https://open.spotify.com/artist/2uGutUfLOfafsa8NLUjdzR https://felipebasurto.com/triplecheck/
+
+### Experiments and demos
+
+- Cue (2026, in development): On-device meeting recorder for the Mac. Records the microphone and system audio together and transcribes on the device through a native Swift helper built on transcribe.cpp.
+- Warbands (2026, in development): Minecraft mod with towns, armies, and guarded camps. Found a town, advance through three ages, train six unit types, and command them with a War Horn to take guarded camps and defend against raids. Built with Claude Code, released under CC0. Beta in preparation. https://github.com/felipebasurto/warbands
+- Underscore (2026, demo): Original music scored to your video edit. Mark in and out inside the video editor, press generate, and get an original track that lasts exactly that long and changes where the video changes.
+- Roamly (2026, demo, 2nd place): Voice travel buddy for iPhone. Talk to a travel buddy by voice, built on ElevenLabs Agents. Built in 2.5 hours at the ElevenLabs x Enzo Ventures Build Night in Madrid, in a team of three formed on the night, and placed second. https://luma.com/6mabnyq2
+- Automatic Farms (2026, demo): Minecraft mod that builds survival farms. Place a controller, pick a blueprint, load the materials, and it builds the farm block by block. Blueprints include a mob drop tower, an iron golem farm, a creeper gunpowder chamber, and a Nether gold farm.
 
 ### Earlier prototypes
 
-- Ultramar AI (2026): Offline travel assistant on local models. Chat, translation, and photo questions run on local Qwen and Gemma models, with Apple Intelligence as a fallback, so it works on a plane or while roaming. https://github.com/felipebasurto/ultramar
-- SimpleIndieBudget (2025): Budget tracker for indie app makers. Tracks subscriptions, recurring costs, and revenue estimates for indie app makers, with CSV import.
-- ViralSlide (2025): TikTok slideshow generator with AI hooks. AI-written hooks and reusable slideshow formats, in English and Spanish. Built in two afternoons. https://viralslide.lovable.app/
-- FancyDocuments (2025): Turns plain text into designed documents. Upload plain text, Word, or Markdown and get a designed document, with a live preview and credit-based pricing.
-- Katarite (2025): Illustrated AI bedtime stories for children. Personalized stories with generated images, accounts, and a subscription.
-- IdeasHub (2025): Project docs workspace with AI drafting. Structured docs for software, hardware, and service projects, with a Markdown editor and AI-drafted sections.
-- Kalki (2025): Calorie and weight tracker for iPhone. Food logging, weight charts, BMR and TDEE goals, and achievements.
-- ChatHerencias (2025): AI assistant for Spanish inheritance law. One free consultation, then paid credits through Stripe.
+- Ultramar AI (2026, archived): Offline travel assistant on local models. Chat, translation, and photo questions run on local Qwen and Gemma models, with Apple Intelligence as a fallback, so it works on a plane or while roaming. https://github.com/felipebasurto/ultramar
+- SimpleIndieBudget (2025, archived): Budget tracker for indie app makers. Tracks subscriptions, recurring costs, and revenue estimates for indie app makers, with CSV import.
+- ViralSlide (2025, archived): TikTok slideshow generator with AI hooks. AI-written hooks and reusable slideshow formats, in English and Spanish. Built in two afternoons. https://viralslide.lovable.app/
+- FancyDocuments (2025, archived): Turns plain text into designed documents. Upload plain text, Word, or Markdown and get a designed document, with a live preview and credit-based pricing.
+- Katarite (2025, archived): Illustrated AI bedtime stories for children. Personalized stories with generated images, accounts, and a subscription.
+- IdeasHub (2025, archived): Project docs workspace with AI drafting. Structured docs for software, hardware, and service projects, with a Markdown editor and AI-drafted sections.
+- Kalki (2025, archived): Calorie and weight tracker for iPhone. Food logging, weight charts, BMR and TDEE goals, and achievements.
+- ChatHerencias (2025, archived): AI assistant for Spanish inheritance law. One free consultation, then paid credits through Stripe.
 
 ### University work
 
-- tfl-data-pipeline: Data pipeline on TfL data with NiFi, Hadoop, and Spark. https://github.com/felipebasurto/data-pipeline-tfl-api
-- titanic-analysis: Titanic data analysis and missing-value imputation. https://github.com/felipebasurto/titanic-dataset-analysis
-- perceptron-with-svms: Perceptron and SVM classifiers, in Spanish. https://github.com/felipebasurto/perceptron-with-svms
-- employee-attrition: Employee attrition prediction with iterative sampling. https://github.com/felipebasurto/employee-attrition-predictor
-- fifa-22-ml: Predicting FIFA Ultimate Team 22 ratings from stats. https://github.com/felipebasurto/Machine-Learning-in-FIFA-Ultimate-Team-22
-- rental-bikes-dashboard: Bike rental ML dashboard with PyCaret and Streamlit. https://github.com/felipebasurto/rental-bikes-interactive-machine-learning-dashboard
-- tokyo-2021-eda: Tokyo 2020 Olympics EDA and Looker Studio dashboard. https://github.com/felipebasurto/tokio2021-exploratory-data-analysis
-- uber-madrid-dashboard: Streamlit dashboard of Uber trips in Madrid. https://github.com/felipebasurto/uber-interactive-data-dashboard
-- matlab-video-processing: Video and image processing in MATLAB with CUDA. https://github.com/felipebasurto/video-and-image-processing-with-MATLAB
-- scikit-image-processing: Image editing with scikit-image. https://github.com/felipebasurto/image-processing-with-scikit-image
+- tfl-data-pipeline: Data pipeline on TfL data with NiFi, Hadoop, and Spark.
+- titanic-analysis: Titanic data analysis and missing-value imputation.
+- perceptron-with-svms: Perceptron and SVM classifiers, in Spanish.
+- employee-attrition: Employee attrition prediction with iterative sampling.
+- fifa-22-ml: Predicting FIFA Ultimate Team 22 ratings from stats.
+- rental-bikes-dashboard: Bike rental ML dashboard with PyCaret and Streamlit.
+- tokyo-2021-eda: Tokyo 2020 Olympics EDA and Looker Studio dashboard.
+- uber-madrid-dashboard: Streamlit dashboard of Uber trips in Madrid.
+- matlab-video-processing: Video and image processing in MATLAB with CUDA.
+- scikit-image-processing: Image editing with scikit-image.
 <!-- END PROJECTS -->
 
 <!-- BEGIN BLOG -->
