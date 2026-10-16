@@ -60,4 +60,5 @@ hello@felipebasurto.com
 - [GitHub](https://github.com/felipebasurto)
 - [LinkedIn](https://www.linkedin.com/in/felipe-basurto-barrio/)
 - [Twitter / X @fildotai](https://x.com/fildotai)
+- [YouTube @fildotai](https://www.youtube.com/@fildotai)
 - [Email](mailto:hello@felipebasurto.com)

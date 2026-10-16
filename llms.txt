@@ -56,8 +56,8 @@ Generated from https://felipebasurto.com/projects/. First-person text ("me", "I"
 ### Featured
 
 - Encore (2025, live): Concert diary for iPhone, over 2,700 accounts. Letterboxd for concerts. Log the artist, venue, photos, and videos on the way home, then get stats, a venue passport, and a year-end recap. Available in four languages. https://apps.apple.com/us/app/encore-concert-diary/id6748657647 https://encorearchives.com https://felipebasurto.com/experience/encore/
-- Viajante (2026, live): Flight and hotel search for the terminal and AI agents. Searches Google Flights, Google Hotels, and Booking.com from your own machine, with no API keys. Beyond plain search it finds the cheapest dates, explores destinations from an origin, checks Skiplagged hidden-city fares, and compares award points across transfer partners. Install from PyPI or npm, or run it with uvx. https://viajante.felipebasurto.com/ https://github.com/felipebasurto/viajante
-- FreshCtx (2026, live): Keeps a coding agent's view of the code current. Before each model request, it swaps old file reads in the conversation for the current code, within a token budget. The saved conversation stays intact, and the measurements live in a separate research repo. https://github.com/felipebasurto/freshctx https://github.com/felipebasurto/freshctx-research https://felipebasurto.com/experience/freshctx/
+- Viajante (2026, live): Flight and hotel search for the terminal and AI agents. Searches Google Flights, Google Hotels, and Booking.com from your own machine, with no API keys. Beyond plain search it finds the cheapest dates, explores destinations from an origin, checks Skiplagged hidden-city fares, and compares award points across transfer partners. Install from PyPI or npm, or run it with uvx. https://viajante.felipebasurto.com/ https://github.com/felipebasurto/viajante https://www.youtube.com/watch?v=AGTTvdJg-go https://www.youtube.com/watch?v=5NtCDFTk70Y
+- FreshCtx (2026, live): Keeps a coding agent's view of the code current. Before each model request, it swaps old file reads in the conversation for the current code, within a token budget. The saved conversation stays intact, and the measurements live in a separate research repo. https://github.com/felipebasurto/freshctx https://github.com/felipebasurto/freshctx-research https://felipebasurto.com/experience/freshctx/ https://www.youtube.com/watch?v=DIVOnXUCZkg
 
 ### Also shipped
 
@@ -76,7 +76,7 @@ Generated from https://felipebasurto.com/projects/. First-person text ("me", "I"
 ### Experiments and demos
 
 - Cue (2026, in development): On-device meeting recorder for the Mac. Records the microphone and system audio together and transcribes on the device through a native Swift helper built on transcribe.cpp.
-- Warbands (2026, in development): Minecraft mod with towns, armies, and guarded camps. Found a town, advance through three ages, train six unit types, and command them with a War Horn to take guarded camps and defend against raids. Built with Claude Code, released under CC0. Beta in preparation. https://github.com/felipebasurto/warbands
+- Warbands (2026, in development): Minecraft mod with towns, armies, and guarded camps. Found a town, advance through three ages, train six unit types, and command them with a War Horn to take guarded camps and defend against raids. Built with Claude Code, released under CC0. Beta in preparation. https://github.com/felipebasurto/warbands https://www.youtube.com/watch?v=vpgA9Skkru4
 - Underscore (2026, demo): Original music scored to your video edit. Mark in and out inside the video editor, press generate, and get an original track that lasts exactly that long and changes where the video changes.
 - Roamly (2026, demo, 2nd place): Voice travel buddy for iPhone. Talk to a travel buddy by voice, built on ElevenLabs Agents. Built in 2.5 hours at the ElevenLabs x Enzo Ventures Build Night in Madrid, in a team of three formed on the night, and placed second. https://luma.com/6mabnyq2
 - Automatic Farms (2026, demo): Minecraft mod that builds survival farms. Place a controller, pick a blueprint, load the materials, and it builds the farm block by block. Blueprints include a mob drop tower, an iron golem farm, a creeper gunpowder chamber, and a Nether gold farm.
@@ -104,6 +104,14 @@ Generated from https://felipebasurto.com/projects/. First-person text ("me", "I"
 - uber-madrid-dashboard: Streamlit dashboard of Uber trips in Madrid.
 - matlab-video-processing: Video and image processing in MATLAB with CUDA.
 - scikit-image-processing: Image editing with scikit-image.
+
+### Videos
+
+- I Built A Dynamic LLM Context Engine (FreshCtx, 10:38): https://www.youtube.com/watch?v=DIVOnXUCZkg
+- How do Passthrough Mods Actually work? (Minecraft modding, 3:24): https://www.youtube.com/watch?v=2HYxwj9xv3A
+- How I let AI plan my entire trip (Viajante, 2:44): https://www.youtube.com/watch?v=5NtCDFTk70Y
+- Introducing viajante (Viajante, 0:57): https://www.youtube.com/watch?v=AGTTvdJg-go
+- Warbands Minecraft Mod Trailer (Warbands, 0:29): https://www.youtube.com/watch?v=vpgA9Skkru4
 <!-- END PROJECTS -->
 
 <!-- BEGIN BLOG -->
@@ -119,6 +127,7 @@ Index: https://felipebasurto.com/blog/ · Markdown: https://felipebasurto.com/bl
 - GitHub: https://github.com/felipebasurto
 - LinkedIn: https://www.linkedin.com/in/felipe-basurto-barrio/
 - X (Twitter): https://x.com/fildotai
+- YouTube: https://www.youtube.com/@fildotai
 
 ## Machine-readable sitemap
 

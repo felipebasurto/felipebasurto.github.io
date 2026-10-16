@@ -111,6 +111,14 @@
             {
               "label": "GitHub",
               "href": "https://github.com/felipebasurto/viajante"
+            },
+            {
+              "label": "Trailer",
+              "href": "https://www.youtube.com/watch?v=AGTTvdJg-go"
+            },
+            {
+              "label": "Walkthrough",
+              "href": "https://www.youtube.com/watch?v=5NtCDFTk70Y"
             }
           ]
         },
@@ -145,6 +153,10 @@
             {
               "label": "Details",
               "href": "experience/freshctx/"
+            },
+            {
+              "label": "Video",
+              "href": "https://www.youtube.com/watch?v=DIVOnXUCZkg"
             }
           ],
           "shots": [
@@ -455,6 +467,10 @@
             {
               "label": "GitHub",
               "href": "https://github.com/felipebasurto/warbands"
+            },
+            {
+              "label": "Trailer",
+              "href": "https://www.youtube.com/watch?v=vpgA9Skkru4"
             }
           ]
         },
@@ -712,6 +728,38 @@
           "tagline": "Image editing with scikit-image"
         }
       ]
+    }
+  ],
+  "videos": [
+    {
+      "title": "I Built A Dynamic LLM Context Engine",
+      "href": "https://www.youtube.com/watch?v=DIVOnXUCZkg",
+      "duration": "10:38",
+      "project": "FreshCtx"
+    },
+    {
+      "title": "How do Passthrough Mods Actually work?",
+      "href": "https://www.youtube.com/watch?v=2HYxwj9xv3A",
+      "duration": "3:24",
+      "project": "Minecraft modding"
+    },
+    {
+      "title": "How I let AI plan my entire trip",
+      "href": "https://www.youtube.com/watch?v=5NtCDFTk70Y",
+      "duration": "2:44",
+      "project": "Viajante"
+    },
+    {
+      "title": "Introducing viajante",
+      "href": "https://www.youtube.com/watch?v=AGTTvdJg-go",
+      "duration": "0:57",
+      "project": "Viajante"
+    },
+    {
+      "title": "Warbands Minecraft Mod Trailer",
+      "href": "https://www.youtube.com/watch?v=vpgA9Skkru4",
+      "duration": "0:29",
+      "project": "Warbands"
     }
   ]
 }

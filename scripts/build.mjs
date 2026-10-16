@@ -301,7 +301,7 @@ function wrapGameShotGrids(html) {
   );
 }
 
-const GENERIC_LINK_TEXTS = new Set(["Details", "App Store", "GitHub", "Play", "Spotify", "PyPI", "Site", "Research notes", "Research", "Write-up", "Method", "Pull requests", "Event", "Email me"]);
+const GENERIC_LINK_TEXTS = new Set(["Details", "App Store", "GitHub", "Play", "Spotify", "PyPI", "Site", "Research notes", "Research", "Write-up", "Method", "Pull requests", "Trailer", "Walkthrough", "Video", "Event", "Email me"]);
 
 /** Give repeated link labels ("Details", "App Store", ...) an aria-label naming the row's subject. */
 function labelGenericLinks(html) {
@@ -455,6 +455,17 @@ function renderTreeLink(item, relPrefix) {
   return `<li class="tree__node"><a class="tree__link" href="${escapeAttr(url)}" title="${escapeAttr(url)}" rel="noopener noreferrer" target="_blank">${renderTreeLabel(item)}</a></li>`;
 }
 
+/** Videos: one row per video, in the same grid as the project rows. */
+function renderVideos(videos) {
+  if (!videos.length) return "";
+  const rows = videos.map((v) => {
+    const link = renderProjectLink({ label: v.title, href: v.href }, "", "");
+    return `<li class="proj-row"><span class="proj-mark proj-mark--wip" aria-hidden="true">▶</span><span class="proj-row__name proj-row__name--wide">${link}</span><span class="proj-row__meta">${escapeHtml(v.project)}${LINK_SEP}${escapeHtml(v.duration)}</span></li>`;
+  });
+  const channel = renderProjectLink({ label: "YouTube @fildotai", href: "https://www.youtube.com/@fildotai" }, "", "");
+  return `${renderSectionHeading("Videos")}\n<ul class="proj-rows">\n${rows.join("\n")}\n</ul>\n<p class="proj-links">${channel}</p>\n`;
+}
+
 /** A tree line with no link, for work whose repository is private. */
 function renderTreePlain(item) {
   return `<li class="tree__node"><span class="tree__link tree__link--plain">${renderTreeLabel(item)}</span></li>`;
@@ -477,7 +488,8 @@ function renderProjectsPage(relPrefix) {
     });
   const tree = renderProjectTree(groups.filter((group) => group.layout === "tree" || group.layout === "links" || group.layout === "plain"), relPrefix);
   const legend = `<p class="proj-legend" aria-hidden="true"><span class="proj-mark proj-mark--live">●</span> live <span class="proj-mark proj-mark--wip">◐</span> in development or demo <span class="proj-mark proj-mark--off">○</span> minor or archived</p>`;
-  return `${sections.join("\n")}\n${renderSectionHeading("More")}\n${tree}${legend}\n`;
+  const videos = renderVideos(loadProjects().videos ?? []);
+  return `${sections.join("\n")}\n${videos}${renderSectionHeading("More")}\n${tree}${legend}\n`;
 }
 
 function renderProjectTree(groups, relPrefix) {
@@ -1039,6 +1051,7 @@ function personNode() {
       "https://github.com/felipebasurto",
       "https://www.linkedin.com/in/felipe-basurto-barrio/",
       "https://x.com/fildotai",
+      "https://www.youtube.com/@fildotai",
     ],
   };
 }
@@ -1112,6 +1125,8 @@ function writeLlmsProjects() {
     });
     return `### ${group.title ?? group.name}\n\n${lines.join("\n")}`;
   });
+  const videos = (loadProjects().videos ?? []).map((v) => `- ${v.title} (${v.project}, ${v.duration}): ${v.href}`);
+  if (videos.length) sections.push(`### Videos\n\n${videos.join("\n")}`);
   const next = `${text.slice(0, start + begin.length)}\n${sections.join("\n\n")}\n${text.slice(stop)}`;
   if (next !== text) writeFileSync(path, next, "utf8");
 }

@@ -3409,6 +3409,10 @@ h3.md-heading {
   font-size: 0.85rem;
 }
 
+.proj-row__name--wide {
+  grid-column: 2 / 4;
+}
+
 .proj-row.is-minor .proj-row__name a,
 .proj-row.is-minor .proj-row__tagline {
   color: var(--muted);
@@ -3433,6 +3437,7 @@ h3.md-heading {
     grid-template-columns: 1.5ch minmax(0, 1fr);
   }
 
+  .proj-row__name--wide,
   .proj-row__tagline,
   .proj-row__meta,
   .proj-row__links {
