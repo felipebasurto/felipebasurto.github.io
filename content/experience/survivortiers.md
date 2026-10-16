@@ -18,7 +18,7 @@ It is a static site in English and Spanish, with a page per Pokémon, tier lists
 
 ## How the game works
 
-PokéSurvivor is a survivor-style game, in the line of Vampire Survivors and Survivor.io. You pick a Pokémon and move it around a map while hordes close in, and its attacks fire on their own. Defeated enemies drop experience, and each level offers cards: new attacks, boosts, and evolutions of attacks you already have. You carry one item per run, found in chests.
+[PokéSurvivor](https://pokesurvivor.com) is a survivor-style game, in the line of Vampire Survivors and Survivor.io, free to play in the browser. You pick a Pokémon and move it around a map while hordes close in, and its attacks fire on their own. Defeated enemies drop experience, and each level offers cards: new attacks, boosts, and evolutions of attacks you already have. You carry one item per run, found in chests.
 
 Between runs, coins buy shop upgrades that make every later run stronger, and a gacha with nine regional banners unlocks more Pokémon. Runs get harder over time, with bosses and rifts, and up to four friends can play together.
 
@@ -39,6 +39,10 @@ They are combined with a geometric mean, so one very weak piece pulls the score 
 Tiers have fixed sizes: 30 in S, 90 in A, 200 in B, 300 in C, and 346 in D. A Pokémon also has to clear minimums to enter a tier. S needs the top 40% on stats, attacks of three different types, and a starting attack that is not melee. A Pokémon that misses a minimum waits for the next tier it qualifies for.
 
 ## What the simulations show
+
+{{ST_REPLAY}}
+
+The first simulator was written in JavaScript, like the game. To run hundreds of thousands of games, I rewrote it in Rust: about 4,000 lines that run games in parallel across every core. With V8's math functions replayed, it matches the JavaScript engine bit for bit, and every change to the rules is re-checked against it. On a 10-core laptop, 28,980 games take 4.4 seconds in Rust against 28.4 in JavaScript, about 6.5 times faster.
 
 {{ST_SIMS}}
 
@@ -73,4 +77,4 @@ The game data comes from PokéSurvivor, whose code is MIT licensed by its author
 - [SurvivorTiers website](https://survivortiers.pages.dev/en/)
 - [Method, with interactive charts](https://survivortiers.pages.dev/en/metodo)
 - [Source on GitHub](https://github.com/felipebasurto/survivortiers)
-- [PokéSurvivor, the game](https://pokesurvivor.com)
+- [Play PokéSurvivor, the original game](https://pokesurvivor.com)

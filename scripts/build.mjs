@@ -545,6 +545,7 @@ const EXPERIENCE_DIAGRAMS = {
   "{{ST_SIMS}}": "survivortiers/sims.html",
   "{{ST_STATS}}": "survivortiers/stats.html",
   "{{ST_TIERS}}": "survivortiers/tiers.html",
+  "{{ST_REPLAY}}": "survivortiers/replay.html",
 };
 
 /** Blog figures: static HTML in scripts/diagrams/blog/, placed with a token on its own line. */

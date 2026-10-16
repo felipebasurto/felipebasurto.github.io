@@ -32,7 +32,7 @@
   <meta name="twitter:image" content="https://felipebasurto.com/assets/experience/survivortiers/site.jpg" />
 
   <title>SurvivorTiers | Felipe Basurto</title>
-  <link rel="stylesheet" href="../../css/styles.css?v=040216e2aa" />
+  <link rel="stylesheet" href="../../css/styles.css?v=cd295243af" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -47,7 +47,7 @@
 <p class="md-p">It is a static site in English and Spanish, with a page per Pokémon, tier lists for moves and items, gacha odds, and a collection tracker. The data is published as CSV and JSON with an <code class="md-codespan"><span class="md-muted">`</span>llms.txt<span class="md-muted">`</span></code>, so AI assistants can answer questions from it.</p>
 <figure class="md-figure md-figure--macshot"><img class="md-img md-img--macshot" src="../../assets/experience/survivortiers/site.jpg" alt="The SurvivorTiers tier list, with the 30 Pokémon of tier S" loading="lazy" decoding="async" width="1200" height="750" /><figcaption class="md-figcap" aria-hidden="true">![The SurvivorTiers tier list, with the 30 Pokémon of tier S](../../assets/experience/survivortiers/site.jpg)</figcaption></figure>
 <h2 class="md-heading" id="how-the-game-works"><span class="md-hashes" aria-hidden="true">##</span> How the game works</h2>
-<p class="md-p">PokéSurvivor is a survivor-style game, in the line of Vampire Survivors and Survivor.io. You pick a Pokémon and move it around a map while hordes close in, and its attacks fire on their own. Defeated enemies drop experience, and each level offers cards: new attacks, boosts, and evolutions of attacks you already have. You carry one item per run, found in chests.</p>
+<p class="md-p"><a class="md-link" href="https://pokesurvivor.com" title="https://pokesurvivor.com" rel="noopener noreferrer" target="_blank">PokéSurvivor</a> is a survivor-style game, in the line of Vampire Survivors and Survivor.io, free to play in the browser. You pick a Pokémon and move it around a map while hordes close in, and its attacks fire on their own. Defeated enemies drop experience, and each level offers cards: new attacks, boosts, and evolutions of attacks you already have. You carry one item per run, found in chests.</p>
 <p class="md-p">Between runs, coins buy shop upgrades that make every later run stronger, and a gacha with nine regional banners unlocks more Pokémon. Runs get harder over time, with bosses and rifts, and up to four friends can play together.</p>
 <p class="md-p">So a Pokémon&#39;s value is not just its official stats. It depends on the attack it starts with, the attacks it can learn, how big a target it is, and how it holds up late in a run.</p>
 <h2 class="md-heading" id="how-the-rank-is-built"><span class="md-hashes" aria-hidden="true">##</span> How the rank is built</h2>
@@ -112,6 +112,118 @@
 </figure>
 <p class="md-p">Tiers have fixed sizes: 30 in S, 90 in A, 200 in B, 300 in C, and 346 in D. A Pokémon also has to clear minimums to enter a tier. S needs the top 40% on stats, attacks of three different types, and a starting attack that is not melee. A Pokémon that misses a minimum waits for the next tier it qualifies for.</p>
 <h2 class="md-heading" id="what-the-simulations-show"><span class="md-hashes" aria-hidden="true">##</span> What the simulations show</h2>
+<figure class="fig fig-sim" data-trace="../../assets/experience/survivortiers/trace-keldeo.json">
+<canvas class="fig-sim__canvas" width="1280" height="720" role="img" aria-label="Replay of one simulated game: Keldeo with Water Gun moves away from enemies closing in from every side until its HP runs out at 113.7 seconds."></canvas>
+<div class="fig-sim__hud">
+<span class="fig-sim__who">Keldeo · Water Gun · seed 1</span>
+<span class="fig-sim__time">0.0 s</span>
+<span class="fig-sim__hp" aria-hidden="true"><span class="fig-sim__hpbar"></span></span>
+<button class="fig-sim__toggle" type="button">Pause</button>
+</div>
+<p class="fig-sim__legend" aria-hidden="true"><span class="fig-sim__dot fig-sim__dot--me"></span> Keldeo, the camera follows it <span class="fig-sim__dot fig-sim__dot--foe"></span> walking enemy <span class="fig-sim__dot fig-sim__dot--alt"></span> flying enemy</p>
+<figcaption class="fig__caption">A real game recorded from the Rust simulator, played back at 4× speed. The bot moves away from the swarm while its one attack fires on its own. It survived 113.7 seconds and defeated 82 enemies. Projectiles are not recorded in the trace.</figcaption>
+<script>
+(function () {
+  var fig = document.currentScript.closest(".fig-sim");
+  var canvas = fig.querySelector("canvas");
+  var ctx = canvas.getContext("2d");
+  var timeEl = fig.querySelector(".fig-sim__time");
+  var hpEl = fig.querySelector(".fig-sim__hpbar");
+  var btn = fig.querySelector(".fig-sim__toggle");
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var SPEED = 4, HOLD = 1800;
+  var data = null, frames = null, t = 0, playing = !reduce, visible = false, last = 0, holdUntil = 0;
+
+  function color(name) { return getComputedStyle(fig).getPropertyValue(name).trim() || "#888"; }
+
+  function frameAt(time) {
+    var lo = 0, hi = frames.length - 1;
+    while (lo < hi) { var mid = (lo + hi + 1) >> 1; if (frames[mid][0] <= time) lo = mid; else hi = mid - 1; }
+    return lo;
+  }
+
+  function draw() {
+    var W = canvas.width, H = canvas.height, k = W / (2 * data.view);
+    var i = frameAt(t), f = frames[i], g = frames[Math.min(i + 1, frames.length - 1)];
+    var span = g[0] - f[0], a = span > 0 ? Math.min(1, (t - f[0]) / span) : 0;
+    var px = f[2] + (g[2] - f[2]) * a, py = f[3] + (g[3] - f[3]) * a;
+    ctx.clearRect(0, 0, W, H);
+
+    // Ground grid scrolls with the camera so movement reads.
+    ctx.strokeStyle = color("--hairline");
+    ctx.lineWidth = 1;
+    var step = 80 * k, ox = (-px * k) % step, oy = (-py * k) % step;
+    ctx.beginPath();
+    for (var gx = ox; gx < W; gx += step) { ctx.moveTo(gx, 0); ctx.lineTo(gx, H); }
+    for (var gy = oy; gy < H; gy += step) { ctx.moveTo(0, gy); ctx.lineTo(W, gy); }
+    ctx.stroke();
+
+    // The bot's recent path, relative to where it is now.
+    ctx.strokeStyle = color("--syn-link");
+    ctx.globalAlpha = 0.45;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (var j = Math.max(0, i - 24); j <= i; j++) {
+      var sx = W / 2 + (frames[j][2] - px) * k, sy = H / 2 + (frames[j][3] - py) * k;
+      if (j === Math.max(0, i - 24)) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+    }
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    // Enemies, stored relative to the bot at their own frame.
+    var foe = color("--syn-code"), alt = color("--syn-heading"), e = f[4];
+    for (var n = 0; n < e.length; n += 4) {
+      ctx.fillStyle = e[n + 3] ? alt : foe;
+      ctx.beginPath();
+      ctx.arc(W / 2 + (e[n] + f[2] - px) * k, H / 2 + (e[n + 1] + f[3] - py) * k, Math.max(3, e[n + 2] * k), 0, 6.283);
+      ctx.fill();
+    }
+
+    ctx.fillStyle = color("--accent");
+    ctx.beginPath();
+    ctx.arc(W / 2, H / 2, 14.08 * k, 0, 6.283);
+    ctx.fill();
+
+    timeEl.textContent = t.toFixed(1) + " s";
+    hpEl.style.width = Math.max(0, f[1] / data.maxHp * 100) + "%";
+  }
+
+  function tick(now) {
+    if (!playing || !visible) { last = 0; return; }
+    if (last) {
+      if (now < holdUntil) { requestAnimationFrame(tick); return; }
+      t += (now - last) / 1000 * SPEED;
+      if (t >= data.time) { t = data.time; holdUntil = now + HOLD; draw(); t = 0; last = now; requestAnimationFrame(tick); return; }
+    }
+    last = now;
+    draw();
+    requestAnimationFrame(tick);
+  }
+
+  function start() { if (playing && visible && data) requestAnimationFrame(tick); }
+
+  btn.addEventListener("click", function () {
+    playing = !playing;
+    btn.textContent = playing ? "Pause" : "Play";
+    start();
+  });
+  if (reduce) btn.textContent = "Play";
+
+  fetch(fig.getAttribute("data-trace")).then(function (r) { return r.json(); }).then(function (d) {
+    data = d; frames = d.frames;
+    if (!playing) t = 100;
+    draw();
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        visible = entries[0].isIntersecting;
+        start();
+      }).observe(fig);
+    } else { visible = true; start(); }
+  });
+})();
+</script>
+</figure>
+<p class="md-p">The first simulator was written in JavaScript, like the game. To run hundreds of thousands of games, I rewrote it in Rust: about 4,000 lines that run games in parallel across every core. With V8&#39;s math functions replayed, it matches the JavaScript engine bit for bit, and every change to the rules is re-checked against it. On a 10-core laptop, 28,980 games take 4.4 seconds in Rust against 28.4 in JavaScript, about 6.5 times faster.</p>
 <figure class="fig fig-bars">
 <div class="fig-waffle__body">
 <div class="fig-waffle__text">
@@ -277,7 +389,7 @@
 <li class="md-li"><a class="md-link" href="https://survivortiers.pages.dev/en/" title="https://survivortiers.pages.dev/en/" rel="noopener noreferrer" target="_blank">SurvivorTiers website</a></li>
 <li class="md-li"><a class="md-link" href="https://survivortiers.pages.dev/en/metodo" title="https://survivortiers.pages.dev/en/metodo" rel="noopener noreferrer" target="_blank">Method, with interactive charts</a></li>
 <li class="md-li"><a class="md-link" href="https://github.com/felipebasurto/survivortiers" title="https://github.com/felipebasurto/survivortiers" rel="noopener noreferrer" target="_blank">Source on GitHub</a></li>
-<li class="md-li"><a class="md-link" href="https://pokesurvivor.com" title="https://pokesurvivor.com" rel="noopener noreferrer" target="_blank">PokéSurvivor, the game</a></li>
+<li class="md-li"><a class="md-link" href="https://pokesurvivor.com" title="https://pokesurvivor.com" rel="noopener noreferrer" target="_blank">Play PokéSurvivor, the original game</a></li>
 </ul>
 
       </article>

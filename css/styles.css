@@ -1385,6 +1385,79 @@ h3.md-heading {
   color: var(--text-dim);
 }
 
+/* Simulated game replay: a canvas drawn from a recorded trace, with a
+   small HUD. Colors come from the theme tokens at draw time. */
+.fig-sim__canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+}
+
+.fig-sim__hud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin-top: 0.6rem;
+  color: var(--text-dim);
+}
+
+.fig-sim__time {
+  min-width: 6ch;
+  color: var(--text-strong);
+  font-variant-numeric: tabular-nums;
+}
+
+.fig-sim__hp {
+  flex: 1 1 8rem;
+  height: 0.45rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.fig-sim__hpbar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--syn-quote);
+  opacity: 0.8;
+}
+
+.fig-sim__toggle {
+  padding: 0.1rem 0.6rem;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  background: none;
+  color: var(--syn-link);
+  font: inherit;
+  cursor: pointer;
+}
+
+.fig-sim__legend {
+  margin: 0.5rem 0 0;
+  color: var(--text-dim);
+  font-size: 0.74rem;
+}
+
+.fig-sim__dot {
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin: 0 0.3rem 0 0.9rem;
+  border-radius: 50%;
+  vertical-align: -0.05rem;
+}
+
+.fig-sim__dot:first-child {
+  margin-left: 0;
+}
+
+.fig-sim__dot--me { background: var(--accent); }
+.fig-sim__dot--foe { background: var(--syn-code); }
+.fig-sim__dot--alt { background: var(--syn-heading); }
+
 /* Prevalence: the waffle headline, then bars on one 0 to 100% scale, one
    color per group (requests, runs) so red stays reserved for stale code. */
 .fig-bars .fig-waffle__body {
