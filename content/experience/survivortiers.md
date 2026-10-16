@@ -66,7 +66,7 @@ The 2,000 repeats show how much to trust each rank. Most Pokémon in tiers C and
 
 ## How it's built
 
-- **A Python generator** with no dependencies outside the standard library builds the whole site: about 25 files and under 2 MB, plus the 966 Pokémon pages drawn in the browser from JSON.
+- **A Python generator** with no dependencies outside the standard library builds the whole site: 33 files and about 3 MB, plus the 966 Pokémon pages drawn in the browser from JSON.
 - **The build checks its own data.** It fails if any sprite is missing its artist or licence, if the tier sizes are off, or if the gacha pools do not add up to 966.
 - **An acceptance check** runs against the served site: links, attribution, the data behind all 966 pages, and the size budget. With Playwright it also renders a sample of the pages in a real browser.
 - **Files for AI agents and search:** `llms.txt`, a full data dictionary, `robots.txt`, a sitemap, and `Dataset` structured data.
