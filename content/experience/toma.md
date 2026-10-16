@@ -39,13 +39,25 @@ The GIF encoder is custom. Each frame only stores what changed, so interface col
 
 Toma targets macOS 26 or later, runs on Apple silicon and Intel, and weighs under 1 MB. It is signed and notarized, so it opens without warnings, and it has no dependencies.
 
+## Screenshots
+
+From the Toma website. The landing page shows the whole flow: shortcut, drag, record, and choose a format afterwards.
+
+![Toma website: "⇧⌘4, but for video", with download and source buttons](../../assets/experience/toma/landing-hero.jpg)
+
+Three gestures and no settings window.
+
+![Three steps: press the shortcut and drag, recording starts on release, choose the format afterwards](../../assets/experience/toma/landing-gestures.jpg)
+
+The thumbnail after a recording, where you pick MP4, HEVC or GIF.
+
+![Toma thumbnail after a recording, with MP4, HEVC and GIF options](../../assets/experience/toma/landing-thumbnail.jpg)
+
+Four seconds of scrolling text at 1120 × 720: 2.5 MB as recorded, 0.46 MB as MP4, and 0.25 MB as HEVC.
+
+![File sizes: original 2.5 MB, MP4 0.46 MB, HEVC 0.25 MB](../../assets/experience/toma/landing-size.jpg)
+
 ## Links
 
-- [Toma website](https://toma.felipebasurto.com)
+- [Toma website](https://toma.felipebasurto.com/en/)
 - [Source and release downloads on GitHub](https://github.com/felipebasurto/toma)
-
-## Screenshot
-
-The thumbnail that appears after each recording, with the clip, its duration, the three formats, and a copy button.
-
-![Toma thumbnail after a recording, with MP4, HEVC and GIF options and a copy button](../../assets/experience/toma/screenshot.png)

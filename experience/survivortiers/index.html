@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+
+  <link rel="icon" type="image/png" href="../../assets/icon.png" />
+  <link rel="apple-touch-icon" href="../../assets/icon.png" />
+  <link rel="canonical" href="https://felipebasurto.com/experience/survivortiers/" />
+  <link rel="alternate" type="text/plain" href="../../llms.txt" title="llms.txt" />
+  <link rel="alternate" type="application/rss+xml" href="../../blog/feed.xml" title="Felipe Basurto · Blog" />
+
+  <meta name="title" content="SurvivorTiers | Felipe Basurto" />
+  <meta name="description" content="SurvivorTiers ranks all 966 Pokémon of the fan game PokéSurvivor from 308,600 simulated games, a stat and move model, and 2,000 reruns of the method." />
+  <meta name="author" content="Felipe Basurto" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0a0c" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://felipebasurto.com/experience/survivortiers/" />
+  <meta property="og:title" content="SurvivorTiers | Felipe Basurto" />
+  <meta property="og:description" content="SurvivorTiers ranks all 966 Pokémon of the fan game PokéSurvivor from 308,600 simulated games, a stat and move model, and 2,000 reruns of the method." />
+  <meta property="og:image" content="https://felipebasurto.com/assets/experience/survivortiers/site.jpg" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@fildotai" />
+  <meta name="twitter:url" content="https://felipebasurto.com/experience/survivortiers/" />
+  <meta name="twitter:title" content="SurvivorTiers | Felipe Basurto" />
+  <meta name="twitter:description" content="SurvivorTiers ranks all 966 Pokémon of the fan game PokéSurvivor from 308,600 simulated games, a stat and move model, and 2,000 reruns of the method." />
+  <meta name="twitter:image" content="https://felipebasurto.com/assets/experience/survivortiers/site.jpg" />
+
+  <title>SurvivorTiers | Felipe Basurto</title>
+  <link rel="stylesheet" href="../../css/styles.css?v=040216e2aa" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="doc">
+    <header class="doc__hint">~/experience/survivortiers.md</header>
+    <main id="main" class="doc__main">
+      <article class="md-doc md-doc--survivortiers">
+<p class="md-p"><a class="md-link" href="../../" title="../../">← Home</a></p>
+<h1 class="md-heading" id="survivortiers"><span class="md-hashes" aria-hidden="true">#</span> SurvivorTiers</h1>
+<figure class="md-figure md-figure--appicon"><img class="md-img md-img--appicon" src="../../assets/experience/survivortiers/icon.svg" alt="SurvivorTiers icon" loading="lazy" decoding="async" width="96" height="96" /><figcaption class="md-figcap" aria-hidden="true">![SurvivorTiers icon](../../assets/experience/survivortiers/icon.svg)</figcaption></figure>
+<p class="md-p">SurvivorTiers is an unofficial tier list for PokéSurvivor, a free fan-made browser game. It ranks all 966 Pokémon in five tiers, and every rank comes from data: simulated games, a model of each Pokémon&#39;s sheet, and a late-game formula, rerun 2,000 times so each rank has a range instead of a single guess.</p>
+<p class="md-p">It is a static site in English and Spanish, with a page per Pokémon, tier lists for moves and items, gacha odds, and a collection tracker. The data is published as CSV and JSON with an <code class="md-codespan"><span class="md-muted">`</span>llms.txt<span class="md-muted">`</span></code>, so AI assistants can answer questions from it.</p>
+<figure class="md-figure md-figure--macshot"><img class="md-img md-img--macshot" src="../../assets/experience/survivortiers/site.jpg" alt="The SurvivorTiers tier list, with the 30 Pokémon of tier S" loading="lazy" decoding="async" width="1200" height="750" /><figcaption class="md-figcap" aria-hidden="true">![The SurvivorTiers tier list, with the 30 Pokémon of tier S](../../assets/experience/survivortiers/site.jpg)</figcaption></figure>
+<h2 class="md-heading" id="how-the-game-works"><span class="md-hashes" aria-hidden="true">##</span> How the game works</h2>
+<p class="md-p">PokéSurvivor is a survivor-style game, in the line of Vampire Survivors and Survivor.io. You pick a Pokémon and move it around a map while hordes close in, and its attacks fire on their own. Defeated enemies drop experience, and each level offers cards: new attacks, boosts, and evolutions of attacks you already have. You carry one item per run, found in chests.</p>
+<p class="md-p">Between runs, coins buy shop upgrades that make every later run stronger, and a gacha with nine regional banners unlocks more Pokémon. Runs get harder over time, with bosses and rifts, and up to four friends can play together.</p>
+<p class="md-p">So a Pokémon&#39;s value is not just its official stats. It depends on the attack it starts with, the attacks it can learn, how big a target it is, and how it holds up late in a run.</p>
+<h2 class="md-heading" id="how-the-rank-is-built"><span class="md-hashes" aria-hidden="true">##</span> How the rank is built</h2>
+<p class="md-p">Each Pokémon gets three scores, and each becomes a percentile so seconds and stats can be compared:</p>
+<ul class="md-list md-list--unordered">
+<li class="md-li"><strong class="md-strong">Sheet:</strong> base stats, the attacks it can learn, type resistance, and hitbox size.</li>
+<li class="md-li"><strong class="md-strong">Simulated games:</strong> a bot plays 200 games with the starting attack and 200 with the best attack it can learn, and the median survival time is the score.</li>
+<li class="md-li"><strong class="md-strong">Late game:</strong> a formula for the end of a run, once with every shop upgrade maxed and once with none.</li>
+</ul>
+<p class="md-p">They are combined with a geometric mean, so one very weak piece pulls the score down instead of being averaged away.</p>
+<figure class="fig fig-bars">
+<p class="fig-bars__group">Weight of each piece in the final score</p>
+<ul class="fig-bars__list">
+<li class="fig-bars__row" style="--value: 45.00; --bar: var(--syn-list)">
+<span class="fig-bars__label">Sheet: base stats, moves, type resistance, hitbox</span>
+<span class="fig-bars__value">45%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">Percentiles of four pillars</span>
+</li>
+<li class="fig-bars__row" style="--value: 30.00; --bar: var(--syn-heading)">
+<span class="fig-bars__label">Simulated games: survival with the starting and the best attack</span>
+<span class="fig-bars__value">30%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">Median of 200 games per attack</span>
+</li>
+<li class="fig-bars__row" style="--value: 25.00; --bar: var(--syn-quote)">
+<span class="fig-bars__label">Late game: with all shop upgrades maxed and with none</span>
+<span class="fig-bars__value">25%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">A late-game formula with 80 assumptions</span>
+</li>
+</ul>
+<p class="fig-bars__group">Weight of each pillar inside the sheet</p>
+<ul class="fig-bars__list">
+<li class="fig-bars__row" style="--value: 45.00; --bar: var(--syn-list)">
+<span class="fig-bars__label">Base stats</span>
+<span class="fig-bars__value">45%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">HP, Attack, Defense, Sp. Atk, Sp. Def, Speed</span>
+</li>
+<li class="fig-bars__row" style="--value: 25.00; --bar: var(--syn-list)">
+<span class="fig-bars__label">Moves</span>
+<span class="fig-bars__value">25%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">The attacks it can learn</span>
+</li>
+<li class="fig-bars__row" style="--value: 15.00; --bar: var(--syn-list)">
+<span class="fig-bars__label">Type resistance</span>
+<span class="fig-bars__value">15%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">How it takes type-based damage</span>
+</li>
+<li class="fig-bars__row" style="--value: 15.00; --bar: var(--syn-list)">
+<span class="fig-bars__label">Small hitbox</span>
+<span class="fig-bars__value">15%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">Smaller bodies are hit less</span>
+</li>
+</ul>
+<p class="fig-bars__axis" aria-hidden="true"><span>0</span><span>50%</span><span>100%</span></p>
+<figcaption class="fig__caption">The whole calculation runs 2,000 times. Each repeat shifts the data within its error margin, the weight between games and late game, and the late-game assumption. The final rank is the median of the 2,000 positions.</figcaption>
+</figure>
+<p class="md-p">Tiers have fixed sizes: 30 in S, 90 in A, 200 in B, 300 in C, and 346 in D. A Pokémon also has to clear minimums to enter a tier. S needs the top 40% on stats, attacks of three different types, and a starting attack that is not melee. A Pokémon that misses a minimum waits for the next tier it qualifies for.</p>
+<h2 class="md-heading" id="what-the-simulations-show"><span class="md-hashes" aria-hidden="true">##</span> What the simulations show</h2>
+<figure class="fig fig-bars">
+<div class="fig-waffle__body">
+<div class="fig-waffle__text">
+<p class="fig-waffle__stat">308,600</p>
+<p class="fig-waffle__label">simulated games: 200 for each Pokémon with its starting attack, and 200 more with the best attack it can learn</p>
+<p class="fig-waffle__count">966 Pokémon. 577 of them learn a better attack than the one they start with.</p>
+</div>
+</div>
+<p class="fig-bars__group">Median survival by the kind of starting attack</p>
+<ul class="fig-bars__list">
+<li class="fig-bars__row" style="--value: 78.00; --bar: var(--syn-list)">
+<span class="fig-bars__label">Projectile</span>
+<span class="fig-bars__value">93.6 s</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">429 Pokémon</span>
+</li>
+<li class="fig-bars__row" style="--value: 65.83; --bar: var(--syn-list)">
+<span class="fig-bars__label">Beam</span>
+<span class="fig-bars__value">79.0 s</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">67 Pokémon</span>
+</li>
+<li class="fig-bars__row" style="--value: 53.17; --bar: var(--syn-list)">
+<span class="fig-bars__label">Nova</span>
+<span class="fig-bars__value">63.8 s</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">66 Pokémon</span>
+</li>
+<li class="fig-bars__row" style="--value: 24.75; --bar: var(--syn-code)">
+<span class="fig-bars__label">Melee</span>
+<span class="fig-bars__value">29.7 s</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">393 Pokémon</span>
+</li>
+</ul>
+<p class="fig-bars__axis" aria-hidden="true"><span>0</span><span>60 s</span><span>120 s</span></p>
+<figcaption class="fig__caption">A bot plays with one attack only, with no upgrades, bosses or rifts, for up to 900 seconds. Eleven Pokémon that start with an orbit or boomerang attack are left out of the bars.</figcaption>
+</figure>
+<p class="md-p">The starting attack is the clearest split in the game. A Pokémon that starts with a projectile survives three times longer than one that starts in melee, because melee means walking into the swarm. Two thirds of tier D start with a melee attack, none of tier S does, and a melee start is one of the minimums that keeps a Pokémon out of S.</p>
+<h2 class="md-heading" id="which-stats-matter"><span class="md-hashes" aria-hidden="true">##</span> Which stats matter</h2>
+<figure class="fig fig-bars">
+<p class="fig-bars__group">How closely each measure follows the final rank (rank correlation)</p>
+<ul class="fig-bars__list">
+<li class="fig-bars__row" style="--value: 88.00; --bar: var(--syn-heading)">
+<span class="fig-bars__label">Survival with the best attack</span>
+<span class="fig-bars__value">0.88</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">Simulated games</span>
+</li>
+<li class="fig-bars__row" style="--value: 65.00; --bar: var(--syn-list)">
+<span class="fig-bars__label">Moves pillar</span>
+<span class="fig-bars__value">0.65</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">The attacks it can learn</span>
+</li>
+<li class="fig-bars__row" style="--value: 63.00; --bar: var(--syn-list)">
+<span class="fig-bars__label">Base stats pillar</span>
+<span class="fig-bars__value">0.63</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">All six stats as a percentile</span>
+</li>
+<li class="fig-bars__row" style="--value: 27.00; --bar: var(--syn-list)">
+<span class="fig-bars__label">Type resistance pillar</span>
+<span class="fig-bars__value">0.27</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">How it takes type-based damage</span>
+</li>
+</ul>
+<p class="fig-bars__group">Each base stat on its own</p>
+<ul class="fig-bars__list">
+<li class="fig-bars__row" style="--value: 53.00; --bar: var(--syn-quote)">
+<span class="fig-bars__label">Sp. Atk</span>
+<span class="fig-bars__value">0.53</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">The strongest single stat</span>
+</li>
+<li class="fig-bars__row" style="--value: 42.00; --bar: var(--syn-quote)">
+<span class="fig-bars__label">Attack</span>
+<span class="fig-bars__value">0.42</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count"></span>
+</li>
+<li class="fig-bars__row" style="--value: 41.00; --bar: var(--syn-quote)">
+<span class="fig-bars__label">Speed</span>
+<span class="fig-bars__value">0.41</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">Moving away from the swarm</span>
+</li>
+<li class="fig-bars__row" style="--value: 39.00; --bar: var(--syn-quote)">
+<span class="fig-bars__label">HP</span>
+<span class="fig-bars__value">0.39</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count"></span>
+</li>
+<li class="fig-bars__row" style="--value: 32.00; --bar: var(--syn-quote)">
+<span class="fig-bars__label">Sp. Def</span>
+<span class="fig-bars__value">0.32</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count"></span>
+</li>
+<li class="fig-bars__row" style="--value: 25.00; --bar: var(--syn-quote)">
+<span class="fig-bars__label">Defense</span>
+<span class="fig-bars__value">0.25</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">The weakest single stat</span>
+</li>
+</ul>
+<p class="fig-bars__axis" aria-hidden="true"><span>0</span><span>0.5</span><span>1</span></p>
+<figcaption class="fig__caption">Spearman correlation between each measure and the final rank over the 966 Pokémon. 1 means the measure alone would give the same order.</figcaption>
+</figure>
+<p class="md-p">Survival with the best attack follows the final rank most closely, which is why the attacks a Pokémon can learn weigh as much as its stats. Among the official base stats, <strong class="md-strong">Sp. Atk</strong> matters most, then Attack and Speed. Defense matters least: in a game about not being touched, avoiding hits beats absorbing them.</p>
+<p class="md-p">One result goes against the model&#39;s own pillar: Pokémon with small hitboxes rank lower on average, even though a small hitbox scores well. Bigger Pokémon tend to have higher base stats (a rank correlation of 0.41), and that outweighs being easier to hit.</p>
+<h2 class="md-heading" id="how-stable-the-tiers-are"><span class="md-hashes" aria-hidden="true">##</span> How stable the tiers are</h2>
+<figure class="fig fig-bars">
+<p class="fig-bars__group">Share of Pokémon that stay in their tier in at least 80% of the 2,000 repeats</p>
+<ul class="fig-bars__list">
+<li class="fig-bars__row" style="--value: 50.00; --bar: var(--syn-code)">
+<span class="fig-bars__label">S · ranks 1 to 30</span>
+<span class="fig-bars__value">50%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">30 Pokémon · median survival 108 s with the best attack · usual range about 24 places</span>
+</li>
+<li class="fig-bars__row" style="--value: 70.00; --bar: var(--syn-heading)">
+<span class="fig-bars__label">A · ranks 31 to 120</span>
+<span class="fig-bars__value">70%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">90 Pokémon · 103 s · about 44 places</span>
+</li>
+<li class="fig-bars__row" style="--value: 79.00; --bar: var(--syn-quote)">
+<span class="fig-bars__label">B · ranks 121 to 320</span>
+<span class="fig-bars__value">79%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">200 Pokémon · 98 s · about 71 places</span>
+</li>
+<li class="fig-bars__row" style="--value: 86.00; --bar: var(--syn-list)">
+<span class="fig-bars__label">C · ranks 321 to 620</span>
+<span class="fig-bars__value">86%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">300 Pokémon · 89 s · about 76 places</span>
+</li>
+<li class="fig-bars__row" style="--value: 92.00; --bar: var(--syn-rule)">
+<span class="fig-bars__label">D · ranks 621 to 966</span>
+<span class="fig-bars__value">92%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">346 Pokémon · 73 s · about 48 places</span>
+</li>
+</ul>
+<p class="fig-bars__axis" aria-hidden="true"><span>0</span><span>50%</span><span>100%</span></p>
+<figcaption class="fig__caption">The usual range runs from the 10th to the 90th percentile of a Pokémon's rank across the repeats. The top of the list is the least settled: small differences decide who is 25th or 35th.</figcaption>
+</figure>
+<p class="md-p">The 2,000 repeats show how much to trust each rank. Most Pokémon in tiers C and D land in their tier almost every time. Tier S is the least settled: only half its members stay there in at least 80% of the repeats, so the site shows each Pokémon&#39;s usual range next to its rank.</p>
+<h2 class="md-heading" id="how-it-39-s-built"><span class="md-hashes" aria-hidden="true">##</span> How it&#39;s built</h2>
+<ul class="md-list md-list--unordered">
+<li class="md-li"><strong class="md-strong">A Python generator</strong> with no dependencies outside the standard library builds the whole site: about 25 files and under 2 MB, plus the 966 Pokémon pages drawn in the browser from JSON.</li>
+<li class="md-li"><strong class="md-strong">The build checks its own data.</strong> It fails if any sprite is missing its artist or licence, if the tier sizes are off, or if the gacha pools do not add up to 966.</li>
+<li class="md-li"><strong class="md-strong">An acceptance check</strong> runs against the served site: links, attribution, the data behind all 966 pages, and the size budget. With Playwright it also renders a sample of the pages in a real browser.</li>
+<li class="md-li"><strong class="md-strong">Files for AI agents and search:</strong> <code class="md-codespan"><span class="md-muted">`</span>llms.txt<span class="md-muted">`</span></code>, a full data dictionary, <code class="md-codespan"><span class="md-muted">`</span>robots.txt<span class="md-muted">`</span></code>, a sitemap, and <code class="md-codespan"><span class="md-muted">`</span>Dataset<span class="md-muted">`</span></code> structured data.</li>
+<li class="md-li"><strong class="md-strong">Hosted on Cloudflare</strong>, with sprites served from a CDN.</li>
+</ul>
+<p class="md-p">The game data comes from PokéSurvivor, whose code is MIT licensed by its author, JPTER78. Sprites are from SpriteCollab under CC BY-NC 4.0, credited to each artist on the site. SurvivorTiers is not affiliated with the game or with the owners of Pokémon.</p>
+<h2 class="md-heading" id="links"><span class="md-hashes" aria-hidden="true">##</span> Links</h2>
+<ul class="md-list md-list--unordered">
+<li class="md-li"><a class="md-link" href="https://survivortiers.pages.dev/en/" title="https://survivortiers.pages.dev/en/" rel="noopener noreferrer" target="_blank">SurvivorTiers website</a></li>
+<li class="md-li"><a class="md-link" href="https://survivortiers.pages.dev/en/metodo" title="https://survivortiers.pages.dev/en/metodo" rel="noopener noreferrer" target="_blank">Method, with interactive charts</a></li>
+<li class="md-li"><a class="md-link" href="https://github.com/felipebasurto/survivortiers" title="https://github.com/felipebasurto/survivortiers" rel="noopener noreferrer" target="_blank">Source on GitHub</a></li>
+<li class="md-li"><a class="md-link" href="https://pokesurvivor.com" title="https://pokesurvivor.com" rel="noopener noreferrer" target="_blank">PokéSurvivor, the game</a></li>
+</ul>
+
+      </article>
+    </main>
+    <footer class="doc__footer" aria-label="End of document">
+      <span class="doc__footer-eof" aria-hidden="true">---</span>
+      <span class="doc__footer-text">EOF · 2026 · built from markdown</span>
+    </footer>
+  </div>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"SurvivorTiers | Felipe Basurto","url":"https://felipebasurto.com/experience/survivortiers/","description":"SurvivorTiers ranks all 966 Pokémon of the fan game PokéSurvivor from 308,600 simulated games, a stat and move model, and 2,000 reruns of the method.","isPartOf":{"@type":"WebSite","name":"Felipe Basurto","url":"https://felipebasurto.com"}}</script>
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button class="lightbox__close" type="button" aria-label="Close (Esc)">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous photo (Left arrow)">←</button>
+    <img class="lightbox__img" alt="" />
+    <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next photo (Right arrow)">→</button>
+    <span class="lightbox__count" aria-live="polite"></span>
+  </div>
+  <script>
+    (function () {
+      var shots = document.querySelectorAll("a.ev-shot");
+      if (!shots.length) return;
+      var box = document.getElementById("lightbox");
+      var img = box.querySelector(".lightbox__img");
+      var closeBtn = box.querySelector(".lightbox__close");
+      var prevBtn = box.querySelector(".lightbox__nav--prev");
+      var nextBtn = box.querySelector(".lightbox__nav--next");
+      var count = box.querySelector(".lightbox__count");
+      var group = [];
+      var index = 0;
+      var lastFocus = null;
+      function show(i) {
+        index = (i + group.length) % group.length;
+        var a = group[index];
+        var im = a.querySelector("img");
+        img.src = a.getAttribute("href");
+        img.alt = im ? im.alt : "";
+        count.textContent = group.length > 1 ? index + 1 + " / " + group.length : "";
+      }
+      function open(a) {
+        lastFocus = document.activeElement;
+        var gallery = a.closest(".ev-list-photos");
+        group = gallery ? Array.prototype.slice.call(gallery.querySelectorAll("a.ev-shot")) : [a];
+        var multi = group.length > 1;
+        prevBtn.hidden = !multi;
+        nextBtn.hidden = !multi;
+        show(group.indexOf(a));
+        box.hidden = false;
+        document.body.style.overflow = "hidden";
+        closeBtn.focus();
+      }
+      function close() {
+        box.hidden = true;
+        img.src = "";
+        document.body.style.overflow = "";
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+      shots.forEach(function (a) {
+        a.addEventListener("click", function (e) {
+          e.preventDefault();
+          open(a);
+        });
+      });
+      box.addEventListener("click", function (e) {
+        if (e.target === box || e.target === img) close();
+      });
+      closeBtn.addEventListener("click", close);
+      prevBtn.addEventListener("click", function () { show(index - 1); });
+      nextBtn.addEventListener("click", function () { show(index + 1); });
+      document.addEventListener("keydown", function (e) {
+        if (box.hidden) return;
+        if (e.key === "Escape") close();
+        else if (e.key === "ArrowLeft" && group.length > 1) { e.preventDefault(); show(index - 1); }
+        else if (e.key === "ArrowRight" && group.length > 1) { e.preventDefault(); show(index + 1); }
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      // Animated figures replay in a loop while on screen: play, hold the
+      // end state, fade out, snap back to the start, fade in, play again.
+      // data-play holds the length of one run in ms. Reduced motion keeps
+      // the static end state.
+      var figs = document.querySelectorAll("figure[data-play]");
+      if (!figs.length || !("IntersectionObserver" in window)) return;
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      var HOLD = 2600, FADE = 250, GAP = 450;
+      figs.forEach(function (fig) {
+        var run = parseInt(fig.getAttribute("data-play"), 10) || 3000;
+        var timer = null;
+        fig._visible = false;
+        fig.classList.add("fig--armed");
+        function cycle() {
+          fig.classList.add("fig--play");
+          timer = setTimeout(function () {
+            fig.classList.add("fig--fade");
+            timer = setTimeout(function () {
+              fig.classList.remove("fig--play", "fig--fade");
+              timer = setTimeout(function () {
+                timer = null;
+                if (fig._visible) cycle();
+              }, GAP);
+            }, FADE);
+          }, run + HOLD);
+        }
+        fig._start = function () {
+          fig._visible = true;
+          if (!timer) timer = setTimeout(function () { timer = null; cycle(); }, 150);
+        };
+      });
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) e.target._start();
+          else e.target._visible = false;
+        });
+      }, { threshold: 0.3 });
+      figs.forEach(function (fig) { io.observe(fig); });
+    })();
+  </script>
+  
+</body>
+</html>

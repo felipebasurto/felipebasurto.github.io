@@ -1,0 +1,52 @@
+<figure class="fig fig-bars">
+<p class="fig-bars__group">Weight of each piece in the final score</p>
+<ul class="fig-bars__list">
+<li class="fig-bars__row" style="--value: 45.00; --bar: var(--syn-list)">
+<span class="fig-bars__label">Sheet: base stats, moves, type resistance, hitbox</span>
+<span class="fig-bars__value">45%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">Percentiles of four pillars</span>
+</li>
+<li class="fig-bars__row" style="--value: 30.00; --bar: var(--syn-heading)">
+<span class="fig-bars__label">Simulated games: survival with the starting and the best attack</span>
+<span class="fig-bars__value">30%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">Median of 200 games per attack</span>
+</li>
+<li class="fig-bars__row" style="--value: 25.00; --bar: var(--syn-quote)">
+<span class="fig-bars__label">Late game: with all shop upgrades maxed and with none</span>
+<span class="fig-bars__value">25%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">A late-game formula with 80 assumptions</span>
+</li>
+</ul>
+<p class="fig-bars__group">Weight of each pillar inside the sheet</p>
+<ul class="fig-bars__list">
+<li class="fig-bars__row" style="--value: 45.00; --bar: var(--syn-list)">
+<span class="fig-bars__label">Base stats</span>
+<span class="fig-bars__value">45%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">HP, Attack, Defense, Sp. Atk, Sp. Def, Speed</span>
+</li>
+<li class="fig-bars__row" style="--value: 25.00; --bar: var(--syn-list)">
+<span class="fig-bars__label">Moves</span>
+<span class="fig-bars__value">25%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">The attacks it can learn</span>
+</li>
+<li class="fig-bars__row" style="--value: 15.00; --bar: var(--syn-list)">
+<span class="fig-bars__label">Type resistance</span>
+<span class="fig-bars__value">15%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">How it takes type-based damage</span>
+</li>
+<li class="fig-bars__row" style="--value: 15.00; --bar: var(--syn-list)">
+<span class="fig-bars__label">Small hitbox</span>
+<span class="fig-bars__value">15%</span>
+<span class="fig-bars__track" aria-hidden="true"><span class="fig-bars__bar"></span></span>
+<span class="fig-bars__count">Smaller bodies are hit less</span>
+</li>
+</ul>
+<p class="fig-bars__axis" aria-hidden="true"><span>0</span><span>50%</span><span>100%</span></p>
+<figcaption class="fig__caption">The whole calculation runs 2,000 times. Each repeat shifts the data within its error margin, the weight between games and late game, and the late-game assumption. The final rank is the median of the 2,000 positions.</figcaption>
+</figure>

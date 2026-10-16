@@ -223,11 +223,11 @@ marked.use({
       if (isLogo) {
         return `<img class="md-logo" src="${safe}" alt="${alt}"${t} loading="lazy" width="20" height="20" />`;
       }
-      if (/\/assets\/experience\/(habitdex\/habitdex-icon|audio-silence-remover\/icon|musatro\/icon|toma\/icon)\./i.test(href)) {
+      if (/\/assets\/experience\/(habitdex\/habitdex-icon|audio-silence-remover\/icon|musatro\/icon|toma\/icon|survivortiers\/icon)\./i.test(href)) {
         const caption = `![${text}](${href})`;
         return `<figure class="md-figure md-figure--appicon"><img class="md-img md-img--appicon" src="${safe}" alt="${alt}"${t} loading="lazy" decoding="async" width="96" height="96" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
       }
-      if (/\/assets\/experience\/audio-silence-remover\/screenshot\./i.test(href)) {
+      if (/\/assets\/experience\/(audio-silence-remover\/screenshot|(?:toma|survivortiers)\/(?!icon\.)[\w-]+)\./i.test(href)) {
         const caption = `![${text}](${href})`;
         return `<figure class="md-figure md-figure--macshot"><img class="md-img md-img--macshot" src="${safe}" alt="${alt}"${t} loading="lazy" decoding="async" width="1200" height="750" /><figcaption class="md-figcap" aria-hidden="true">${escapeHtml(caption)}</figcaption></figure>\n`;
       }
@@ -541,6 +541,10 @@ const EXPERIENCE_DIAGRAMS = {
   "{{AILY_GRAPH_RAG_DIAGRAM}}": "aily-graph-rag.html",
   "{{FRESHCTX_PREVALENCE}}": "blog/prevalence.html",
   "{{FRESHCTX_REQUEST_COPY}}": "blog/request-copy.html",
+  "{{ST_METHOD}}": "survivortiers/method.html",
+  "{{ST_SIMS}}": "survivortiers/sims.html",
+  "{{ST_STATS}}": "survivortiers/stats.html",
+  "{{ST_TIERS}}": "survivortiers/tiers.html",
 };
 
 /** Blog figures: static HTML in scripts/diagrams/blog/, placed with a token on its own line. */
@@ -599,7 +603,7 @@ function renderExperienceBody(body) {
 
 function experienceArticleClass(slug) {
   if (slug === "cursor") return " md-doc--cursor";
-  if (slug === "encore" || slug === "habitdex" || slug === "audio-silence-remover" || slug === "musatro") {
+  if (slug === "encore" || slug === "habitdex" || slug === "audio-silence-remover" || slug === "musatro" || slug === "toma" || slug === "survivortiers") {
     return ` md-doc--${slug}`;
   }
   if (slug === "aily") return " md-doc--aily";

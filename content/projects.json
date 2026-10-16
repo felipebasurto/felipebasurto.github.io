@@ -245,7 +245,7 @@
           "status": "live",
           "platform": "macOS",
           "year": "2026",
-          "href": "https://toma.felipebasurto.com",
+          "href": "https://toma.felipebasurto.com/en/",
           "icon": "assets/projects/toma.png",
           "stack": [
             "macOS",
@@ -257,7 +257,7 @@
           "links": [
             {
               "label": "Site",
-              "href": "https://toma.felipebasurto.com"
+              "href": "https://toma.felipebasurto.com/en/"
             },
             {
               "label": "GitHub",
@@ -298,6 +298,10 @@
             {
               "label": "GitHub",
               "href": "https://github.com/felipebasurto/survivortiers"
+            },
+            {
+              "label": "Details",
+              "href": "experience/survivortiers/"
             }
           ]
         },

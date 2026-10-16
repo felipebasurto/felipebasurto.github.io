@@ -3781,20 +3781,26 @@ details[open] > .tree__summary::before {
 
 .md-doc--habitdex h1 + .md-figure--appicon,
 .md-doc--audio-silence-remover h1 + .md-figure--appicon,
-.md-doc--musatro h1 + .md-figure--appicon {
+.md-doc--musatro h1 + .md-figure--appicon,
+.md-doc--toma h1 + .md-figure--appicon,
+.md-doc--survivortiers h1 + .md-figure--appicon {
   margin-top: 0.35rem;
 }
 
 .md-doc--habitdex .md-figure--appicon,
 .md-doc--audio-silence-remover .md-figure--appicon,
-.md-doc--musatro .md-figure--appicon {
+.md-doc--musatro .md-figure--appicon,
+.md-doc--toma .md-figure--appicon,
+.md-doc--survivortiers .md-figure--appicon {
   margin: 0.75rem 0 1.25rem;
   max-width: 96px;
 }
 
 .md-doc--habitdex .md-img--appicon,
 .md-doc--audio-silence-remover .md-img--appicon,
-.md-doc--musatro .md-img--appicon {
+.md-doc--musatro .md-img--appicon,
+.md-doc--toma .md-img--appicon,
+.md-doc--survivortiers .md-img--appicon {
   display: block;
   width: 96px;
   height: auto;
@@ -3805,17 +3811,23 @@ details[open] > .tree__summary::before {
 
 .md-doc--habitdex .md-figure--appicon .md-figcap,
 .md-doc--audio-silence-remover .md-figure--appicon .md-figcap,
-.md-doc--musatro .md-figure--appicon .md-figcap {
+.md-doc--musatro .md-figure--appicon .md-figcap,
+.md-doc--toma .md-figure--appicon .md-figcap,
+.md-doc--survivortiers .md-figure--appicon .md-figcap {
   margin-top: 0.35rem;
   text-align: left;
 }
 
-.md-doc--audio-silence-remover .md-figure--macshot {
+.md-doc--audio-silence-remover .md-figure--macshot,
+.md-doc--toma .md-figure--macshot,
+.md-doc--survivortiers .md-figure--macshot {
   margin: 1rem 0 1.5rem;
   max-width: 100%;
 }
 
-.md-doc--audio-silence-remover .md-img--macshot {
+.md-doc--audio-silence-remover .md-img--macshot,
+.md-doc--toma .md-img--macshot,
+.md-doc--survivortiers .md-img--macshot {
   display: block;
   width: 100%;
   height: auto;
@@ -3824,7 +3836,9 @@ details[open] > .tree__summary::before {
   box-sizing: border-box;
 }
 
-.md-doc--audio-silence-remover .md-figure--macshot .md-figcap {
+.md-doc--audio-silence-remover .md-figure--macshot .md-figcap,
+.md-doc--toma .md-figure--macshot .md-figcap,
+.md-doc--survivortiers .md-figure--macshot .md-figcap {
   margin-top: 0.5rem;
   font-size: 0.82rem;
   line-height: 1.35;
