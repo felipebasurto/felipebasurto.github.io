@@ -12,8 +12,8 @@ One line per item. Each Details page has the full story.
 
 ## Enterprise AI
 
-- [AILY LABS](../experience/aily/). For a Fortune 500 pharmaceutical company, a Graph RAG service over factory equipment manuals that answers with the exact page and section. I also cut an internal ETL from about 90 minutes to 15 seconds.
-- [Multiverse Computing](../experience/multiverse/). CompactifAI pre-sales with AWS, NVIDIA, and Dell, including an on-premises GPU deployment for a defense-sector customer. I also built a Claude skills plugin that the sales team reused across accounts.
+- [AILY LABS](../experience/aily/). For a Fortune 500 pharmaceutical company, a Graph RAG service over factory equipment manuals that answers with the exact page and section. I also optimized data pipelines on AWS.
+- [Multiverse Computing](../experience/multiverse/). CompactifAI pre-sales with AWS, NVIDIA, and Dell, including an on-premises GPU deployment for a defense-sector customer. I also built reusable AI workflows for sales preparation and technical proposals.
 
 ## Products
 

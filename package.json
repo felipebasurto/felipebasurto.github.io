@@ -4,7 +4,8 @@
   "description": "Static personal portfolio built from Markdown (felipebasurto.com).",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "build:dist": "node scripts/build.mjs && node scripts/prepare-dist.mjs",
+    "build:dist": "node scripts/build.mjs",
+    "verify": "npm run build && node scripts/verify.mjs",
     "preview": "npm run build:dist && wrangler dev",
     "deploy": "wrangler deploy"
   },

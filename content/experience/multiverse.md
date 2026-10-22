@@ -33,10 +33,4 @@ Deployment planning ran with AWS, NVIDIA, and Dell, for both cloud and on-premis
 
 ## Sales tooling
 
-I built a Claude skills plugin for the sales and presales team, so they could run the same workflows on every account without rewriting prompts.
-
-- Prepare customer context and talking points before a call.
-- Map consortium work packages to Multiverse capabilities in multi-vendor bids.
-- Generate PowerPoint, Excel, Word, PDF, and HTML files from shared company templates.
-
-The plugin loaded approved company context, product positioning, visual assets, and team roles, so a call brief and a one-page proposal used the same facts and wording. A seller started from a usable draft, and a solutions architect could trace each technical claim back to its source.
+I built reusable AI workflows for sales preparation and technical proposals, helping the sales and presales team work from consistent materials.

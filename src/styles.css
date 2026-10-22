@@ -735,7 +735,7 @@ h3.md-heading {
   scroll-margin-top: 1.5rem;
 }
 
-/* ---------- blog figures (scripts/diagrams/blog/*.html) ----------
+/* ---------- blog figures (src/diagrams/blog/*.html) ----------
    Tufte-style: gray data ink with one highlight (red = stale, green =
    current), labels on the chart instead of legends, no gridlines. Bar
    lengths come from a --value custom property (0 to 100). */

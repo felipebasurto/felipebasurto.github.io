@@ -1,6 +1,6 @@
 """Writes the SurvivorTiers figures (method, sims, stats, tiers) from the published ranking.
 
-    python3 scripts/diagrams/survivortiers/make_figures.py ranking.csv
+    python3 src/diagrams/survivortiers/make_figures.py ranking.csv
 
 ranking.csv is https://survivortiers.pages.dev/data/ranking.csv. The replay figure is separate.
 """
@@ -28,7 +28,7 @@ def pct(rank):
 def sprite(dex, scale, cls="gm-sprite"):
     from PIL import Image  # only to read the sprite size
 
-    w, h = Image.open(OUT.parents[2] / "assets/experience/survivortiers/sprites" / f"{dex}.png").size
+    w, h = Image.open(OUT.parents[2] / "public/assets/experience/survivortiers/sprites" / f"{dex}.png").size
     return f'<img class="{cls}" src="{SPRITES}{dex}.png" width="{w * scale}" height="{h * scale}" alt="" loading="lazy">'
 
 

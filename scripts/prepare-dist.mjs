@@ -1,41 +1,13 @@
-import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
-import { LANDING_PAGES } from "./build.mjs";
+import { cpSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+import { DIST, PUBLIC, ROOT, SRC } from "./lib/paths.mjs";
 
-const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const dist = join(root, "dist");
-
-const entries = [
-  "index.html",
-  "404.html",
-  ...LANDING_PAGES.map((page) => page.slug),
-  "projects",
-  "experience",
-  "triplecheck",
-  "blog",
-  "musatro",
-  "assets",
-  "css",
-  "robots.txt",
-  "sitemap.xml",
-  "llms.txt",
-  "_headers",
-];
-
-for (const entry of entries) {
-  if (!existsSync(join(root, entry))) {
-    throw new Error(`Missing ${entry}. Run \`npm run build\` first.`);
-  }
+export function prepareDist() {
+  rmSync(DIST, { recursive: true, force: true });
+  mkdirSync(DIST, { recursive: true });
+  cpSync(PUBLIC, DIST, { recursive: true });
+  mkdirSync(join(DIST, "css"), { recursive: true });
+  cpSync(join(SRC, "styles.css"), join(DIST, "css", "styles.css"));
+  cpSync(join(ROOT, "content", "llms.txt"), join(DIST, "llms.txt"));
+  writeFileSync(join(DIST, ".nojekyll"), "");
 }
-
-if (existsSync(dist)) {
-  rmSync(dist, { recursive: true, force: true });
-}
-mkdirSync(dist, { recursive: true });
-
-for (const entry of entries) {
-  cpSync(join(root, entry), join(dist, entry), { recursive: true });
-}
-
-writeFileSync(join(dist, ".nojekyll"), "");

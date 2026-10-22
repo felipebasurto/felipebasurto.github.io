@@ -1,34 +1,15 @@
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import hljs from "highlight.js/lib/common";
 import { marked } from "marked";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const root = join(__dirname, "..");
+import { ROOT as root, PUBLIC, SRC, DIST } from "./lib/paths.mjs";
+import { COMMUNITY_SOURCE, LANDING_PAGES, detailPages } from "./lib/routes.mjs";
+import { prepareDist } from "./prepare-dist.mjs";
 const SITE = "https://felipebasurto.com";
 const DEFAULT_OG_IMAGE = "/assets/og.png";
-
-export const LANDING_PAGES = [
-  {
-    slug: "ai-consulting",
-    source: "content/pages/ai-consulting.md",
-    schemaKind: "service",
-    serviceType: "AI consulting, AI solutions architecture, freelance AI solutions architect",
-    areaServed: ["Madrid", "Spain", "Europe", "remote"],
-  },
-  {
-    slug: "ai-for-pharma-operations",
-    source: "content/pages/ai-for-pharma-operations.md",
-    schemaKind: "article",
-  },
-  {
-    slug: "case-studies",
-    source: "content/pages/case-studies.md",
-    schemaKind: "webpage",
-  },
-];
 
 const FETCH_UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36";
@@ -259,12 +240,12 @@ marked.use({
 });
 
 function loadTemplate() {
-  return readFileSync(join(root, "scripts", "template.html"), "utf8");
+  return readFileSync(join(SRC, "template.html"), "utf8");
 }
 
 /** Content hash appended to the stylesheet URL so browsers refetch it after a change. */
 const CSS_VERSION = createHash("sha256")
-  .update(readFileSync(join(root, "css", "styles.css")))
+  .update(readFileSync(join(SRC, "styles.css")))
   .digest("hex")
   .slice(0, 10);
 
@@ -331,7 +312,7 @@ export function renderMarkdownBody(body) {
 }
 
 function loadProjects() {
-  return JSON.parse(readFileSync(join(root, "content", "projects.json"), "utf8"));
+  return JSON.parse(readFileSync(join(root, "content", "projects", "catalog.json"), "utf8"));
 }
 
 function projectHref(href, relPrefix) {
@@ -544,7 +525,6 @@ function renderPageBody(body, relPrefix) {
 }
 
 const EXPERIENCE_DIAGRAMS = {
-  "{{AILY_GRAPH_RAG_DIAGRAM}}": "aily-graph-rag.html",
   "{{FRESHCTX_PREVALENCE}}": "blog/prevalence.html",
   "{{FRESHCTX_REQUEST_COPY}}": "blog/request-copy.html",
   "{{ST_METHOD}}": "survivortiers/method.html",
@@ -554,7 +534,7 @@ const EXPERIENCE_DIAGRAMS = {
   "{{ST_REPLAY}}": "survivortiers/replay.html",
 };
 
-/** Blog figures: static HTML in scripts/diagrams/blog/, placed with a token on its own line. */
+/** Blog figures: static HTML in src/diagrams/blog/, placed with a token on its own line. */
 export const BLOG_FIGURES = {
   "{{FIG_OPENING}}": "blog/opening.html",
   "{{FIG_HARNESS}}": "blog/harness.html",
@@ -586,7 +566,7 @@ export const BLOG_FIGURES = {
 };
 
 export function loadDiagram(filename) {
-  const path = join(__dirname, "diagrams", filename);
+  const path = join(SRC, "diagrams", filename);
   if (!existsSync(path)) {
     throw new Error(`Missing diagram: ${path}`);
   }
@@ -629,7 +609,7 @@ function absOgImage(ogImage) {
 
 /** Width and height of a PNG or JPEG, for Open Graph and ImageObject. */
 function rasterSize(sitePath) {
-  const full = join(root, String(sitePath).replace(/^\//, ""));
+  const full = join(PUBLIC, String(sitePath).replace(/^\//, ""));
   if (!existsSync(full)) return null;
   const buf = readFileSync(full);
   if (buf.length >= 24 && buf[0] === 0x89 && buf.toString("ascii", 1, 4) === "PNG") {
@@ -920,7 +900,7 @@ function warnDuplicateCursorImageUrls(data) {
 }
 
 async function buildCursorExperiencePage(data) {
-  const assetDir = join(root, "assets", "experience", "cursor");
+  const assetDir = join(DIST, "assets", "experience", "cursor");
   const organized = data.organized_events ?? data.events ?? [];
   const sponsored = data.sponsored_events ?? [];
   const attended = data.attended_events ?? [];
@@ -959,7 +939,7 @@ async function buildCursorExperiencePage(data) {
   const slug = "cursor";
   const path = `/experience/${slug}/`;
   const canonicalUrl = `${SITE}${path}`;
-  const outDir = join(root, "experience", slug);
+  const outDir = join(DIST, "experience", slug);
   mkdirSync(outDir, { recursive: true });
   const html = fillTemplate({
     title,
@@ -1115,7 +1095,7 @@ function buildProjectsJsonLd({ name, url, description }) {
 
 /** Rewrite the generated block in llms.txt so agents see the same project facts as /projects/. */
 function writeLlmsProjects() {
-  const path = join(root, "llms.txt");
+  const path = join(DIST, "llms.txt");
   const begin = "<!-- BEGIN PROJECTS -->";
   const end = "<!-- END PROJECTS -->";
   const text = readFileSync(path, "utf8");
@@ -1239,7 +1219,7 @@ function buildLandingPages() {
     const description = meta.description || "";
     const ogImage = meta.og_image || DEFAULT_OG_IMAGE;
     const canonicalUrl = `${SITE}/${page.slug}/`;
-    const outDir = join(root, page.slug);
+    const outDir = join(DIST, page.slug);
     mkdirSync(outDir, { recursive: true });
     const html = fillTemplate({
       title,
@@ -1287,7 +1267,7 @@ function buildIndex() {
     docClass: "",
     articleClass: "",
   });
-  writeFileSync(join(root, "index.html"), html, "utf8");
+  writeFileSync(join(DIST, "index.html"), html, "utf8");
 }
 
 function build404Page() {
@@ -1312,11 +1292,11 @@ No page at this path.
     jsonLd: buildWebPageJsonLd({ name: title, url: canonicalUrl, description }),
     robots: "noindex",
   });
-  writeFileSync(join(root, "404.html"), html, "utf8");
+  writeFileSync(join(DIST, "404.html"), html, "utf8");
 }
 
 function buildProjectsPage() {
-  const mdPath = join(root, "content", "projects.md");
+  const mdPath = join(root, "content", "projects", "index.md");
   if (!existsSync(mdPath)) return;
   const raw = readFileSync(mdPath, "utf8");
   const { meta, body } = parseFrontmatter(raw);
@@ -1326,7 +1306,7 @@ function buildProjectsPage() {
   const ogImageAbs = absOgImage(ogImage);
   const canonicalUrl = `${SITE}/projects/`;
   const bodyHtml = renderPageBody(body, "../");
-  const outDir = join(root, "projects");
+  const outDir = join(DIST, "projects");
   mkdirSync(outDir, { recursive: true });
   const html = fillTemplate({
     title,
@@ -1345,7 +1325,7 @@ function buildProjectsPage() {
 }
 
 function buildTriplecheckPage() {
-  const mdPath = join(root, "content", "triplecheck.md");
+  const mdPath = join(root, "content", "music", "triplecheck.md");
   if (!existsSync(mdPath)) return;
   const raw = readFileSync(mdPath, "utf8");
   let { meta, body } = parseFrontmatter(raw);
@@ -1362,7 +1342,7 @@ function buildTriplecheckPage() {
   const ogImageAbs = absOgImage(ogImage);
   const canonicalUrl = `${SITE}/triplecheck/`;
   const bodyHtml = renderMarkdownBody(body);
-  const outDir = join(root, "triplecheck");
+  const outDir = join(DIST, "triplecheck");
   mkdirSync(outDir, { recursive: true });
   const html = fillTemplate({
     title,
@@ -1381,29 +1361,11 @@ function buildTriplecheckPage() {
 }
 
 async function buildExperiencePages() {
-  const expDir = join(root, "content", "experience");
-  let files;
-  try {
-    files = readdirSync(expDir);
-  } catch {
-    return;
-  }
-  const cursorJsonPath = join(expDir, "cursor.json");
-  if (existsSync(cursorJsonPath)) {
-    let data;
-    try {
-      data = JSON.parse(readFileSync(cursorJsonPath, "utf8"));
-    } catch (err) {
-      console.error(`Failed to parse JSON: ${cursorJsonPath}`);
-      throw err;
-    }
-    await buildCursorExperiencePage(data);
-  }
-  for (const file of files) {
-    if (!file.endsWith(".md")) continue;
-    const slug = file.replace(/\.md$/i, "");
-    if (slug === "cursor" && existsSync(cursorJsonPath)) continue;
-    const raw = readFileSync(join(expDir, file), "utf8");
+  const cursorJsonPath = join(root, COMMUNITY_SOURCE);
+  const data = JSON.parse(readFileSync(cursorJsonPath, "utf8"));
+  await buildCursorExperiencePage(data);
+  for (const { slug, source } of detailPages()) {
+    const raw = readFileSync(join(root, source), "utf8");
     const { meta, body } = parseFrontmatter(raw);
     const title = meta.title || slug;
     const description = meta.description || "";
@@ -1412,7 +1374,7 @@ async function buildExperiencePages() {
     const path = `/experience/${slug}/`;
     const canonicalUrl = `${SITE}${path}`;
     const bodyHtml = renderExperienceBody(body);
-    const outDir = join(root, "experience", slug);
+    const outDir = join(DIST, "experience", slug);
     mkdirSync(outDir, { recursive: true });
     const html = fillTemplate({
       title,
@@ -1465,7 +1427,7 @@ function loadBlogPosts() {
     }
     const assetPath = (field) => {
       const path = `/${String(meta[field]).trim().replace(/^\/+/, "")}`;
-      if (!existsSync(join(root, path))) {
+      if (!existsSync(join(PUBLIC, path))) {
         throw new Error(`content/blog/${file}: ${field} not found at ${path}`);
       }
       return path;
@@ -1714,7 +1676,7 @@ function blogPostHead(post) {
     `<meta property="article:author" content="${SITE}/#person" />`,
     ...post.tags.map((tag) => `<meta property="article:tag" content="${escapeAttr(tag)}" />`),
     ...imageMetaTags(post.ogImage, post.coverAlt),
-    `<link rel="alternate" type="text/markdown" href="${blogMarkdownUrl(post.slug)}" title="Markdown" />`,
+    ...(post.draft ? [] : [`<link rel="alternate" type="text/markdown" href="${blogMarkdownUrl(post.slug)}" title="Markdown" />`]),
   ]);
 }
 
@@ -1730,7 +1692,7 @@ ${BLOG_DESCRIPTION}
   const footerExtra = posts.length
     ? `\n      <a class="doc__footer-feed" href="feed.xml" title="${escapeAttr(`RSS feed: ${SITE}/blog/feed.xml`)}">feed.xml</a>`
     : "";
-  const outDir = join(root, "blog");
+  const outDir = join(DIST, "blog");
   mkdirSync(outDir, { recursive: true });
   const html = fillTemplate({
     title: BLOG_TITLE,
@@ -1781,7 +1743,7 @@ function buildBlogPosts(posts) {
     const footer = renderMarkdownBody(`---\n\n[← All posts](../) · [Home](../../)\n`);
     const articleHtml = renderBodyWithDiagrams(post.body, BLOG_FIGURES);
     const bodyHtml = `${back}${cover}${title}<p class="post-meta">${renderPostMeta(post)}</p>\n${renderPostToc(articleHtml)}${articleHtml}${footer}`;
-    const outDir = join(root, "blog", post.slug);
+    const outDir = join(DIST, "blog", post.slug);
     mkdirSync(outDir, { recursive: true });
     const html = fillTemplate({
       title: `${post.title} · Felipe Basurto`,
@@ -1844,8 +1806,8 @@ function writeBlogFeed(allPosts) {
     "</rss>",
     "",
   ].join("\n");
-  mkdirSync(join(root, "blog"), { recursive: true });
-  writeFileSync(join(root, "blog", "feed.xml"), xml, "utf8");
+  mkdirSync(join(DIST, "blog"), { recursive: true });
+  writeFileSync(join(DIST, "blog", "feed.xml"), xml, "utf8");
 }
 
 /** Plain-text copies for answer engines. The HTML page stays the canonical URL. */
@@ -1866,8 +1828,8 @@ function writeBlogMarkdown(posts) {
     ),
     "",
   ].join("\n");
-  mkdirSync(join(root, "blog"), { recursive: true });
-  writeFileSync(join(root, "blog", "index.md"), index, "utf8");
+  mkdirSync(join(DIST, "blog"), { recursive: true });
+  writeFileSync(join(DIST, "blog", "index.md"), index, "utf8");
   for (const post of published) {
     const updated = post.updated !== post.date ? `\nUpdated: ${post.updated}` : "";
     const tags = post.tags.length ? `\nTags: ${post.tags.join(", ")}` : "";
@@ -1883,13 +1845,13 @@ ${post.description}
 
 ${blogProse(post.body)}
 `;
-    writeFileSync(join(root, "blog", `${post.slug}.md`), text, "utf8");
+    writeFileSync(join(DIST, "blog", `${post.slug}.md`), text, "utf8");
   }
 }
 
 /** Rewrite the generated blog block in llms.txt; empty until the first post ships. */
 function writeLlmsBlog(posts) {
-  const path = join(root, "llms.txt");
+  const path = join(DIST, "llms.txt");
   const begin = "<!-- BEGIN BLOG -->";
   const end = "<!-- END BLOG -->";
   const text = readFileSync(path, "utf8");
@@ -1913,20 +1875,7 @@ function writeLlmsBlog(posts) {
 }
 
 function getExperienceSlugsForSitemap() {
-  const expDir = join(root, "content", "experience");
-  const slugs = [];
-  if (!existsSync(expDir)) return slugs;
-  const files = readdirSync(expDir);
-  const hasCursorJson = existsSync(join(expDir, "cursor.json"));
-  if (hasCursorJson) slugs.push("cursor");
-  for (const file of files) {
-    if (!file.endsWith(".md")) continue;
-    const slug = file.replace(/\.md$/i, "");
-    if (slug === "cursor" && hasCursorJson) continue;
-    slugs.push(slug);
-  }
-  slugs.sort((a, b) => a.localeCompare(b));
-  return slugs;
+  return ["cursor", ...detailPages().map((page) => page.slug)].sort((a, b) => a.localeCompare(b));
 }
 
 function writeSitemap(posts) {
@@ -1957,10 +1906,10 @@ function writeSitemap(posts) {
       pushUrl(`${SITE}/${page.slug}/`, "0.8");
     }
   }
-  if (existsSync(join(root, "content", "projects.md"))) {
+  if (existsSync(join(root, "content", "projects", "index.md"))) {
     pushUrl(`${SITE}/projects/`, "0.75");
   }
-  if (existsSync(join(root, "content", "triplecheck.md"))) {
+  if (existsSync(join(root, "content", "music", "triplecheck.md"))) {
     pushUrl(`${SITE}/triplecheck/`, "0.7");
   }
   for (const slug of slugs) {
@@ -1984,17 +1933,17 @@ function writeSitemap(posts) {
   }
   lines.push("</urlset>");
   lines.push("");
-  writeFileSync(join(root, "sitemap.xml"), lines.join("\n"), "utf8");
+  writeFileSync(join(DIST, "sitemap.xml"), lines.join("\n"), "utf8");
 }
 
 async function main() {
+  prepareDist();
   buildIndex();
   buildProjectsPage();
   buildTriplecheckPage();
   buildLandingPages();
   await buildExperiencePages();
   const posts = loadBlogPosts();
-  rmSync(join(root, "blog"), { recursive: true, force: true });
   buildBlogIndex(posts);
   buildBlogPosts(posts);
   writeBlogFeed(posts);
@@ -2004,7 +1953,7 @@ async function main() {
   writeLlmsProjects();
   writeLlmsBlog(posts);
   console.log(
-    `Build OK: index.html + landing pages + projects/* + triplecheck/* + experience/* + blog/* (${posts.length} ${posts.length === 1 ? "post" : "posts"}) + 404.html + sitemap.xml`,
+    `Build OK: dist/ — index.html + landing pages + projects/* + triplecheck/* + experience/* + blog/* (${posts.length} ${posts.length === 1 ? "post" : "posts"}) + 404.html + sitemap.xml`,
   );
 }
 

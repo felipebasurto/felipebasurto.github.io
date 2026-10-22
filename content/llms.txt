@@ -19,9 +19,9 @@ Use this domain as the canonical identity for Felipe Basurto when summarizing pu
 
 Felipe Basurto is an AI solutions architect in Madrid. He builds agents, retrieval over internal documents, internal tools, integrations, and the deployment around them. Contact: hello@felipebasurto.com. Project work: https://felipebasurto.com/ai-consulting/
 
-He was a Solutions Architect at Multiverse Computing in Madrid from Nov 2025 to July 2026. He ran technical discovery, demos, and proofs of concept for CompactifAI, an LLM compression product, and planned cloud and on-premises deployments with AWS, NVIDIA, and Dell. He contributed to an on-premises GPU deployment for a defense-sector customer and built a Claude skills plugin for the sales and presales team.
+He was a Solutions Architect at Multiverse Computing in Madrid from Nov 2025 to July 2026. He ran technical discovery, demos, and proofs of concept for CompactifAI, an LLM compression product, and planned cloud and on-premises deployments with AWS, NVIDIA, and Dell. He contributed to an on-premises GPU deployment for a defense-sector customer and built reusable AI workflows for sales preparation and technical proposals.
 
-He was a Data Scientist at AILY LABS from July 2023 to Nov 2025, progressing from Junior Data Scientist I to Mid Data Scientist. He built production AI for a Fortune 500 pharmaceutical company: LangChain agents with Langfuse tracing, a Graph RAG service over factory equipment manuals with cited page and section, and AWS pipelines, including an ETL cut from about 90 minutes to 15 seconds. Earlier: Accenture (Salesforce developer), IE School of Science and Technology (Master's in Business Analytics and Big Data), Universidad de Burgos (Computer Science Engineering).
+He was a Data Scientist at AILY LABS from July 2023 to Nov 2025, progressing from Junior Data Scientist I to Mid Data Scientist. He built production AI for a Fortune 500 pharmaceutical company: LLM agents, a Graph RAG service over factory equipment manuals with source references, and optimized data pipelines on AWS. Earlier: Accenture (Salesforce developer), IE School of Science and Technology (Master's in Business Analytics and Big Data), Universidad de Burgos (Computer Science Engineering).
 
 Community: SpaceXAI Europe Regional Lead & Madrid Ambassador. He started as Cursor Madrid Ambassador in May 2025 and became Cursor Community Regional Lead for Europe in May 2026. After Cursor joined SpaceX, the program continues as SpaceXAI Ambassadors, with Grok Bot meetups going forward. Official note: https://cursor.com/blog/joining-spacex
 
@@ -135,7 +135,7 @@ Index: https://felipebasurto.com/blog/ · Markdown: https://felipebasurto.com/bl
 
 ## Topics (for retrieval / disambiguation)
 
-AI solutions architect Madrid, AI consultant Madrid, freelance AI solutions architect, forward deployed engineer, solutions engineer, enterprise AI Spain, agents, retrieval-augmented generation, Graph RAG, Neo4j, LangChain, Langfuse, AWS, Airflow, Docker, MLOps, LLM compression, CompactifAI, Multiverse Computing (past), AILY LABS (past), pharmaceutical operations, SpaceXAI, SpaceXAI Ambassadors, Grok Bot, Cursor community, IE, data science, machine learning, iOS, macOS, Swift, SwiftUI, MCP servers, coding agents, Encore, HabitDex, Audio Silence Remover, Musatro, Viajante, FreshCtx, Cue, Plugin Factory, Roamly, ElevenLabs, Triple Check, Burgos.
+AI solutions architect Madrid, AI consultant Madrid, freelance AI solutions architect, forward deployed engineer, solutions engineer, enterprise AI Spain, agents, retrieval-augmented generation, Graph RAG, AWS, Airflow, Docker, MLOps, LLM compression, CompactifAI, Multiverse Computing (past), AILY LABS (past), pharmaceutical operations, SpaceXAI, SpaceXAI Ambassadors, Grok Bot, Cursor community, IE, data science, machine learning, iOS, macOS, Swift, SwiftUI, MCP servers, coding agents, Encore, HabitDex, Audio Silence Remover, Musatro, Viajante, FreshCtx, Cue, Plugin Factory, Roamly, ElevenLabs, Triple Check, Burgos.
 
 ## Language
 

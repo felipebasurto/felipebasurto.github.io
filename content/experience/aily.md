@@ -21,23 +21,19 @@ AILY LABS builds a decision intelligence platform for large enterprises: AI agen
 
 ## Shop-floor agent
 
-I built a Graph RAG agent over factory equipment manuals. An operator enters a fault or alarm code and gets a likely procedure, plus the page and section of the manual to check it against. A confident answer without a page reference counted as a failure.
-
-The ingest step ran OCR on scanned PDFs and kept tables, figures, page numbers, and section names. A graph database linked equipment, faults, and procedures, and a retrieval layer on top returned cited passages, so other agents and applications could use the answer and still show where it came from.
-
-{{AILY_GRAPH_RAG_DIAGRAM}}
+I built a Graph RAG service that helped operators find relevant information in factory equipment manuals. Answers included source references so operators could check the original documentation.
 
 ## NLP before GenAI
 
-Before generative AI was practical in production, I worked on text classification for quality assurance on factory machines. We compared CatBoost with XGBoost, LightGBM, and deep neural networks. CatBoost won: it trained on GPU, it was the fastest to train, and it gave the best results.
+I worked on text classification for manufacturing quality assurance, comparing supervised learning approaches and selecting models for production.
 
 ## Agents in production
 
-The agents used LangChain for retrieval and tool calls, with a Langfuse trace for every run. When an answer looked wrong, we could see which documents the agent had retrieved, which tool it had called, and where a guardrail had stopped it.
+I built and maintained production LLM agents, including retrieval, tool use, and tracing to investigate failures and improve reliability.
 
 ## Data pipelines
 
-I owned Airflow and Docker pipelines on AWS. One internal ETL took about 90 minutes. After I restructured the logic and added the right indexes, it ran in 15 seconds.
+I owned Airflow and Docker pipelines on AWS and reduced processing time by restructuring ETL logic and optimizing database queries.
 
 ## Team
 

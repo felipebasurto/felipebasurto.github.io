@@ -18,7 +18,10 @@
 
 - The live personal site is at https://felipebasurto.com/ on Cloudflare Workers (`felipebasurto-com`). Deploy with `npm run deploy`.
 - Cloudflare Workers static assets are configured in `wrangler.jsonc` (assets from `dist/`). Preview with `npm run preview`.
-- Static HTML is generated with `npm run build` via `scripts/build.mjs`; `npm run build:dist` also copies public files into `dist/` via `scripts/prepare-dist.mjs`.
-- Local preview: `npm run preview` (Wrangler) or serve the repo root as static files after a build.
-- Primary editable sources include `content/cv.md`, `content/projects.md`, and `content/experience/*.md`, with shared chrome in `scripts/template.html` and `css/styles.css`.
-- GEO and AI-discoverability assets include a root `llms.txt`, an expanded `robots.txt` with explicit Allow rules for common AI crawlers, and enriched JSON-LD on the home page emitted by the build.
+- `npm run build` generates the complete site directly in `dist/`. `npm run build:dist` is an alias retained for Wrangler. Generated output is not committed.
+- Local preview: `npm run preview` (Wrangler), or `python3 -m http.server 8080 --directory dist` after a build.
+- Editable copy lives in `content/`: `cv.md`, `experience/`, `projects/` (`index.md` and `catalog.json` plus Details pages), `education/`, `community/`, `music/`, `pages/`, and `blog/`.
+- Shared presentation lives in `src/template.html`, `src/styles.css`, and `src/diagrams/`. Static files live in `public/`.
+- Source categories are independent of public URLs. `scripts/lib/routes.mjs` preserves the established `/experience/<slug>/` routes for employment, product, education, and community Details pages.
+- GEO and AI-discoverability sources include `content/llms.txt` and `public/robots.txt`; enriched JSON-LD is emitted by the build. Project and blog blocks in `llms.txt` are generated only in `dist/`.
+- Run `npm run verify` after build or routing changes to check the generated artifact.
