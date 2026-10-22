@@ -1,0 +1,38 @@
+<figure class="fig fig-wf" role="img" aria-label="Network waterfall of Google Hotels searches. One search is a single request of about 1.1 seconds. With a minimum rating, a second request sorted by relevance is sent at the same time. Three stays run one after another and take about 3.5 seconds.">
+<div class="fig-wf__lane">
+<p class="fig-wf__head"><span class="fig-wf__ver">one search</span><span class="fig-wf__total">1.1 s</span></p>
+<ol class="fig-wf__rows">
+<li class="fig-wf__row"><span class="fig-wf__label">Lisbon</span><span class="fig-wf__track"><span class="fig-wf__bar fig-wf__bar--hotel" style="--l: 0.00%; --w: 29.91%; --t0: 0.000s; --dt: 0.443s"></span></span></li>
+</ol></div>
+<div class="fig-wf__lane">
+<p class="fig-wf__head"><span class="fig-wf__ver">with a minimum rating</span><span class="fig-wf__total">1.2 s</span></p>
+<ol class="fig-wf__rows">
+<li class="fig-wf__row"><span class="fig-wf__label">price order</span><span class="fig-wf__track"><span class="fig-wf__bar fig-wf__bar--hotel" style="--l: 0.00%; --w: 31.15%; --t0: 0.000s; --dt: 0.461s"></span></span></li>
+<li class="fig-wf__row"><span class="fig-wf__label">relevance order</span><span class="fig-wf__track"><span class="fig-wf__bar fig-wf__bar--hotel" style="--l: 0.16%; --w: 23.07%; --t0: 0.002s; --dt: 0.342s"></span></span></li>
+</ol></div>
+<div class="fig-wf__lane">
+<p class="fig-wf__head"><span class="fig-wf__ver">three stays</span><span class="fig-wf__total">3.5 s</span></p>
+<ol class="fig-wf__rows">
+<li class="fig-wf__row"><span class="fig-wf__label">Lisbon</span><span class="fig-wf__track"><span class="fig-wf__bar fig-wf__bar--hotel" style="--l: 0.00%; --w: 30.58%; --t0: 0.000s; --dt: 0.453s"></span></span></li>
+<li class="fig-wf__row"><span class="fig-wf__label">Porto</span><span class="fig-wf__track"><span class="fig-wf__bar fig-wf__bar--hotel" style="--l: 30.85%; --w: 31.56%; --t0: 0.457s; --dt: 0.467s"></span></span></li>
+<li class="fig-wf__row"><span class="fig-wf__label">Seville</span><span class="fig-wf__track"><span class="fig-wf__bar fig-wf__bar--hotel" style="--l: 62.52%; --w: 32.72%; --t0: 0.926s; --dt: 0.484s"></span></span></li>
+</ol></div>
+<p class="fig-wf__axis" aria-hidden="true"><span style="left: 0.00%">0 s</span><span style="left: 27.02%">1 s</span><span style="left: 54.04%">2 s</span><span style="left: 81.05%">3 s</span></p>
+<figcaption class="fig__caption">Google Hotels. <span class="fig-wf__key fig-wf__key--hotel">one request each</span><button type="button" class="fig-wf__replay" hidden>Replay</button></figcaption>
+</figure>
+<script>
+(() => {
+  const fig = document.currentScript.previousElementSibling;
+  if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const replay = fig.querySelector(".fig-wf__replay");
+  const play = () => { fig.classList.remove("is-in"); void fig.offsetWidth; fig.classList.add("is-in"); };
+  fig.classList.add("fig-wf--animate");
+  replay.hidden = false;
+  replay.addEventListener("click", play);
+  new IntersectionObserver((entries, observer) => {
+    if (!entries[0].isIntersecting) return;
+    play();
+    observer.disconnect();
+  }, { rootMargin: "0px 0px -20% 0px" }).observe(fig);
+})();
+</script>

@@ -1,0 +1,46 @@
+<figure class="fig fig-tsp" role="img" aria-label="Six cities from the trip: Chiang Mai, Hanoi, Bangkok, Ho Chi Minh City, Kuala Lumpur and Bali. Every pair is joined by a faint line. The animation draws two longer round trips, then the shortest one: Chiang Mai, Hanoi, Ho Chi Minh City, Bali, Kuala Lumpur, Bangkok and back.">
+<svg class="fig-tsp__map" viewBox="0 0 658 340" aria-hidden="true">
+<line class="fig-tsp__edge" x1="154" y1="46" x2="303" y2="24"/>
+<line class="fig-tsp__edge" x1="154" y1="46" x2="187" y2="96"/>
+<line class="fig-tsp__edge" x1="154" y1="46" x2="320" y2="124"/>
+<line class="fig-tsp__edge" x1="154" y1="46" x2="213" y2="200"/>
+<line class="fig-tsp__edge" x1="154" y1="46" x2="504" y2="316"/>
+<line class="fig-tsp__edge" x1="303" y1="24" x2="187" y2="96"/>
+<line class="fig-tsp__edge" x1="303" y1="24" x2="320" y2="124"/>
+<line class="fig-tsp__edge" x1="303" y1="24" x2="213" y2="200"/>
+<line class="fig-tsp__edge" x1="303" y1="24" x2="504" y2="316"/>
+<line class="fig-tsp__edge" x1="187" y1="96" x2="320" y2="124"/>
+<line class="fig-tsp__edge" x1="187" y1="96" x2="213" y2="200"/>
+<line class="fig-tsp__edge" x1="187" y1="96" x2="504" y2="316"/>
+<line class="fig-tsp__edge" x1="320" y1="124" x2="213" y2="200"/>
+<line class="fig-tsp__edge" x1="320" y1="124" x2="504" y2="316"/>
+<line class="fig-tsp__edge" x1="213" y1="200" x2="504" y2="316"/>
+<g class="fig-tsp__anim">
+<path class="fig-tsp__try" d="M154 46 L320 124 L213 200 L303 24 L187 96 L504 316 Z" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"><animate attributeName="stroke-dashoffset" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.02;0.14;0.26;0.3;1" values="1;1;0;0;0;1" keySplines="0 0 1 1;0.77 0 0.175 1;0 0 1 1;0 0 1 1;0 0 1 1"/><animate attributeName="opacity" dur="11s" repeatCount="indefinite" keyTimes="0;0.02;0.14;0.26;0.3;1" values="0;1;1;1;0;0"/></path>
+<text class="fig-tsp__score fig-tsp__score--try" x="24" y="316" opacity="0">+48%<animate attributeName="opacity" dur="11s" repeatCount="indefinite" keyTimes="0;0.1;0.14;0.26;0.3;1" values="0;0;1;1;0;0"/></text>
+<path class="fig-tsp__try" d="M154 46 L187 96 L504 316 L303 24 L320 124 L213 200 Z" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"><animate attributeName="stroke-dashoffset" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.32;0.44;0.56;0.6;1" values="1;1;0;0;0;1" keySplines="0 0 1 1;0.77 0 0.175 1;0 0 1 1;0 0 1 1;0 0 1 1"/><animate attributeName="opacity" dur="11s" repeatCount="indefinite" keyTimes="0;0.32;0.44;0.56;0.6;1" values="0;1;1;1;0;0"/></path>
+<text class="fig-tsp__score fig-tsp__score--try" x="24" y="316" opacity="0">+20%<animate attributeName="opacity" dur="11s" repeatCount="indefinite" keyTimes="0;0.4;0.44;0.56;0.6;1" values="0;0;1;1;0;0"/></text>
+<path id="fig-tsp-best" class="fig-tsp__glow" d="M154 46 L303 24 L320 124 L504 316 L213 200 L187 96 Z" opacity="0"><animate attributeName="opacity" dur="11s" repeatCount="indefinite" keyTimes="0;0.74;0.78;0.95;0.99;1" values="0;0;0.1;0.1;0;0"/></path>
+<path class="fig-tsp__tour" d="M154 46 L303 24 L320 124 L504 316 L213 200 L187 96 Z" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"><animate attributeName="stroke-dashoffset" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.62;0.76;0.95;0.99;1" values="1;1;0;0;0;1" keySplines="0 0 1 1;0.77 0 0.175 1;0 0 1 1;0 0 1 1;0 0 1 1"/><animate attributeName="opacity" dur="11s" repeatCount="indefinite" keyTimes="0;0.62;0.76;0.95;0.99;1" values="0;1;1;1;0;0"/></path>
+<text class="fig-tsp__score fig-tsp__score--best" x="24" y="316" opacity="0">shortest<animate attributeName="opacity" dur="11s" repeatCount="indefinite" keyTimes="0;0.72;0.76;0.95;0.99;1" values="0;0;1;1;0;0"/></text>
+<circle class="fig-tsp__plane" r="5" opacity="0"><animateMotion dur="11s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.76;0.95;1" keyPoints="0;0;1;1"><mpath href="#fig-tsp-best"/></animateMotion><animate attributeName="opacity" dur="11s" repeatCount="indefinite" keyTimes="0;0.76;0.77;0.94;0.95;1" values="0;0;1;1;0;0"/></circle>
+</g>
+<g class="fig-tsp__still">
+<path class="fig-tsp__tour" d="M154 46 L303 24 L320 124 L504 316 L213 200 L187 96 Z"/>
+<text class="fig-tsp__score fig-tsp__score--best" x="24" y="316">shortest</text>
+</g>
+<circle class="fig-tsp__city" cx="154" cy="46" r="6"/>
+<text class="fig-tsp__label" x="140" y="50" text-anchor="end">Chiang Mai</text>
+<circle class="fig-tsp__city" cx="303" cy="24" r="6"/>
+<text class="fig-tsp__label" x="317" y="28" text-anchor="start">Hanoi</text>
+<circle class="fig-tsp__city" cx="187" cy="96" r="6"/>
+<text class="fig-tsp__label" x="173" y="100" text-anchor="end">Bangkok</text>
+<circle class="fig-tsp__city" cx="320" cy="124" r="6"/>
+<text class="fig-tsp__label" x="334" y="128" text-anchor="start">Ho Chi Minh City</text>
+<circle class="fig-tsp__city" cx="213" cy="200" r="6"/>
+<text class="fig-tsp__label" x="199" y="204" text-anchor="end">Kuala Lumpur</text>
+<circle class="fig-tsp__city" cx="504" cy="316" r="6"/>
+<text class="fig-tsp__label" x="518" y="320" text-anchor="start">Bali</text>
+</svg>
+<figcaption class="fig__caption">6 cities, 60 possible round trips. With 20 cities, about 6 × 10<sup>16</sup>.</figcaption>
+</figure>

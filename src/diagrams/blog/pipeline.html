@@ -1,0 +1,10 @@
+<figure class="fig fig-pipe" role="img" aria-label="The stages of a flight search. The search becomes a protobuf in a URL. Viajante fetches Google's public results page, about 2 MB of HTML. It cuts the JSON out of the page without running it, reads each itinerary from its positions, filters and ranks the offers and adds evidence, then returns one JSON envelope to the model.">
+<ol class="fig-pipe__steps">
+<li class="fig-pipe__step"><span class="fig-pipe__file">encode</span><span class="fig-pipe__io"><span class="fig-pipe__chip">the search</span><span class="fig-pipe__chip">a protobuf in the URL</span></span></li>
+<li class="fig-pipe__step fig-pipe__step--net"><span class="fig-pipe__file">fetch</span><span class="fig-pipe__io"><span class="fig-pipe__chip">URL</span><span class="fig-pipe__chip">about 2 MB of HTML</span></span></li>
+<li class="fig-pipe__step"><span class="fig-pipe__file">extract</span><span class="fig-pipe__io"><span class="fig-pipe__chip">HTML</span><span class="fig-pipe__chip">90 KB of JSON</span></span></li>
+<li class="fig-pipe__step"><span class="fig-pipe__file">decode</span><span class="fig-pipe__io"><span class="fig-pipe__chip">nested arrays</span><span class="fig-pipe__chip">itineraries</span></span></li>
+<li class="fig-pipe__step"><span class="fig-pipe__file">check</span><span class="fig-pipe__io"><span class="fig-pipe__chip">itineraries</span><span class="fig-pipe__chip">filtered, ranked, with evidence</span></span></li>
+<li class="fig-pipe__step fig-pipe__step--out"><span class="fig-pipe__file">answer</span><span class="fig-pipe__io"><span class="fig-pipe__chip">offers</span><span class="fig-pipe__chip">one JSON envelope</span></span></li>
+</ol>
+</figure>

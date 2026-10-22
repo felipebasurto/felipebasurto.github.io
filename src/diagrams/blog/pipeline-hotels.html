@@ -1,0 +1,9 @@
+<figure class="fig fig-pipe" role="img" aria-label="The stages of a hotel search. The search becomes a short JSON request. Viajante posts it to Google's internal endpoint over the same connection as flights and gets about 200 KB of JSON back, inside a string. It unwraps the string, reads each property from its positions, applies the hotel rules, then returns one JSON envelope to the model.">
+<ol class="fig-pipe__steps">
+<li class="fig-pipe__step"><span class="fig-pipe__file">encode</span><span class="fig-pipe__io"><span class="fig-pipe__chip">the search</span><span class="fig-pipe__chip">413 bytes of JSON</span></span></li>
+<li class="fig-pipe__step fig-pipe__step--net"><span class="fig-pipe__file">fetch</span><span class="fig-pipe__io"><span class="fig-pipe__chip">POST</span><span class="fig-pipe__chip">about 200 KB of JSON</span></span></li>
+<li class="fig-pipe__step"><span class="fig-pipe__file">unwrap</span><span class="fig-pipe__io"><span class="fig-pipe__chip">JSON inside a string</span><span class="fig-pipe__chip">property records</span></span></li>
+<li class="fig-pipe__step"><span class="fig-pipe__file">check</span><span class="fig-pipe__io"><span class="fig-pipe__chip">property records</span><span class="fig-pipe__chip">stays, with the hotel rules applied</span></span></li>
+<li class="fig-pipe__step fig-pipe__step--out"><span class="fig-pipe__file">answer</span><span class="fig-pipe__io"><span class="fig-pipe__chip">stays</span><span class="fig-pipe__chip">one JSON envelope</span></span></li>
+</ol>
+</figure>

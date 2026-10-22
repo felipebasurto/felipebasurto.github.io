@@ -1,0 +1,22 @@
+<figure class="fig fig-video">
+<div class="fig-video__frame">
+<button type="button" class="fig-video__poster" data-yt="5NtCDFTk70Y" aria-label="Play: how I use viajante">
+<img src="https://i.ytimg.com/vi/5NtCDFTk70Y/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+<span class="fig-video__play" aria-hidden="true"></span>
+</button>
+</div>
+</figure>
+<script>
+document.querySelectorAll(".fig-video__poster:not([data-bound])").forEach((button) => {
+  button.dataset.bound = "";
+  button.addEventListener("click", () => {
+    const frame = document.createElement("iframe");
+    frame.src = `https://www.youtube-nocookie.com/embed/${button.dataset.yt}?autoplay=1&rel=0`;
+    frame.title = button.getAttribute("aria-label");
+    frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    frame.referrerPolicy = "strict-origin-when-cross-origin";
+    frame.allowFullscreen = true;
+    button.replaceWith(frame);
+  });
+});
+</script>
