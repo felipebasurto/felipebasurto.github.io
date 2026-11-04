@@ -556,13 +556,11 @@ export const BLOG_FIGURES = {
   "{{FIG_TSP}}": "blog/tsp.html",
   "{{FIG_VIDEO_TRAILER}}": "blog/video-trailer.html",
   "{{FIG_VIDEO_HOWTO}}": "blog/video-howto.html",
-  "{{FIG_RELEASES}}": "blog/releases.html",
-  "{{FIG_PIPELINE}}": "blog/pipeline.html",
   "{{FIG_TFS}}": "blog/tfs-bytes.html",
   "{{FIG_WATERFALL}}": "blog/waterfall.html",
-  "{{FIG_PIPELINE_HOTELS}}": "blog/pipeline-hotels.html",
-  "{{FIG_COMPARE}}": "blog/compare.html",
-  "{{FIG_WATERFALL_HOTELS}}": "blog/waterfall-hotels.html",
+  "{{FIG_TFS_DIFF}}": "blog/tfs-diff.html",
+  "{{FIG_COMPAT}}": "blog/compat.html",
+  "{{FIG_FUTURE}}": "blog/future-flow.html",
 };
 
 export function loadDiagram(filename) {

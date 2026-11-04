@@ -1,13 +1,12 @@
 ---
 title: "The travelling salesman problem, with prices"
-description: "Two weeks free before a fixed date in Melbourne is the travelling salesman problem with prices instead of distances. This is viajante, the open-source tool I built so any AI assistant can search live flights and hotels: how it reads Google Flights and Google Hotels, how its undocumented protobuf was decoded, how it proves a filter was applied, and why it is fast."
-summary: "How a trip with no plan became viajante, live flight and hotel search for AI assistants."
-date: 2026-10-13
+description: "Viajante gives any AI assistant live flight and hotel prices. How I decoded Google Flights' undocumented protobuf, how it runs where there is no MCP, and where I think travel software is going."
+summary: "Viajante: live flights and hotels for AI assistants, and the protobuf I decoded to build it."
+date: 2026-10-29
 cover: /assets/blog/viajante/cover.svg
 og_image: /assets/blog/viajante/og.png
 cover_alt: "Three arcs between two points, each one a possible route from an origin to a destination. One arc is solid."
 tags: AI agents, MCP
-draft: true
 ---
 
 After many months, the trip was finally here. I was going to visit a friend who lives in Melbourne, and I had to be there on 15 July. I had more days off than that, so I decided to spend the two weeks before travelling on my own.
@@ -16,9 +15,7 @@ After many months, the trip was finally here. I was going to visit a friend who 
 
 Bali, Vietnam, China and Kuala Lumpur were all possible. With no fixed dates and no fixed destination, every option looked as good as the others, and I could not pick one.
 
-First I tried flight APIs and paid subscriptions. Most of them charge per search. That is fine for one route, but I wanted to compare every combination of dates and cities, and each combination cost money.
-
-Then I found a small open-source library on GitHub that got the same flight data with plain HTTP requests. Connected to a model, it let the model run the searches and reason about the results. I made a folder on my laptop and gave a coding agent this brief:
+Flight APIs and paid subscriptions mostly charge per search. That is fine for one route, but I wanted every combination of dates and cities, and each combination cost money. Then I found [fast-flights](https://pypi.org/project/fast-flights/), an open-source library that got Google Flights data with plain HTTP requests. Connected to a model, it let the model run the searches and reason about the results. I gave a coding agent this brief:
 
 > - Leave Madrid on 1 July or later.
 > - Be in Melbourne by 15 July.
@@ -31,133 +28,50 @@ For this post I asked viajante the same question again, with the dates moved to 
 | Ho Chi Minh City | 284&nbsp;€, 22&nbsp;h | 202&nbsp;€, 23&nbsp;h | 486&nbsp;€ |
 | Bangkok | 284&nbsp;€, 19&nbsp;h | 213&nbsp;€, 24&nbsp;h | 497&nbsp;€ |
 | Kuala Lumpur | 315&nbsp;€, 16&nbsp;h | 236&nbsp;€, 11&nbsp;h | 551&nbsp;€ |
-| Bali | 464&nbsp;€, 18&nbsp;h | 150&nbsp;€, 6&nbsp;h nonstop | 614&nbsp;€ |
+| Bali | 464&nbsp;€, 18&nbsp;h | 150&nbsp;€, 5&nbsp;h&nbsp;40 nonstop | 614&nbsp;€ |
 
-The cheapest total is not the obvious choice. Ho Chi Minh City is the cheapest, but its second flight waits 13 hours in Singapore. Bali costs 128&nbsp;€ more and ends with a nonstop of under six hours. I wanted a model to make that kind of choice for me. In July it did, and I spent the two weeks in Thailand.
+The cheapest total is not the obvious choice. Ho Chi Minh City is the cheapest, but its second flight waits 13 hours in Singapore. Bali costs 128&nbsp;€ more and ends with a nonstop. I wanted a model to make that kind of choice for me. In July it did, and I spent the two weeks in Thailand.
 
-I kept working on the agent after the trip, and over time I rewrote most of the original library.
+I kept working on the agent after the trip, and replaced the library with my own code.
 
 ## The travelling salesman problem
 
-In Spanish, the travelling salesman problem is *el problema del viajante*. Given a list of cities and the distance between each pair, find the shortest route that visits every city once and returns to the start. I studied it in my computer science degree. Delivery routes, drilling holes in circuit boards and DNA sequencing are all versions of it.
-
-It is easy to state and hard to solve, because each new city multiplies the number of possible routes:
+In Spanish, the travelling salesman problem is *el problema del viajante*. Given a list of cities and the distance between each pair, find the shortest route that visits every city once. Each new city multiplies the number of routes, so with a few dozen cities solvers accept a good route instead of the best one:
 
 {{FIG_TSP}}
 
-With a few dozen cities there are too many routes to check, so most solvers accept a good route instead of the best one.
-
-My trip was a harder version. The distances were prices, the prices changed every day, and the route had to end in Melbourne instead of returning home. That is where the name comes from, and most of the idea. Viajante gives any AI assistant live flight and hotel prices, so the assistant can work on that problem for you.
+My trip was a harder version. The distances were prices, the prices changed every day, and the route had to end in Melbourne instead of returning home. That is where the name comes from. Viajante gives any AI assistant live flight and hotel prices, so the assistant can work on that problem for you.
 
 {{FIG_VIDEO_TRAILER}}
 
-## Flight search was built for clicking
-
-Skyscanner, Kayak, Google Flights and Booking.com were designed for a person who searches one route and one set of dates at a time, then clicks through the results. An assistant can run dozens of searches in the time a person runs one, remember every result and read every review in any language. The tools still assume a person is reading.
-
-Getting the data any other way is hard. Google closed its public flight API, QPX Express, in 2018. The others, such as Amadeus, need a contract or charge per search. That works for checking one route. It does not work for comparing every combination of dates and cities.
-
-Google has all the data to build this properly, and I would be happy to talk to them about it. In a few years, a tool like viajante may not be needed. Today it is.
-
-## A tool, not another assistant
-
-Viajante is not an AI and not an app. It is a small tool that makes the assistant you already use much faster at searching flights and hotels. I did not build my own assistant for two reasons. The data is not mine, and I do not have the right to sell it. And there are already too many assistants. Another one would only add to the noise.
-
-So viajante tries to work wherever an assistant runs. It is an MCP server, which most assistants and coding agents can use. It is also a Python library and a command-line tool, for agents that cannot install MCP servers or plugins but can write and run Python, such as Instinct. There, at least the hotel searches work.
-
-It has 22 tools: search flights, check a month of dates, find destinations from an airport, search hotels, check room rates, validate an itinerary and a few more. The model does the reasoning. Viajante fetches the data and does not guess.
-
-This is how I use it with an assistant:
-
-{{FIG_VIDEO_HOWTO}}
-
-## How viajante works
-
-Viajante talks to two Google products, and they work in opposite ways:
-
-{{FIG_COMPARE}}
-
-### Flights
-
-{{FIG_PIPELINE}}
-
-The search goes to Google as a protobuf in the URL of the public results page. The next section is about that protobuf.
-
-The answer is a full results page, about 2 MB of HTML. Google does not load the results with a second request. It puts them in the page, inside a script, as one large JSON array. Viajante finds that array by counting brackets, reads it as JSON and never runs Google's JavaScript. On one page, 1.9 MB of HTML held 90 KB of JSON.
-
-The JSON has no names, only positions in nested arrays. This is one itinerary from that page, with names added to the positions viajante reads:
-
-```json
-{
-  "airlines": ["American", "British Airways"],
-  "flights": [
-    {
-      "flight": "AA100",
-      "from": "JFK",
-      "to": "LHR",
-      "departs": "18:25",
-      "arrives": "06:20",
-      "minutes": 415,
-      "aircraft": "Boeing 777"
-    },
-    {"flight": "...", "from": "LHR", "to": "LIS"}
-  ],
-  "price": 673
-}
-```
-
-When Google moves a field, the search fails as `markup_drift` instead of returning a wrong price.
-
-### Hotels
-
-{{FIG_PIPELINE_HOTELS}}
-
-For hotels, viajante does not load a page. It sends the same internal request that the Google Hotels page sends, a POST to the endpoint Google's web apps share. The search is a short JSON array, 413 bytes in total. With names added, it says this:
-
-```json
-{
-  "query": "Lisbon hotels",
-  "type": "hotels",
-  "check_in": "2026-11-12",
-  "check_out": "2026-11-19",
-  "nights": 7,
-  "free_cancellation": true,
-  "sort": "price",
-  "currency": "USD"
-}
-```
-
-The answer is about 200 KB of JSON, stored as a string inside another JSON array. Each property is an array of 27 positions. This is the first of the 18 that search returned:
-
-```json
-{
-  "name": "Lisboa Camping",
-  "total_for_the_stay": "US$184",
-  "per_night": "US$26",
-  "rating": 3.5,
-  "reviews": 6299,
-  "location": [38.72477, -9.20723]
-}
-```
-
-Viajante always reads the total for the stay and never uses the nightly price as a total. A few rules matter for hotels:
-
-- **Free cancellation is on by default.** Many cards do not mention cancellation. Those come back as `unknown`, never as free to cancel.
-- **The kind of place comes from Google's tags,** never from a word in the name. A hostel price may be one bed in a dormitory.
-- **A minimum rating sends a second request,** in relevance order, because the cheapest page is mostly low-rated hotels.
-- **Up to eight stays can go in one call,** and the result lists each property's total for every stay where it appeared.
-
-Viajante can also read Booking.com, but only by driving a real browser, which is slow. Google Hotels is the default for assistants.
-
 ## Decoding a protobuf nobody documented
 
-A protobuf is Google's binary format for structured data. Each value is stored as a field number, a type and the value. There are no names. Without Google's schema, `0x48 0x01` is just "field 9 is 1", and nothing tells you that field 9 is the cabin and 1 is economy.
+Viajante has no API to call. For flights it asks Google Flights for the same public results page a browser loads, and reads the answer. The hard part is writing the search. It lives in the URL, in a parameter called `tfs`, and `tfs` is a protobuf.
 
-Google publishes no schema for the `tfs` parameter, so viajante learned it one field at a time. The method is simple. Search on Google Flights in a browser, change one thing, such as the cabin or the latest departure time, and decode the URL before and after. The bytes that changed are the field. A search is only a few dozen bytes, so an AI model can decode and compare two of them in seconds. This used to mean an afternoon of reading hex. Now it takes minutes, and that is what made the new filters possible.
+A protobuf is Google's binary format for structured data. A protobuf stores each value as a field number, a type and the value. There are no names, and Google publishes no schema for this one. Without it, `48 01` is just "field 9 is 1". Nothing says that field 9 is the cabin and 1 is economy.
 
-These are the bytes of a one-way search from JFK to London on 12 November, departing after 18:00 with at most 10 hours of travel:
+fast-flights gave me a starting point. It encoded origin, destination, date, passengers and cabin. Every other filter on the page, such as departure time, duration, layover, price and airlines, had no known field.
 
-{{FIG_TFS}}
+### Change one thing, diff the bytes
+
+The method is the one you would use on any binary format. Open Google Flights in a browser, change one control, copy the URL, decode the `tfs` before and after, and read what moved. A search is a few dozen bytes, so an AI model can decode two of them and tell you which bytes changed in seconds. Reading hex like this used to take an afternoon. With an agent it takes minutes, and that is what made every filter below possible.
+
+{{FIG_TFS_DIFF}}
+
+Two details make the diffs readable. A protobuf message starts with its length, so adding a filter inside the flight also changes the length byte in front of it. And a number above 127 takes two bytes, seven bits each, which is why 600 minutes is `d8 04`.
+
+### The page tells you if you were right
+
+A decoded URL is only a guess. The proof is whether Google applied it. After a search, the results page shows the active filters as chips, such as "Under 3 hr, Duration, Selected". So the work had two halves. When I did not know a field, I captured it from the browser. Then an agent swept variants, sending guesses as plain GET requests and reading the chips back. A guess that comes back as a chip is a field.
+
+Some guesses never did, and those are part of the result:
+
+- **Carry-on bags** came from a capture. I recorded the Bags panel and found a sub-message at field 13, with the count at field 2. Google echoes it as "1 carry-on bag, Bags, Selected".
+- **Checked bags** share that sub-message, in field 3. No probe ever produced a chip for them, so viajante refuses the filter instead of sending something it cannot prove.
+- **Airline exclusion** is a field Google accepts and then ignores. The airline stays in the results, so viajante drops those flights itself.
+- **Departure and arrival times** only take whole hours, so "after 18:30" cannot be sent. Viajante sends 18:00, so Google never removes a flight you would keep, and then applies 18:30 exactly on every row.
+
+If a chip is missing, the search fails as `markup_drift` instead of returning results that may not be filtered.
 
 This is the map viajante uses today:
 
@@ -182,105 +96,79 @@ This is the map viajante uses today:
 | 17 | hide separately booked tickets | `1` |
 | 19 | trip type | `2` = one-way, `1` = round trip |
 
-The departure and arrival hours, travel time, layover, emissions, price cap and separate-ticket fields are new in the latest version. Each field is pinned by a test that compares viajante's bytes with a URL decoded by hand, so if Google changes the format, the test fails before a user sees a wrong result.
+Tests pin the bytes of this map against URLs decoded by hand, so if Google changes the format, a test fails before a user sees a wrong result. Two gaps remain. Field 10 inside each flight, the earliest arrival hour, and the premium-economy and first-class cabins (`2` and `4`) are written but never byte-checked.
 
-## Proving a filter was applied
+### What I have not decoded
 
-Sending a filter is not the same as Google applying it. Google accepts an airline exclusion in the URL, for example, and still shows that airline. A tool that trusts the URL will tell the model the results are filtered when they are not.
+Google's answer is a JSON array with no names, only positions. It sits in the page inside a script, about 90 KB in a 1.9 MB page. Viajante finds it by counting brackets and parses it as JSON, without running Google's JavaScript. Each flight has 25 positions and each leg has 33. Viajante reads about seven of the flight positions and eight of the leg positions. They cover price, times, stops, layovers, carriers and flight numbers. The array also holds the aircraft, the length of each segment, the operating carrier and the base, tax and fee breakdown, and viajante does not read them.
 
-So viajante checks the page. Every filter it sends must come back as a selected filter chip on the results page, such as "Under 3 hr, Duration, Selected" or "up to €400, Price, Selected". If a chip is missing, the search fails as `markup_drift`. It does not return results that may not be filtered.
+Did I decode all of it? No. I decoded what a model needs to choose a flight.
 
-Google's filters are also coarser than the ones a model asks for. Departure and arrival times only take whole hours, so "after 18:30" cannot be sent exactly. Viajante sends a looser bound, 18:00, so Google never removes a flight the model would keep. Then it applies the exact filter itself on every row. Travel time and layovers round up to the minute for the same reason.
+### Google sends less
 
-The checks have limits, and viajante says so. A time chip proves that a time filter is on, not which hours it covers. And when a filter cannot be proven at all, viajante refuses it before sending anything. Checked bags and "no basic economy" have no chip on the public page, so they are refused. Minimum layover, connecting airports and overnight rules never go to Google. Viajante applies them locally, and an unknown value never passes a filter.
+Once the filters were in the URL, Google stopped sending what the model did not want. Take a one-way search from JFK to London, leaving after 18:00, with at most 10 hours of travel. Version 1.5.0 sent neither filter. Google returned all 116 itineraries and viajante dropped 98 of them itself. Version 1.5.2 puts both in the `tfs`, and Google returns only the 18 that qualify. That is less than half the HTML, 2.6 MB instead of 5.8, and a median of 1.1 seconds instead of 2.3. Both end with the same 18 flights.
+
+{{FIG_TFS}}
+
+Hotels work differently. Viajante sends a POST to the internal endpoint that Google's web apps share, with the search as a 413-byte JSON array, and gets about 200 KB of JSON back. It reads the total for the stay and never the nightly price.
+
+## When the assistant has no MCP
+
+Viajante is an MCP server, which most assistants and coding agents can use. Instinct is a personal assistant you message like a contact, and it has no way to plug in a custom MCP server. [One developer](https://dev.to/chilarai/no-mcp-no-problem-how-i-got-instinct-ai-to-call-a-flight-api-31g0) who wanted flights in it built a bridge. Instinct writes requests into a Google Sheet, and a script polls the sheet and calls an API.
+
+I did not want anyone to need a bridge. Instinct can write a Python file and run it, so viajante is also a Python library. The setup message on the landing page tells Instinct that it has a Python sandbox, not an MCP config, and that viajante is on PyPI. Instinct then writes something like this and runs it:
+
+```python
+from datetime import date
+from viajante import HotelQuery, search_hotels
+
+hotels = search_hotels(
+    [HotelQuery(location="Bangkok", check_in=date(2026, 12, 1), check_out=date(2026, 12, 8))],
+    currency="EUR", source="google", top=3,
+)
+```
+
+The same code sits behind the MCP server, the command line and the Python library, so an assistant that cannot load a tool can still call code.
+
+{{FIG_COMPAT}}
 
 ## Why it is fast
 
-Every speed-up in viajante came from sending fewer requests, or sending them at the same time.
+Almost every speed-up in viajante came from sending fewer requests, or sending them at the same time.
 
-**No browser.** For a normal search, viajante never starts Chromium. It sends plain HTTP requests with [curl_cffi](https://github.com/lexiforest/curl_cffi), a Python binding for curl that copies Chrome's TLS handshake and HTTP/2 settings, so Google answers it like a browser. One request returns the whole answer, and viajante reads it without running any JavaScript.
+**No browser.** For a normal search viajante never starts Chromium. It sends plain HTTP requests with [curl_cffi](https://github.com/lexiforest/curl_cffi), a Python binding for curl that copies Chrome's TLS handshake, so Google answers it like a browser.
 
-**One connection, eight requests at a time.** All requests share one session. HTTP/2 sends them as separate streams on a single connection, so viajante can have eight requests in flight without opening eight connections.
-
-**Fewer requests.** Google shows a consent page to visitors from the EU, and declining it costs extra requests before the first result. Viajante saves the decline cookie for 30 days and skips that step on later searches. A one-way search is then a single request.
-
-Round trips show all three at once. Google prices a round trip as a package and shows the return flights only after you pick an outbound flight, so viajante opens one return page for each of the eight cheapest outbound flights. Version 1.4.7 went through the consent page and opened the return pages one by one. Version 1.5.0 skips the consent page and opens all eight together:
+**Fewer requests.** Google shows a consent page to visitors from the EU, and declining it costs extra requests before the first result. Viajante keeps the decline cookie for 30 days and skips that step. A round trip adds a second problem. Google prices it as a package and shows the return flights only after you pick an outbound flight. So viajante opens one return page for each of the eight cheapest outbound flights. Version 1.4.7 opened them one by one. Today all eight go out together:
 
 {{FIG_WATERFALL}}
 
-In two runs each, 1.4.7 took 9.7 and 10.0 seconds, and 1.5.0 took 3.5 and 4.1 seconds, while reading about 17 MB of HTML. The price is always Google's package price. Viajante never adds two one-way fares.
-
-The parser got faster too. On the same 1.9 MB page, cutting out the JSON took 16.8 milliseconds in 1.4.7 and 2.7 in 1.5.0. That is six times faster, but it saves only a tenth of a second per search. The network is where the time goes.
-
-The newest speed-up comes from the decoded protobuf. When the filters go to Google, Google sends less back. A search from JFK to London departing after 18:00, with at most 10 hours of travel, returned all 99 itineraries to version 1.5.0, which then dropped 80 of them itself. Version 1.5.1 puts both filters in the URL, so Google returns only the 19 that qualify. That is half the HTML, 2.5 MB instead of 5.2 MB, and 1.0 to 1.2 seconds instead of 1.4 to 1.6. Both versions end with the same 19 flights.
-
-Hotels are faster still, because there is no page to download and no consent step. One search is a single POST. With a minimum rating, the price page and the relevance page go out together:
-
-{{FIG_WATERFALL_HOTELS}}
-
-One search took 1.1 seconds, and with a minimum rating both pages arrived in 1.2 seconds. A batch of stays is the slow case. Viajante searches the stays one after another, so three cities took 3.5 seconds. Sending them together, like the return pages of a round trip, is the next step.
+I ran the same round trip, JFK to Lisbon, three times on each version. The median was 9.9 seconds in 1.4.7 and 2.5 in 1.5.2, with the same cheapest package. The saved cookie only helps after a first search. On a machine that has never searched, a one-way search takes 3.7 to 3.9 seconds, as slow as the old versions. Most of the time goes to the network, not the parser.
 
 ## Designed for a model, not a person
 
 A person wants one good answer. A model needs the data behind it, a way to tell what is known from what is not, and as few tokens as possible.
 
-**The raw offers come first.** For the JFK to London search, the model got the top eight offers out of 91 compared, each with every field Google returned, and it can ask for more. On top of that, viajante adds a shortlist with three roles:
+**The raw offers come first.** The model gets the top eight offers, each with every field Google returned. A shortlist labels flights by what they are, such as `lowest_price` or `shortest`, never by whether they are best, and each trade-off names a missing field, like "Checked bag fee unknown". The decision stays with the model.
 
-| Role | Flight | Fare | Time | Stops |
-| --- | --- | ---: | ---: | --- |
-| `lowest_price` | ITA via Rome | 319 USD | 12 h | 1, a 45-minute change in Rome |
-| `top_score`, `shortest` | British Airways BA182 | 368 USD | 6 h 50 | nonstop |
-| `alternative` | British Airways | 368 USD | 6 h 55 | nonstop |
+**Empty has three meanings.** Every tool returns the same envelope, and `empty_reason` says why there are no results. `provider_empty` means Google returned nothing. `filtered_out` means Google returned results and the filters removed them all. `not_loaded` means the search did not finish. The model may say "there are no flights" only in the first case.
 
-A label says what the flight is, not whether it is the best one, and every trade-off names a missing field, such as "Checked bag fee unknown". The decision stays with the model. It can see that 49 dollars more saves five hours and a short connection in Rome, and decide whether that is worth it for you. Hotels have no shortlist. The model gets the stays in price order, with rating, reviews, distance and cancellation evidence.
+**Every offer carries its evidence.** Each one has the time it was fetched, the search URL, the booking URL and a list of which fields are known. Before the model answers, `verify_answer` checks its draft against the searches and flags any price, airport code or link that no search returned.
 
-**Empty has three meanings.** Every tool returns the same envelope, and its first fields say what kind of answer it is:
+## Where travel software is going
 
-```json
-{
-  "status": "ok",
-  "completeness": "complete",
-  "empty_reason": null,
-  "queries": ["...offers, each with evidence..."]
-}
-```
+Skyscanner, Kayak, Google Flights and Booking.com assume a person who searches one route and one set of dates at a time, then clicks through the results. An assistant can run dozens of searches in the time a person runs one, remember every result and read every review in any language. The interface is what slows it down.
 
-When there are no results, `empty_reason` says why. `provider_empty` means Google returned nothing. `filtered_out` means Google returned results and the filters removed them all. `not_loaded` means the search did not finish. The model may say "there are no flights" only in the first case.
+I think many interfaces are going away. A lot of software exists so that a person can drive a database by clicking through filters, tabs, a calendar and a checkout form. An agent needs none of that. It needs something to talk to, an MCP server or a library, and I expect many services to end up as exactly that.
 
-**Every offer carries its evidence:** when it was fetched, the search URL, the booking URL and which fields are known. Before the model answers, `verify_answer` checks its draft against the searches and flags any price, airport code or link that no search returned.
+Viajante is my bet on what that looks like for travel. I do not think the booking site of the future is somewhere you click. I think it is an agent that does the searching, across every date and city, and comes back with two or three finalists and their photos. It tells you which one it would take and why, for example closer to the airport, one stop fewer, or 128&nbsp;€ more for a nonstop. You say yes, and it pays with the card you saved. You never open a filter.
 
-**Tokens are a budget.** The tool catalog is in the model's context on every turn. It grew from 19 KB in the first release to 76 KB when every tool got the envelope, and I cut it back to 55 KB without removing a tool.
+{{FIG_FUTURE}}
 
-The model can also combine searches: the cheapest day in a month, a few days around a date, destinations from an airport, round trips and multi-city trips, and split tickets, which always say `connection_protected: false` because nobody rebooks you if you miss the connection.
-
-## How it got here
-
-The repository has been public for a while, but I did not want to write about viajante until it was good enough to show. These releases changed it the most:
-
-- **1.3.0** removed the natural-language planner and a test battery graded by an LLM judge. Turning a prompt into searches is the model's job.
-- **1.4.5** gave every tool the same envelope, with cancellation, deadlines and progress updates.
-- **1.4.6** moved flights to the public results page. Older versions used an internal Google request, which Google refuses most of the time today.
-- **1.5.0** made it fast, with the saved consent cookie, the batched return pages and the faster parser.
-- **1.5.1** sends Google the new protobuf fields and checks every one of them.
-
-I ran the same two searches with each release, from my laptop:
-
-{{FIG_RELEASES}}
-
-Four old versions fail today, because Google now refuses the internal request they used or, in 1.0.0, because it read the EU consent page as a block. Version 1.2.0 looks fast on round trips because it returned only the outbound flight. These are today's results, not each version's results on its release day.
-
-## Limits
-
-- **Google can change the page at any time.** Searches then fail as `markup_drift` until I update viajante.
-- **Rate limits are a guess.** Google publishes no quota. After a 429 or a refused request, viajante pauses every Google search on the computer for 2 minutes, or for as long as Google asks, up to 30.
-- **Some filters cannot be proven,** so viajante refuses them.
-- **Round trips are capped.** Viajante checks the eight cheapest outbound flights, so a cheaper package behind the ninth one is not in the result.
-- **Exploring destinations needs a browser,** which is slower.
-- **It does not book.** Check the final price and the cancellation terms on the provider before you pay.
+Search, comparison and the recommendation work today. Photos and payment do not. In a few years a tool like viajante may not be needed, because the providers will offer an interface for agents themselves. Today they do not, so someone has to.
 
 ## Try it
 
-Viajante needs [uv](https://docs.astral.sh/uv/getting-started/installation/) and Python 3.10 or newer. Add it to your assistant's MCP configuration:
+With Node, add this to your assistant's MCP configuration:
 
 ```json
 {
@@ -293,30 +181,21 @@ Viajante needs [uv](https://docs.astral.sh/uv/getting-started/installation/) and
 }
 ```
 
-Without Node, use `"command": "uvx"` with `"args": ["--from", "viajante[mcp]", "viajante-mcp"]`. Then ask your assistant something like this:
+Without Node, install [uv](https://docs.astral.sh/uv/getting-started/installation/) and use `"command": "uvx"` with `"args": ["--from", "viajante[mcp]", "viajante-mcp"]`. For an assistant with no MCP, run `pip install viajante` on Python 3.10 or newer. Then ask it for a trip with a date to hit and a few days to spare. This is how I use it:
 
-> I am free from 1 to 15 December and I need to be in Melbourne on the 15th. I am leaving from London. Find me a route through Asia with a stop worth a few days.
-
-It also works as a command-line tool and a Python library:
-
-```bash
-pip install viajante
-viajante flights JFK-LHR:2026-12-01
-```
+{{FIG_VIDEO_HOWTO}}
 
 The code is on [GitHub](https://github.com/felipebasurto/viajante) and the package is on [PyPI](https://pypi.org/project/viajante/). If something breaks, `viajante feedback` opens a GitHub issue with your version already filled in.
 
+## Limits
+
+- **Google can change the page at any time.** Searches then fail as `markup_drift` until I update viajante.
+- **Rate limits are a guess.** After a 429 or a refused request, viajante pauses every Google search on the computer for 2 minutes, or for as long as Google asks, up to 30.
+- **It does not book.** Check the final price and the cancellation terms on the provider before you pay.
+
 ## Lessons
 
-- **AI makes undocumented formats cheap to decode.** Changing one filter and comparing the bytes turned a protobuf with no schema into a map of fields in minutes.
 - **Sending a filter proves nothing.** Check that the provider applied it, send a looser bound when you cannot send the exact one, and filter exactly yourself.
-- **Empty has to say why.** "No flights", "the filters removed every flight" and "the search did not finish" are three different answers.
-- **Refuse instead of guessing.** An error the model can explain is better than a quiet wrong answer.
-- **The biggest speed-ups removed requests.** Skipping the consent page and sending the return pages together saved more time than a parser six times faster.
-- **Measure your old versions.** Running every release against today's Google showed four broken versions, and one that was fast only because it did half the work.
+- **Empty has to say why, and a guess has to be refused.** An error the model can explain is better than a quiet wrong answer.
 
-## What it is for
-
-Viajante does one narrow job. It gets an assistant the same flight and hotel data a person sees in a browser, quickly, and it says clearly when it could not. The route, the trade-offs and the opinion stay with the model.
-
-That is what I wanted in July, with two weeks, a date in Melbourne and no plan.
+Viajante does one narrow job. It gets an assistant the same flight and hotel data a person sees in a browser, in a few seconds, and it says when it could not. The route, the trade-offs and the opinion stay with the model. That is what I wanted in July, with two weeks, a date in Melbourne and no plan.

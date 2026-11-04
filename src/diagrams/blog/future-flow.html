@@ -1,0 +1,36 @@
+<figure class="fig fig-flow" role="img" aria-label="An illustration of booking a trip with an agent. Today you do every step yourself: search, filter, compare, decide and pay. With an agent you ask, the agent searches, compares and recommends, you decide, and the agent pays. In the example you ask for a route from Madrid to Melbourne by the 15th. The agent runs eight searches in 2.3 seconds and shows three finalists: Ho Chi Minh City at 486 euros, Bangkok at 497 and Bali at 614. It recommends Bali: 128 euros more than the cheapest, but the last flight is a nonstop of under six hours instead of a 13 hour wait in Singapore. You say to book it, and the agent pays with the card you saved.">
+<div class="fig-flow__lanes">
+<p class="fig-flow__lane"><span class="fig-flow__tag">today</span><span class="fig-flow__step">search</span><span class="fig-flow__step">filter</span><span class="fig-flow__step">compare</span><span class="fig-flow__step">decide</span><span class="fig-flow__step">pay</span></p>
+<p class="fig-flow__lane fig-flow__lane--agent"><span class="fig-flow__tag">agent</span><span class="fig-flow__step">ask</span><span class="fig-flow__step fig-flow__step--agent">search</span><span class="fig-flow__step fig-flow__step--agent">compare</span><span class="fig-flow__step">decide</span><span class="fig-flow__step fig-flow__step--agent">pay</span></p>
+</div>
+<ol class="fig-flow__chat">
+<li class="fig-flow__line" style="--t0: 0s"><span class="fig-flow__from">you</span><span class="fig-flow__text">I am free from 1 December and need to be in Melbourne on the 15th. Leaving from Madrid, through Asia.</span></li>
+<li class="fig-flow__line fig-flow__line--agent" style="--t0: 0.8s"><span class="fig-flow__from">agent</span><span class="fig-flow__text">Searching: <span class="fig-flow__count"></span> of 8 searches done in 2.3 s.</span></li>
+<li class="fig-flow__line fig-flow__line--agent" style="--t0: 2.4s"><span class="fig-flow__from">agent</span><span class="fig-flow__text">Three finalists, flights in both directions:
+<span class="fig-flow__cards">
+<span class="fig-flow__card"><img class="fig-flow__photo" src="../../assets/blog/viajante/ho-chi-minh-city.webp" alt="Aerial view of Ho Chi Minh City at dusk, with the Landmark 81 tower" loading="lazy" width="640" height="360"><span class="fig-flow__city">Ho Chi Minh City</span><span class="fig-flow__price">486 €</span></span>
+<span class="fig-flow__card"><img class="fig-flow__photo" src="../../assets/blog/viajante/bangkok.webp" alt="Wat Arun at sunset beside the river in Bangkok, with a long-tail boat in front" loading="lazy" width="640" height="360"><span class="fig-flow__city">Bangkok</span><span class="fig-flow__price">497 €</span></span>
+<span class="fig-flow__card fig-flow__card--pick"><img class="fig-flow__photo" src="../../assets/blog/viajante/bali.webp" alt="A Bali beach with a stone jetty, palm trees and turquoise water" loading="lazy" width="640" height="360"><span class="fig-flow__city">Bali</span><span class="fig-flow__price">614 €</span></span>
+</span></span></li>
+<li class="fig-flow__line fig-flow__line--agent" style="--t0: 3.8s"><span class="fig-flow__from">agent</span><span class="fig-flow__text">I would take Bali. It costs 128 € more than the cheapest, but the last flight is a nonstop of under six hours. Ho Chi Minh City waits 13 hours in Singapore.</span></li>
+<li class="fig-flow__line" style="--t0: 5.2s"><span class="fig-flow__from">you</span><span class="fig-flow__text">Book it.</span></li>
+<li class="fig-flow__line fig-flow__line--agent" style="--t0: 5.9s"><span class="fig-flow__from">agent</span><span class="fig-flow__text">Paid with the card you saved. The tickets are in your inbox.</span></li>
+</ol>
+<figcaption class="fig__caption">How I expect this to work. Viajante does not book today. <span class="fig-flow__key fig-flow__key--you">you</span><span class="fig-flow__key fig-flow__key--agent">agent</span><button type="button" class="fig-wf__replay" hidden>Replay</button></figcaption>
+</figure>
+<script>
+(() => {
+  const fig = document.currentScript.previousElementSibling;
+  if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const replay = fig.querySelector(".fig-wf__replay");
+  const play = () => { fig.classList.remove("is-in"); void fig.offsetWidth; fig.classList.add("is-in"); };
+  fig.classList.add("fig-flow--animate");
+  replay.hidden = false;
+  replay.addEventListener("click", play);
+  new IntersectionObserver((entries, observer) => {
+    if (!entries[0].isIntersecting) return;
+    play();
+    observer.disconnect();
+  }, { rootMargin: "0px 0px -20% 0px" }).observe(fig);
+})();
+</script>

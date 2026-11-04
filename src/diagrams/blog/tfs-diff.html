@@ -1,0 +1,21 @@
+<figure class="fig fig-bdiff" role="img" aria-label="Three diffs of the same search, JFK to London on 12 November. Changing the cabin from economy to business changes one byte, field 9, from 1 to 3. Setting the earliest departure to 18:00 adds the two bytes 40 12 inside the flight, field 8 with the value 18, and the flight's length byte goes from 28 to 30. Setting the maximum travel time to 10 hours adds the three bytes 60 d8 04, field 12 with the value 600 minutes, and the length byte goes from 28 to 31.">
+<div class="fig-bdiff__case">
+<p class="fig-bdiff__change">Cabin: economy to business</p>
+<p class="fig-bdiff__line"><span class="fig-bdiff__tag">before</span><code class="fig-bdiff__hex">… 42 01 01 48 01 98 01 02</code></p>
+<p class="fig-bdiff__line fig-bdiff__line--after"><span class="fig-bdiff__tag">after</span><code class="fig-bdiff__hex">… 42 01 01 48 <b>03</b> 98 01 02</code></p>
+<p class="fig-bdiff__read">One byte changed. <code>48</code> is field 9, and the value went from 1 to 3.</p>
+</div>
+<div class="fig-bdiff__case">
+<p class="fig-bdiff__change">Departure: leave after 18:00</p>
+<p class="fig-bdiff__line"><span class="fig-bdiff__tag">before</span><code class="fig-bdiff__hex">1a 1c 12 0a … 28 01 6a 05 12 03 …</code></p>
+<p class="fig-bdiff__line fig-bdiff__line--after"><span class="fig-bdiff__tag">after</span><code class="fig-bdiff__hex">1a <b>1e</b> 12 0a … 28 01 <b>40 12</b> 6a 05 12 03 …</code></p>
+<p class="fig-bdiff__read">Two bytes added, and the flight's length went from 28 to 30. <code>40</code> is field 8, and <code>12</code> is 18, the hour.</p>
+</div>
+<div class="fig-bdiff__case">
+<p class="fig-bdiff__change">Duration: at most 10 hours</p>
+<p class="fig-bdiff__line"><span class="fig-bdiff__tag">before</span><code class="fig-bdiff__hex">1a 1c 12 0a … 28 01 6a 05 12 03 …</code></p>
+<p class="fig-bdiff__line fig-bdiff__line--after"><span class="fig-bdiff__tag">after</span><code class="fig-bdiff__hex">1a <b>1f</b> 12 0a … 28 01 <b>60 d8 04</b> 6a 05 12 03 …</code></p>
+<p class="fig-bdiff__read">Three bytes added. <code>60</code> is field 12, and <code>d8 04</code> is a varint: 88 + 4 × 128 = 600 minutes.</p>
+</div>
+<figcaption class="fig__caption">The same one-way search, one control changed each time. Bytes from viajante's encoder.</figcaption>
+</figure>

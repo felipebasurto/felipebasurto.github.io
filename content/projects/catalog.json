@@ -73,7 +73,7 @@
             "Python",
             "CLI",
             "MCP server",
-            "10 tools",
+            "22 tools",
             "PyPI + npm"
           ],
           "summary_md": "Searches Google Flights, Google Hotels, and Booking.com from your own machine, with no API keys. Beyond plain search it finds the cheapest dates, explores destinations from an origin, checks Skiplagged hidden-city fares, and compares award points across transfer partners. Install from PyPI or npm, or run it with `uvx`.",

@@ -25,3 +25,6 @@
 - Source categories are independent of public URLs. `scripts/lib/routes.mjs` preserves the established `/experience/<slug>/` routes for employment, product, education, and community Details pages.
 - GEO and AI-discoverability sources include `content/llms.txt` and `public/robots.txt`; enriched JSON-LD is emitted by the build. Project and blog blocks in `llms.txt` are generated only in `dist/`.
 - Run `npm run verify` after build or routing changes to check the generated artifact.
+
+Cut taglines, helper text and secondary labels. If a screen needs them to make sense, fix the layout.
+Make the best decision that will elevate all three: the user experience (UX), developer experience (DX), and agent experience (AX) always, without breaking anything.
