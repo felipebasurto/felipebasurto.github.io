@@ -45,6 +45,8 @@ function stripTags(html) {
 
 function slugify(text) {
   return stripTags(text)
+    // Headings arrive HTML-escaped; keep quote marks out of the anchor.
+    .replace(/&quot;/g, " ")
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "") || "section";
@@ -561,6 +563,9 @@ export const BLOG_FIGURES = {
   "{{FIG_TFS_DIFF}}": "blog/tfs-diff.html",
   "{{FIG_COMPAT}}": "blog/compat.html",
   "{{FIG_FUTURE}}": "blog/future-flow.html",
+  "{{FIG_WARBANDS_MODELS}}": "blog/warbands-models.html",
+  "{{FIG_WARBANDS_TEST}}": "blog/warbands-test.html",
+  "{{FIG_WARBANDS_TOOLS}}": "blog/warbands-tools.html",
 };
 
 export function loadDiagram(filename) {
