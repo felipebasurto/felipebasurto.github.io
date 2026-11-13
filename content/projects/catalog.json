@@ -366,6 +366,28 @@
           ]
         },
         {
+          "name": "unslop-ui",
+          "slug": "unslop-ui",
+          "kind": "tool",
+          "tagline": "Agent skill that strips AI tells from interface and chart copy",
+          "status": "live",
+          "platform": "Agent skill",
+          "year": "2026",
+          "href": "https://github.com/felipebasurto/unslop-ui",
+          "stack": [
+            "Python",
+            "Agent Skills",
+            "MIT"
+          ],
+          "summary_md": "Removes the usual AI tells from interface and chart copy: eyebrow labels, 01/02/03 numbering, botsplaining captions, decorative badges, and status dots. It can also clean up the visual surface. Tested in CI and released under MIT.",
+          "links": [
+            {
+              "label": "GitHub",
+              "href": "https://github.com/felipebasurto/unslop-ui"
+            }
+          ]
+        },
+        {
           "name": "Plugin Factory",
           "slug": "plugin-factory",
           "kind": "tool",
@@ -386,6 +408,26 @@
             {
               "label": "GitHub",
               "href": "https://github.com/felipebasurto/plugin-factory"
+            }
+          ]
+        },
+        {
+          "name": "Watches",
+          "slug": "watches",
+          "kind": "tool",
+          "tagline": "Curated list of new watches under €700, with prices and where to buy",
+          "minor": true,
+          "status": "live",
+          "platform": "Web",
+          "href": "https://watches.felipebasurto.com/",
+          "stack": [
+            "Web"
+          ],
+          "summary_md": "A personal list of new watches at €700 or less, each with its price and a link to buy it.",
+          "links": [
+            {
+              "label": "Site",
+              "href": "https://watches.felipebasurto.com/"
             }
           ]
         }
@@ -433,6 +475,20 @@
       "layout": "tree",
       "collapsed": true,
       "items": [
+        {
+          "name": "Iron Bloom",
+          "slug": "iron-bloom",
+          "kind": "app",
+          "tagline": "Browser factory defense against an insect swarm",
+          "status": "in development",
+          "platform": "Browser",
+          "year": "2026",
+          "stack": [
+            "TypeScript",
+            "Browser"
+          ],
+          "summary_md": "You are an exosuit engineer in one arena. Place a factory while an insectoid swarm closes in, mine ore and crystal, smelt, and feed turrets over ten waves. Haulers carry cubes to the Hub, and every extra factory raises the threat level, so expanding always has a cost."
+        },
         {
           "name": "Cue",
           "slug": "cue",
