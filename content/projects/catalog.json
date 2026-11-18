@@ -368,6 +368,7 @@
         {
           "name": "unslop-ui",
           "slug": "unslop-ui",
+          "icon": "assets/projects/unslop-ui.svg",
           "kind": "tool",
           "tagline": "Agent skill that strips AI tells from interface and chart copy",
           "status": "live",
